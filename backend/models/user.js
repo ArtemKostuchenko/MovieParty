@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs')
 
 const UserSchema = new mongoose.Schema({
     isAdmin: {
@@ -39,5 +40,17 @@ const UserSchema = new mongoose.Schema({
     },
     favorites: [{ type: mongoose.Types.ObjectId, ref: 'Content' }],
 }, { timestamps: true });
+
+UserSchema.pre('save', async function() {
+    if(!this.isModified('password')){
+        return next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+
+    this.password = hashedPassword;
+    next();
+});
 
 module.exports = mongoose.model('User', UserSchema);
