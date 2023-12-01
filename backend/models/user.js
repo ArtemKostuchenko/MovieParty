@@ -60,4 +60,9 @@ UserSchema.methods.createToken = function(){
     });
 }
 
+UserSchema.methods.comparePassword = async function (credentialPassword){
+    const compare = await bcrypt.compare(credentialPassword, this.password);
+    return compare;
+}
+
 module.exports = mongoose.model('User', UserSchema);
