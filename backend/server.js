@@ -7,6 +7,8 @@ const errorMiddleware = require('./middleware/error');
 
 const app = express();
 
+app.use(express.json());
+
 // routers
 
 app.use('/api/v1/auth', authRouter);

@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['Man', 'Woman']
     },
     country: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'Country'
     },
     likes: {
@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     favorites: [{ type: mongoose.Types.ObjectId, ref: 'Content' }],
 }, { timestamps: true });
 
-UserSchema.pre('save', async function() {
+UserSchema.pre('save', async function(next) {
     if(!this.isModified('password')){
         return next();
     }
