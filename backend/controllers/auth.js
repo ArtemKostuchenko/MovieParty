@@ -1,4 +1,4 @@
-const { BadRequestError, UnAuthorizedError } = require("../errors");
+const { BadRequestError, UnAuthorizedError, NotFoundError } = require("../errors");
 const UserModel = require('../models/user');
 const { StatusCodes } = require('http-status-codes');
 
@@ -13,7 +13,7 @@ const register = async (req, res) => {
 
     const token = user.createToken();
 
-    return res.status(StatusCodes.OK).json({ user: { nickname: user.nickname, }, token });
+    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname, }, token });
 }
 
 const login = async (req, res) => {
@@ -25,23 +25,30 @@ const login = async (req, res) => {
 
     const user = await UserModel.findOne({ email });
 
-    if (!user){
+    if (!user) {
         throw new UnAuthorizedError('Invalid credentials');
     }
 
     const correctPassword = await user.comparePassword(password);
 
-    if (!correctPassword){
+    if (!correctPassword) {
         throw new UnAuthorizedError('Invalid credentials');
     }
 
     const token = user.createToken();
 
-    return res.status(StatusCodes.OK).json({ user: { nickname: user.nickname, }, token });
+    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname, }, token });
+}
+
+const getMe = async (req, res) => {
+    const user = await UserModel.findById(req.user.id).select('-password');
+
+    return res.status(StatusCodes.OK).json({ user });
 }
 
 
 module.exports = {
     register,
     login,
+    getMe,
 }
