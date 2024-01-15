@@ -1,7 +1,7 @@
 const { BadRequestError, UnAuthorizedError, NotFoundError } = require("../errors");
 const { StatusCodes } = require('http-status-codes');
-const TokenModel = require('../models/token');
-const UserModel = require('../models/user');
+const TokenModel = require('../models/token.model');
+const UserModel = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const crypto = require("crypto");
 
