@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../models/user');
+const UserModel = require('../models/user.model');
 
 const { UnAuthorizedError } = require('../errors');
 
@@ -30,4 +30,20 @@ const authMiddleware = async (req, res, next) => {
 
 }
 
-module.exports = { authMiddleware };
+const adminMiddleware = async (req, res, next) => {
+    const userId = req.user.userId;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+        throw new UnAuthorizedError("Authentication invalid");
+    }
+
+    if (!user.isAdmin) {
+        throw new UnAuthorizedError("Authentication invalid");
+    }
+
+    next();
+}
+
+module.exports = { authMiddleware, adminMiddleware };
