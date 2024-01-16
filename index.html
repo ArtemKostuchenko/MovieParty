@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скидання паролю</title>
+    <link
+        href="https://fonts.googleapis.com/css?family=Mulish:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper"
+        style="box-sizing: border-box; height: 100vh; display: grid; grid-template: 70px minmax(auto, 1fr) minmax(223px, 278px) / 1fr;">
+        <header
+            style="padding: 0 25px; background-color: #2C2C2C; width: 100%; height: 70px; display: flex; align-items: center;">
+            <div class="logo"
+                style="color: var(--text-color-1); font-family: Nunito Sans, sans-serif; font-size: 22px; font-style: normal; font-weight: 600; line-height: 125%;">
+                MovieParty
+            </div>
+        </header>
+        <main class="content" style="width: 100%; position: relative; height: 400px;">
+            <div class="container"
+                style="padding: 0 23px; min-width: 350px; max-width: 450px; height: 340px; background-color: var(--back-color-1); border-radius: 9px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <h1
+                    style="color: var(--text-color-1); font-family: Nunito Sans, sans-serif; font-size: 23px; font-style: normal; font-weight: 800; line-height: 1.2;">
+                    Cкидання паролю</h1>
+                <h2
+                    style="color: var(--text-color-2); font-family: Nunito Sans; font-size: 18px; font-style: normal; font-weight: 600; line-height: 1.2; text-align: center;">
+                    Привіт, {{name}}, ви хотіли би скинути пароль?</h2>
+                <p
+                    style="color: var(--text-color-3); text-align: justify; font-family: Mulish; font-size: 14px; font-style: normal; font-weight: 400; line-height: 1.2;">
+                    Хтось (сподіваємось, ви) попросив нас скинути пароль для вашого облікового запису Twitch. Для цього
+                    натисніть кнопку нижче. Якщо ви не надсилали запит на скидання пароля, можете ігнорувати цей
+                    електронний лист!
+                </p>
+                <a href="{{link}}" target="_blank"
+                    style="display: inline-block; text-decoration: none; color: var(--text-color-1); font-family: Mulish; font-size: 16px; font-style: normal; font-weight: 700; line-height: 30px; text-align: center; background-color: var(--back-color-2); border-radius: 23px; padding: 7px 15px; width: 100%; height: 44px; transition: all 250ms;"
+                    class="button">Скинути пароль</a>
+            </div>
+        </main>
+        <footer style="padding: 0 25px; width: 100%;">
+            <div class="footer"
+                style="margin: 20px 0; display: inline-block; width: 100%; height: 1px; border-top: 1px solid var(--back-color-5);">
+                <div class="footer__row"
+                    style="width: 100%; display: flex; flex-direction: row; justify-content: space-between;">
+                    <div class="footer_column" style="display: flex; flex-direction: column;">
+                        <div class="logo"
+                            style="color: var(--text-color-1); font-family: Nunito Sans, sans-serif; font-size: 22px; font-style: normal; font-weight: 600; line-height: 125%;">
+                            MovieParty
+                        </div>
+                        <div class="footer__subscription" style="display: flex; flex-direction: column;">
+                            <a href="https://web.telegram.org/" target="_blank"
+                                style="margin: 8px 0; display: inline-block; text-decoration: none; color: var(--text-color-1); font-family: Mulish; font-size: 15px; font-style: normal; font-weight: 600; text-align: center; background-color: var(--back-color-3); border-radius: 23px; padding: 7px 15px; width: 176px; height: 42px; transition: all 250ms;">Telegram</a>
+                            <a href="https://youtube.com/" target="_blank"
+                                style="margin: 8px 0; display: inline-block; text-decoration: none; color: var(--text-color-1); font-family: Mulish; font-size: 15px; font-style: normal; font-weight: 600; text-align: center; background-color: var(--back-color-4); border-radius: 23px; padding: 7px 15px; width: 176px; height: 42px; transition: all 250ms;">YouTube</a>
+                        </div>
+                    </div>
+                    <div class="footer_column" style="display: flex; flex-direction: column;">
+                        <div class="footer__subtitle"
+                            style="color: var(--text-color-1); font-family: Mulish; font-size: 20px; font-style: normal; font-weight: 600; line-height: 1.2;">
+                            Контакти</div>
+                        <a href="#" class="link link__main"
+                            style="text-decoration: none; color: var(--text-color-4); font-family: Mulish; font-size: 16px; font-style: normal; font-weight: 700; line-height: 125%;">movieparty.team@gmail.com</a>
+                    </div>
+                </div>
+                <div class="footer__right"
+                    style="text-align: center; margin-top: 12px; color: var(--text-color-1); font-family: Nunito Sans; font-size: 18px; font-style: normal; font-weight: 400; line-height: 1.2;">
+                    2024 All right reserved</div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

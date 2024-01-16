@@ -4,6 +4,7 @@ const TokenModel = require('../models/token.model');
 const UserModel = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const crypto = require("crypto");
+const { sendEmail } = require('../utils/email/email');
 
 const register = async (req, res) => {
     const { nickname, email, password } = req.body;
@@ -75,9 +76,19 @@ const reqPasswordReset = async (req, res) => {
 
     await TokenModel.create({ userId: user._id, token: hashToken, createdAt: Date.now() });
 
-    const link = `${process.env.CLIENT_URL}/password-reset?token=${resetToken}&id=${user._id}`;
+    const link = `https://${process.env.CLIENT_URL}/password-reset?token=${resetToken}&id=${user._id}`;
 
-    return res.status(StatusCodes.OK).json({ success: true, link });
+    await sendEmail(
+        user.email,
+        "Запит на скидання паролю",
+        {
+            name: user.nickname,
+            link: link,
+        },
+        "./templates/reqResetForm.handlebars"
+    );
+
+    return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const resetPassword = async (req, res) => {
@@ -104,11 +115,9 @@ const resetPassword = async (req, res) => {
 
     await UserModel.updateOne({ _id: userId }, { $set: { password: hashedPassword } }, { new: true });
 
-    const user = await UserModel.findById(userId).select('-password');
-
     await resetToken.deleteOne();
 
-    return res.status(StatusCodes.OK).json({ success: true, user });
+    return res.status(StatusCodes.OK).json({ success: true });
 }
 
 
