@@ -85,7 +85,7 @@ const reqPasswordReset = async (req, res) => {
             name: user.nickname,
             link: link,
         },
-        "./templates/reqResetForm.handlebars"
+        "./templates/requestResetPassword.handlebars"
     );
 
     return res.status(StatusCodes.OK).json({ success: true });
@@ -116,6 +116,17 @@ const resetPassword = async (req, res) => {
     await UserModel.updateOne({ _id: userId }, { $set: { password: hashedPassword } }, { new: true });
 
     await resetToken.deleteOne();
+
+    const user = await UserModel.findById(userId);
+
+    await sendEmail(
+        user.email,
+        "Пароль успішно змінено",
+        {
+            name: user.nickname,
+        },
+        "./templates/resetPassword.handlebars"
+    );
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
