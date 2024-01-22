@@ -14,6 +14,6 @@ const ListSchema = mongoose.Schema({
             ref: 'Content'
         }
     }]
-})
+});
 
 module.exports = mongoose.model('List', ListSchema);
