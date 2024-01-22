@@ -4,7 +4,9 @@ const { authMiddleware, adminMiddleware } = require('../middlewares/auth.middlew
 
 const router = express.Router();
 
-router.route('/').post(authMiddleware, adminMiddleware, createList).get(authMiddleware, getLists);
-router.route('/:id').get(authMiddleware, getList).patch(authMiddleware, adminMiddleware, updateList).delete(authMiddleware, adminMiddleware, deleteList);
+router.use(authMiddleware);
+
+router.route('/').post(adminMiddleware, createList).get(getLists);
+router.route('/:id').get(getList).patch(adminMiddleware, updateList).delete(adminMiddleware, deleteList);
 
 module.exports = router;
