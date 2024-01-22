@@ -6,6 +6,7 @@ const authRouter = require('./routes/auth.route');
 const genreRouter = require('./routes/genre.route');
 const listRouter = require('./routes/list.route');
 const countryRouter = require('./routes/country.route');
+const actorRouter = require('./routes/actor.route');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/genres', genreRouter);
 app.use('/api/v1/lists', listRouter);
 app.use('/api/v1/countries', countryRouter);
+app.use('/api/v1/actors', actorRouter);
 
 // middleware
 
