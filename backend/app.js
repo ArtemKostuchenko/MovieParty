@@ -7,6 +7,7 @@ const genreRouter = require('./routes/genre.route');
 const listRouter = require('./routes/list.route');
 const countryRouter = require('./routes/country.route');
 const actorRouter = require('./routes/actor.route');
+const directorRouter = require('./routes/director.route');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const app = express();
@@ -20,7 +21,7 @@ app.use('/api/v1/genres', genreRouter);
 app.use('/api/v1/lists', listRouter);
 app.use('/api/v1/countries', countryRouter);
 app.use('/api/v1/actors', actorRouter);
-
+app.use('/api/v1/directors', directorRouter);
 // middleware
 
 app.use(errorMiddleware);
