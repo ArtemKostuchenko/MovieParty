@@ -4,10 +4,7 @@ const { authMiddleware, adminMiddleware } = require('../middlewares/auth.middlew
 
 const router = express.Router();
 
-router.post('/', authMiddleware, adminMiddleware, createGenre);
-router.get('/:id', getGenre);
-router.patch('/:id', authMiddleware, adminMiddleware, updateGenre);
-router.delete('/:id', deleteGenre);
-router.get('/', getGenres);
+router.route('/').post(authMiddleware, adminMiddleware, createGenre).get(authMiddleware, getGenres);
+router.route('/:id').get(authMiddleware, getGenre).patch(authMiddleware, adminMiddleware, updateGenre).delete(authMiddleware, adminMiddleware, deleteGenre);
 
 module.exports = router;
