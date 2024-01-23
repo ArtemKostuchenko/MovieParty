@@ -9,6 +9,7 @@ const countryRouter = require('./routes/country.route');
 const actorRouter = require('./routes/actor.route');
 const directorRouter = require('./routes/director.route');
 const partRouter = require('./routes/part.route');
+const selectionRouter = require('./routes/selection.route');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api/v1/countries', countryRouter);
 app.use('/api/v1/actors', actorRouter);
 app.use('/api/v1/directors', directorRouter);
 app.use('/api/v1/parts', partRouter);
+app.use('/api/v1/selections', selectionRouter);
 
 // middleware
 
