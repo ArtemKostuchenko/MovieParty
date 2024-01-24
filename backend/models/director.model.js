@@ -29,7 +29,7 @@ const DirectorSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please provide placeBirth'],
     },
-    content: [{
+    contents: [{
         type: mongoose.Types.ObjectId,
         ref: 'Content',
     }]

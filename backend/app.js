@@ -11,6 +11,7 @@ const directorRouter = require('./routes/director.route');
 const partRouter = require('./routes/part.route');
 const selectionRouter = require('./routes/selection.route');
 const reviewRouter = require('./routes/review.route');
+const movieRouter = require('./routes/movie.route');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/v1/directors', directorRouter);
 app.use('/api/v1/parts', partRouter);
 app.use('/api/v1/selections', selectionRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/movies', movieRouter);
 
 // middleware
 
