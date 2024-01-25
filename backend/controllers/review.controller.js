@@ -1,15 +1,10 @@
-const ReviewModel = require('../models/review.model');
-const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
+const ReviewRepository = require('../repositories/review.repository');
 
 const getReview = async (req, res) => {
     const { id: idReview } = req.params;
 
-    const review = await ReviewModel.findById(idReview);
-
-    if (!review) {
-        throw new NotFoundError("Review not found");
-    }
+    const review = await ReviewRepository.getReviewById(idReview);
 
     return res.status(StatusCodes.OK).json({ data: review });
 }
@@ -17,23 +12,13 @@ const getReview = async (req, res) => {
 const deleteReview = async (req, res) => {
     const { id: idReview } = req.params;
 
-    const review = await ReviewModel.findById(idReview);
-
-    if (!review) {
-        throw new NotFoundError("Review not found");
-    }
-
-    if (review.userId !== req.user.userId && !req.isAdmin) {
-        throw new NotFoundError("Review not found");
-    }
-
-    await review.deleteOne();
+    await ReviewRepository.deleteReviewById(idReview, req);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const getReviews = async (req, res) => {
-    const reviews = await ReviewModel.find({});
+    const reviews = await ReviewRepository.getReviews();
 
     return res.status(StatusCodes.OK).json({ data: reviews });
 }
