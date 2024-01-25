@@ -1,5 +1,3 @@
-const CountryModel = require('../models/country.model');
-const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 const CountryRepository = require('../repositories/country.repository');
 

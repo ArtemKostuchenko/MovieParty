@@ -1,4 +1,4 @@
-const { validateActor } = require("../utils/validations");
+const { validateActorDirector } = require("../utils/validations");
 const ActorModel = require('../models/actor.model');
 
 
@@ -6,7 +6,7 @@ class ActorRepository {
     constructor() { }
 
     async createActor(actorData) {
-        const validActor = validateActor(actorData);
+        const validActor = validateActorDirector(actorData);
 
         if (!validActor) {
             throw new BadRequestError("Please provide firstName, lastName, originalFullName, photoURL, age, dateBirth and placeBirth");
