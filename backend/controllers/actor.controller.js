@@ -1,15 +1,9 @@
 const ActorModel = require('../models/actor.model');
-const { BadRequestError, NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
+const ActorRepository = require('../repositories/actor.repository');
 
 const createActor = async (req, res) => {
-    const { firstName, lastName, originalFullName, photoURL, age, dateBirth, placeBirth } = req.body;
-
-    if (!firstName || !lastName || !originalFullName || !photoURL || !age || !dateBirth || !placeBirth) {
-        throw new BadRequestError("Please provide firstName, lastName, originalFullName, photoURL, age, dateBirth and placeBirth");
-    }
-
-    const actor = await ActorModel.create(req.body);
+    const actor = ActorRepository.createActor(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: actor });
 }
@@ -17,34 +11,15 @@ const createActor = async (req, res) => {
 const getActor = async (req, res) => {
     const { id: idActor } = req.params;
 
-    const actor = await ActorModel.findById(idActor);
-
-    if (!actor) {
-        throw new NotFoundError("Actor not found");
-    }
+    const actor = ActorRepository.getActorById(idActor);
 
     return res.status(StatusCodes.OK).json({ data: actor });
 }
 
 const updateActor = async (req, res) => {
-    const { firstName, lastName, originalFullName, photoURL, age, dateBirth, placeBirth } = req.body;
     const { id: idActor } = req.params;
 
-    const actor = await ActorModel.findById(idActor);
-
-    if (!actor) {
-        throw new NotFoundError("Actor not found");
-    }
-
-    actor.firstName = firstName || actor.firstName;
-    actor.lastName = lastName || actor.lastName;
-    actor.originalFullName = originalFullName || actor.originalFullName;
-    actor.photoURL = photoURL || actor.photoURL;
-    actor.age = age || actor.age;
-    actor.dateBirth = dateBirth || actor.dateBirth;
-    actor.placeBirth = placeBirth || actor.placeBirth;
-
-    const updatedActor = await actor.save();
+    const updatedActor = await ActorRepository.updateActorById(idActor, req.body);
 
     return res.status(StatusCodes.OK).json({ data: updatedActor });
 }
@@ -52,19 +27,13 @@ const updateActor = async (req, res) => {
 const deleteActor = async (req, res) => {
     const { id: idActor } = req.params;
 
-    const actor = await ActorModel.findById(idActor);
-
-    if (!actor) {
-        throw new NotFoundError("Actor not found");
-    }
-
-    await actor.deleteOne();
+    await ActorRepository.deleteActorById(idActor);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const getActors = async (req, res) => {
-    const actors = await ActorModel.find({});
+    const actors = await ActorRepository.getActors();
 
     return res.status(StatusCodes.OK).json({ data: actors });
 }

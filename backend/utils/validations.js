@@ -32,7 +32,18 @@ const validateMovie = (movie) => {
     return true;
 }
 
+const validateActor = (actor) => {
+    const { firstName, lastName, originalFullName, photoURL, age, dateBirth, placeBirth } = actor;
+
+    if (!firstName || !lastName || !originalFullName || !photoURL || !age || !dateBirth || !placeBirth) {
+        return false;
+    }
+
+    return true
+}
+
 module.exports = {
     validateContent,
     validateMovie,
+    validateActor,
 };
