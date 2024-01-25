@@ -1,16 +1,9 @@
-const GenreModel = require('../models/genre.model');
-const { BadRequestError, NotFoundError } = require('../errors');
+const GenreRepository = require('../repositories/genre.repository');
 const { StatusCodes } = require('http-status-codes')
 
 
 const createGenre = async (req, res) => {
-    const { name } = req.body;
-
-    if (!name) {
-        throw new BadRequestError('Please provide genre name');
-    }
-
-    const genre = await GenreModel.create(req.body);
+    const genre = await GenreRepository.createGenre(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: genre });
 }
@@ -18,32 +11,15 @@ const createGenre = async (req, res) => {
 const getGenre = async (req, res) => {
     const { id: idGenre } = req.params;
 
-    const genre = await GenreModel.findById(idGenre);
-
-    if (!genre) {
-        throw new NotFoundError("Genre not found");
-    }
+    const genre = await GenreRepository.getGenreById(idGenre);
 
     return res.status(StatusCodes.OK).json({ data: genre });
 }
 
 const updateGenre = async (req, res) => {
     const { id: idGenre } = req.params;
-    const { name } = req.body;
 
-    if (!name) {
-        throw new BadRequestError('Please provide genre name');
-    }
-
-    const genre = await GenreModel.findById(idGenre);
-
-    if (!genre) {
-        throw new NotFoundError("Genre not found");
-    }
-
-    await GenreModel.updateOne({ _id: idGenre }, { $set: { name } }, { new: true })
-
-    const updatedGenre = await GenreModel.findById(idGenre);
+    const updatedGenre = await GenreRepository.updateGenreById(idGenre, req.body);
 
     return res.status(StatusCodes.OK).json({ data: updatedGenre });
 }
@@ -51,19 +27,13 @@ const updateGenre = async (req, res) => {
 const deleteGenre = async (req, res) => {
     const { id: idGenre } = req.params;
 
-    const genre = await GenreModel.findById(idGenre);
-
-    if (!genre) {
-        throw new NotFoundError("Genre not found");
-    }
-
-    await genre.deleteOne();
+    await GenreRepository.deleteGenreById(idGenre);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const getGenres = async (req, res) => {
-    const genres = await GenreModel.find({});
+    const genres = await GenreRepository.getGenres();
 
     return res.status(StatusCodes.OK).json({ data: genres });
 }

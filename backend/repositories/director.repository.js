@@ -12,7 +12,7 @@ class DirectorRepository {
             throw new BadRequestError("Please provide firstName, lastName, originalFullName, photoURL, age, dateBirth and placeBirth");
         }
 
-        return await DirectorModel.create(req.body);
+        return await DirectorModel.create(directorData);
     }
 
     async getDirectorById(idDirector) {
