@@ -5,6 +5,10 @@ const SelectionSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     contents: [{
         type: mongoose.Types.ObjectId,
         ref: 'Content',

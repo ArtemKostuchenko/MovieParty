@@ -1,15 +1,8 @@
-const SelectionModel = require('../models/selection.model');
-const { BadRequestError, NotFoundError } = require('../errors');
+const SelectionRepository = require('../repositories/selection.repository');
 const { StatusCodes } = require('http-status-codes');
 
 const createSelection = async (req, res) => {
-    const { name } = req.body;
-
-    if (!name) {
-        throw new BadRequestError('Please provide name selection');
-    }
-
-    const selection = await SelectionModel.create(req.body);
+    const selection = await SelectionRepository.createSelection(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: selection });
 }
@@ -17,32 +10,15 @@ const createSelection = async (req, res) => {
 const getSelection = async (req, res) => {
     const { id: idSelection } = req.params;
 
-    const selection = await SelectionModel.findById(idSelection);
-
-    if (!selection) {
-        throw new NotFoundError("Selection not found");
-    }
+    const selection = await SelectionRepository.getSelectionById(idSelection);
 
     return res.status(StatusCodes.OK).json({ data: selection });
 }
 
 const updateSelection = async (req, res) => {
-    const { name, contents } = req.body;
     const { id: idSelection } = req.params;
 
-    const selection = await SelectionModel.findById(idSelection);
-
-    if (!selection) {
-        throw new NotFoundError("Selection not found");
-    }
-
-    selection.name = name || selection.name;
-
-    if (contents && Array.isArray(contents)) {
-        selection.contents = contents;
-    }
-
-    const updatedSelection = await selection.save();
+    const updatedSelection = await SelectionRepository.updateSelectionById(idSelection, req.body);
 
     return res.status(StatusCodes.OK).json({ data: updatedSelection });
 }
@@ -50,19 +26,13 @@ const updateSelection = async (req, res) => {
 const deleteSelection = async (req, res) => {
     const { id: idSelection } = req.params;
 
-    const selection = await SelectionModel.findById(idSelection);
-
-    if (!selection) {
-        throw new NotFoundError("Selection not found");
-    }
-
-    await selection.deleteOne();
+    await SelectionRepository.deleteSelectionById(idSelection);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const getSelections = async (req, res) => {
-    const selections = await SelectionModel.find({});
+    const selections = await SelectionRepository.getSelections();
 
     return res.status(StatusCodes.OK).json({ data: selections });
 }
