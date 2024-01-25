@@ -1,8 +1,7 @@
-const validator = require('validator')
 
-const validateMovie = (req) => {
-    const { title, originTitle, IMDb, description, rating, releaseDate, duration, previewURL, backgroundURL, trailerURL, originCountries, genres, actors, directors, lists, part, reviews, soundTracks } = req.body;
-    
+const validateContent = (content) => {
+    const { title, originTitle, IMDb, description, releaseDate, duration, previewURL, originCountries, genres, actors, directors, soundTracks } = content;
+
     if (
         !title ||
         !originTitle ||
@@ -19,9 +18,21 @@ const validateMovie = (req) => {
     ) {
         return false;
     }
+
+    return true;
+}
+
+const validateMovie = (movie) => {
+    const { soundTracks } = movie;
+
+    if (!Array.isArray(soundTracks) || !soundTracks.every(soundTrack => typeof soundTrack === 'object')) {
+        return false;
+    }
+
     return true;
 }
 
 module.exports = {
+    validateContent,
     validateMovie,
 };

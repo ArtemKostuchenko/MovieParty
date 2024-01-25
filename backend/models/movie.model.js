@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const MovieSchema = mongoose.Schema({
-    idContent: {
+    contentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Content',
     },

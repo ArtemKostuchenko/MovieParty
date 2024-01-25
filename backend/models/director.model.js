@@ -28,11 +28,7 @@ const DirectorSchema = mongoose.Schema({
     placeBirth: {
         type: String,
         required: [true, 'Please provide placeBirth'],
-    },
-    contents: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Content',
-    }]
+    }
 });
 
 module.exports = mongoose.model('Director', DirectorSchema);

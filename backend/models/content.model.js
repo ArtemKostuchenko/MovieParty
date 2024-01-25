@@ -9,7 +9,7 @@ const ContentSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please provide originTitle'],
     },
-    IMDb:{
+    IMDb: {
         type: Number,
         required: [true, 'Please provide IMDb'],
     },
@@ -29,14 +29,14 @@ const ContentSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please provide duration'],
     },
-    previewURL:{
+    previewURL: {
         type: String,
         required: [true, 'Please provide previewURL'],
     },
-    backgroundURL:{
+    backgroundURL: {
         type: String,
     },
-    trailerURL:{
+    trailerURL: {
         type: String,
     },
     originCountries: [{
@@ -56,8 +56,13 @@ const ContentSchema = mongoose.Schema({
         ref: 'Director',
     }],
     lists: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'List',
+        idList: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'List',
+        },
+        placeInList: {
+            type: Number
+        },
     }],
     part: {
         type: mongoose.Schema.Types.ObjectId,
