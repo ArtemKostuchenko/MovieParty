@@ -1,15 +1,8 @@
-const PartModel = require('../models/part.model');
-const { BadRequestError, NotFoundError } = require('../errors');
+const PartRepository = require('../repositories/part.repository');
 const { StatusCodes } = require('http-status-codes');
 
 const createPart = async (req, res) => {
-    const { name } = req.body;
-
-    if (!name) {
-        throw new BadRequestError('Please provide name part');
-    }
-
-    const part = await PartModel.create(req.body);
+    const part = await PartRepository.createPart(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: part });
 }
@@ -17,32 +10,15 @@ const createPart = async (req, res) => {
 const getPart = async (req, res) => {
     const { id: idPart } = req.params;
 
-    const part = await PartModel.findById(idPart);
-
-    if (!part) {
-        throw new NotFoundError("Part not found");
-    }
+    const part = await PartRepository.getPartById(idPart);
 
     return res.status(StatusCodes.OK).json({ data: part });
 }
 
 const updatePart = async (req, res) => {
-    const { name, contents } = req.body;
     const { id: idPart } = req.params;
 
-    const part = await PartModel.findById(idPart);
-
-    if (!part) {
-        throw new NotFoundError("Part not found");
-    }
-
-    part.name = name || part.name;
-
-    if(contents && Array.isArray(contents)){
-        part.contents = contents;
-    }
-
-    const updatedPart = await part.save();
+    const updatedPart = await PartRepository.updatePartById(idPart, req.body);
 
     return res.status(StatusCodes.OK).json({ data: updatedPart });
 }
@@ -50,21 +26,15 @@ const updatePart = async (req, res) => {
 const deletePart = async (req, res) => {
     const { id: idPart } = req.params;
 
-    const part = await PartModel.findById(idPart);
-
-    if (!part) {
-        throw new NotFoundError("Part not found");
-    }
-
-    await part.deleteOne();
+    await PartRepository.deletePartById(idPart);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
-const getParts = async(req, res) => {
-    const parts = await PartModel.find({});
+const getParts = async (req, res) => {
+    const parts = await PartRepository.getParts();
 
-    return res.status(StatusCodes.OK).json({data: parts});
+    return res.status(StatusCodes.OK).json({ data: parts });
 }
 
 module.exports = {
