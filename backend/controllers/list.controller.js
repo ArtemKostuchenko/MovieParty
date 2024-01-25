@@ -1,15 +1,8 @@
-const ListModel = require('../models/list.model');
-const { BadRequestError, NotFoundError } = require('../errors');
+const ListRepository = require('../repositories/list.repository');
 const { StatusCodes } = require('http-status-codes');
 
 const createList = async (req, res) => {
-    const { name } = req.body;
-
-    if (!name) {
-        throw new BadRequestError("Please provide name list");
-    }
-
-    const list = await ListModel.create(req.body);
+    const list = await ListRepository.createList(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: list })
 }
@@ -17,32 +10,15 @@ const createList = async (req, res) => {
 const getList = async (req, res) => {
     const { id: idList } = req.params;
 
-    const list = await ListModel.findById(idList);
-
-    if (!list) {
-        throw new NotFoundError("List not found")
-    }
+    const list = await ListRepository.getListById(idList);
 
     return res.status(StatusCodes.OK).json({ data: list });
 }
 
 const updateList = async (req, res) => {
     const { id: idList } = req.params;
-    const { name, contents } = req.body;
 
-    const list = await ListModel.findById(idList);
-
-    if (!list) {
-        throw new NotFoundError("List not found");
-    }
-
-    list.name = name || list.name;
-
-    if (contents && Array.isArray(contents)) {
-        list.contents = contents;
-    }
-
-    const updatedList = await list.save();
+    const updatedList = await ListRepository.updateListById(idList, req.body);
 
     return res.status(StatusCodes.OK).json({ data: updatedList });
 }
@@ -50,19 +26,13 @@ const updateList = async (req, res) => {
 const deleteList = async (req, res) => {
     const { id: idList } = req.params;
 
-    const list = await ListModel.findById(idList);
-
-    if (!list) {
-        throw new NotFoundError("List not found");
-    }
-
-    await list.deleteOne();
+    await ListRepository.deleteListById(idList);
 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
 const getLists = async (req, res) => {
-    const lists = await ListModel.find({});
+    const lists = await ListRepository.getLists();
 
     return res.status(StatusCodes.OK).json({ data: lists });
 }
