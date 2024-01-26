@@ -1,4 +1,4 @@
-const { BadRequestError} = require('../errors');
+const { BadRequestError } = require('../errors');
 
 const validateVideoContent = (videoContent) => {
     const errors = [];
@@ -79,24 +79,44 @@ const validateVideoContent = (videoContent) => {
     if (videoContent.soundTracks && !Array.isArray(videoContent.soundTracks)) {
         errors.push('soundTracks');
     }
-    
+
     if (videoContent.seasons && !Array.isArray(videoContent.seasons)) {
         errors.push('seasons');
     }
 
-    if(errors.length > 0){
-       throw new BadRequestError(`Please provide ${errors.join(', ')}`);
+    if (errors.length > 0) {
+        throw new BadRequestError(`Please provide ${errors.join(', ')}`);
     }
 }
 
 const validateActorDirector = (person) => {
-    const { firstName, lastName, originalFullName, photoURL, age, dateBirth, placeBirth } = person;
+    const errors = [];
 
-    if (!firstName || !lastName || !originalFullName || !photoURL || !age || !dateBirth || !placeBirth) {
-        return false;
+    if (!person.firstName) {
+        errors.push('firstName');
     }
 
-    return true
+    if (!person.lastName) {
+        errors.push('lastName');
+    }
+    if (!person.originalFullName) {
+        errors.push('originalFullName');
+    }
+    if (!person.photoURL) {
+        errors.push('photoURL');
+    }
+
+    if (!person.sex) {
+        errors.push('sex');
+    }
+
+    if (!person.placeBirth) {
+        errors.push('placeBirth');
+    }
+
+    if (errors.length > 0) {
+        throw new BadRequestError(`Please provide ${errors.join(', ')}`);
+    }
 }
 
 module.exports = {

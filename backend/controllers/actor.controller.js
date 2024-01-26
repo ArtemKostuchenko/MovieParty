@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const ActorRepository = require('../repositories/actor.repository');
 
 const createActor = async (req, res) => {
-    const actor = ActorRepository.createActor(req.body);
+    const actor = await ActorRepository.createActor(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: actor });
 }
@@ -11,7 +11,7 @@ const createActor = async (req, res) => {
 const getActor = async (req, res) => {
     const { id: idActor } = req.params;
 
-    const actor = ActorRepository.getActorById(idActor);
+    const actor = await ActorRepository.getActorById(idActor);
 
     return res.status(StatusCodes.OK).json({ data: actor });
 }

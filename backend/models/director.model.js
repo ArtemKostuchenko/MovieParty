@@ -17,18 +17,42 @@ const DirectorSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please provide photoURL'],
     },
-    age: {
-        type: Number,
-        required: [true, 'Please provide age'],
-    },
     dateBirth: {
         type: Date,
-        required: [true, 'Please provide dateBirth'],
+    },
+    dateDeath: {
+        type: Date,
+    },
+    sex: {
+        type: String,
+        enum: ['Man', 'Woman'], 
+        required: true,
     },
     placeBirth: {
         type: String,
         required: [true, 'Please provide placeBirth'],
     }
+});
+
+DirectorSchema.virtual('age').get(function() {
+    const currentDate = new Date();
+    const birthDate = this.dateBirth;
+
+    if(this.dateBirth){
+        if (this.dateDeath) {
+            const deathDate = this.dateDeath;
+            return deathDate.getFullYear() - birthDate.getFullYear();
+        }
+        
+        const years = currentDate.getFullYear() - birthDate.getFullYear();
+        const months = currentDate.getMonth() - birthDate.getMonth();
+        if (months < 0 || (months === 0 && currentDate.getDate() < birthDate.getDate())) {
+            return years - 1;
+        }
+        return years;
+    }
+
+    return "";
 });
 
 module.exports = mongoose.model('Director', DirectorSchema);

@@ -164,7 +164,7 @@ class VideoContentRepository {
         videoContent.soundTracks = soundTracks || videoContent.soundTracks;
         videoContent.seasons = seasons || videoContent.seasons;
 
-        await videoContent.save();
+        return await videoContent.save();
     }
 
     async deleteVideoContentById(idVideoContent) {
