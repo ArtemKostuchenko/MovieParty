@@ -177,10 +177,71 @@ class VideoContentRepository {
         await videoContent.deleteOne();
     }
 
-    async getVideoContents(){
-        return await VideoContentModel.aggregate([
-            { $project: { "title": 1, "IMDb": 1, "rating": 1, "previewURL": 1 } }
-        ])
+    async getVideoContents(query) {
+        const { title, originTitle, releaseYears, ratingRange, genres, actor, director, list, sort, fields } = query;
+        const queryObj = {};
+        if (title) {
+            queryObj.title = { $regex: title, $options: 'i', };
+        }
+        if (originTitle) {
+            queryObj.originTitle = { $regex: originTitle, $options: 'i', };
+        }
+
+        if (releaseYears) {
+            const years = releaseYears.split(',').map(year => parseInt(year.trim()));
+
+            const yearRanges = years.map(year => ({
+                releaseDate: {
+                    $gte: new Date(year, 0, 1),
+                    $lte: new Date(year, 11, 31)
+                }
+            }));
+
+            queryObj.$or = yearRanges;
+        }
+
+        if (ratingRange) {
+            const [minRating, maxRating] = ratingRange.split(',').map(rating => parseFloat(rating.trim()));
+            queryObj.rating = { $gte: minRating, $lte: maxRating };
+        }
+
+        if (genres) {
+            const genresQuery = genres.split(',');
+            queryObj.genres = { $all: genresQuery  };
+        }
+
+        if (actor) {
+            queryObj.actors = actor;
+        }
+
+        if (director) {
+            queryObj.directors = director;
+        }
+
+        if (list) {
+            queryObj.lists = list;
+        }
+
+        let videoContents = VideoContentModel.find(queryObj);
+
+        if (sort) {
+            const sortList = sort.split(',').join(' ');
+            videoContents = videoContents.sort(sortList);
+        }
+
+        if (fields) {
+            const fieldList = fields.split(',').join(' ')
+            videoContents = videoContents.select(fieldList);
+        }
+
+        const page = query.page || 1;
+        const limit = query.limit || 20;
+
+        const skip = (page - 1) * limit;
+
+        videoContents = videoContents.skip(skip).limit(limit);
+
+        return await videoContents;
     }
 }
 

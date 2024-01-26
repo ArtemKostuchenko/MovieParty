@@ -33,7 +33,7 @@ const deleteVideoContent = async (req, res) => {
 }
 
 const getVideoContents = async (req, res) => {
-    const videoContents = await VideoContentRepository.getVideoContents();
+    const videoContents = await VideoContentRepository.getVideoContents(req.query);
 
     return res.status(StatusCodes.OK).json({ data: videoContents });
 }
