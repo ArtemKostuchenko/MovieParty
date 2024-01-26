@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ContentSchema = mongoose.Schema({
+const VideoContentSchema = mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Please provide title'],
@@ -8,6 +8,11 @@ const ContentSchema = mongoose.Schema({
     originTitle: {
         type: String,
         required: [true, 'Please provide originTitle'],
+    },
+    typeVideoContent: {
+        type: String,
+        enum: ['movies', 'cartoons', 'serials', 'cartoon-series'], 
+        required: true
     },
     IMDb: {
         type: Number,
@@ -72,6 +77,57 @@ const ContentSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review',
     }],
+    soundTracks: [{
+        title: {
+            type: String,
+            required: [true, 'Please provide title'],
+        },
+        m3u8URL: {
+            type: String,
+            required: [true, 'Please provide m3u8URL'],
+        },
+    }],
+    seasons: [{
+        title: {
+            type: String,
+            required: [true, 'Please provide title'],
+        },
+        previewURL: {
+            type: String,
+            required: [true, 'Please provide previewURL'],
+        },
+        backgroundURL: {
+            type: String,
+        },
+        episodes: [{
+            name: {
+                type: String,
+                required: [true, 'Please provide name'],
+            },
+            status: {
+                type: String,
+                required: [true, 'Please provide status'],
+            },
+            available: {
+                type: Boolean,
+                default: false,
+            },
+            releaseDate:{
+                type: Date,
+                required: [true, 'Please provide releaseDate'],
+            },
+            soundTracks: [{
+                title: {
+                    type: String,
+                    required: [true, 'Please provide title'],
+                },
+                m3u8URL: {
+                    type: String,
+                    required: [true, 'Please provide m3u8URL'],
+                },
+            }],
+        }]
+    }]
 });
 
-module.exports = mongoose.model('Content', ContentSchema);
+module.exports = mongoose.model('VideoContent', VideoContentSchema);

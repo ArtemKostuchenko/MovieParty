@@ -1,35 +1,92 @@
+const { BadRequestError} = require('../errors');
 
-const validateContent = (content) => {
-    const { title, originTitle, IMDb, description, releaseDate, duration, previewURL, originCountries, genres, actors, directors, soundTracks } = content;
+const validateVideoContent = (videoContent) => {
+    const errors = [];
 
-    if (
-        !title ||
-        !originTitle ||
-        !description ||
-        !IMDb ||
-        !releaseDate ||
-        !duration ||
-        !previewURL ||
-        !Array.isArray(originCountries) || !originCountries.every(country => typeof country === 'string') ||
-        !Array.isArray(genres) || !genres.every(genre => typeof genre === 'string') ||
-        !Array.isArray(actors) || !actors.every(actor => typeof actor === 'string') ||
-        !Array.isArray(directors) || !directors.every(director => typeof director === 'string') ||
-        !Array.isArray(soundTracks) || !soundTracks.every(soundTrack => typeof soundTrack === 'object')
-    ) {
-        return false;
+    if (!videoContent.title) {
+        errors.push('title');
     }
 
-    return true;
-}
-
-const validateMovie = (movie) => {
-    const { soundTracks } = movie;
-
-    if (!Array.isArray(soundTracks) || !soundTracks.every(soundTrack => typeof soundTrack === 'object')) {
-        return false;
+    if (!videoContent.originTitle) {
+        errors.push('originTitle');
     }
 
-    return true;
+    if (!videoContent.typeVideoContent) {
+        errors.push('typeVideoContent');
+    } else if (!['movies', 'cartoons', 'serials', 'cartoon-series'].includes(videoContent.typeVideoContent)) {
+        errors.push('typeVideoContent (must be movies', 'cartoons', 'serials', 'cartoon-series)');
+    }
+
+
+    if (!videoContent.IMDb) {
+        errors.push('IMDb');
+    }
+
+    if (!videoContent.description) {
+        errors.push('description');
+    }
+
+    if (!videoContent.releaseDate) {
+        errors.push('releaseDate videoContent');
+    }
+
+    if (!videoContent.duration) {
+        errors.push('duration');
+    }
+
+    if (!videoContent.previewURL) {
+        errors.push('preview videoContent');
+    }
+
+    if (!videoContent.originCountries) {
+        errors.push('originCountries');
+    } else if (!Array.isArray(videoContent.originCountries)) {
+        errors.push('originCountries');
+    } else if (videoContent.originCountries.length == 0) {
+        errors.push('originCountries (must be 1 country)');
+    }
+
+    if (!videoContent.genres) {
+        errors.push('genres');
+    } else if (!Array.isArray(videoContent.genres)) {
+        errors.push('genres');
+    } else if (videoContent.genres.length == 0) {
+        errors.push('genres (must be 1 genre)');
+    }
+
+    if (!videoContent.actors) {
+        errors.push('actors');
+    } else if (!Array.isArray(videoContent.actors)) {
+        errors.push('actors');
+    } else if (videoContent.actors.length == 0) {
+        errors.push('actors (must be 1 actor)');
+    }
+
+    if (!videoContent.directors) {
+        errors.push('directors');
+    } else if (!Array.isArray(videoContent.directors)) {
+        errors.push('directors');
+    } else if (videoContent.directors.length == 0) {
+        errors.push('directors (must be 1 director)');
+    }
+
+    if (!videoContent.lists) {
+        errors.push('lists');
+    } else if (!Array.isArray(videoContent.lists)) {
+        errors.push('lists');
+    }
+
+    if (videoContent.soundTracks && !Array.isArray(videoContent.soundTracks)) {
+        errors.push('soundTracks');
+    }
+    
+    if (videoContent.seasons && !Array.isArray(videoContent.seasons)) {
+        errors.push('seasons');
+    }
+
+    if(errors.length > 0){
+       throw new BadRequestError(`Please provide ${errors.join(', ')}`);
+    }
 }
 
 const validateActorDirector = (person) => {
@@ -43,7 +100,6 @@ const validateActorDirector = (person) => {
 }
 
 module.exports = {
-    validateContent,
-    validateMovie,
+    validateVideoContent,
     validateActorDirector,
 };
