@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import 'express-async-errors';
 import express from 'express';
+import cors from 'cors';
 import { json } from 'body-parser';
 import connectToDB from './db/connection';
 import authRouter from './routes/auth.route';
@@ -13,6 +14,7 @@ import partRouter from './routes/part.route';
 import selectionRouter from './routes/selection.route';
 import reviewRouter from './routes/review.route';
 import videoContentRouter from './routes/content.route';
+import roomRouter from './routes/room.route';
 import errorMiddleware from './middlewares/error.middleware';
 
 dotenv.config();
@@ -20,6 +22,8 @@ dotenv.config();
 const app = express();
 
 app.use(json());
+
+app.use(cors());
 
 // routers
 app.use('/api/v1/auth', authRouter);
@@ -32,6 +36,7 @@ app.use('/api/v1/parts', partRouter);
 app.use('/api/v1/selections', selectionRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/content/v/', videoContentRouter);
+app.use('/api/v1/rooms', roomRouter);
 
 // middleware
 app.use(errorMiddleware);

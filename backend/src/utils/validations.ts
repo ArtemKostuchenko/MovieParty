@@ -2,6 +2,14 @@ import { BadRequestError } from '../errors';
 import { VideoContent } from '../models/content.model';
 import { Actor } from '../models/actor.model';
 import { Director } from '../models/director.model';
+import { Room } from '../models/room.model';
+
+
+const emitErrors = (errors: string[]) => {
+    if (errors.length > 0) {
+        throw new BadRequestError(`Please provide ${errors.join(', ')}`);
+    }
+}
 
 const validateVideoContent = (videoContent: VideoContent) => {
     const errors: string[] = [];
@@ -87,9 +95,7 @@ const validateVideoContent = (videoContent: VideoContent) => {
         errors.push('seasons');
     }
 
-    if (errors.length > 0) {
-        throw new BadRequestError(`Please provide ${errors.join(', ')}`);
-    }
+    emitErrors(errors);
 }
 
 const validateActorDirector = (person: Actor | Director) => {
@@ -117,12 +123,33 @@ const validateActorDirector = (person: Actor | Director) => {
         errors.push('placeBirth');
     }
 
-    if (errors.length > 0) {
-        throw new BadRequestError(`Please provide ${errors.join(', ')}`);
+    emitErrors(errors);
+}
+
+const validateRoom = (room: Room) => {
+    const errors: string[] = [];
+
+    if (!room.ownerId) {
+        errors.push('ownerId');
     }
+
+    if (!room.videoContentId) {
+        errors.push('videoContentId');
+    }
+
+    if (!room.title) {
+        errors.push('title');
+    }
+
+    if (!room.description) {
+        errors.push('description');
+    }
+
+    emitErrors(errors);
 }
 
 export {
     validateVideoContent,
     validateActorDirector,
+    validateRoom,
 };
