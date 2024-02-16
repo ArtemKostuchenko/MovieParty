@@ -3,6 +3,7 @@ import { VideoContent } from '../models/content.model';
 import { Actor } from '../models/actor.model';
 import { Director } from '../models/director.model';
 import { Room } from '../models/room.model';
+import { Message } from '../models/message.model';
 
 
 const emitErrors = (errors: string[]) => {
@@ -148,8 +149,27 @@ const validateRoom = (room: Room) => {
     emitErrors(errors);
 }
 
+const validateMessage = (message: Message) => {
+    const errors: string[] = [];
+
+    if (!message.roomId) {
+        errors.push('roomId');
+    }
+
+    if (!message.userId) {
+        errors.push('userId');
+    }
+
+    if (!message.message) {
+        errors.push('message');
+    }
+
+    emitErrors(errors);
+}
+
 export {
     validateVideoContent,
     validateActorDirector,
     validateRoom,
+    validateMessage,
 };

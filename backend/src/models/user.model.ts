@@ -7,6 +7,7 @@ export interface User extends Document {
     nickname: string;
     email: string;
     password: string;
+    avatarColor?: string;
     avatarURL?: string;
     sex?: 'Man' | 'Woman';
     country?: Types.ObjectId;
@@ -35,6 +36,9 @@ const UserSchema: Schema<User> = new Schema({
     password: {
         type: String,
         required: [true, 'Please provide password'],
+    },
+    avatarColor: {
+        type: String
     },
     avatarURL: {
         type: String,

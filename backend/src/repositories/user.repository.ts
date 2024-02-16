@@ -1,5 +1,6 @@
 import UserModel, { User } from "../models/user.model";
 import { BadRequestError, UnAuthorizedError, NotFoundError } from "../errors";
+import { generateAvatarColorHex } from "../utils/functions";
 
 interface UserToken {
     user: User,
@@ -15,6 +16,8 @@ class UserRepository {
         if (!nickname || !email || !password) {
             throw new BadRequestError('Please provide nickname, email and password');
         }
+
+        userData.avatarColor = generateAvatarColorHex();
 
         const user = await UserModel.create({ ...userData });
 
