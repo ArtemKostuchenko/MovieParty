@@ -1,11 +1,7 @@
 import ActorModel, { Actor } from '../models/actor.model';
 import { validateActorDirector } from "../utils/validations";
 import { NotFoundError } from '../errors';
-
-interface ActorWithAge {
-    actor: Actor,
-    age: number | string,
-}
+import { ActorWithAge } from '../utils/interfaces';
 
 class ActorRepository {
     constructor() { }

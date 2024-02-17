@@ -1,14 +1,13 @@
 import UserModel, { User } from '../models/user.model';
 import { UnAuthorizedError } from '../errors';
-import { Types } from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction, Request } from 'express';
+import passport from 'passport';
+import { Types } from 'mongoose';
 
-const authenticatedUser = async(token: string): Promise<User> => {
+const authenticatedUser = async (userId: Types.ObjectId): Promise<User> => {
     try {
-        const decoded: any = await jwt.verify(token, process.env.JWT_SECRET as string);
-
-        const user = await UserModel.findById(decoded.userId).select('_id nickname');
+        const user = await UserModel.findById(userId).select('_id nickname');
 
         if (!user) {
             throw new UnAuthorizedError("Authentication invalid");
@@ -21,35 +20,28 @@ const authenticatedUser = async(token: string): Promise<User> => {
 }
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        throw new UnAuthorizedError("Authentication invalid");
+    if (req.isAuthenticated()) {
+        return next();
     }
 
-    const token = authHeader.split(' ')[1];
+    passport.authenticate('jwt', { session: false }, (err: any, user: User) => {
+        if (err || !user) {
+            throw new UnAuthorizedError("Authentication invalid");
+        }
 
-    const user: User = await authenticatedUser(token);
-
-    req.body.user = { userId: user._id };
-
-    next(); 
+        req.user = user;
+        next();
+    })(req, res, next);
 }
 
 const adminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const userId: Types.ObjectId = req.body.user.userId;
-
-    const user: User | null = await UserModel.findById(userId);
-
-    if (!user) {
+    if (!req.user) {
         throw new UnAuthorizedError("Authentication invalid");
     }
 
-    if (!user.isAdmin) {
+    if (!req.user.isAdmin) {
         throw new UnAuthorizedError("Authentication invalid");
     }
-
-    req.body.user.isAdmin = true;
 
     next();
 }

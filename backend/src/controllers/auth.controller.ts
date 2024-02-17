@@ -8,20 +8,42 @@ import crypto from 'crypto';
 import { sendEmail } from '../utils/email/email';
 import UserRepository from '../repositories/user.repository';
 
+
 const register = async (req: Request, res: Response): Promise<Response> => {
     const { user, token } = await UserRepository.singUpUser(req.body);
 
-    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname }, token });
+    res.cookie('_api_token', token, { httpOnly: true, secure: false });
+
+    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname } });
 }
 
 const login = async (req: Request, res: Response): Promise<Response> => {
     const { user, token } = await UserRepository.loginUser(req.body);
 
-    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname }, token });
+    res.cookie('_api_token', token, { httpOnly: true, secure: false });
+
+    return res.status(StatusCodes.OK).json({ user: { id: user._id, nickname: user.nickname } });
 }
 
-const getMe = async (req: Request, res: Response): Promise<Response> => {
-    const user = await UserRepository.getUserById(req.body.user.userId);
+const logOut = (req: Request, res: Response) => {
+    if (req.cookies._api_token) {
+        res.clearCookie('_api_token');
+        return res.status(200).json({ success: true });
+    } else if (req.session) {
+        req.session = null;
+        req.logout((err) => {
+            if (err) {
+                throw new UnAuthorizedError("Authentication invalid");
+            }
+        });
+        return res.status(200).json({ success: true });
+    } else {
+        throw new UnAuthorizedError("Authentication invalid");
+    }
+}
+
+const getMe = async (req: any, res: Response): Promise<Response> => {
+    const user = await UserRepository.getUserById(req.user.id);
 
     return res.status(StatusCodes.OK).json({ user });
 }
@@ -111,9 +133,11 @@ const resetPassword = async (req: Request, res: Response): Promise<Response> => 
     return res.status(StatusCodes.OK).json({ success: true });
 }
 
+
 export {
     register,
     login,
+    logOut,
     getMe,
     reqPasswordReset,
     resetPassword,

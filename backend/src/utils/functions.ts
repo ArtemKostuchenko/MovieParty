@@ -1,5 +1,6 @@
+import { Request } from "./interfaces";
 
-const generateAvatarColorHex = (): string => {
+export const generateAvatarColorHex = (): string => {
     const red: number = Math.floor(Math.random() * 128) + 64;
     const green: number = Math.floor(Math.random() * 128) + 64;
     const blue: number = Math.floor(Math.random() * 128) + 64;
@@ -11,6 +12,12 @@ const generateAvatarColorHex = (): string => {
     return `#${redHex}${greenHex}${blueHex}`;
 }
 
-export {
-    generateAvatarColorHex,
-}
+export const cookieExtractor = (req: Request): string | null => {
+    let token: string | null = null;
+
+    if (req && req.cookies) {
+        token = req.cookies['_api_token'];
+    }
+
+    return token;
+};

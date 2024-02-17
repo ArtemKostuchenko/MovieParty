@@ -1,11 +1,8 @@
 import UserModel, { User } from "../models/user.model";
 import { BadRequestError, UnAuthorizedError, NotFoundError } from "../errors";
 import { generateAvatarColorHex } from "../utils/functions";
+import { UserToken } from "../utils/interfaces";
 
-interface UserToken {
-    user: User,
-    token: string,
-}
 
 class UserRepository {
     constructor() { }

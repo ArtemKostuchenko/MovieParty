@@ -18,10 +18,16 @@ import reviewRouter from './routes/review.route';
 import videoContentRouter from './routes/content.route';
 import roomRouter from './routes/room.route';
 import errorMiddleware from './middlewares/error.middleware';
-import { authenticatedUser } from './middlewares/auth.middleware';
 import RoomRepository from './repositories/room.repository';
 import MessageRepository from './repositories/message.repository';
 import { Types } from 'mongoose';
+import passport from 'passport';
+import './config/passportGoogleAuth';
+import './config/passportJWT';
+import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
+import { authenticatedUser } from './middlewares/auth.middleware';
+
 
 dotenv.config();
 
@@ -30,8 +36,20 @@ const app = express();
 app.use(json());
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://192.168.1.59:3000']
+    origin: ['http://localhost:3000', 'http://192.168.1.59:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
+
+app.use(cookieParser());
+
+app.use(cookieSession({
+    name: 'google-auth-session',
+    keys: [process.env.COOKIE_SECRET as string]
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routers
 app.use('/api/v1/auth', authRouter);
@@ -51,12 +69,6 @@ app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 
-declare module 'socket.io' {
-    interface Socket {
-        roomId?: string;
-    }
-}
-
 const start = async () => {
     try {
         await connectToDB(process.env.MONGO_URI!);
@@ -65,78 +77,81 @@ const start = async () => {
 
         const io = new Server(server, {
             cors: {
-                origin: ['http://localhost:3000', 'http://192.168.1.59:3000']
+                origin: ['http://localhost:3000', 'http://192.168.1.59:3000'],
+                credentials: true,
             }
         });
 
         io.on('connection', async (socket) => {
-            const authToken = socket.handshake.auth.token;
+            try {
+                const user = await authenticatedUser(socket.handshake.auth.user._id);
 
-            const user = await authenticatedUser(authToken);
+                socket.on('join_room', async (roomId) => {
+                    const existUser = await RoomRepository.existUserInRoom(roomId, new Types.ObjectId(user._id));
 
-            socket.on('join_room', async (roomId) => {
-                const existUser = await RoomRepository.existUserInRoom(roomId, user._id);
+                    if (existUser) {
+                        await RoomRepository.connectUser(roomId, user._id);
 
-                if (existUser) {
-                    await RoomRepository.connectUser(roomId, user._id);
+                        socket.join(roomId);
+                        socket.roomId = roomId;
 
-                    socket.join(roomId);
-                    socket.roomId = roomId;
+                        console.log(`User ${user.nickname} connected to room`);
+                    } else {
+                        socket.emit('connection_error');
+                    }
 
-                    console.log(`User ${user.nickname} connected to room`);
-                } else {
-                    socket.emit('connection_error');
-                }
+                });
 
-            });
+                socket.on('send_message', async (data) => {
+                    const roomId: string = socket.roomId as string;
+                    if (roomId) {
 
-            socket.on('send_message', async (data) => {
-                const roomId: string = socket.roomId as string;
-                if (roomId) {
+                        await MessageRepository.addMessage({
+                            roomId: new Types.ObjectId(roomId),
+                            userId: user._id,
+                            message: data.message
+                        });
 
-                    await MessageRepository.addMessage({
-                        roomId: new Types.ObjectId(roomId),
-                        userId: user._id,
-                        message: data.message
-                    });
+                        const messages = await MessageRepository.getLastMessagesByRoomId(roomId);
 
-                    const messages = await MessageRepository.getLastMessagesByRoomId(roomId);
+                        socket.to(roomId).emit('receive_messages', messages);
+                        io.to(socket.id).emit('receive_messages', messages);
+                    }
+                });
 
-                    socket.to(roomId).emit('receive_messages', messages);
-                    io.to(socket.id).emit('receive_messages', messages);
-                }
-            });
+                socket.on('handle_play', (data) => {
+                    const roomId: string = socket.roomId as string;
+                    if (roomId) {
+                        socket.to(roomId).emit('control_play', data);
+                    }
+                });
 
-            socket.on('handle_play', (data) => {
-                const roomId: string = socket.roomId as string;
-                if (roomId) {
-                    socket.to(roomId).emit('control_play', data);
-                }
-            });
+                socket.on('handle_seek', (data) => {
+                    const roomId: string = socket.roomId as string;
+                    if (roomId) {
+                        socket.to(roomId).emit('control_seek', data);
+                    }
+                });
 
-            socket.on('handle_seek', (data) => {
-                const roomId: string = socket.roomId as string;
-                if (roomId) {
-                    socket.to(roomId).emit('control_seek', data);
-                }
-            });
+                socket.on('save_time', async (data) => {
+                    const roomId: string = socket.roomId as string;
+                    if (roomId) {
+                        await RoomRepository.updateTime(roomId, user._id, data);
+                    }
+                })
 
-            socket.on('save_time', async (data) => {
-                const roomId: string = socket.roomId as string;
-                if (roomId) {
-                    await RoomRepository.updateTime(roomId, user._id, data);
-                }
-            })
+                socket.on('disconnect', async () => {
+                    const roomId: string = socket.roomId as string;
 
-            socket.on('disconnect', async () => {
-                const roomId: string = socket.roomId as string;
+                    if (roomId) {
+                        await RoomRepository.disconnectUser(roomId, user._id);
+                    }
 
-                if (roomId) {
-                    await RoomRepository.disconnectUser(roomId, user._id);
-                }
-
-                console.log(`User ${user.nickname} disconnected room`);
-            })
+                    console.log(`User ${user.nickname} disconnected room`);
+                })
+            } catch (err) {
+                console.log(err);
+            }
         });
 
         server.listen(port, () => {

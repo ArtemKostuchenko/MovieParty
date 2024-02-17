@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import ActorRepository from '../repositories/actor.repository';
+import { ActorWithAge } from '../utils/interfaces';
 import { Actor } from '../models/actor.model';
 
 const createActor = async (req: Request, res: Response): Promise<Response> => {
-    const actor: Actor = await ActorRepository.createActor(req.body);
+    const actor: ActorWithAge = await ActorRepository.createActor(req.body);
 
     return res.status(StatusCodes.CREATED).json({ data: actor });
 }
@@ -12,7 +13,7 @@ const createActor = async (req: Request, res: Response): Promise<Response> => {
 const getActor = async (req: Request, res: Response): Promise<Response> => {
     const { id: idActor } = req.params;
 
-    const actor: Actor = await ActorRepository.getActorById(idActor);
+    const actor: ActorWithAge = await ActorRepository.getActorById(idActor);
 
     return res.status(StatusCodes.OK).json({ data: actor });
 }
@@ -34,7 +35,7 @@ const deleteActor = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const getActors = async (req: Request, res: Response): Promise<Response> => {
-    const actors: Actor[] = await ActorRepository.getActors();
+    const actors: ActorWithAge[] = await ActorRepository.getActors();
     
     return res.status(StatusCodes.OK).json({ data: actors });
 }

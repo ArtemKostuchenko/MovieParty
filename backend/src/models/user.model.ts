@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export interface User extends Document {
+    googleId: string;
     isAdmin: boolean;
     nickname: string;
     email: string;
@@ -20,6 +21,9 @@ export interface User extends Document {
 
 
 const UserSchema: Schema<User> = new Schema({
+    googleId: {
+        type: String,
+    },
     isAdmin: {
         type: Boolean,
         default: false,
@@ -35,7 +39,6 @@ const UserSchema: Schema<User> = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'Please provide password'],
     },
     avatarColor: {
         type: String
@@ -75,7 +78,7 @@ UserSchema.pre<User>('save', async function(next) {
 });
 
 UserSchema.methods.createToken = function(): string {
-    return jwt.sign({ userId: this._id, nickname: this.nickname }, process.env.JWT_SECRET as string, {
+    return jwt.sign({ _id: this._id, nickname: this.nickname }, process.env.JWT_SECRET as string, {
         expiresIn: process.env.TOKEN_LIFETIME,
     });
 }

@@ -1,11 +1,8 @@
 import DirectorModel, { Director } from '../models/director.model';
 import { validateActorDirector } from '../utils/validations';
 import { NotFoundError } from '../errors';
+import { DirectorWithAge } from '../utils/interfaces';
 
-interface DirectorWithAge {
-    director: Director,
-    age: number | string,
-}
 
 class DirectorRepository {
     constructor() { }
