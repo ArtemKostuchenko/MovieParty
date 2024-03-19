@@ -93,7 +93,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .header__logo {
-    height: 30px;
+    font-size: 0;
 }
 
 .header__overlay {
