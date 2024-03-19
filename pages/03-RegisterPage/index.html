@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoginPage</title>
+    <title>RegisterPage</title>
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 
@@ -28,11 +28,14 @@
                     <div class="wrapper flex center">
                         <div class="login__form">
                             <form class="form">
-                                <div class="form__title">Вхід</div>
+                                <div class="form__title">Реєстрація</div>
                                 <div class="form__description">Вітаємо на нашому веб-сервісі</div>
                                 <div class="form__items">
                                     <div class="form__item">
                                         <input type="email" class="input" name="email" placeholder="Електронна пошта" />
+                                    </div>
+                                    <div class="form__item">
+                                        <input type="email" class="input" name="nickname" placeholder="Нікнейм" />
                                     </div>
                                     <div class="form__item">
                                         <div class="input__icon">
@@ -41,26 +44,18 @@
                                         </div>
                                     </div>
                                     <div class="form__item">
-                                        <button type="submit" class="button primary fill">Увійти</button>
-                                    </div>
-                                    <div class="form__item">
-                                        <div class="form__text">Вхід через соціальні мережі</div>
-                                    </div>
-                                    <div class="form__item">
-                                        <a class="button gray icon fill" href="#">
-                                            <img src="../images/google.svg" alt="Google">
-                                            Google
-                                        </a>
-                                    </div>
-                                    <div class="form__item">
-                                        <div class="form__text flex row center">
-                                            <a href="#">Забули пароль?</a>
+                                        <div class="input__icon">
+                                            <input type="password" name="password" placeholder="Повторіть пароль">
+                                            <img src="../images/hide.svg" alt="Show Password">
                                         </div>
                                     </div>
                                     <div class="form__item">
+                                        <button type="submit" class="button primary fill">Зареєструватися</button>
+                                    </div>
+                                    <div class="form__item">
                                         <div class="form__text flex row g-5 center">
-                                            <span>Уперше на MovieParty?</span>
-                                            <a href="#">Зареєструватися</a>
+                                            <span>Вже зареєстровані?</span>
+                                            <a href="#">Увійти</a>
                                         </div>
                                     </div>
                                 </div>
