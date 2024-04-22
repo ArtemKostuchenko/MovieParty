@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
-import { redirect, useNavigate } from "react-router-dom";
+import { redirect, useNavigate, Link } from "react-router-dom";
 import baseAxios from "../../features/fetch/axios";
 
 export const loader = async () => {
@@ -118,7 +118,7 @@ const LoginPage = () => {
                       <div className="form__item">
                         <div className="form__text flex row g-5 center">
                           <span>Уперше на MovieParty?</span>
-                          <a href="#">Зареєструватися</a>
+                          <Link to="/register">Зареєструватися</Link>
                         </div>
                       </div>
                     </div>

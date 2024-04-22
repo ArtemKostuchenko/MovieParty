@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const {
@@ -117,7 +117,7 @@ const RegisterPage = () => {
                       <div className="form__item">
                         <div className="form__text flex row g-5 center">
                           <span>Вже зареєстровані?</span>
-                          <a href="#">Увійти</a>
+                          <Link to="/login">Увійти</Link>
                         </div>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LayoutPage, HomePage, LoginPage, RegisterPage } from "./pages";
-import { loader as loginPageLoader } from "./pages/login/LoginPage";
+import { loader as loginRegisterPageLoader } from "./pages/login/LoginPage";
 
 const router = createBrowserRouter([
   {
@@ -14,11 +14,12 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        loader: loginPageLoader,
+        loader: loginRegisterPageLoader,
         element: <LoginPage />,
       },
       {
         path: "register",
+        loader: loginRegisterPageLoader,
         element: <RegisterPage />,
       },
     ],
