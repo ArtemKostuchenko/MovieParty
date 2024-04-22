@@ -129,6 +129,14 @@
   color: var(--text-color);
 }
 
+.error__message {
+  padding: 5px 5px;
+  display: block;
+  font-family: var(--font-additional);
+  color: var(--danger-color);
+  font-size: 15px;
+}
+
 @media screen and (max-width: 500px) {
   .grid__background img {
     height: 700px;
@@ -152,6 +160,9 @@
   .form__text {
     font-size: calc(15px + 2.8 * ((100vw - 320px) / 1440));
   }
+  .error__message {
+    font-size: calc(13px + 2.8 * ((100vw - 320px) / 1440));
+  }
 }
 
 @media (min-width: 767px) {
@@ -167,5 +178,8 @@
   }
   .form__text {
     font-size: calc(15px + 2.8 * (100vw / 1440));
+  }
+  .error__message {
+    font-size: calc(13px + 2 * (100vw / 1440));
   }
 }
