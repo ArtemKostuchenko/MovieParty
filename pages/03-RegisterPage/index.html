@@ -1,108 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RegisterPage</title>
     <link rel="stylesheet" href="./css/style.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <div class="grid__main">
-            <div class="grid__header">
-                <div class="wrapper">
-                    <header class="header">
-                        <div class="header__logo logo">
-                            <img src="../images/logo.svg" alt="MovieParty" />
-                        </div>
-                        <div class="header__login">
-                            <button class="button primary">Увійти</button>
-                        </div>
-                    </header>
-                </div>
-            </div>
-            <div class="grid__form">
-                <div class="container full">
-                    <div class="wrapper flex center">
-                        <div class="login__form">
-                            <form class="form">
-                                <div class="form__title">Реєстрація</div>
-                                <div class="form__description">Вітаємо на нашому веб-сервісі</div>
-                                <div class="form__items">
-                                    <div class="form__item">
-                                        <input type="email" class="input" name="email" placeholder="Електронна пошта" />
-                                    </div>
-                                    <div class="form__item">
-                                        <input type="email" class="input" name="nickname" placeholder="Нікнейм" />
-                                    </div>
-                                    <div class="form__item">
-                                        <div class="input__icon">
-                                            <input type="password" name="password" placeholder="Пароль">
-                                            <img src="../images/hide.svg" alt="Show Password">
-                                        </div>
-                                    </div>
-                                    <div class="form__item">
-                                        <div class="input__icon">
-                                            <input type="password" name="password" placeholder="Повторіть пароль">
-                                            <img src="../images/hide.svg" alt="Show Password">
-                                        </div>
-                                    </div>
-                                    <div class="form__item">
-                                        <button type="submit" class="button primary fill">Зареєструватися</button>
-                                    </div>
-                                    <div class="form__item">
-                                        <div class="form__text flex row g-5 center">
-                                            <span>Вже зареєстровані?</span>
-                                            <a href="#">Увійти</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid__background">
-                <img src="../images/main-background.png" alt="MainImage">
-            </div>
+      <div class="grid__main">
+        <div class="grid__header">
+          <div class="wrapper">
+            <header class="header">
+              <div class="header__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <div class="header__login">
+                <button class="button primary">Увійти</button>
+              </div>
+            </header>
+          </div>
         </div>
+        <div class="grid__form">
+          <div class="container full">
+            <div class="wrapper flex center">
+              <div class="login__form">
+                <form class="form">
+                  <div class="form__title">Реєстрація</div>
+                  <div class="form__description">
+                    Вітаємо на нашому веб-сервісі
+                  </div>
+                  <div class="form__items">
+                    <div class="form__item">
+                      <input
+                        type="email"
+                        class="input"
+                        name="email"
+                        placeholder="Електронна пошта"
+                      />
+                    </div>
+                    <div class="form__item">
+                      <input
+                        type="email"
+                        class="input"
+                        name="nickname"
+                        placeholder="Нікнейм"
+                      />
+                    </div>
+                    <div class="form__item">
+                      <div class="input__icon">
+                        <input
+                          type="password"
+                          name="password"
+                          placeholder="Пароль"
+                        />
+                        <div class="icon eye hidden"></div>
+                      </div>
+                    </div>
+                    <div class="form__item">
+                      <div class="input__icon">
+                        <input
+                          type="password"
+                          name="password"
+                          placeholder="Повторіть пароль"
+                        />
+                        <div class="icon eye hidden"></div>
+                      </div>
+                    </div>
+                    <div class="form__item">
+                      <button type="submit" class="button primary fill">
+                        Зареєструватися
+                      </button>
+                    </div>
+                    <div class="form__item">
+                      <div class="form__text flex row g-5 center">
+                        <span>Вже зареєстровані?</span>
+                        <a href="#">Увійти</a>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid__background">
+          <img src="../images/main-background.png" alt="MainImage" />
+        </div>
+      </div>
     </div>
     <div class="splitter"></div>
     <div class="container">
-        <div class="wrapper">
-            <footer class="footer">
-                <div class="footer__items">
-                    <div class="footer__item">
-                        <div class="footer__logo logo">
-                            <img src="../images/logo.svg" alt="MovieParty">
-                        </div>
-                        <p class="footer__devis">Насолоджуйтеся вашим улюбленим контентом без обмежень!
-                        </p>
-                    </div>
-                    <div class="footer__item">
-                        <h3 class="footer__title">Контакти</h3>
-                        <div class="contacts__items">
-                            <div class="contacts__item">
-                                <div class="contact__icon">
-                                    <img src="../images/phone.svg" alt="Телефон">
-                                </div>
-                                <div class="contact__title">(380) 687802095</div>
-                            </div>
-                            <div class="contacts__item">
-                                <div class="contact__icon">
-                                    <img src="../images/email.svg" alt="Пошта">
-                                </div>
-                                <div class="contact__title">moviepartyteam@gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
-                   
+      <div class="wrapper">
+        <footer class="footer">
+          <div class="footer__items">
+            <div class="footer__item">
+              <div class="footer__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <p class="footer__devis">
+                Насолоджуйтеся вашим улюбленим контентом без обмежень!
+              </p>
+            </div>
+            <div class="footer__item">
+              <h3 class="footer__title">Контакти</h3>
+              <div class="contacts__items">
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon phone"></div>
+                  </div>
+                  <div class="contact__title">(380) 687802095</div>
                 </div>
-                <div class="footer__copyright">© All rights reserved, 2024</div>
-            </footer>
-        </div>
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon email"></div>
+                  </div>
+                  <div class="contact__title">moviepartyteam@gmail.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer__copyright">© All rights reserved, 2024</div>
+        </footer>
+      </div>
     </div>
-</body>
+  </body>
 </html>

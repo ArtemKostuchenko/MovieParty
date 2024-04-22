@@ -1,8 +1,13 @@
 @import url("./null.css");
+@import url("./icons.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 /* variables */
 :root {
   --main-color: #011627;
+  --success-color: #9bc53d;
+  --danger-color: #e3170a;
   --alternative-color: #fac014;
   --additional-color: #0072bb;
   --additional-color-1: #363636;
@@ -47,12 +52,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* fonts */
-
-@font-face {
-  font-family: "Nunito Sans";
-  src: local(var(--font-main-path)) format("ttf")
-    url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
-}
 
 @font-face {
   font-family: "Mulish";
@@ -277,15 +276,24 @@ input {
 /* button */
 
 .button {
+  max-height: 45px;
+  min-height: 35px;
   display: inline-block;
-  padding: 10px 20px;
+  padding: 7px 20px;
   border-radius: 4px;
   background-color: var(--alternative-color);
   color: var(--main-color);
   font-family: var(--font-main);
   font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
   border: 1px solid transparent;
-  transition: all 400ms;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+    border 0.2s ease-in-out;
 }
 
 .button.primary {
@@ -295,6 +303,11 @@ input {
 
 .button.additional {
   background-color: var(--additional-color);
+  color: var(--text-color);
+}
+
+.button.transparent {
+  background-color: transparent;
   color: var(--text-color);
 }
 
@@ -313,10 +326,16 @@ input {
   border: 1px solid var(--alternative-color);
 }
 
-.button.button.additional:hover {
+.button.additional:hover {
   background-color: transparent;
   color: var(--additional-color);
   border: 1px solid var(--additional-color);
+}
+
+.button.transparent:hover {
+  background-color: var(--additional-color);
+  color: var(--text-color);
+  border: 1px solid transparent;
 }
 
 .button:hover {
@@ -327,11 +346,6 @@ input {
 
 .button.fill {
   width: 100%;
-}
-
-.button.f {
-  display: inline-flex;
-  align-items: center;
 }
 
 .button.gray {
@@ -348,11 +362,41 @@ input {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: var(--text-color);
+}
+.button.icon.transparent .icon {
+  background-color: var(--text-color);
+}
+.button.icon.i {
+  padding: 0;
+}
+.button.icon.t {
+  background-color: transparent;
+}
+.button.icon.t:hover {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+.button.icon.t:hover > div {
 }
 
-.button.icon img {
-  height: 24px;
+.button.icon.gray .icon {
+  background-color: transparent;
+}
+
+.button.icon.gray:hover .icon {
+  background-color: transparent;
+}
+
+.button.icon.g8 {
+  gap: 8px;
+}
+
+.button.icon > div {
+  background-color: var(--main-color);
+}
+
+.button.icon:hover > div {
+  background-color: var(--alternative-color);
 }
 
 /* splitter */
@@ -855,7 +899,7 @@ svg {
 
 @media screen and (max-width: 715px) {
   .overflow-content {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -900,7 +944,7 @@ svg {
 
 @media (max-width: 767px) {
   .logo img {
-    height: calc(18px + 16.8 * ((100vw - 320px) / 1440));
+    height: calc(18px + 14 * ((100vw - 320px) / 1440));
   }
   .button,
   .dropdown__title,
@@ -927,11 +971,15 @@ svg {
   .pagination__item {
     font-size: calc(16px + 5.6 * ((100vw - 320px) / 1440));
   }
+  .button.icon > div {
+    width: calc(24px + 8.4 * ((100vw - 320px) / 1440));
+    height: calc(24px + 8.4 * ((100vw - 320px) / 1440));
+  }
 }
 
 @media (min-width: 767px) {
   .logo img {
-    height: calc(18px + 12 * (100vw / 1440));
+    height: calc(18px + 10 * (100vw / 1440));
   }
   .button,
   .dropdown__title,
@@ -956,5 +1004,9 @@ svg {
   }
   .pagination__item {
     font-size: calc(16px + 4 * (100vw / 1440));
+  }
+  .button.icon > div {
+    width: calc(24px + 6 * (100vw / 1440));
+    height: calc(24px + 6 * (100vw / 1440));
   }
 }

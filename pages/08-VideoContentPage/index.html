@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VideoContentPage</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid">
+        <div class="grid__header">
+          <div class="wrapper">
+            <header class="header">
+              <div class="header__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <div class="header__menu">
+                <div class="menu">
+                  <ul class="menu__items">
+                    <li class="menu__item">
+                      <a href="#">
+                        <svg
+                          class="menu__icon selections"
+                          viewBox="0 0 22 20"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M18.2917 0.625H3.7084L0.583405 6.875L11.0001 19.375L21.4167 6.875L18.2917 0.625ZM8.52091 5.83333L10.0834 2.70833H11.9167L13.4792 5.83333H8.52091ZM9.95841 7.91667V14.875L4.16674 7.91667H9.95841ZM12.0417 7.91667H17.8334L12.0417 14.875V7.91667ZM18.5626 5.83333H15.8022L14.2397 2.70833H17.0001L18.5626 5.83333ZM5.00007 2.70833H7.76049L6.19799 5.83333H3.43757L5.00007 2.70833Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+
+                        <h5 class="menu__title">Підбірки</h5>
+                      </a>
+                    </li>
+                    <li class="menu__item">
+                      <a href="#">
+                        <svg
+                          class="menu__icon favorite"
+                          width="23"
+                          height="18"
+                          viewBox="0 0 23 18"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17.5001 14V11H14.5001V9H17.5001V6H19.5001V9H22.5001V11H19.5001V14H17.5001ZM10.5001 18L7.32506 15.15C6.12506 14.0667 5.09606 13.1 4.23806 12.25C3.37939 11.4 2.67106 10.6 2.11306 9.85C1.55439 9.1 1.14606 8.375 0.888061 7.675C0.629394 6.975 0.500061 6.24167 0.500061 5.475C0.500061 3.90833 1.02506 2.604 2.07506 1.562C3.12506 0.520666 4.43339 0 6.00006 0C6.86673 0 7.69173 0.179 8.47506 0.537C9.2584 0.895667 9.93339 1.40833 10.5001 2.075C11.0667 1.40833 11.7417 0.895667 12.5251 0.537C13.3084 0.179 14.1334 0 15.0001 0C16.4167 0 17.6041 0.429 18.5621 1.287C19.5207 2.14567 20.1167 3.15 20.3501 4.3C20.0501 4.18333 19.7501 4.09567 19.4501 4.037C19.1501 3.979 18.8584 3.95 18.5751 3.95C16.8917 3.95 15.4584 4.53733 14.2751 5.712C13.0917 6.88733 12.5001 8.31667 12.5001 10C12.5001 10.8667 12.6751 11.6873 13.0251 12.462C13.3751 13.2373 13.8667 13.9 14.5001 14.45C14.1834 14.7333 13.7707 15.096 13.2621 15.538C12.7541 15.9793 12.3167 16.3667 11.9501 16.7L10.5001 18Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <h5 class="menu__title">Збережене</h5>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="header__search">
+                <div class="search">
+                  <div class="icon find"></div>
+                  <div class="search__input">
+                    <label for="search"
+                      ><span>Пошук</span>
+                      <span class="search__input-query"
+                        >фільмів, серіалів тощо...</span
+                      ></label
+                    >
+                    <input type="text" class="search__input" name="search" />
+                  </div>
+                </div>
+              </div>
+              <div class="header__profile">
+                <div class="profile">
+                  <div class="profile__row avatar">
+                    <img
+                      src="../images/avatar.png"
+                      alt="Qwerty"
+                      class="profile__avatar"
+                    />
+                    <h2 class="profile__name">Qwerty</h2>
+                  </div>
+                  <div class="profile__menu"></div>
+                </div>
+              </div>
+              <button class="menu-burger">
+                <div class="icon menu-burger"></div>
+              </button>
+            </header>
+          </div>
+        </div>
+        <div class="grid__content">
+          <div class="video-content">
+            <div class="video-content__image">
+              <div class="filter"></div>
+              <div class="image">
+                <img
+                  src="./images/video-content.png"
+                  alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
+                />
+              </div>
+            </div>
+            <div class="video-content__content">
+              <div class="video-content__info wrapper">
+                <div class="video-content__card">
+                  <div class="video-content__card-image">
+                    <img
+                      src="./images/card.jpg"
+                      alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
+                    />
+                  </div>
+                  <div class="video-content__card-actions">
+                    <button class="button icon fill g8">
+                      <div class="icon watch"></div>
+                      Дивитися
+                    </button>
+                    <button class="button fill">Створити кімнату</button>
+                    <button class="button transparent icon fill g8">
+                      <div class="icon favorite"></div>
+                      В збережене
+                    </button>
+                  </div>
+                </div>
+                <div class="video-content__details">
+                  <div class="video-content__title-container">
+                    <div class="video-content__titles">
+                      <div class="video-content__title">
+                        Зоряні війни: Епізод IX -Скайвокер. Сходження
+                      </div>
+                      <div class="video-content__original-title">
+                        Star Wars: Episode IX - The Rise of Skywalker
+                      </div>
+                    </div>
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">6.4</p>
+                    </div>
+                  </div>
+                  <div class="video-content__rating">
+                    <div class="rating">
+                      <div class="rating__items">
+                        <div class="rating__item">
+                          <div class="icon star"></div>
+                        </div>
+                        <div class="rating__item">
+                          <div class="icon star"></div>
+                        </div>
+                        <div class="rating__item">
+                          <div class="icon star"></div>
+                        </div>
+                        <div class="rating__item">
+                          <div class="icon star"></div>
+                        </div>
+                        <div class="rating__item">
+                          <div class="icon star outline"></div>
+                        </div>
+                      </div>
+                      <div class="rating__point">4.0</div>
+                      <div class="rating__votes">
+                        <div class="icon group-users"></div>
+                        <div class="rating__votes-amount">22 голосів</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="video-content__information">
+                    <div class="video-content__information-item">
+                      <div class="video-content__information-title">
+                        Країна:
+                      </div>
+                      <div class="video-content__information-content">
+                        <div class="video-content__information-text">CША</div>
+                      </div>
+                    </div>
+                    <div class="video-content__information-item">
+                      <div class="video-content__information-title">
+                        Тривалість:
+                      </div>
+                      <div class="video-content__information-content">
+                        <div class="video-content__information-text">
+                          2 год 21 хв
+                        </div>
+                      </div>
+                    </div>
+                    <div class="video-content__information-item">
+                      <div class="video-content__information-title">
+                        Дата релізу:
+                      </div>
+                      <div class="video-content__information-content">
+                        <div class="video-content__information-text">
+                          18 грудня 2019 рік
+                        </div>
+                      </div>
+                    </div>
+                    <div class="video-content__information-item start genres">
+                      <div class="video-content__information-title">Жанр:</div>
+                      <div class="video-content__information-content">
+                        <div class="link__items">
+                          <a href="#" class="link outlined">Пригоди</a>
+                          <a href="#" class="link outlined">Фентезі</a>
+                          <a href="#" class="link outlined">Екшен</a>
+                          <a href="#" class="link outlined">Бойовик</a>
+                          <a href="#" class="link outlined">Фантастика</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="video-content__information-item start v-lists">
+                      <div class="video-content__information-title">
+                        Входить до:
+                      </div>
+                      <div class="video-content__information-content">
+                        <div class="link__items col">
+                          <a href="#" class="link">
+                            <div class="lists">
+                              <div class="lists__name">
+                                Найкращі серіали в жанрі спорт
+                              </div>
+                              <div class="lists__place">(11 місце)</div>
+                            </div>
+                          </a>
+                          <a href="#" class="link">
+                            <div class="lists">
+                              <div class="lists__name">
+                                Найкращі фільми в жанрі фантастика 2019
+                              </div>
+                              <div class="lists__place">(15 місце)</div>
+                            </div>
+                          </a>
+                          <a href="#" class="link">
+                            <div class="lists">
+                              <div class="lists__name">
+                                Найкращі фільми в жанрі фентезі 2019
+                              </div>
+                              <div class="lists__place">(20 місце)</div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="video-content__description">
+          У цьому епічному завершенні саги про Скайуокера вцілілі члени Опору на
+          чолі з генералом Леєю Органою (Керрі Фішер) стикаються зі своїм
+          найбільшим викликом. Готуючись до фінальної сутички зі зловісним
+          Першим Орденом, Рей (Дейзі Рідлі) продовжує свою подорож, щоб
+          дізнатися правду про своє минуле і свій зв'язок з Силою. Разом зі
+          своїми друзями Фінном (Джон Бойєга), По Деймероном (Оскар Айзек) і
+          Чубаккою (Юнас Суотамо) Рей подорожує галактикою в пошуках відповідей,
+          зустрічаючи на своєму шляху нових і старих ворогів. Тим часом
+          зловісний Кайло Рен (Адам Драйвер) продовжує спокушати Рей приєднатися
+          до нього на темній стороні, оскільки він прагне отримати абсолютну
+          владу і контроль. У міру того, як битва між Опором і Першим Орденом
+          загострюється, старі і нові герої повинні об'єднатися, щоб боротися за
+          майбутнє галактики. Захоплюючий екшн, зворушливі моменти та
+          приголомшлива розв'язка роблять "Зоряні Війни: Скайвокер. Сходження"
+          обов'язковим до перегляду для шанувальників культової космічної опери.
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="people__content">
+          <div class="people">
+            <div class="people__title">Режисери:</div>
+            <div class="people__items">
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/director.webp" alt="Джордж Лукас" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Джордж Лукас</div>
+                    <div class="person__original-fullname">George Lucas</div>
+                    <div class="person__age">79 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Модесто, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/director.webp" alt="Джордж Лукас" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Джордж Лукас</div>
+                    <div class="person__original-fullname">George Lucas</div>
+                    <div class="person__age">79 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Модесто, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/director.webp" alt="Джордж Лукас" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Джордж Лукас</div>
+                    <div class="person__original-fullname">George Lucas</div>
+                    <div class="person__age">79 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Модесто, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/director.webp" alt="Джордж Лукас" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Джордж Лукас</div>
+                    <div class="person__original-fullname">George Lucas</div>
+                    <div class="person__age">79 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Модесто, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="people">
+            <div class="people__title">Актори:</div>
+            <div class="people__items">
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="person__item">
+                <div class="person">
+                  <div class="person__photo">
+                    <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  </div>
+                  <div class="person__info">
+                    <div class="person__fullname">Керрі Фішшер</div>
+                    <div class="person__original-fullname">Carrie Fisher</div>
+                    <div class="person__age">60 років</div>
+                    <div class="person__location">
+                      <div class="person__location-icon">
+                        <div class="icon location"></div>
+                      </div>
+                      Лос-Анджелес, Каліфорнія, США
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="people__more">
+              <button class="button icon g8">
+                <div class="icon add"></div>
+                Показати більше
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="parts">
+          <div class="parts__title">Зоряні війни - всі частини</div>
+          <div class="overflow-content">
+            <div class="parts__items">
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background.jpg"
+                    alt="Зоряні війни: Епізод IV - Нова надія"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">01</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод IV - Нова надія
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1977</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.6</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-1.jpg"
+                    alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">02</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод V - Імперія завдає удару у відповідь
+                  </div>
+                  <div class="part__item-release-date">20 Травня 1980</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.7</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-2.jpg"
+                    alt="Зоряні війни: Епізод VI - Повернення джедая"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">03</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод VI - Повернення джедая
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1983</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.3</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background.jpg"
+                    alt="Зоряні війни: Епізод IV - Нова надія"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">01</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод IV - Нова надія
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1977</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.6</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-1.jpg"
+                    alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">02</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод V - Імперія завдає удару у відповідь
+                  </div>
+                  <div class="part__item-release-date">20 Травня 1980</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.7</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-2.jpg"
+                    alt="Зоряні війни: Епізод VI - Повернення джедая"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">03</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод VI - Повернення джедая
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1983</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.3</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background.jpg"
+                    alt="Зоряні війни: Епізод IV - Нова надія"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">01</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод IV - Нова надія
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1977</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.6</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-1.jpg"
+                    alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">02</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод V - Імперія завдає удару у відповідь
+                  </div>
+                  <div class="part__item-release-date">20 Травня 1980</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.7</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="part__item">
+                <div class="part__item-filter"></div>
+                <div class="part__item-background">
+                  <img
+                    src="./images/background-2.jpg"
+                    alt="Зоряні війни: Епізод VI - Повернення джедая"
+                  />
+                </div>
+                <div class="part__item-content">
+                  <div class="part__item-number">03</div>
+                  <div class="part__item-title">
+                    Зоряні війни: Епізод VI - Повернення джедая
+                  </div>
+                  <div class="part__item-release-date">25 Травня 1983</div>
+                  <div class="part__item-imdb">
+                    <div class="IMDB">
+                      <div class="icon imdb"></div>
+                      <p class="IMDB__rating">8.3</p>
+                    </div>
+                  </div>
+                  <div class="part__item-finished">
+                    <div class="icon success"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="reviews">
+          <div class="reviews__title">Відгуки (2)</div>
+          <div class="reviews__container">
+            <div class="review__owner">
+              <div class="review__profile">
+                <img
+                  src="../images/avatar.png"
+                  alt="Qwerty"
+                  class="profile__avatar"
+                />
+                <h2 class="profile__name">Qwerty</h2>
+              </div>
+            </div>
+            <div class="reviews__form">
+              <textarea
+                name="review"
+                id="review"
+                placeholder="Ваш відгук"
+              ></textarea>
+              <button class="button">Додати відгук</button>
+            </div>
+          </div>
+          <div class="reviews__items">
+            <div class="reviews__item">
+              <div class="review owner">
+                <div class="review__owner">
+                  <div class="review__profile">
+                    <img
+                      src="../images/avatar.png"
+                      alt="Qwerty"
+                      class="profile__avatar"
+                    />
+                    <h2 class="profile__name">Qwerty</h2>
+                  </div>
+                  <span class="review__splitter circle"></span>
+                  <div class="review__date">2 роки тому</div>
+                </div>
+                <div class="review__comment">
+                  Є фільми які були надзвичайно популярні у свій час і за
+                  рахунок своєї популярності знімалися інші частини але вони не
+                  несуть вже цінності так як використовують успіх попередніх
+                  частини. Ось це саме той випадок.
+                </div>
+                <div class="review__rating">
+                  <div class="review__likes">
+                    <button class="button icon i t">
+                      <div class="icon like"></div>
+                    </button>
+                    <div class="review__rating-count">4</div>
+                  </div>
+                  <div class="review__dislikes">
+                    <button class="button icon i t">
+                      <div class="icon dislike"></div>
+                    </button>
+                    <div class="review__rating-count">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reviews__item">
+              <div class="review">
+                <div class="review__owner">
+                  <div class="review__profile">
+                    <img
+                      src="./images/profile-2.png"
+                      alt="3amec"
+                      class="profile__avatar"
+                    />
+                    <h2 class="profile__name">3amec</h2>
+                  </div>
+                  <span class="review__splitter circle"></span>
+                  <div class="review__date">2 роки тому</div>
+                </div>
+                <div class="review__comment">
+                  Генерал Хакс-принципово один з найкращих персонажів із гарною
+                  мотивацією. Все, що нам показали- як він став шпигуном та як
+                  його по тупому викрили. Я вже мовчу про те, що він в 7 епізоді
+                  вбив понад 155 мільярдів людей, а в цьому він-шпигун руху
+                  опору. Це називається викинути персонажа на смітник.
+                </div>
+                <div class="review__rating">
+                  <div class="review__likes">
+                    <button class="button icon i t">
+                      <div class="icon like"></div>
+                    </button>
+                    <div class="review__rating-count">2</div>
+                  </div>
+                  <div class="review__dislikes">
+                    <button class="button icon i t">
+                      <div class="icon dislike"></div>
+                    </button>
+                    <div class="review__rating-count">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="container">
+      <div class="wrapper">
+        <footer class="footer">
+          <div class="footer__items">
+            <div class="footer__item">
+              <div class="footer__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <p class="footer__devis">
+                Насолоджуйтеся вашим улюбленим контентом без обмежень!
+              </p>
+            </div>
+            <div class="footer__item">
+              <h3 class="footer__title">Контакти</h3>
+              <div class="contacts__items">
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon phone"></div>
+                  </div>
+                  <div class="contact__title">(380) 687802095</div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon email"></div>
+                  </div>
+                  <div class="contact__title">moviepartyteam@gmail.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer__copyright">© All rights reserved, 2024</div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
