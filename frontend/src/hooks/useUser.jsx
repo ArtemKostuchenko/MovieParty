@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/store/slices/user";
+import { login, register } from "../features/store/slices/user";
 
 const useUser = () => {
   const { isLoading, user, isError, error } = useSelector(
@@ -12,12 +12,17 @@ const useUser = () => {
     dispatch(login({ email, password }));
   };
 
+  const registerUser = (email, nickname, password) => {
+    dispatch(register({ email, nickname, password }));
+  };
+
   return {
     isLoading,
     user,
     isError,
     error,
     loginUser,
+    registerUser,
     isAuth: !isLoading && user,
   };
 };

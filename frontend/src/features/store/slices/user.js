@@ -20,6 +20,22 @@ export const login = createAsyncThunk(
   }
 );
 
+export const register = createAsyncThunk(
+  "user/register",
+  async ({ email, nickname, password }, ThunkAPI) => {
+    try {
+      const resp = await baseAxios.post("/auth/register", {
+        email,
+        nickname,
+        password,
+      });
+      return resp.data;
+    } catch (err) {
+      return ThunkAPI.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -40,6 +56,21 @@ const userSlice = createSlice({
         state.user = action.payload.user;
       })
       .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      });
+    builder
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+      })
+      .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
