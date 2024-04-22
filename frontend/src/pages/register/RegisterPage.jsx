@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useUser from "../../hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const {
@@ -15,8 +17,18 @@ const RegisterPage = () => {
     resolver: yupResolver(RegisterSchema),
   });
 
+  const { isLoading, error, isAuth, registerUser } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
+
   const onSubmitHandler = (data) => {
-    console.log(data);
+    const { email, nickname, password } = data;
+    registerUser(email, nickname, password);
   };
 
   return (
@@ -89,9 +101,18 @@ const RegisterPage = () => {
                         </span>
                       </div>
                       <div className="form__item">
-                        <button type="submit" className="button primary fill">
+                        <button
+                          type="submit"
+                          className="button primary fill"
+                          disabled={isLoading}
+                        >
                           Зареєструватися
                         </button>
+                        <span className="error__message center">
+                          {error
+                            ? "Неможливо зареєструватися, спробуйте знову"
+                            : ""}
+                        </span>
                       </div>
                       <div className="form__item">
                         <div className="form__text flex row g-5 center">

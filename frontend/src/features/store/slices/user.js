@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseAxios from "../../fetch/axios";
 
 const initialState = {
-  user: {},
+  user: null,
   isLoading: false,
   isError: false,
   error: null,

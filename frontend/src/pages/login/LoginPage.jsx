@@ -11,10 +11,7 @@ import baseAxios from "../../features/fetch/axios";
 export const loader = async () => {
   try {
     const resp = await baseAxios.get("/auth/me");
-    if (resp.ok) {
-      return redirect("/");
-    }
-    return null;
+    return redirect("/");
   } catch (err) {
     return null;
   }
