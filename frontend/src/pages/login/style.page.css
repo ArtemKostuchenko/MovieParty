@@ -129,17 +129,6 @@
   color: var(--text-color);
 }
 
-.error__message {
-  padding: 5px 5px;
-  display: block;
-  font-family: var(--font-additional);
-  color: var(--danger-color);
-  font-size: 15px;
-}
-.error__message.center {
-  text-align: center;
-}
-
 @media screen and (max-width: 500px) {
   .grid__background img {
     height: 700px;

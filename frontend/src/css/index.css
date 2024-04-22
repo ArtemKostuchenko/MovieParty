@@ -185,6 +185,17 @@ body::-webkit-scrollbar-thumb:hover {
   animation: spin 0.5s linear infinite;
 }
 
+.error__message {
+  padding: 5px 5px;
+  display: block;
+  font-family: var(--font-additional);
+  color: var(--danger-color);
+  font-size: 15px;
+}
+.error__message.center {
+  text-align: center;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

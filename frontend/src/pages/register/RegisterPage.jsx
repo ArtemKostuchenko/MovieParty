@@ -1,8 +1,24 @@
 import React from "react";
 import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
+import { useForm } from "react-hook-form";
+import { RegisterSchema } from "../../features/validations";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(RegisterSchema),
+  });
+
+  const onSubmitHandler = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <div className="container">
@@ -11,7 +27,10 @@ const RegisterPage = () => {
             <div className="container full">
               <div className="wrapper flex center">
                 <div className="login__form">
-                  <form className="form">
+                  <form
+                    className="form"
+                    onSubmit={handleSubmit(onSubmitHandler)}
+                  >
                     <div className="form__title">Реєстрація</div>
                     <div className="form__description">
                       Вітаємо на нашому веб-сервісі
@@ -19,39 +38,55 @@ const RegisterPage = () => {
                     <div className="form__items">
                       <div className="form__item">
                         <input
+                          {...register("email")}
                           type="email"
                           className="input"
-                          name="email"
                           placeholder="Електронна пошта"
+                          required
                         />
+                        <span className="error__message">
+                          {errors.email?.message}
+                        </span>
                       </div>
                       <div className="form__item">
                         <input
-                          type="email"
+                          {...register("nickname")}
+                          type="text"
                           className="input"
-                          name="nickname"
                           placeholder="Нікнейм"
+                          required
                         />
+                        <span className="error__message">
+                          {errors.nickname?.message}
+                        </span>
                       </div>
                       <div className="form__item">
                         <div className="input__icon">
                           <input
+                            {...register("password")}
                             type="password"
-                            name="password"
                             placeholder="Пароль"
+                            required
                           />
                           <div className="icon eye hidden"></div>
                         </div>
+                        <span className="error__message">
+                          {errors.password?.message}
+                        </span>
                       </div>
                       <div className="form__item">
                         <div className="input__icon">
                           <input
+                            {...register("password2")}
                             type="password"
-                            name="password"
                             placeholder="Повторіть пароль"
+                            required
                           />
                           <div className="icon eye hidden"></div>
                         </div>
+                        <span className="error__message">
+                          {errors.password2?.message}
+                        </span>
                       </div>
                       <div className="form__item">
                         <button type="submit" className="button primary fill">
