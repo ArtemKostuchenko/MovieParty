@@ -58,3 +58,64 @@ body::-webkit-scrollbar-thumb:hover {
   src: local(var(--font-additional-path)) format("ttf")
     url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
 }
+
+/* shared classes */
+
+.container {
+  width: 100%;
+}
+
+.container.full {
+  height: 100%;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.h40 {
+  height: 40px;
+}
+
+.overflow-content {
+  overflow-x: auto;
+}
+
+.overflow-content::-webkit-scrollbar {
+  height: 5px;
+}
+
+.overflow-content::-webkit-scrollbar-track {
+  background-color: rgb(250, 192, 20, 35%);
+  border-radius: 10px;
+}
+
+.overflow-content::-webkit-scrollbar-thumb {
+  background-color: var(--alternative-color);
+  border-radius: 10px;
+}
+
+.overflow-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(250, 192, 20, 80%);
+}
+
+/* wrapper */
+
+.wrapper {
+  padding: 0 var(--horizontal-wrapper-padding);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.wrapper.fill {
+  background-color: var(--main-color);
+}
+
+.wrapper.max-height {
+  height: 100%;
+}
+
+.wrapper.small {
+  max-width: 880px;
+  margin: 0 auto;
+}

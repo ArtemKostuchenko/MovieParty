@@ -15,7 +15,7 @@
   width: 257px;
   background-size: 100%;
   background-position: 50% 50%;
-  background: url("../images/icons/logo.svg");
+  background: url("../assets/icons/logo.svg");
 }
 
 .icon.imdb {
@@ -23,35 +23,35 @@
   width: 52px;
   background-size: 100%;
   background-position: 40% 40%;
-  background: url("../images/icons/IMDb.svg");
+  background: url("../assets/icons/IMDb.svg");
 }
 
 .icon.menu-burger {
   width: 35px;
   height: 35px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/menu-burger.svg");
+  mask-image: url("../assets/icons/menu-burger.svg");
 }
 
 .icon.location {
   width: 20px;
   height: 20px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/location.svg");
+  mask-image: url("../assets/icons/location.svg");
 }
 
 .icon.phone {
   width: 28px;
   height: 28px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/phone.svg");
+  mask-image: url("../assets/icons/phone.svg");
 }
 
 .icon.email {
   width: 24px;
   height: 34px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/email.svg");
+  mask-image: url("../assets/icons/email.svg");
 }
 .icon.arrow {
   width: 20px;
@@ -59,17 +59,17 @@
   background-color: var(--text-color);
 }
 .icon.arrow.left {
-  mask-image: url("../images/icons/arrow-left.svg");
+  mask-image: url("../assets/icons/arrow-left.svg");
 }
 
 .icon.arrow.right {
-  mask-image: url("../images/icons/arrow-right.svg");
+  mask-image: url("../assets/icons/arrow-right.svg");
 }
 
 .icon.add {
   width: 24px;
   height: 24px;
-  mask-image: url("../images/icons/add.svg");
+  mask-image: url("../assets/icons/add.svg");
 }
 
 .icon.watch {
@@ -77,86 +77,86 @@
   min-width: 16px;
   max-height: 19px;
   min-height: 19px;
-  mask-image: url("../images/icons/watch.svg");
+  mask-image: url("../assets/icons/watch.svg");
 }
 
 .icon.favorite {
   width: 14px;
   height: 17px;
-  mask-image: url("../images/icons/favorite.svg");
+  mask-image: url("../assets/icons/favorite.svg");
 }
 
 .icon.success {
   width: 24px;
   height: 24px;
   background-color: var(--success-color);
-  mask-image: url("../images/icons/success.svg");
+  mask-image: url("../assets/icons/success.svg");
 }
 
 .icon.like {
   width: 24px;
   height: 24px;
   background-color: var(--success-color);
-  mask-image: url("../images/icons/like.svg");
+  mask-image: url("../assets/icons/like.svg");
 }
 
 .icon.dislike {
   width: 24px;
   height: 24px;
   background-color: var(--danger-color);
-  mask-image: url("../images/icons/dislike.svg");
+  mask-image: url("../assets/icons/dislike.svg");
 }
 
 .icon.star {
   width: 20px;
   height: 20px;
   background-color: var(--alternative-color);
-  mask-image: url("../images/icons/star.svg");
+  mask-image: url("../assets/icons/star.svg");
 }
 
 .icon.star.outline {
-  mask-image: url("../images/icons/star-outline.svg");
+  mask-image: url("../assets/icons/star-outline.svg");
 }
 
 .icon.group-users {
   width: 24px;
   height: 24px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/group-users.svg");
+  mask-image: url("../assets/icons/group-users.svg");
 }
 
 .icon.find {
   width: 23px;
   height: 22px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/search.svg");
+  mask-image: url("../assets/icons/search.svg");
 }
 
 .icon.library {
   width: 38px;
   height: 38px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/library.svg");
+  mask-image: url("../assets/icons/library.svg");
 }
 
 .icon.convenient-use {
   width: 38px;
   height: 38px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/convenient-use.svg");
+  mask-image: url("../assets/icons/convenient-use.svg");
 }
 .icon.watch-together {
   width: 38px;
   height: 38px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/watch-together.svg");
+  mask-image: url("../assets/icons/watch-together.svg");
 }
 
 .icon.plus {
   width: 30px;
   height: 30px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/plus.svg");
+  mask-image: url("../assets/icons/plus.svg");
 }
 .icon.google {
   max-width: 22px;
@@ -165,13 +165,13 @@
   min-height: 22px;
   background-size: 100%;
   background-position: 40% 40%;
-  background: url("../images/icons/google.svg");
+  background: url("../assets/icons/google.svg");
 }
 .icon.eye.hidden {
   width: 28px;
   height: 28px;
   background-color: var(--text-color);
-  mask-image: url("../images/icons/hide.svg");
+  mask-image: url("../assets/icons/hide.svg");
 }
 
 /* responsive */
