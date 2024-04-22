@@ -3,14 +3,14 @@ import "./header.css";
 
 const Header = () => {
   return (
-    <div class="container hdr">
-      <div class="wrapper">
-        <header class="header">
-          <div class="header__logo logo">
-            <div class="icon logo"></div>
+    <div className="container hdr">
+      <div className="wrapper">
+        <header className="header">
+          <div className="header__logo logo">
+            <div className="icon logo"></div>
           </div>
-          <div class="header__login">
-            <button class="button primary">Увійти</button>
+          <div className="header__login">
+            <button className="button primary">Увійти</button>
           </div>
         </header>
       </div>
