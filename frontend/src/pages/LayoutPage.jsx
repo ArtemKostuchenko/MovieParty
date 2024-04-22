@@ -1,13 +1,22 @@
 import React from "react";
 import { Header, Footer } from "../components";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 
 const LayoutPage = () => {
+  const { state } = useNavigation();
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      {state === "loading" ? (
+        <div className="flex center">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </>
   );
 };

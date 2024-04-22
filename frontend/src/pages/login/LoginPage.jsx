@@ -5,6 +5,20 @@ import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
+import { redirect, useNavigate } from "react-router-dom";
+import baseAxios from "../../features/fetch/axios";
+
+export const loader = async () => {
+  try {
+    const resp = await baseAxios.get("/auth/me");
+    if (resp.ok) {
+      return redirect("/");
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+};
 
 const LoginPage = () => {
   const {
@@ -16,7 +30,14 @@ const LoginPage = () => {
     resolver: yupResolver(LoginSchema),
   });
 
-  const { isLoading, error, loginUser } = useUser();
+  const { isLoading, error, loginUser, isAuth } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
 
   const onSubmitHandler = (data) => {
     const { email, password } = data;
