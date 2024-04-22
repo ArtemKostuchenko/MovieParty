@@ -136,6 +136,9 @@
   color: var(--danger-color);
   font-size: 15px;
 }
+.error__message.center {
+  text-align: center;
+}
 
 @media screen and (max-width: 500px) {
   .grid__background img {

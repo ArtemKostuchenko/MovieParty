@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useUser from "../../hooks/useUser";
 
 const LoginPage = () => {
   const {
@@ -14,6 +15,13 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(LoginSchema),
   });
+
+  const { isLoading, error, loginUser } = useUser();
+
+  const onSubmitHandler = (data) => {
+    const { email, password } = data;
+    loginUser(email, password);
+  };
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">
@@ -51,6 +59,7 @@ const LoginPage = () => {
                             type="password"
                             placeholder="Пароль"
                             required
+                            autoComplete="true"
                           />
                           <div className="icon eye hidden"></div>
                         </div>
@@ -59,9 +68,18 @@ const LoginPage = () => {
                         </span>
                       </div>
                       <div className="form__item">
-                        <button type="submit" className="button primary fill">
+                        <button
+                          type="submit"
+                          className="button primary fill"
+                          disabled={isLoading}
+                        >
                           Увійти
                         </button>
+                        <span className="error__message center">
+                          {error
+                            ? "Неправильна електронна пошта або пароль"
+                            : ""}
+                        </span>
                       </div>
                       <div className="form__item">
                         <div className="form__text">
