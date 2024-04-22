@@ -62,6 +62,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* shared classes */
 
 .container {
+  position: relative;
   width: 100%;
 }
 
@@ -118,4 +119,34 @@ body::-webkit-scrollbar-thumb:hover {
 .wrapper.small {
   max-width: 880px;
   margin: 0 auto;
+}
+
+/* overlay */
+
+/* application */
+
+.app {
+  display: grid;
+  grid-template-rows: 80px 1fr auto;
+}
+
+.app > .hdr {
+  grid-row: 1 / 2;
+  z-index: 100;
+  grid-column: 1 / 2;
+}
+
+.app > .cnt-mn {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+
+.app > .overlay-cnt-mn {
+  grid-row: 1 / 3;
+  grid-column: 1 / 2;
+}
+
+.app > .ftr {
+  grid-row: 3 / 4;
+  grid-column: 1 / 2;
 }
