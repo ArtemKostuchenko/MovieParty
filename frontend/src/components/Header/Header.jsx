@@ -3,9 +3,14 @@ import "./header.css";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import Avatar from "../../assets/avatar.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/store/slices/user";
 
 const Header = () => {
   const { isAuth } = useUser();
+
+  const dispatch = useDispatch();
+
   return (
     <div className="container hdr">
       <div className="wrapper">
@@ -85,7 +90,12 @@ const Header = () => {
                 <div className="icon menu-burger"></div>
               </button>
               <div className="header__logout">
-                <button className="button primary">Вийти</button>
+                <button
+                  className="button primary"
+                  onClick={() => dispatch(logout())}
+                >
+                  Вийти
+                </button>
               </div>
             </>
           ) : (
