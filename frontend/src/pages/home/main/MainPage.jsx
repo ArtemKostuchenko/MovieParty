@@ -19,7 +19,6 @@ import { useGetVideoContentQuery } from "../../../features/services/content/cont
 const MainPage = () => {
   const { user } = useUser();
   const { data, isLoading } = useGetVideoContentQuery();
-  console.log(data);
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">

@@ -32,6 +32,10 @@ dotenv.config();
 
 const app = express();
 
+// static
+
+app.use("/api/v1/static/files", express.static(__dirname + "/files"));
+
 app.use(json());
 app.use(
   cors({
