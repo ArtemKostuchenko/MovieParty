@@ -3,10 +3,12 @@ import { Header, Footer } from "../components";
 import { Outlet, useNavigation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authUser } from "../features/store/slices/user";
+import useUser from "../hooks/useUser";
 
 const LayoutPage = () => {
   const { state } = useNavigation();
   const dispatch = useDispatch();
+  const { isLoading } = useUser();
 
   useEffect(() => {
     dispatch(authUser());
@@ -14,7 +16,7 @@ const LayoutPage = () => {
 
   return (
     <>
-      {state === "loading" ? (
+      {state === "loading" || isLoading ? (
         <div className="flex center">
           <div className="loader"></div>
         </div>
