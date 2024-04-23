@@ -12,6 +12,7 @@ import Preview7 from "../../../assets/preview-7.jpg";
 import Preview8 from "../../../assets/preview-8.jpg";
 import Preview9 from "../../../assets/preview-9.jpg";
 import useUser from "../../../hooks/useUser";
+import { DropDown, DropDownItem } from "../../../components";
 
 const MainPage = () => {
   const { user } = useUser();
@@ -236,35 +237,20 @@ const MainPage = () => {
               <div className="sort">
                 <div className="sort__items">
                   <div className="sort__item">
-                    <div className="dropdown">
-                      <div className="dropdown__selected">
-                        <div className="dropdown__title">🔥 За новизною</div>
-                        <div className="dropdown__icon">
-                          <svg
-                            width={14}
-                            height={9}
-                            viewBox="0 0 14 9"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0.938664 0.727821C1.32889 0.337597 1.96146 0.337252 2.35211 0.72705L6.29366 4.66002C6.68401 5.04952 7.31599 5.04952 7.70634 4.66002L11.6479 0.72705C12.0385 0.337253 12.6711 0.337597 13.0613 0.72782L13.2929 0.959377C13.6834 1.3499 13.6834 1.98307 13.2929 2.37359L7.70711 7.95938C7.31658 8.3499 6.68342 8.3499 6.29289 7.95938L0.707106 2.37359C0.316582 1.98307 0.316582 1.3499 0.707107 0.959377L0.938664 0.727821Z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="dropdown__list">
-                        <div className="dropdown__item selected">
-                          🔥 За новизною
-                        </div>
-                        <div className="dropdown__item">👀 За переглядами</div>
-                        <div className="dropdown__item">🏆 За рейтингом</div>
-                        <div className="dropdown__item">
-                          ⏰ Нещодавно додані
-                        </div>
-                      </div>
-                    </div>
+                    <DropDown>
+                      <DropDownItem selected value="new">
+                        🔥 За новизною
+                      </DropDownItem>
+                      <DropDownItem value="watch">
+                        👀 За переглядами
+                      </DropDownItem>
+                      <DropDownItem value="rating">
+                        🏆 За рейтингом
+                      </DropDownItem>
+                      <DropDownItem value="added">
+                        ⏰ Нещодавно додані
+                      </DropDownItem>
+                    </DropDown>
                   </div>
                   <div className="sort__item">
                     <div className="dropdown">
