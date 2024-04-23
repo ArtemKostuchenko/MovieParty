@@ -13,15 +13,13 @@ import Preview8 from "../../../assets/preview-8.jpg";
 import Preview9 from "../../../assets/preview-9.jpg";
 import useUser from "../../../hooks/useUser";
 import { DropDown, DropDownItem } from "../../../components";
+import VideoContentItems from "../../../components/VideoContentItems/VideoContentItems";
+import { useGetVideoContentQuery } from "../../../features/services/content/contentService";
 
 const MainPage = () => {
   const { user } = useUser();
-
-  console.log(isLoading);
-
-  if (!isLoading) {
-    console.log(data);
-  }
+  const { data, isLoading } = useGetVideoContentQuery();
+  console.log(data);
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">
@@ -260,299 +258,32 @@ const MainPage = () => {
                     </DropDown>
                   </div>
                   <div className="sort__item">
-                    <div className="dropdown">
-                      <div className="dropdown__selected">
-                        <div className="dropdown__title">Виберіть жанр</div>
-                        <div className="dropdown__icon">
-                          <svg
-                            width={14}
-                            height={9}
-                            viewBox="0 0 14 9"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0.938664 0.727821C1.32889 0.337597 1.96146 0.337252 2.35211 0.72705L6.29366 4.66002C6.68401 5.04952 7.31599 5.04952 7.70634 4.66002L11.6479 0.72705C12.0385 0.337253 12.6711 0.337597 13.0613 0.72782L13.2929 0.959377C13.6834 1.3499 13.6834 1.98307 13.2929 2.37359L7.70711 7.95938C7.31658 8.3499 6.68342 8.3499 6.29289 7.95938L0.707106 2.37359C0.316582 1.98307 0.316582 1.3499 0.707107 0.959377L0.938664 0.727821Z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="dropdown__list">
-                        <div className="dropdown__item">Фантастика</div>
-                        <div className="dropdown__item">Бойовик</div>
-                        <div className="dropdown__item">Драма</div>
-                      </div>
-                    </div>
+                    <DropDown>
+                      <DropDownItem selected>Виберіть жанр</DropDownItem>
+                      <DropDownItem value="fantasy">Фантастика</DropDownItem>
+                      <DropDownItem value="action">Бойовик</DropDownItem>
+                      <DropDownItem value="drama">Драма</DropDownItem>
+                    </DropDown>
                   </div>
                   <div className="sort__item">
-                    <div className="dropdown">
-                      <div className="dropdown__selected">
-                        <div className="dropdown__title">Виберіть рік</div>
-                        <div className="dropdown__icon">
-                          <svg
-                            width={14}
-                            height={9}
-                            viewBox="0 0 14 9"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0.938664 0.727821C1.32889 0.337597 1.96146 0.337252 2.35211 0.72705L6.29366 4.66002C6.68401 5.04952 7.31599 5.04952 7.70634 4.66002L11.6479 0.72705C12.0385 0.337253 12.6711 0.337597 13.0613 0.72782L13.2929 0.959377C13.6834 1.3499 13.6834 1.98307 13.2929 2.37359L7.70711 7.95938C7.31658 8.3499 6.68342 8.3499 6.29289 7.95938L0.707106 2.37359C0.316582 1.98307 0.316582 1.3499 0.707107 0.959377L0.938664 0.727821Z"
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="dropdown__list" />
-                    </div>
+                    <DropDown>
+                      <DropDownItem selected>Виберіть рік</DropDownItem>
+                      <DropDownItem value="2024">2024</DropDownItem>
+                      <DropDownItem value="2023">2023</DropDownItem>
+                      <DropDownItem value="2022">2022</DropDownItem>
+                      <DropDownItem value="2021">2021</DropDownItem>
+                      <DropDownItem value="2020">2020</DropDownItem>
+                    </DropDown>
                   </div>
                 </div>
               </div>
             </div>
             <div className="content__items">
-              <div className="video-content__items">
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview1} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод I - Прихована загроза
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview2} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 2 - Атака клонів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview3} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 3 - Помста Сітхів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview4} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 4 - Нова надія
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview5} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 5 - Імперія завдає удару у відповідь
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview6} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 6 - Повернення Джедая
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview1} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод I - Прихована загроза
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview2} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 2 - Атака клонів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview3} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 3 - Помста Сітхів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview4} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 4 - Нова надія
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview5} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 5 - Імперія завдає удару у відповідь
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview6} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 6 - Повернення Джедая
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview1} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод I - Прихована загроза
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview2} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 2 - Атака клонів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview3} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 3 - Помста Сітхів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview4} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 4 - Нова надія
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview5} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 5 - Імперія завдає удару у відповідь
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview6} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 6 - Повернення Джедая
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview1} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод I - Прихована загроза
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview2} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 2 - Атака клонів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview3} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 3 - Помста Сітхів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview4} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 4 - Нова надія
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview5} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 5 - Імперія завдає удару у відповідь
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview6} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 6 - Повернення Джедая
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview1} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод I - Прихована загроза
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview2} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 2 - Атака клонів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview3} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 3 - Помста Сітхів
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview4} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 4 - Нова надія
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview5} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 5 - Імперія завдає удару у відповідь
-                  </div>
-                </div>
-                <div className="video-content-card">
-                  <div className="video-content-card__image">
-                    <img src={Preview6} alt="Title" />
-                  </div>
-                  <div className="video-content-card__title">
-                    Зоряні війни: Епізод 6 - Повернення Джедая
-                  </div>
-                </div>
-              </div>
+              {isLoading ? (
+                <>Loading...</>
+              ) : (
+                <VideoContentItems items={data.data} />
+              )}
               <div className="content__pagination">
                 <div className="pagination">
                   <div className="pagination__action">
