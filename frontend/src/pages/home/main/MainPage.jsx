@@ -16,6 +16,13 @@ import { DropDown, DropDownItem } from "../../../components";
 
 const MainPage = () => {
   const { user } = useUser();
+
+  console.log(isLoading);
+
+  if (!isLoading) {
+    console.log(data);
+  }
+
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <div className="container">

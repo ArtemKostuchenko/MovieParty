@@ -89,14 +89,6 @@ const Header = () => {
               <button className="menu-burger">
                 <div className="icon menu-burger"></div>
               </button>
-              <div className="header__logout">
-                <button
-                  className="button primary"
-                  onClick={() => dispatch(logout())}
-                >
-                  Вийти
-                </button>
-              </div>
             </>
           ) : (
             <div className="header__login">

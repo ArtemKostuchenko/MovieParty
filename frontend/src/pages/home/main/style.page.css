@@ -16,11 +16,6 @@
   z-index: 1;
 }
 
-.sort__item {
-  max-width: 290px;
-  width: 100%;
-}
-
 .header {
   gap: 20px;
 }
@@ -290,9 +285,6 @@
   }
   .reset-button button {
     width: 100%;
-  }
-  .sort__item {
-    max-width: initial;
   }
 }
 @media screen and (max-width: 730px) {
