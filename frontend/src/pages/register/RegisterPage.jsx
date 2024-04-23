@@ -1,30 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(RegisterSchema),
   });
 
-  const { isLoading, error, isAuth, registerUser } = useUser();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/");
-    }
-  }, [isAuth]);
+  const { isLoading, error, registerUser } = useUser();
 
   const onSubmitHandler = (data) => {
     const { email, nickname, password } = data;

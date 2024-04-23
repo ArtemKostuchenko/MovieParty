@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
-import { redirect, useNavigate, Link } from "react-router-dom";
+import { redirect, Link } from "react-router-dom";
 import baseAxios from "../../features/fetch/axios";
 
 export const loader = async () => {
@@ -22,19 +22,11 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(LoginSchema),
   });
 
-  const { isLoading, error, loginUser, isAuth } = useUser();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/");
-    }
-  }, [isAuth]);
+  const { isLoading, error, loginUser } = useUser();
 
   const onSubmitHandler = (data) => {
     const { email, password } = data;

@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LayoutPage, HomePage, LoginPage, RegisterPage } from "./pages";
 import { loader as loginRegisterPageLoader } from "./pages/login/LoginPage";
+import { ClosedRoute } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
       {
         path: "login",
         loader: loginRegisterPageLoader,
-        element: <LoginPage />,
+        element: (
+          <ClosedRoute>
+            <LoginPage />
+          </ClosedRoute>
+        ),
       },
       {
         path: "register",
