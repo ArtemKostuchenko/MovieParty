@@ -5,17 +5,7 @@ import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useUser from "../../hooks/useUser";
-import { redirect, Link } from "react-router-dom";
-import baseAxios from "../../features/fetch/axios";
-
-export const loader = async () => {
-  try {
-    const resp = await baseAxios.get("/auth/me");
-    return redirect("/");
-  } catch (err) {
-    return null;
-  }
-};
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const {
