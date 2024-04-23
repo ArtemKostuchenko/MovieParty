@@ -1,10 +1,10 @@
 import React from "react";
-import MainBackground from "../../assets/main-background.png";
-import WatchAnyWhere from "../../assets/watch-anywhere.png";
-import "./style.css";
-import { FAQItems } from "../../components";
+import MainBackground from "../../../assets/main-background.png";
+import WatchAnyWhere from "../../../assets/watch-anywhere.png";
+import { FAQItems } from "../../../components";
+import "./style.page.css";
 
-const HomePage = () => {
+const UnAuthenticatedPage = () => {
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <section className="welcome__service">
@@ -138,4 +138,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default UnAuthenticatedPage;

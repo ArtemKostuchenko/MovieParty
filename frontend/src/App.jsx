@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LayoutPage, HomePage, LoginPage, RegisterPage } from "./pages";
+import { LayoutPage, HomeLayout, LoginPage, RegisterPage } from "./pages";
 import { ClosedRoute } from "./components";
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <HomeLayout />,
       },
       {
         path: "login",
