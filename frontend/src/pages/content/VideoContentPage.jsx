@@ -1,15 +1,52 @@
 import React from "react";
-import Background from "../../assets/background.jpg";
-import Background1 from "../../assets/background-1.jpg";
-import Background2 from "../../assets/background-1.jpg";
-import Card from "../../assets/card.jpg";
+import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
+import { formatDate } from "../../features/utils/functions";
+import { useParams, Link } from "react-router-dom";
 import Profile2 from "../../assets/profile-2.png";
-import VideoContent from "../../assets/video-content.png";
-import Actor from "../../assets/actor.jpg";
-import Director from "../../assets/director.webp";
 import Avatar from "../../assets/avatar.png";
 
 const VideoContentPage = () => {
+  const { originTitle: query } = useParams();
+
+  const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
+    query.replace(/-/g, " ")
+  );
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const content = data.data;
+
+  if (!content) {
+    return <div>Content not found</div>;
+  }
+
+  const {
+    _id: idContent,
+    title,
+    originTitle,
+    previewURL,
+    backgroundURL,
+    IMDb,
+    rating,
+    originCountries,
+    duration,
+    releaseDate,
+    genres,
+    lists,
+    description,
+    part,
+  } = content;
+
+  const contentPreviewURL = `${
+    import.meta.env.VITE_BACK_HOST
+  }/static${previewURL}`;
+
+  const contentBackgroundURL = `${
+    import.meta.env.VITE_BACK_HOST
+  }/static${backgroundURL}`;
+
   return (
     <>
       <div className="container cnt-mn overlay-cnt-mn">
@@ -20,20 +57,14 @@ const VideoContentPage = () => {
                 <div className="video-content__image">
                   <div className="filter" />
                   <div className="image">
-                    <img
-                      src={VideoContent}
-                      alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
-                    />
+                    <img src={contentBackgroundURL} alt={title} />
                   </div>
                 </div>
                 <div className="video-content__content">
                   <div className="video-content__info wrapper">
                     <div className="video-content__preview">
                       <div className="video-content__preview-image">
-                        <img
-                          src={Card}
-                          alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
-                        />
+                        <img src={contentPreviewURL} alt={title} />
                       </div>
                       <div className="video-content__preview-actions">
                         <button className="button icon fill g8">
@@ -51,42 +82,40 @@ const VideoContentPage = () => {
                     <div className="video-content__details">
                       <div className="video-content__title-container">
                         <div className="video-content__titles">
-                          <div className="video-content__title">
-                            Зоряні війни: Епізод IX -Скайвокер. Сходження
-                          </div>
+                          <div className="video-content__title">{title}</div>
                           <div className="video-content__original-title">
-                            Star Wars: Episode IX - The Rise of Skywalker
+                            {originTitle}
                           </div>
                         </div>
                         <div className="IMDB">
                           <div className="icon imdb" />
-                          <p className="IMDB__rating">6.4</p>
+                          <p className="IMDB__rating">{IMDb}</p>
                         </div>
                       </div>
                       <div className="video-content__rating">
                         <div className="rating">
                           <div className="rating__items">
                             <div className="rating__item">
-                              <div className="icon star" />
+                              <div className="icon star outline" />
                             </div>
                             <div className="rating__item">
-                              <div className="icon star" />
+                              <div className="icon star outline" />
                             </div>
                             <div className="rating__item">
-                              <div className="icon star" />
+                              <div className="icon star outline" />
                             </div>
                             <div className="rating__item">
-                              <div className="icon star" />
+                              <div className="icon star outline" />
                             </div>
                             <div className="rating__item">
                               <div className="icon star outline" />
                             </div>
                           </div>
-                          <div className="rating__point">4.0</div>
+                          <div className="rating__point">{rating}</div>
                           <div className="rating__votes">
                             <div className="icon group-users" />
                             <div className="rating__votes-amount">
-                              22 голосів
+                              0 голосів
                             </div>
                           </div>
                         </div>
@@ -97,9 +126,16 @@ const VideoContentPage = () => {
                             Країна:
                           </div>
                           <div className="video-content__information-content">
-                            <div className="video-content__information-text">
-                              CША
-                            </div>
+                            {originCountries.map((country) => {
+                              return (
+                                <div
+                                  className="video-content__information-text"
+                                  key={country._id}
+                                >
+                                  {country.name}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                         <div className="video-content__information-item">
@@ -108,7 +144,7 @@ const VideoContentPage = () => {
                           </div>
                           <div className="video-content__information-content">
                             <div className="video-content__information-text">
-                              2 год 21 хв
+                              {duration}
                             </div>
                           </div>
                         </div>
@@ -118,7 +154,7 @@ const VideoContentPage = () => {
                           </div>
                           <div className="video-content__information-content">
                             <div className="video-content__information-text">
-                              18 грудня 2019 рік
+                              {formatDate(releaseDate)}
                             </div>
                           </div>
                         </div>
@@ -128,21 +164,17 @@ const VideoContentPage = () => {
                           </div>
                           <div className="video-content__information-content">
                             <div className="link__items">
-                              <a href="#" className="link outlined">
-                                Пригоди
-                              </a>
-                              <a href="#" className="link outlined">
-                                Фентезі
-                              </a>
-                              <a href="#" className="link outlined">
-                                Екшен
-                              </a>
-                              <a href="#" className="link outlined">
-                                Бойовик
-                              </a>
-                              <a href="#" className="link outlined">
-                                Фантастика
-                              </a>
+                              {genres.map((genre) => {
+                                return (
+                                  <a
+                                    href="#"
+                                    className="link outlined"
+                                    key={genre._id}
+                                  >
+                                    {genre.name}
+                                  </a>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
@@ -152,30 +184,22 @@ const VideoContentPage = () => {
                           </div>
                           <div className="video-content__information-content">
                             <div className="link__items col">
-                              <a href="#" className="link">
-                                <div className="lists">
-                                  <div className="lists__name">
-                                    Найкращі серіали в жанрі спорт
-                                  </div>
-                                  <div className="lists__place">(11 місце)</div>
-                                </div>
-                              </a>
-                              <a href="#" className="link">
-                                <div className="lists">
-                                  <div className="lists__name">
-                                    Найкращі фільми в жанрі фантастика 2019
-                                  </div>
-                                  <div className="lists__place">(15 місце)</div>
-                                </div>
-                              </a>
-                              <a href="#" className="link">
-                                <div className="lists">
-                                  <div className="lists__name">
-                                    Найкращі фільми в жанрі фентезі 2019
-                                  </div>
-                                  <div className="lists__place">(20 місце)</div>
-                                </div>
-                              </a>
+                              {lists.map((item) => {
+                                const {
+                                  list: { _id, name },
+                                  placeInList,
+                                } = item;
+                                return (
+                                  <a href="#" className="link" key={_id}>
+                                    <div className="lists">
+                                      <div className="lists__name">{name}</div>
+                                      <div className="lists__place">
+                                        ({placeInList} місце)
+                                      </div>
+                                    </div>
+                                  </a>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
@@ -190,27 +214,10 @@ const VideoContentPage = () => {
         <div className="splitter" />
         <div className="container">
           <div className="wrapper">
-            <div className="video-content__description">
-              У цьому епічному завершенні саги про Скайуокера вцілілі члени
-              Опору на чолі з генералом Леєю Органою (Керрі Фішер) стикаються зі
-              своїм найбільшим викликом. Готуючись до фінальної сутички зі
-              зловісним Першим Орденом, Рей (Дейзі Рідлі) продовжує свою
-              подорож, щоб дізнатися правду про своє минуле і свій зв'язок з
-              Силою. Разом зі своїми друзями Фінном (Джон Бойєга), По Деймероном
-              (Оскар Айзек) і Чубаккою (Юнас Суотамо) Рей подорожує галактикою в
-              пошуках відповідей, зустрічаючи на своєму шляху нових і старих
-              ворогів. Тим часом зловісний Кайло Рен (Адам Драйвер) продовжує
-              спокушати Рей приєднатися до нього на темній стороні, оскільки він
-              прагне отримати абсолютну владу і контроль. У міру того, як битва
-              між Опором і Першим Орденом загострюється, старі і нові герої
-              повинні об'єднатися, щоб боротися за майбутнє галактики.
-              Захоплюючий екшн, зворушливі моменти та приголомшлива розв'язка
-              роблять "Зоряні Війни: Скайвокер. Сходження" обов'язковим до
-              перегляду для шанувальників культової космічної опери.
-            </div>
+            <div className="video-content__description">{description}</div>
           </div>
         </div>
-        <div className="container">
+        {/* <div className="container">
           <div className="wrapper">
             <div className="people__content">
               <div className="people">
@@ -431,260 +438,65 @@ const VideoContentPage = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="splitter" />
+        </div> */}
+        {/* <div className="splitter" /> */}
         <div className="container">
           <div className="wrapper">
             <div className="parts__wrapper">
               <div className="parts">
-                <div className="parts__title">Зоряні війни - всі частини</div>
+                <div className="parts__title">{part.name} - всі частини</div>
                 <div className="parts__items">
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background}
-                        alt="Зоряні війни: Епізод IV - Нова надія"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">01</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод IV - Нова надія
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1977
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.6</p>
+                  {part.contents.map((content, index) => {
+                    const {
+                      _id,
+                      typeVideoContent,
+                      title,
+                      originTitle,
+                      IMDb,
+                      backgroundURL,
+                      releaseDate,
+                    } = content;
+
+                    const videoContentLink = `/${typeVideoContent}/${originTitle
+                      .toLowerCase()
+                      .replace(/\s/g, "-")}`;
+
+                    return (
+                      <Link
+                        className={`part__item${
+                          idContent === _id ? " selected" : ""
+                        }`}
+                        key={_id}
+                        to={videoContentLink}
+                      >
+                        <div className="part__item-filter" />
+                        <div className="part__item-background">
+                          <img
+                            src={`${
+                              import.meta.env.VITE_BACK_HOST
+                            }/static${backgroundURL}`}
+                            alt={title}
+                          />
                         </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background1}
-                        alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">02</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод V - Імперія завдає удару у
-                        відповідь
-                      </div>
-                      <div className="part__item-release-date">
-                        20 Травня 1980
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.7</p>
+                        <div className="part__item-content">
+                          <div className="part__item-number">0{index + 1}</div>
+                          <div className="part__item-title">{title}</div>
+                          <div className="part__item-release-date">
+                            {formatDate(releaseDate)}
+                          </div>
+                          <div className="part__item-imdb">
+                            <div className="IMDB">
+                              <div className="icon imdb" />
+                              <p className="IMDB__rating">{IMDb}</p>
+                            </div>
+                          </div>
+                          <div className="part__item-finished">
+                            <div className="icon success" />
+                          </div>
                         </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background2}
-                        alt="Зоряні війни: Епізод VI - Повернення джедая"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">03</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод VI - Повернення джедая
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1983
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.3</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background}
-                        alt="Зоряні війни: Епізод IV - Нова надія"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">01</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод IV - Нова надія
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1977
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.6</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background1}
-                        alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">02</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод V - Імперія завдає удару у
-                        відповідь
-                      </div>
-                      <div className="part__item-release-date">
-                        20 Травня 1980
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.7</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background2}
-                        alt="Зоряні війни: Епізод VI - Повернення джедая"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">03</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод VI - Повернення джедая
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1983
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.3</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background}
-                        alt="Зоряні війни: Епізод IV - Нова надія"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">01</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод IV - Нова надія
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1977
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.6</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background1}
-                        alt=" Зоряні війни: Епізод V - Імперія завдає удару у відповідь"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">02</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод V - Імперія завдає удару у
-                        відповідь
-                      </div>
-                      <div className="part__item-release-date">
-                        20 Травня 1980
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.7</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="part__item">
-                    <div className="part__item-filter" />
-                    <div className="part__item-background">
-                      <img
-                        src={Background2}
-                        alt="Зоряні війни: Епізод VI - Повернення джедая"
-                      />
-                    </div>
-                    <div className="part__item-content">
-                      <div className="part__item-number">03</div>
-                      <div className="part__item-title">
-                        Зоряні війни: Епізод VI - Повернення джедая
-                      </div>
-                      <div className="part__item-release-date">
-                        25 Травня 1983
-                      </div>
-                      <div className="part__item-imdb">
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">8.3</p>
-                        </div>
-                      </div>
-                      <div className="part__item-finished">
-                        <div className="icon success" />
-                      </div>
-                    </div>
-                  </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>

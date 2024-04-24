@@ -7,7 +7,7 @@ import {
   RegisterPage,
   VideoContentPage,
 } from "./pages";
-import { ClosedRoute } from "./components";
+import { ClosedRoute, ProtectedRoute } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +39,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":originTitle",
-            element: <VideoContentPage />,
+            element: (
+              <ProtectedRoute>
+                <VideoContentPage />
+              </ProtectedRoute>
+            ),
           },
         ],
       },

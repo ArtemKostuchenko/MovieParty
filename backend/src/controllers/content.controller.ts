@@ -16,6 +16,15 @@ const getVideoContent = async (req: Request, res: Response): Promise<Response> =
     return res.status(StatusCodes.OK).json({ data: videoContent });
 }
 
+const getVideoContentByOriginTitle = async (req: Request, res: Response): Promise<Response> => {
+    const { originTitle } = req.params;
+
+    const videoContent =
+      await VideoContentRepository.getVideoContentByOriginTitle(originTitle);
+
+    return res.status(StatusCodes.OK).json({ data: videoContent });
+}
+
 const updateVideoContent = async (req: Request, res: Response): Promise<Response> => {
     const { id: idVideoContent } = req.params;
 
@@ -41,6 +50,7 @@ const getVideoContents = async (req: Request, res: Response): Promise<Response> 
 export {
     createVideoContent,
     getVideoContent,
+    getVideoContentByOriginTitle,
     updateVideoContent,
     deleteVideoContent,
     getVideoContents,

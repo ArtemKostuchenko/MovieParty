@@ -11,7 +11,14 @@ export const contentApi = createApi({
         method: "GET",
       }),
     }),
+    getVideoContentByOriginTitle: builder.query({
+      query: (originTitle) => ({
+        url: `content/v/originTitle/${originTitle}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetVideoContentQuery } = contentApi;
+export const { useGetVideoContentQuery, useGetVideoContentByOriginTitleQuery } =
+  contentApi;

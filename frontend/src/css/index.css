@@ -1384,6 +1384,7 @@ svg {
   grid-template-rows: 65px;
   align-items: center;
   border-radius: 5px;
+  color: var(--text-color);
 }
 
 .part__item-filter {
@@ -1394,6 +1395,10 @@ svg {
   height: 100%;
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.45);
+}
+
+.part__item.selected .part__item-filter {
+  background-color: var(--additional-color);
 }
 
 .part__item-background {
