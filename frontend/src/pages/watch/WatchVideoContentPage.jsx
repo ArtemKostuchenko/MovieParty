@@ -1,4 +1,5 @@
 import React from "react";
+import ReactPlayer from "react-player";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 
@@ -40,12 +41,11 @@ const WatchVideoContentPage = () => {
           <div className="watch-content__title">{content.title}</div>
         </div>
         <div className="watch-content__player">
-          <video controls>
-            <source
-              src="https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4"
-              type="video/mp4"
-            />
-          </video>
+          <ReactPlayer
+            url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+            width="100%"
+            height="100%"
+          />
         </div>
       </div>
     </div>
