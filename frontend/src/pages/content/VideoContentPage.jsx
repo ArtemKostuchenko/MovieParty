@@ -1,12 +1,13 @@
 import React from "react";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 import { formatDate } from "../../features/utils/functions";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
+  const navigate = useNavigate();
 
   const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
@@ -21,6 +22,13 @@ const VideoContentPage = () => {
   if (!content) {
     return <div>Content not found</div>;
   }
+
+  const handleWatch = () => {
+    const watchLink = `/${content.typeVideoContent}/${content.originTitle
+      .toLowerCase()
+      .replace(/\s/g, "-")}/watch`;
+    navigate(watchLink);
+  };
 
   const {
     _id: idContent,
@@ -67,7 +75,10 @@ const VideoContentPage = () => {
                         <img src={contentPreviewURL} alt={title} />
                       </div>
                       <div className="video-content__preview-actions">
-                        <button className="button icon fill g8">
+                        <button
+                          className="button icon fill g8"
+                          onClick={handleWatch}
+                        >
                           <div className="icon watch" />
                           Дивитися
                         </button>

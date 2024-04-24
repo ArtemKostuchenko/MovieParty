@@ -8,6 +8,7 @@ import {
   VideoContentPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
+import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: ":typeVideoContent/:originTitle/watch",
+    element: (
+      <ProtectedRoute>
+        <WatchVideoContentPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 
