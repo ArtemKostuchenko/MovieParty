@@ -1,6 +1,12 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LayoutPage, HomeLayout, LoginPage, RegisterPage } from "./pages";
+import {
+  LayoutPage,
+  HomeLayout,
+  LoginPage,
+  RegisterPage,
+  VideoContentPage,
+} from "./pages";
 import { ClosedRoute } from "./components";
 
 const router = createBrowserRouter([
@@ -27,6 +33,15 @@ const router = createBrowserRouter([
             <RegisterPage />
           </ClosedRoute>
         ),
+      },
+      {
+        path: ":typeVideoContent",
+        children: [
+          {
+            path: ":originTitle",
+            element: <VideoContentPage />,
+          },
+        ],
       },
     ],
   },

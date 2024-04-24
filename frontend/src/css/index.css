@@ -761,7 +761,8 @@ svg {
 
 .app {
   display: grid;
-  grid-template-rows: 80px 1fr auto;
+  grid-template-rows: 70px 1fr auto;
+  grid-template-columns: 1fr;
 }
 
 .app > .hdr {
@@ -783,6 +784,29 @@ svg {
 .app > .ftr {
   grid-row: 3 / 4;
   grid-column: 1 / 2;
+}
+
+/* grid */
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 70px 1fr;
+}
+
+.grid__header {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  z-index: 999;
+}
+
+.grid__content {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  z-index: 1;
+}
+
+.header {
+  gap: 20px;
 }
 
 /* responsive */
