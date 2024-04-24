@@ -38,35 +38,37 @@ const MainPage = () => {
               <div className="slider__content">
                 <div className="container wrapper">
                   <div className="slider__info">
-                    <div className="video-content">
-                      <h1 className="video-content__title">
+                    <div className="slider-content">
+                      <h1 className="slider-content__title">
                         Зоряні війни: Епізод IX - Скайвокер. Сходження
                       </h1>
-                      <div className="video-content__info">
-                        <div className="video-content__imdb">
+                      <div className="slider-content__info">
+                        <div className="slider-content__imdb">
                           <div className="icon imdb" />
-                          <p className="video-content__imdb-rating">6.4</p>
+                          <p className="slider-content__imdb-rating">6.4</p>
                         </div>
-                        <span className="video-content__info-splitter circle" />
-                        <div className="video-content__info-additional">
-                          <p className="video-content__year">2019</p>
-                          <span className="video-content__info-splitter" />
-                          <p className="video-content__duration">2 год 21 хв</p>
-                          <span className="video-content__info-splitter" />
-                          <p className="video-content__genre">Фентезі</p>
+                        <span className="slider-content__info-splitter circle" />
+                        <div className="slider-content__info-additional">
+                          <p className="slider-content__year">2019</p>
+                          <span className="slider-content__info-splitter" />
+                          <p className="slider-content__duration">
+                            2 год 21 хв
+                          </p>
+                          <span className="slider-content__info-splitter" />
+                          <p className="slider-content__genre">Фентезі</p>
                         </div>
                       </div>
-                      <p className="video-content__description">
+                      <p className="slider-content__description">
                         У цьому епічному завершенні саги про Скайуокера вцілілі
                         члени Опору на чолі з генералом Леєю Органою (Керрі
                         Фішер) стикаються зі своїм найбільшим викликом.
                         Готуючись до фінальної сутички зі зловісним Першим
                         Орденом, Рей (Дейзі Рідлі) продо...
-                        <a href="#" className="video-content__link">
+                        <a href="#" className="slider-content__link">
                           Дивитись більше
                         </a>
                       </p>
-                      <div className="video-content__buttons">
+                      <div className="slider-content__buttons">
                         <a href="#" className="button light outline">
                           Трейлер
                         </a>
