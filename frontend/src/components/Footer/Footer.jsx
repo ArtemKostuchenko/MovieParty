@@ -1,5 +1,5 @@
 import React from "react";
-// import "./footer.css";
+import "./style.component.scss";
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
               <div className="footer__logo logo">
                 <div className="icon logo"></div>
               </div>
-              <p className="footer__devis">
+              <p className="footer__tagline">
                 Насолоджуйтеся вашим улюбленим контентом без обмежень!
               </p>
             </div>

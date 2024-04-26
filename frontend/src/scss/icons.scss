@@ -1,0 +1,200 @@
+.icon {
+  display: inline-block;
+  background-color: var(--white);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: background-color 0.2s ease-in-out;
+
+  &.logo {
+    height: 30px;
+    width: 257px;
+    background-size: 100%;
+    background-position: 50% 50%;
+    background: url("src/assets/icons/logo.svg");
+  }
+
+  &.IMDb {
+    height: 28px;
+    width: 52px;
+    background-size: 100%;
+    background-position: 40% 40%;
+    background: url("src/assets/icons/IMDb.svg");
+  }
+
+  &.menu-burger {
+    width: 35px;
+    height: 35px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/menu-burger.svg");
+  }
+
+  &.location {
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/location.svg");
+  }
+
+  &.phone {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/phone.svg");
+  }
+
+  &.email {
+    width: 24px;
+    height: 34px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/email.svg");
+  }
+
+  &.arrow {
+    width: 20px;
+    height: 30px;
+    background-color: var(--white);
+
+    &.left {
+      mask-image: url("src/assets/icons/arrow-left.svg");
+    }
+
+    &.right {
+      mask-image: url("src/assets/icons/arrow-right.svg");
+    }
+  }
+
+  &.add {
+    width: 24px;
+    height: 24px;
+    mask-image: url("src/assets/icons/add.svg");
+  }
+
+  &.watch {
+    max-width: 16px;
+    min-width: 16px;
+    max-height: 19px;
+    min-height: 19px;
+    mask-image: url("src/assets/icons/watch.svg");
+  }
+
+  &.favorite {
+    width: 14px;
+    height: 17px;
+    mask-image: url("src/assets/icons/favorite.svg");
+  }
+
+  &.success {
+    width: 24px;
+    height: 24px;
+    background-color: var(--atlantis);
+    mask-image: url("src/assets/icons/success.svg");
+  }
+
+  &.like {
+    width: 24px;
+    height: 24px;
+    background-color: var(--atlantis);
+    mask-image: url("src/assets/icons/like.svg");
+  }
+
+  &.dislike {
+    width: 24px;
+    height: 24px;
+    background-color: var(--scarlet);
+    mask-image: url("src/assets/icons/dislike.svg");
+  }
+
+  &.star {
+    width: 20px;
+    height: 20px;
+    background-color: var(--light-yellow);
+    mask-image: url("src/assets/icons/star.svg");
+
+    &.outline {
+      mask-image: url("src/assets/icons/star-outline.svg");
+    }
+  }
+
+  &.group-users {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/group-users.svg");
+  }
+
+  &.find {
+    width: 23px;
+    height: 22px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/search.svg");
+  }
+
+  &.library {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/library.svg");
+  }
+
+  &.convenient-use {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/convenient-use.svg");
+  }
+
+  &.watch-together {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/watch-together.svg");
+  }
+
+  &.plus {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/plus.svg");
+  }
+
+  &.google {
+    max-width: 22px;
+    min-width: 22px;
+    max-height: 22px;
+    min-height: 22px;
+    background-size: 100%;
+    background-position: 40% 40%;
+    background: url("src/assets/icons/google.svg");
+  }
+
+  &.eye.hidden {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    mask-image: url("src/assets/icons/hide.svg");
+  }
+}
+
+/* responsive icons */
+
+@media (max-width: 767px) {
+  .icon.logo {
+    height: calc(18px + 14 * ((100vw - 320px) / 1440));
+    width: calc(165px + 128.8 * ((100vw - 320px) / 1440));
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}
+
+@media (min-width: 767px) {
+  .icon.logo {
+    width: calc(165px + 92 * (100vw / 1440));
+    height: calc(18px + 10 * (100vw / 1440));
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}

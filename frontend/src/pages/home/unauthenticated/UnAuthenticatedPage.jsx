@@ -2,14 +2,14 @@ import React from "react";
 import MainBackground from "../../../assets/main-background.png";
 import WatchAnyWhere from "../../../assets/watch-anywhere.png";
 import { FAQItems } from "../../../components";
-import "./style.page.css";
+import "./unauth.styles.scss";
 
 const UnAuthenticatedPage = () => {
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <section className="welcome__service">
         <div className="container information__overlay">
-          <div className="wrapper small max-height">
+          <div className="wrapper sm h100">
             <div className="information__main">
               <h1 className="information__title">
                 Спільний перегляд фільмів, серіалів, мультфільмів та іншого

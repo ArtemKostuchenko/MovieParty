@@ -1,0 +1,173 @@
+@import "../../scss/share.scss";
+
+/* header styles */
+
+.header {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 0;
+  }
+
+  &__overlay {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    z-index: 999;
+  }
+
+  &__search {
+    min-width: 230px;
+    max-width: 500px;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.menu {
+  width: 100%;
+
+  &-burger {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    font-size: 0;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 28px;
+  }
+
+  &__item {
+    width: 100%;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:hover .menu__icon {
+        &.selections {
+          background-color: var(--lochmara);
+        }
+
+        &.favorite {
+          background-color: var(--scarlet);
+        }
+      }
+    }
+  }
+
+  &__icon {
+    height: 20px;
+    color: var(--text-color);
+    transition: all 400ms;
+  }
+
+  &__title {
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+    @include adaptiveFont(20, 18);
+    color: var(--text-color);
+  }
+}
+
+.search {
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--text-color);
+  border-radius: 25px;
+  background-color: rgb(0, 114, 187, 50%);
+
+  &__icon {
+    height: 22px;
+  }
+
+  &__input {
+    width: 100%;
+    position: relative;
+
+    input {
+      background: transparent;
+    }
+
+    label {
+      overflow: hidden;
+      position: absolute;
+      top: 3px;
+      left: 0;
+    }
+
+    &.focus label {
+      display: none;
+    }
+  }
+
+  &__input-query {
+    font-family: "Mulish", sans-serif;
+    color: var(--text-color);
+    font-weight: 400;
+    @include adaptiveFont(18, 16);
+  }
+
+  label,
+  input {
+    font-family: "Mulish", sans-serif;
+    color: var(--text-color);
+    font-weight: 400;
+    @include adaptiveFont(18, 16);
+  }
+
+  &__input {
+    span {
+      font-weight: 700;
+    }
+
+    &::placeholder {
+      color: var(--text-color);
+      font-weight: 700;
+
+      &::first-line {
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+/* responsive */
+
+@media screen and (max-width: 1125px) {
+  .search__input-query,
+  .menu__title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .header {
+    &__menu,
+    &__search,
+    &__profile {
+      display: none;
+    }
+  }
+
+  .menu-burger {
+    visibility: visible;
+  }
+}
+
+/* responsive fonts */

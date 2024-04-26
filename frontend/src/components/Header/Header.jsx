@@ -1,15 +1,11 @@
 import React from "react";
-import "./header.css";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import Avatar from "../../assets/avatar.png";
-import { useDispatch } from "react-redux";
-import { logout } from "../../features/store/slices/user";
+import "./style.component.scss";
 
 const Header = () => {
   const { isAuth } = useUser();
-
-  const dispatch = useDispatch();
 
   return (
     <div className="container hdr">

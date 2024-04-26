@@ -1,0 +1,36 @@
+:root {
+  /* Colors */
+
+  --midnight: #011627;
+  --mine-shaft: #363636;
+  --tundora: #4a4a4a;
+  --boulder: #7d7d7d;
+  --silver-chalice: #aaaaaa;
+  --silver: #a3a3a3;
+  --atlantis: #9bc53d;
+  --scarlet: #e3170a;
+  --light-yellow: #fac014;
+  --lochmara: #0072bb;
+  --white: #ffffff;
+
+  /* Content */
+
+  --main-color: var(--midnight);
+  --text-color: var(--white);
+  --splitter-color: var(--lochmara);
+  --dropdown-color: var(--lochmara);
+  --filter-color: var(--silver);
+  --pagination-color: var(--lochmara);
+  --pagination-color-active: var(--light-yellow);
+  --nav-menu-color: var(--lochmara);
+  --loader-background: var(--silver-chalice);
+  --loader-slider: var(--lochmara);
+
+  --max-width-content: 1440px;
+  --small-width-content: 880px;
+  --safe-zone-content: 20px;
+  --min-width-card: 140px;
+  --max-width-card: 205px;
+
+  --transition-delay: 0.3s;
+}
