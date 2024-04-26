@@ -3,7 +3,7 @@ import VideoContentCard from "./VideoContentCard";
 
 const VideoContentItems = ({ items }) => {
   return (
-    <div className="video-content__items">
+    <div className="content__cards">
       {items.map((item) => {
         return <VideoContentCard key={item._id} {...item} />;
       })}

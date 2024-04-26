@@ -13,14 +13,14 @@ const VideoContentCard = ({
 
   return (
     <Link to={videoContentLink}>
-      <div className="video-content-card">
-        <div className="video-content-card__image">
+      <div className="content__card">
+        <div className="content__card-image">
           <img
             src={`${import.meta.env.VITE_BACK_HOST}/static${previewURL}`}
             alt={title}
           />
         </div>
-        <div className="video-content-card__title">{title}</div>
+        <div className="content__card-title">{title}</div>
       </div>
     </Link>
   );

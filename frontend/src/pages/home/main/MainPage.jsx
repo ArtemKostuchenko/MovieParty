@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.page.css";
+import "./style.page.scss";
 import Avatar from "../../../assets/avatar.png";
 import Slide1 from "../../../assets/slide-1.png";
 import Preview1 from "../../../assets/preview-1.jpg";
@@ -26,9 +26,9 @@ const MainPage = () => {
         <div className="grid">
           <div className="grid__content">
             <div className="slider">
-              <div className="slider__image">
-                <div className="filter" />
-                <div className="image">
+              <div className="slider__background">
+                <div className="slider__background-filter"></div>
+                <div className="slider__background-image">
                   <img
                     src={Slide1}
                     alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
@@ -37,38 +37,36 @@ const MainPage = () => {
               </div>
               <div className="slider__content">
                 <div className="container wrapper">
-                  <div className="slider__info">
-                    <div className="slider-content">
-                      <h1 className="slider-content__title">
+                  <div className="slide__information">
+                    <div className="slide">
+                      <h1 className="slide__title">
                         Зоряні війни: Епізод IX - Скайвокер. Сходження
                       </h1>
-                      <div className="slider-content__info">
-                        <div className="slider-content__imdb">
-                          <div className="icon imdb" />
-                          <p className="slider-content__imdb-rating">6.4</p>
+                      <div className="slide__details">
+                        <div className="slide__IMDb">
+                          <div className="icon IMDb" />
+                          <p className="slide__IMDb-rating">6.4</p>
                         </div>
-                        <span className="slider-content__info-splitter circle" />
-                        <div className="slider-content__info-additional">
-                          <p className="slider-content__year">2019</p>
-                          <span className="slider-content__info-splitter" />
-                          <p className="slider-content__duration">
-                            2 год 21 хв
-                          </p>
-                          <span className="slider-content__info-splitter" />
-                          <p className="slider-content__genre">Фентезі</p>
+                        <span className="slide__splitter circle" />
+                        <div className="slide__additional">
+                          <p className="slide__year">2019</p>
+                          <span className="slide__splitter" />
+                          <p className="slide__duration">2 год 21 хв</p>
+                          <span className="slide__splitter" />
+                          <p className="slide__genre">Фентезі</p>
                         </div>
                       </div>
-                      <p className="slider-content__description">
+                      <p className="slide__description">
                         У цьому епічному завершенні саги про Скайуокера вцілілі
                         члени Опору на чолі з генералом Леєю Органою (Керрі
                         Фішер) стикаються зі своїм найбільшим викликом.
                         Готуючись до фінальної сутички зі зловісним Першим
                         Орденом, Рей (Дейзі Рідлі) продо...
-                        <a href="#" className="slider-content__link">
+                        <a href="#" className="slide__link">
                           Дивитись більше
                         </a>
                       </p>
-                      <div className="slider-content__buttons">
+                      <div className="slide__actions">
                         <a href="#" className="button light outline">
                           Трейлер
                         </a>
@@ -213,7 +211,7 @@ const MainPage = () => {
           <div className="content">
             <div className="content__filter">
               <div className="filter">
-                <div className="flex row center-h h40">
+                <div className="flex row center-v h40">
                   <div className="overflow-content">
                     <div className="filter__items">
                       <div className="filter__item active">

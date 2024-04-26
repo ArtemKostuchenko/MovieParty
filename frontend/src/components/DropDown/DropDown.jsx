@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import DropDownItem from "./DropDownItem";
-import "./style.component.css";
+// import "./style.component.css";
 
 const DropDown = ({ children, onChange = null }) => {
   const [selectedItem, setSelectedItem] = useState(

@@ -14,13 +14,13 @@ body {
   }
 
   &::-webkit-scrollbar-track {
-    background-color: var(--additional-color-1);
+    background-color: var(--mine-shaft);
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--alternative-color);
+    background-color: var(--scroll-color);
     border-radius: 30px;
-    border: 3px solid var(--additional-color-1);
+    border: 3px solid var(--mine-shaft);
 
     &:hover {
       background-color: rgb(250, 192, 20, 80%);
@@ -90,7 +90,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--alternative-color);
+    background-color: var(--scroll-color);
     border-radius: 10px;
 
     &:hover {
@@ -446,7 +446,7 @@ body {
     letter-spacing: normal;
     text-align: left;
     font-weight: 400;
-    @include adaptiveFont(16px, 13px);
+    @include adaptiveFont(18, 14);
     @include transition(color);
   }
 
@@ -554,7 +554,7 @@ body {
     text-align: left;
     color: var(--filter-color);
     text-transform: uppercase;
-    @include adaptiveFont(16px, 14px);
+    @include adaptiveFont(16, 14);
     @include transition(text-shadow);
 
     &:hover {
@@ -580,6 +580,56 @@ body {
     display: flex;
     align-items: center;
     gap: 35px;
+  }
+}
+
+/* content card */
+
+.content {
+  &__cards {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(
+      6,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
+    justify-content: space-between;
+    row-gap: 20px;
+    column-gap: 20px;
+  }
+
+  &__card {
+    max-width: 205px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-image {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+
+    &-title {
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--text-color);
+      @include adaptiveFont(18, 16);
+    }
+
+    &:hover {
+      .content__card-title {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -653,8 +703,8 @@ body {
   left: 0;
   z-index: 999;
   overflow-x: hidden;
-  transition: width 0.2s ease-in-out;
   background-color: var(--main-color);
+  @include transition(width);
 
   &__content {
     padding: 20px;
@@ -782,6 +832,7 @@ body {
 .app {
   display: grid;
   grid-template-rows: 80px 1fr auto;
+  grid-template-columns: minmax(0, auto);
 
   > {
     .hdr {
@@ -810,7 +861,7 @@ body {
 /* responsive */
 
 @media screen and (max-width: 1350px) {
-  .video-content__items {
+  .content__cards {
     grid-template-columns: repeat(
       5,
       minmax(var(--min-width-card), var(--max-width-card))
@@ -820,7 +871,7 @@ body {
 }
 
 @media screen and (max-width: 1125px) {
-  .video-content__items {
+  .content__cards {
     grid-template-columns: repeat(
       4,
       minmax(var(--min-width-card), var(--max-width-card))
@@ -829,7 +880,7 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  .video-content__items {
+  .content__cards {
     grid-template-columns: repeat(
       3,
       minmax(var(--min-width-card), var(--max-width-card))
@@ -889,7 +940,7 @@ body {
     justify-content: flex-start;
   }
 
-  .video-content__items {
+  .content__cards {
     grid-template-columns: repeat(
       2,
       minmax(var(--min-width-card), var(--max-width-card))
