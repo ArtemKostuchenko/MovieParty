@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "../../features/validations";
@@ -28,9 +27,9 @@ const RegisterPage = () => {
       <div className="container">
         <div className="grid__main">
           <div className="grid__form">
-            <div className="container full">
-              <div className="wrapper flex center">
-                <div className="login__form">
+            <div className="container h100">
+              <div className="form wrapper h100 flex center">
+                <div className="form__wrapper">
                   <form
                     className="form"
                     onSubmit={handleSubmit(onSubmitHandler)}
@@ -44,11 +43,11 @@ const RegisterPage = () => {
                         <input
                           {...register("email")}
                           type="email"
-                          className="input"
+                          className="form__input"
                           placeholder="Електронна пошта"
                           required
                         />
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.email?.message}
                         </span>
                       </div>
@@ -56,16 +55,16 @@ const RegisterPage = () => {
                         <input
                           {...register("nickname")}
                           type="text"
-                          className="input"
+                          className="form__input"
                           placeholder="Нікнейм"
                           required
                         />
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.nickname?.message}
                         </span>
                       </div>
                       <div className="form__item">
-                        <div className="input__icon">
+                        <div className="form__input__icon">
                           <input
                             {...register("password")}
                             type="password"
@@ -74,12 +73,12 @@ const RegisterPage = () => {
                           />
                           <div className="icon eye hidden"></div>
                         </div>
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.password?.message}
                         </span>
                       </div>
                       <div className="form__item">
-                        <div className="input__icon">
+                        <div className="form__input__icon">
                           <input
                             {...register("password2")}
                             type="password"
@@ -88,7 +87,7 @@ const RegisterPage = () => {
                           />
                           <div className="icon eye hidden"></div>
                         </div>
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.password2?.message}
                         </span>
                       </div>
@@ -100,7 +99,7 @@ const RegisterPage = () => {
                         >
                           Зареєструватися
                         </button>
-                        <span className="error__message center">
+                        <span className="message error center">
                           {error
                             ? "Неможливо зареєструватися, спробуйте знову"
                             : ""}

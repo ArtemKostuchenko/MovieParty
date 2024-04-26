@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.page.css";
 import MainBackground from "../../assets/main-background.png";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../features/validations";
@@ -28,13 +27,10 @@ const LoginPage = () => {
       <div className="container">
         <div className="grid__main">
           <div className="grid__form">
-            <div className="container full">
-              <div className="wrapper flex center">
-                <div className="login__form">
-                  <form
-                    className="form"
-                    onSubmit={handleSubmit(onSubmitHandler)}
-                  >
+            <div className="container h100">
+              <div className="form wrapper h100 flex center">
+                <div className="form__wrapper">
+                  <form onSubmit={handleSubmit(onSubmitHandler)}>
                     <div className="form__title">Вхід</div>
                     <div className="form__description">
                       Вітаємо на нашому веб-сервісі
@@ -44,16 +40,16 @@ const LoginPage = () => {
                         <input
                           {...register("email")}
                           type="email"
-                          className="input"
+                          className="form__input"
                           placeholder="Електронна пошта"
                           required
                         />
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.email?.message}
                         </span>
                       </div>
                       <div className="form__item">
-                        <div className="input__icon">
+                        <div className="form__input__icon">
                           <input
                             {...register("password")}
                             type="password"
@@ -63,7 +59,7 @@ const LoginPage = () => {
                           />
                           <div className="icon eye hidden"></div>
                         </div>
-                        <span className="error__message">
+                        <span className="message error">
                           {errors.password?.message}
                         </span>
                       </div>
@@ -75,7 +71,7 @@ const LoginPage = () => {
                         >
                           Увійти
                         </button>
-                        <span className="error__message center">
+                        <span className="message error center">
                           {error
                             ? "Неправильна електронна пошта або пароль"
                             : ""}
