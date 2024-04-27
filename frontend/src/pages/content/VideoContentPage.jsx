@@ -4,6 +4,7 @@ import { formatDate } from "../../features/utils/functions";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
+import "./style.page.scss";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -69,7 +70,7 @@ const VideoContentPage = () => {
                   </div>
                 </div>
                 <div className="video-content__content">
-                  <div className="video-content__info wrapper">
+                  <div className="video-content__container wrapper">
                     <div className="video-content__preview">
                       <div className="video-content__preview-image">
                         <img src={contentPreviewURL} alt={title} />
@@ -98,9 +99,9 @@ const VideoContentPage = () => {
                             {originTitle}
                           </div>
                         </div>
-                        <div className="IMDB">
-                          <div className="icon imdb" />
-                          <p className="IMDB__rating">{IMDb}</p>
+                        <div className="IMDb">
+                          <div className="icon IMDb" />
+                          <p className="IMDb__rating">{IMDb}</p>
                         </div>
                       </div>
                       <div className="video-content__rating">
@@ -240,8 +241,8 @@ const VideoContentPage = () => {
                         <img src={Director} alt="Джордж Лукас" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Джордж Лукас</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Джордж Лукас</div>
+                        <div className="person__original-full-name">
                           George Lucas
                         </div>
                         <div className="person__age">79 років</div>
@@ -260,8 +261,8 @@ const VideoContentPage = () => {
                         <img src={Director} alt="Джордж Лукас" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Джордж Лукас</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Джордж Лукас</div>
+                        <div className="person__original-full-name">
                           George Lucas
                         </div>
                         <div className="person__age">79 років</div>
@@ -280,8 +281,8 @@ const VideoContentPage = () => {
                         <img src={Director} alt="Джордж Лукас" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Джордж Лукас</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Джордж Лукас</div>
+                        <div className="person__original-full-name">
                           George Lucas
                         </div>
                         <div className="person__age">79 років</div>
@@ -300,8 +301,8 @@ const VideoContentPage = () => {
                         <img src={Director} alt="Джордж Лукас" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Джордж Лукас</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Джордж Лукас</div>
+                        <div className="person__original-full-name">
                           George Lucas
                         </div>
                         <div className="person__age">79 років</div>
@@ -325,8 +326,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -345,8 +346,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -365,8 +366,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -385,8 +386,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -405,8 +406,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -425,8 +426,8 @@ const VideoContentPage = () => {
                         <img src={Actor} alt="Керрі Фішшер" />
                       </div>
                       <div className="person__info">
-                        <div className="person__fullname">Керрі Фішшер</div>
-                        <div className="person__original-fullname">
+                        <div className="person__full-name">Керрі Фішшер</div>
+                        <div className="person__original-full-name">
                           Carrie&nbsp;Fisher
                         </div>
                         <div className="person__age">60 років</div>
@@ -456,58 +457,62 @@ const VideoContentPage = () => {
             <div className="parts__wrapper">
               <div className="parts">
                 <div className="parts__title">{part.name} - всі частини</div>
-                <div className="parts__items">
-                  {part.contents.map((content, index) => {
-                    const {
-                      _id,
-                      typeVideoContent,
-                      title,
-                      originTitle,
-                      IMDb,
-                      backgroundURL,
-                      releaseDate,
-                    } = content;
+                <div class="overflow-content">
+                  <div className="parts__items">
+                    {part.contents.map((content, index) => {
+                      const {
+                        _id,
+                        typeVideoContent,
+                        title,
+                        originTitle,
+                        IMDb,
+                        backgroundURL,
+                        releaseDate,
+                      } = content;
 
-                    const videoContentLink = `/${typeVideoContent}/${originTitle
-                      .toLowerCase()
-                      .replace(/\s/g, "-")}`;
+                      const videoContentLink = `/${typeVideoContent}/${originTitle
+                        .toLowerCase()
+                        .replace(/\s/g, "-")}`;
 
-                    return (
-                      <Link
-                        className={`part__item${
-                          idContent === _id ? " selected" : ""
-                        }`}
-                        key={_id}
-                        to={videoContentLink}
-                      >
-                        <div className="part__item-filter" />
-                        <div className="part__item-background">
-                          <img
-                            src={`${
-                              import.meta.env.VITE_BACK_HOST
-                            }/static${backgroundURL}`}
-                            alt={title}
-                          />
-                        </div>
-                        <div className="part__item-content">
-                          <div className="part__item-number">0{index + 1}</div>
-                          <div className="part__item-title">{title}</div>
-                          <div className="part__item-release-date">
-                            {formatDate(releaseDate)}
+                      return (
+                        <Link
+                          className={`part__item${
+                            idContent === _id ? " selected" : ""
+                          }`}
+                          key={_id}
+                          to={videoContentLink}
+                        >
+                          <div className="part__item-filter" />
+                          <div className="part__item-background">
+                            <img
+                              src={`${
+                                import.meta.env.VITE_BACK_HOST
+                              }/static${backgroundURL}`}
+                              alt={title}
+                            />
                           </div>
-                          <div className="part__item-imdb">
-                            <div className="IMDB">
-                              <div className="icon imdb" />
-                              <p className="IMDB__rating">{IMDb}</p>
+                          <div className="part__item-content">
+                            <div className="part__item-number">
+                              0{index + 1}
+                            </div>
+                            <div className="part__item-title">{title}</div>
+                            <div className="part__item-release-date">
+                              {formatDate(releaseDate)}
+                            </div>
+                            <div className="part__item-IMDb">
+                              <div className="IMDb">
+                                <div className="icon IMDb" />
+                                <p className="IMDb__rating">{IMDb}</p>
+                              </div>
+                            </div>
+                            <div className="part__item-finished">
+                              <div className="icon success" />
                             </div>
                           </div>
-                          <div className="part__item-finished">
-                            <div className="icon success" />
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -521,11 +526,9 @@ const VideoContentPage = () => {
               <div className="reviews__container">
                 <div className="review__owner">
                   <div className="review__profile">
-                    <img
-                      src={Avatar}
-                      alt="Qwerty"
-                      className="profile__avatar"
-                    />
+                    <div className="profile profile__avatar">
+                      <img src={Avatar} alt="Qwerty" />
+                    </div>
                     <h2 className="profile__name">Qwerty</h2>
                   </div>
                 </div>
@@ -544,11 +547,9 @@ const VideoContentPage = () => {
                   <div className="review owner">
                     <div className="review__owner">
                       <div className="review__profile">
-                        <img
-                          src={Avatar}
-                          alt="Qwerty"
-                          className="profile__avatar"
-                        />
+                        <div className="profile profile__avatar">
+                          <img src={Avatar} alt="Qwerty" />
+                        </div>
                         <h2 className="profile__name">Qwerty</h2>
                       </div>
                       <span className="review__splitter circle" />
@@ -580,11 +581,9 @@ const VideoContentPage = () => {
                   <div className="review">
                     <div className="review__owner">
                       <div className="review__profile">
-                        <img
-                          src={Profile2}
-                          alt="3amec"
-                          className="profile__avatar"
-                        />
+                        <div className="profile profile__avatar">
+                          <img src={Profile2} alt="3amec" />
+                        </div>
                         <h2 className="profile__name">3amec</h2>
                       </div>
                       <span className="review__splitter circle" />

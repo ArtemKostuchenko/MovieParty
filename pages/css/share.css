@@ -731,12 +731,11 @@ input {
 
 .side-nav {
   width: 0;
-  height: 100%;
-  visibility: hidden;
+  height: 100vh;
   position: fixed;
-  top: 70px;
+  top: 0;
   left: 0;
-  z-index: 400;
+  z-index: 999;
   overflow-x: hidden;
   transition: width 0.2s ease-in-out;
   background-color: var(--main-color);
@@ -750,6 +749,17 @@ input {
   width: 100%;
 }
 
+.side-nav__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side-nav__info button {
+  background-color: transparent;
+  font-size: 0;
+}
+
 .side-nav__profile {
   display: flex;
   align-items: center;
@@ -761,8 +771,8 @@ input {
 }
 
 .side-nav__avatar img {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -803,12 +813,6 @@ input {
   font-size: 0;
   width: 35px;
   height: 35px;
-}
-
-.nav-menu__icon img,
-svg {
-  width: 35px;
-  object-fit: cover;
 }
 
 .nav-menu__title {

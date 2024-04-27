@@ -2,6 +2,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
+import "./style.page.scss";
 
 const WatchVideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -35,14 +36,15 @@ const WatchVideoContentPage = () => {
       <div className="watch-content">
         <div className="watch-content__filter active" />
         <div className="watch-content__header">
-          <button className="btp" onClick={handleBack}>
+          <button className="button icon i t white" onClick={handleBack}>
             <div className="icon arrow left" />
           </button>
           <div className="watch-content__title">{content.title}</div>
         </div>
         <div className="watch-content__player">
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+            controls
+            url={soundTracks[0].m3u8URL}
             width="100%"
             height="100%"
           />

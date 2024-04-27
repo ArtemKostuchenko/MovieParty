@@ -1,0 +1,72 @@
+@import "../../scss/mixins.scss";
+
+.watch-content {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  background-color: #000000;
+
+  &__header {
+    width: 100vw;
+    padding: 0 20px;
+    z-index: 100;
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+
+    button {
+      .icon {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+
+  &__title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+    @include adaptiveFont(22, 18);
+  }
+
+  &__filter {
+    &.active {
+      background-image: linear-gradient(
+          to bottom,
+          #000 0%,
+          rgba(0, 0, 0, 0.6) 12%,
+          rgba(0, 0, 0, 0) 22%
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 75%,
+          rgba(0, 0, 0, 0.6) 88%,
+          #000
+        );
+    }
+  }
+
+  &__player,
+  &__filter {
+    height: 100%;
+    grid-row: 1 / 3;
+    grid-column: 1 / 2;
+    z-index: 0;
+  }
+  &__player {
+    video {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
