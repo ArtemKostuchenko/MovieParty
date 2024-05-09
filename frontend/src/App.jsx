@@ -8,6 +8,7 @@ import {
   VideoContentPage,
   ProfileLayout,
   ProfilePage,
+  ProfileCommentsPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
           {
             element: <ProfilePage />,
             index: true,
+          },
+          {
+            path: "comments",
+            element: <ProfileCommentsPage />,
           },
         ],
       },

@@ -5,3 +5,4 @@ export { default as LoginPage } from "./login/LoginPage";
 export { default as RegisterPage } from "./register/RegisterPage";
 export { default as VideoContentPage } from "./content/VideoContentPage";
 export { default as ProfilePage } from "./profile/index/IndexPage";
+export { default as ProfileCommentsPage } from "./profile/comments/CommentsPage";
