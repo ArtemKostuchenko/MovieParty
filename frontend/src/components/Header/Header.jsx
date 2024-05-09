@@ -53,11 +53,13 @@ const Header = () => {
                 </div>
               </div>
               <div className="header__profile">
-                <div className="profile">
-                  <div className="profile__avatar">
-                    <img src={Avatar} alt="Qwerty" />
+                <Link to="/profile">
+                  <div className="profile">
+                    <div className="profile__avatar">
+                      <img src={Avatar} alt="Qwerty" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
               <button className="menu-burger">
                 <div className="icon menu-burger"></div>

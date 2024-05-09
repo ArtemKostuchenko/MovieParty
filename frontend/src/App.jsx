@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   LayoutPage,
@@ -6,6 +6,8 @@ import {
   LoginPage,
   RegisterPage,
   VideoContentPage,
+  ProfileLayout,
+  ProfilePage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -45,6 +47,16 @@ const router = createBrowserRouter([
                 <VideoContentPage />
               </ProtectedRoute>
             ),
+          },
+        ],
+      },
+      {
+        path: "profile",
+        element: <ProfileLayout />,
+        children: [
+          {
+            element: <ProfilePage />,
+            index: true,
           },
         ],
       },

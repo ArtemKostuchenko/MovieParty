@@ -198,6 +198,76 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/close.svg");
   }
+
+  &.user {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/user.svg");
+  }
+
+  &.comment {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/comment.svg");
+  }
+
+  &.lock {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/lock.svg");
+  }
+
+  &.key {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/key.svg");
+  }
+
+  &.present {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/present.svg");
+  }
+
+  &.exit {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/exit.svg");
+  }
+
+  &.shift {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/shift.svg");
+  }
+
+  &.profile-menu {
+    width: 30px;
+    height: 30px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/profile-menu.svg");
+  }
+
+  &.edit {
+    width: 35px;
+    height: 35px;
+    background-color: var(--light-yellow);
+    mask-image: url("/src/assets/icons/edit.svg");
+  }
+
+  &.delete {
+    width: 35px;
+    height: 35px;
+    background-color: var(--scarlet);
+    mask-image: url("/src/assets/icons/delete.svg");
+  }
 }
 
 /* responsive icons */
