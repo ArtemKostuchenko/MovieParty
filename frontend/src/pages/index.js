@@ -6,3 +6,4 @@ export { default as RegisterPage } from "./register/RegisterPage";
 export { default as VideoContentPage } from "./content/VideoContentPage";
 export { default as ProfilePage } from "./profile/index/IndexPage";
 export { default as ProfileCommentsPage } from "./profile/comments/CommentsPage";
+export { default as ProfileFavoritePage } from "./profile/favorite/FavoritePage";
