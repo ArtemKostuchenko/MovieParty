@@ -10,6 +10,7 @@ import {
   ProfilePage,
   ProfileCommentsPage,
   ProfileFavoritePage,
+  ProfilePersonalPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
           {
             path: "favorite",
             element: <ProfileFavoritePage />,
+          },
+          {
+            path: "personal-data",
+            element: <ProfilePersonalPage />,
           },
         ],
       },

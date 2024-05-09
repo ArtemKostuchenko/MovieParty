@@ -1,0 +1,56 @@
+@import "../../../scss/mixins.scss";
+
+/* personal page */
+
+.personal {
+  width: 100%;
+
+  &-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 25px;
+  }
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  &-title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--boulder);
+    @include adaptiveFont(18, 16);
+  }
+
+  &-desc {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    @include adaptiveFont(20, 18);
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .personal {
+    &-items {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
