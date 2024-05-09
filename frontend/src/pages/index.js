@@ -8,3 +8,4 @@ export { default as ProfilePage } from "./profile/index/IndexPage";
 export { default as ProfileCommentsPage } from "./profile/comments/CommentsPage";
 export { default as ProfileFavoritePage } from "./profile/favorite/FavoritePage";
 export { default as ProfilePersonalPage } from "./profile/personal/PersonalPage";
+export { default as ProfilePasswordPage } from "./profile/password/PasswordPage";
