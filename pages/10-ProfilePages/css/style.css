@@ -1,0 +1,316 @@
+@import url("../../css/share.css");
+
+.profile-user {
+  display: grid;
+  grid-template-columns: minmax(auto, 250px) 1fr;
+  column-gap: 30px;
+}
+
+.profile-user-side {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.profile-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.profile-user-avatar {
+  font-size: 0;
+}
+.profile-user-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile-user-nickname {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--text-color);
+}
+.profile-user-email {
+  font-family: "Mulish", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--additional-color-3);
+}
+.profile-user-menu {
+  width: 100%;
+}
+.nav-menu {
+  width: 100%;
+}
+
+.nav-menu-items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav-menu-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+.nav-menu-item:hover {
+  background-color: var(--additional-color);
+}
+
+.nav-menu-item.active {
+  background-color: var(--additional-color);
+}
+
+.nav-menu-item-icon {
+  font-size: 0;
+}
+.nav-menu-item-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.profile-user-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.profile-user-content-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--text-color);
+}
+.profile-user-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.profile-user-content-container-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--text-color);
+}
+
+.user-info {
+  width: 100%;
+}
+.user-info-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 25px;
+}
+
+.user-info-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.user-info-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--text-color-alternative);
+}
+
+.user-info-desc {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.country-icon {
+  width: 35px;
+  height: 26px;
+}
+
+.user-comments {
+  width: 100%;
+}
+
+.user-comments-items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.user-comments-item {
+  width: 100%;
+}
+
+.comment {
+  padding: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  border-radius: 5px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 114, 187, 0.4),
+    rgba(0, 52, 85, 0.4)
+  );
+}
+.comment-content-image img {
+  max-width: 110px;
+  max-height: 132px;
+  object-fit: cover;
+}
+.comment-content-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 15px;
+}
+.comment-content-owner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.comment-content-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.comment-content-user img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.comment-content-user-nickname {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--text-color);
+}
+.comment-content-date,
+.comment-content-ref {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--text-color);
+}
+.comment-content-ref {
+  transition: color 0.2s ease-in-out;
+}
+.comment-content-ref:hover {
+  color: var(--alternative-color);
+}
+.comment-content-message {
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.review__rating {
+  display: flex;
+  gap: 25px;
+}
+.review__rating-count {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+.review__likes,
+.review__dislikes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.review__likes .icon.like {
+  width: 25px;
+  height: 22px;
+}
+.review__dislikes .icon.dislike {
+  width: 25px;
+  height: 22px;
+}
+.review__likes {
+  color: var(--success-color);
+}
+.review__dislikes {
+  color: var(--danger-color);
+}
+
+.review__likes .icon.like {
+  background-color: var(--success-color);
+}
+
+.review__dislikes .icon.dislike {
+  background-color: var(--danger-color);
+}

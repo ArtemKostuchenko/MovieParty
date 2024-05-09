@@ -202,6 +202,55 @@
   mask-image: url("../images/icons/close.svg");
 }
 
+.icon.user {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/user.svg");
+}
+
+.icon.comment {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/comment.svg");
+}
+
+.icon.lock {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/lock.svg");
+}
+
+.icon.key {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/key.svg");
+}
+
+.icon.present {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/present.svg");
+}
+
+.icon.exit {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/exit.svg");
+}
+
+.icon.shift {
+  width: 24px;
+  height: 24px;
+  background-color: var(--text-color);
+  mask-image: url("../images/icons/shift.svg");
+}
+
 /* responsive */
 @media (max-width: 767px) {
   .icon.logo {

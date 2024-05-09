@@ -143,9 +143,8 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .menu-burger {
-  visibility: hidden;
+  display: none;
   font-size: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: transparent;
@@ -961,9 +960,8 @@ input {
   .header__profile {
     display: none;
   }
-  .menu-burger,
-  .sidenav {
-    visibility: visible;
+  .menu-burger {
+    display: flex;
   }
 }
 

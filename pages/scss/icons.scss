@@ -1,0 +1,291 @@
+.icon {
+  display: inline-block;
+  background-color: var(--white);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: background-color 0.2s ease-in-out;
+
+  &.logo {
+    height: 30px;
+    width: 257px;
+    background-size: 100%;
+    background-position: 50% 50%;
+    background: url("/pages/images/icons/logo.svg");
+  }
+
+  &.IMDb {
+    height: 28px;
+    width: 52px;
+    background-size: 100%;
+    background-position: 40% 40%;
+    background: url("/pages/images/icons/IMDb.svg");
+  }
+
+  &.menu-burger {
+    width: 35px;
+    height: 35px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/menu-burger.svg");
+  }
+
+  &.location {
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/location.svg");
+  }
+
+  &.phone {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/phone.svg");
+  }
+
+  &.email {
+    width: 24px;
+    height: 34px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/email.svg");
+  }
+
+  &.arrow {
+    width: 20px;
+    height: 30px;
+    background-color: var(--white);
+
+    &.left {
+      mask-image: url("/pages/images/icons/arrow-left.svg");
+    }
+
+    &.right {
+      mask-image: url("/pages/images/icons/arrow-right.svg");
+    }
+  }
+
+  &.add {
+    width: 24px;
+    height: 24px;
+    mask-image: url("/pages/images/icons/add.svg");
+  }
+
+  &.watch {
+    max-width: 16px;
+    min-width: 16px;
+    max-height: 19px;
+    min-height: 19px;
+    mask-image: url("/pages/images/icons/watch.svg");
+  }
+
+  &.favorite {
+    width: 14px;
+    height: 17px;
+    mask-image: url("/pages/images/icons/favorite.svg");
+  }
+
+  &.success {
+    width: 24px;
+    height: 24px;
+    background-color: var(--atlantis);
+    mask-image: url("/pages/images/icons/success.svg");
+  }
+
+  &.like {
+    width: 24px;
+    height: 24px;
+    background-color: var(--atlantis);
+    mask-image: url("/pages/images/icons/like.svg");
+  }
+
+  &.dislike {
+    width: 24px;
+    height: 24px;
+    background-color: var(--scarlet);
+    mask-image: url("/pages/images/icons/dislike.svg");
+  }
+
+  &.star {
+    width: 20px;
+    height: 20px;
+    background-color: var(--light-yellow);
+    mask-image: url("/pages/images/icons/star.svg");
+
+    &.outline {
+      mask-image: url("/pages/images/icons/star-outline.svg");
+    }
+  }
+
+  &.group-users {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/group-users.svg");
+  }
+
+  &.find {
+    width: 23px;
+    height: 22px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/search.svg");
+  }
+
+  &.library {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/library.svg");
+  }
+
+  &.convenient-use {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/convenient-use.svg");
+  }
+
+  &.watch-together {
+    width: 38px;
+    height: 38px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/watch-together.svg");
+  }
+
+  &.plus {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/plus.svg");
+  }
+
+  &.google {
+    max-width: 22px;
+    min-width: 22px;
+    max-height: 22px;
+    min-height: 22px;
+    background-size: 100%;
+    background-position: 40% 40%;
+    background: url("/pages/images/icons/google.svg");
+  }
+
+  &.eye.hidden {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    mask-image: url("/pages/images/icons/hide.svg");
+  }
+
+  &.diamond {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/diamond.svg");
+  }
+
+  &.saved {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/saved.svg");
+  }
+
+  &.close {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/close.svg");
+  }
+
+  &.user {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/user.svg");
+  }
+
+  &.comment {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/comment.svg");
+  }
+
+  &.lock {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/lock.svg");
+  }
+
+  &.key {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/key.svg");
+  }
+
+  &.present {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/present.svg");
+  }
+
+  &.exit {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/exit.svg");
+  }
+
+  &.shift {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/shift.svg");
+  }
+
+  &.profile-menu {
+    width: 30px;
+    height: 30px;
+    background-color: var(--text-color);
+    mask-image: url("/pages/images/icons/profile-menu.svg");
+  }
+
+  &.edit {
+    width: 35px;
+    height: 35px;
+    background-color: var(--light-yellow);
+    mask-image: url("/pages/images/icons/edit.svg");
+  }
+
+  &.delete {
+    width: 35px;
+    height: 35px;
+    background-color: var(--scarlet);
+    mask-image: url("/pages/images/icons/delete.svg");
+  }
+}
+
+/* responsive icons */
+
+@media (max-width: 767px) {
+  .icon.logo {
+    height: calc(18px + 14 * ((100vw - 320px) / 1440));
+    width: calc(165px + 128.8 * ((100vw - 320px) / 1440));
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}
+
+@media (min-width: 767px) {
+  .icon.logo {
+    width: calc(165px + 92 * (100vw / 1440));
+    height: calc(18px + 10 * (100vw / 1440));
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}

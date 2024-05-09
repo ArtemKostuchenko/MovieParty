@@ -1,0 +1,285 @@
+.icon {
+  display: inline-block;
+  background-color: var(--white);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transition: background-color 0.2s ease-in-out;
+}
+.icon.logo {
+  height: 30px;
+  width: 257px;
+  background-size: 100%;
+  background-position: 50% 50%;
+  background: url("/pages/images/icons/logo.svg");
+}
+.icon.IMDb {
+  height: 28px;
+  width: 52px;
+  background-size: 100%;
+  background-position: 40% 40%;
+  background: url("/pages/images/icons/IMDb.svg");
+}
+.icon.menu-burger {
+  width: 35px;
+  height: 35px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/menu-burger.svg");
+          mask-image: url("/pages/images/icons/menu-burger.svg");
+}
+.icon.location {
+  width: 20px;
+  height: 20px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/location.svg");
+          mask-image: url("/pages/images/icons/location.svg");
+}
+.icon.phone {
+  width: 28px;
+  height: 28px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/phone.svg");
+          mask-image: url("/pages/images/icons/phone.svg");
+}
+.icon.email {
+  width: 24px;
+  height: 34px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/email.svg");
+          mask-image: url("/pages/images/icons/email.svg");
+}
+.icon.arrow {
+  width: 20px;
+  height: 30px;
+  background-color: var(--white);
+}
+.icon.arrow.left {
+  -webkit-mask-image: url("/pages/images/icons/arrow-left.svg");
+          mask-image: url("/pages/images/icons/arrow-left.svg");
+}
+.icon.arrow.right {
+  -webkit-mask-image: url("/pages/images/icons/arrow-right.svg");
+          mask-image: url("/pages/images/icons/arrow-right.svg");
+}
+.icon.add {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url("/pages/images/icons/add.svg");
+          mask-image: url("/pages/images/icons/add.svg");
+}
+.icon.watch {
+  max-width: 16px;
+  min-width: 16px;
+  max-height: 19px;
+  min-height: 19px;
+  -webkit-mask-image: url("/pages/images/icons/watch.svg");
+          mask-image: url("/pages/images/icons/watch.svg");
+}
+.icon.favorite {
+  width: 14px;
+  height: 17px;
+  -webkit-mask-image: url("/pages/images/icons/favorite.svg");
+          mask-image: url("/pages/images/icons/favorite.svg");
+}
+.icon.success {
+  width: 24px;
+  height: 24px;
+  background-color: var(--atlantis);
+  -webkit-mask-image: url("/pages/images/icons/success.svg");
+          mask-image: url("/pages/images/icons/success.svg");
+}
+.icon.like {
+  width: 24px;
+  height: 24px;
+  background-color: var(--atlantis);
+  -webkit-mask-image: url("/pages/images/icons/like.svg");
+          mask-image: url("/pages/images/icons/like.svg");
+}
+.icon.dislike {
+  width: 24px;
+  height: 24px;
+  background-color: var(--scarlet);
+  -webkit-mask-image: url("/pages/images/icons/dislike.svg");
+          mask-image: url("/pages/images/icons/dislike.svg");
+}
+.icon.star {
+  width: 20px;
+  height: 20px;
+  background-color: var(--light-yellow);
+  -webkit-mask-image: url("/pages/images/icons/star.svg");
+          mask-image: url("/pages/images/icons/star.svg");
+}
+.icon.star.outline {
+  -webkit-mask-image: url("/pages/images/icons/star-outline.svg");
+          mask-image: url("/pages/images/icons/star-outline.svg");
+}
+.icon.group-users {
+  width: 24px;
+  height: 24px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/group-users.svg");
+          mask-image: url("/pages/images/icons/group-users.svg");
+}
+.icon.find {
+  width: 23px;
+  height: 22px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/search.svg");
+          mask-image: url("/pages/images/icons/search.svg");
+}
+.icon.library {
+  width: 38px;
+  height: 38px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/library.svg");
+          mask-image: url("/pages/images/icons/library.svg");
+}
+.icon.convenient-use {
+  width: 38px;
+  height: 38px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/convenient-use.svg");
+          mask-image: url("/pages/images/icons/convenient-use.svg");
+}
+.icon.watch-together {
+  width: 38px;
+  height: 38px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/watch-together.svg");
+          mask-image: url("/pages/images/icons/watch-together.svg");
+}
+.icon.plus {
+  width: 30px;
+  height: 30px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/plus.svg");
+          mask-image: url("/pages/images/icons/plus.svg");
+}
+.icon.google {
+  max-width: 22px;
+  min-width: 22px;
+  max-height: 22px;
+  min-height: 22px;
+  background-size: 100%;
+  background-position: 40% 40%;
+  background: url("/pages/images/icons/google.svg");
+}
+.icon.eye.hidden {
+  width: 28px;
+  height: 28px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/hide.svg");
+          mask-image: url("/pages/images/icons/hide.svg");
+}
+.icon.diamond {
+  width: 24px;
+  height: 24px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/diamond.svg");
+          mask-image: url("/pages/images/icons/diamond.svg");
+}
+.icon.saved {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/saved.svg");
+          mask-image: url("/pages/images/icons/saved.svg");
+}
+.icon.close {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/close.svg");
+          mask-image: url("/pages/images/icons/close.svg");
+}
+.icon.user {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/user.svg");
+          mask-image: url("/pages/images/icons/user.svg");
+}
+.icon.comment {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/comment.svg");
+          mask-image: url("/pages/images/icons/comment.svg");
+}
+.icon.lock {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/lock.svg");
+          mask-image: url("/pages/images/icons/lock.svg");
+}
+.icon.key {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/key.svg");
+          mask-image: url("/pages/images/icons/key.svg");
+}
+.icon.present {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/present.svg");
+          mask-image: url("/pages/images/icons/present.svg");
+}
+.icon.exit {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/exit.svg");
+          mask-image: url("/pages/images/icons/exit.svg");
+}
+.icon.shift {
+  width: 24px;
+  height: 24px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/shift.svg");
+          mask-image: url("/pages/images/icons/shift.svg");
+}
+.icon.profile-menu {
+  width: 30px;
+  height: 30px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/profile-menu.svg");
+          mask-image: url("/pages/images/icons/profile-menu.svg");
+}
+.icon.edit {
+  width: 35px;
+  height: 35px;
+  background-color: var(--light-yellow);
+  -webkit-mask-image: url("/pages/images/icons/edit.svg");
+          mask-image: url("/pages/images/icons/edit.svg");
+}
+.icon.delete {
+  width: 35px;
+  height: 35px;
+  background-color: var(--scarlet);
+  -webkit-mask-image: url("/pages/images/icons/delete.svg");
+          mask-image: url("/pages/images/icons/delete.svg");
+}
+
+/* responsive icons */
+@media (max-width: 767px) {
+  .icon.logo {
+    height: calc(18px + 14 * (100vw - 320px) / 1440);
+    width: calc(165px + 128.8 * (100vw - 320px) / 1440);
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}
+@media (min-width: 767px) {
+  .icon.logo {
+    width: calc(165px + 6.3888888889vw);
+    height: calc(18px + 0.6944444444vw);
+    background-size: 100%;
+    background-position: 40% 40%;
+  }
+}/*# sourceMappingURL=icons.css.map */
