@@ -9,3 +9,4 @@ export { default as ProfileCommentsPage } from "./profile/comments/CommentsPage"
 export { default as ProfileFavoritePage } from "./profile/favorite/FavoritePage";
 export { default as ProfilePersonalPage } from "./profile/personal/PersonalPage";
 export { default as ProfilePasswordPage } from "./profile/password/PasswordPage";
+export { default as ProfileSubscribePage } from "./profile/subscribe/SubscribePage";

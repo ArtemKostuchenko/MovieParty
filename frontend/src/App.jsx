@@ -12,6 +12,7 @@ import {
   ProfileFavoritePage,
   ProfilePersonalPage,
   ProfilePasswordPage,
+  ProfileSubscribePage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
           {
             path: "password",
             element: <ProfilePasswordPage />,
+          },
+          {
+            path: "subscribe",
+            element: <ProfileSubscribePage />,
           },
         ],
       },
