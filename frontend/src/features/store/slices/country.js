@@ -10,13 +10,15 @@ const initialState = {
 
 export const addCountry = createAsyncThunk(
   "country/add",
-  async ({ name, originalName, countryIcon }, ThunkAPI) => {
+  async (formData, ThunkAPI) => {
     try {
-      const resp = await baseAxios.post("/auth/register", {
-        name,
-        originName: originalName,
-        icon: countryIcon,
+      const resp = await baseAxios.post("/countries", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
       });
+
       return resp.data;
     } catch (err) {
       return ThunkAPI.rejectWithValue(err.response.data.msg);

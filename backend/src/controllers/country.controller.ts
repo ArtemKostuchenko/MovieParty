@@ -3,8 +3,12 @@ import { StatusCodes } from 'http-status-codes';
 import CountryRepository from '../repositories/country.repository';
 
 const createCountry = async (req: Request, res: Response): Promise<Response> => {
-    const country = await CountryRepository.createCountry(req.body);
-
+    req.body.icon = req.file?.filename as string;
+    
+    const country = await CountryRepository.createCountry(
+      req.body,
+    );
+    
     return res.status(StatusCodes.CREATED).json({ data: country });
 }
 

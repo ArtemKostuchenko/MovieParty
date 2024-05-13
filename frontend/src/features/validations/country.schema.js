@@ -6,11 +6,11 @@ const CountrySchema = yup.object().shape({
     .string()
     .min(3, "Поле повинне бути більше 8 символів")
     .required("Поле 'Назва країни' є обов'язковим"),
-  originalName: yup
+  originName: yup
     .string()
     .min(3, "Поле повинне бути більше 8 символів")
     .required("Поле 'Оригінальна назва країни' є обов'язковим"),
-  countryIcon: yup
+  icon: yup
     .mixed()
     .required("Оберіть іконку країни")
     .test("isValidType", (file, context) => {

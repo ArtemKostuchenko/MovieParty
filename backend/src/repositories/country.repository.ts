@@ -5,10 +5,12 @@ class CountryRepository {
     constructor() { }
 
     async createCountry(countryData: Country): Promise<Country> {
-        const { name, code } = countryData;
+        const { name, originName, icon} = countryData;
 
-        if (!name || !code) {
-            throw new BadRequestError('Please provide name and code country');
+        if (!name || !originName || !icon) {
+          throw new BadRequestError(
+            "Please provide name, originName and icon country"
+          );
         }
 
         return await CountryModel.create(countryData);
@@ -25,7 +27,7 @@ class CountryRepository {
     }
 
     async updateCountryById(countryId: string, countryData: Country): Promise<Country> {
-        const { name, code } = countryData;
+        const { name, originName, icon } = countryData;
 
         const country = await CountryModel.findById(countryId);
 
@@ -34,7 +36,8 @@ class CountryRepository {
         }
 
         country.name = name || country.name;
-        country.code = code || country.code;
+        country.originName = originName || country.originName;
+        country.icon = icon || country.icon;
 
         return await country.save();
     }

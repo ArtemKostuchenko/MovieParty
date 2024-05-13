@@ -7,9 +7,11 @@ import PopUp from "../../../components/PopUp/PopUp";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
+import useCountry from "../../../hooks/useCountry";
 
 const CountryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { addNewCountry } = useCountry();
 
   const {
     register,
@@ -20,8 +22,9 @@ const CountryPage = () => {
     resolver: yupResolver(CountrySchema),
   });
 
-  const onSubmitHandler = (data) => {
-    console.log(data);
+  const onSubmitHandler = (_, e) => {
+    const formData =new FormData(e.target);
+    addNewCountry(formData);
     setIsOpen(false);
     reset();
   };
@@ -119,7 +122,7 @@ const CountryPage = () => {
                   </div>
                   <input
                     type="text"
-                    {...register("originalName")}
+                    {...register("originName")}
                     className="form__input linear"
                   />
                   {errors.originalName && (
@@ -135,7 +138,7 @@ const CountryPage = () => {
                     className="button primary fill"
                     onClick={() => {
                       const inputRef = document.querySelector(
-                        'input[name="countryIcon"]'
+                        'input[name="icon"]'
                       );
                       if (!inputRef) return;
                       inputRef.click();
@@ -145,7 +148,7 @@ const CountryPage = () => {
                   </button>
                   <input
                     type="file"
-                    {...register("countryIcon")}
+                    {...register("icon")}
                     className="hidden"
                     accept="image/*"
                   />
