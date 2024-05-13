@@ -22,7 +22,7 @@ const ProfileLayout = () => {
               <div className="profile-user-menu">
                 <div className="profile-menu">
                   <div className="profile-menu-items">
-                    <NavLink to="" className="profile-menu-item">
+                    <NavLink to="" className="profile-menu-item" end>
                       <div className="profile-menu-item-icon">
                         <div className="icon user" />
                       </div>

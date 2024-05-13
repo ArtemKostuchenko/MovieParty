@@ -265,6 +265,20 @@
   -webkit-mask-image: url("/pages/images/icons/delete.svg");
           mask-image: url("/pages/images/icons/delete.svg");
 }
+.icon.earth {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/earth.svg");
+          mask-image: url("/pages/images/icons/earth.svg");
+}
+.icon.action {
+  width: 24px;
+  height: 6px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/action.svg");
+          mask-image: url("/pages/images/icons/action.svg");
+}
 
 /* responsive icons */
 @media (max-width: 767px) {

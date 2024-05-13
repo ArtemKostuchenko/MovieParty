@@ -2218,4 +2218,14 @@ body::-webkit-scrollbar-thumb:hover {
   .view-actions .form {
     width: 100%;
   }
-}/*# sourceMappingURL=share.css.map */
+}
+.countries {
+  width: 100%;
+}
+.countries .view-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 50px;
+}
+.countries .c-i {
+  width: 25px;
+  height: 20px;
+}/*# sourceMappingURL=style.css.map */
