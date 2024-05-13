@@ -1,5 +1,6 @@
 export { default as LayoutPage } from "./LayoutPage";
 export { default as ProfileLayout } from "./ProfileLayout";
+export { default as AdminLayout } from "./AdminLayout";
 export { default as HomeLayout } from "./home/HomeLayout";
 export { default as LoginPage } from "./login/LoginPage";
 export { default as RegisterPage } from "./register/RegisterPage";
@@ -10,3 +11,4 @@ export { default as ProfileFavoritePage } from "./profile/favorite/FavoritePage"
 export { default as ProfilePersonalPage } from "./profile/personal/PersonalPage";
 export { default as ProfilePasswordPage } from "./profile/password/PasswordPage";
 export { default as ProfileSubscribePage } from "./profile/subscribe/SubscribePage";
+export { default as CountriesPage } from "./admin/countries/CountriesPage";

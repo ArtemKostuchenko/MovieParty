@@ -13,6 +13,8 @@ import {
   ProfilePersonalPage,
   ProfilePasswordPage,
   ProfileSubscribePage,
+  AdminLayout,
+  CountriesPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -82,6 +84,17 @@ const router = createBrowserRouter([
           {
             path: "subscribe",
             element: <ProfileSubscribePage />,
+          },
+        ],
+      },
+      {
+        path: "panel/admin",
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "countries",
+            element: <CountriesPage />,
+            index: true,
           },
         ],
       },

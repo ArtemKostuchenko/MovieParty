@@ -268,6 +268,20 @@
     background-color: var(--scarlet);
     mask-image: url("/src/assets/icons/delete.svg");
   }
+
+  &.earth {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/earth.svg");
+  }
+
+  &.action {
+    width: 24px;
+    height: 6px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/action.svg");
+  }
 }
 
 /* responsive icons */
