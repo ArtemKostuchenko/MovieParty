@@ -1,0 +1,16 @@
+@import "../../scss/share.scss";
+
+.countries {
+  width: 100%;
+
+  .view {
+    &-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) 50px;
+    }
+  }
+
+  .c-i {
+    width: 25px;
+    height: 20px;
+  }
+}
