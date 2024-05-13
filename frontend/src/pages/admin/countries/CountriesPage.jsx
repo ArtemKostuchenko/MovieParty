@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ua from "../../../assets/icons/ua.svg";
 import us from "../../../assets/icons/us.svg";
 import gb from "../../../assets/icons/gb.svg";
 import "./style.page.scss";
+import PopUp from "../../../components/PopUp/PopUp";
 
 const CountryPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <div className="profile-user-content-title">Країни</div>
@@ -12,7 +15,13 @@ const CountryPage = () => {
         <div className="countries">
           <div className="view">
             <div className="view-actions">
-              <button className="button primary">Додати країну</button>
+              <button
+                className="button primary"
+                disabled={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Додати країну
+              </button>
               <div className="view-filters">
                 <div className="form">
                   <div className="form__item">
@@ -70,6 +79,9 @@ const CountryPage = () => {
           </div>
         </div>
       </div>
+      <PopUp open={isOpen} setOpen={setIsOpen}>
+        Test PopUp!
+      </PopUp>
     </>
   );
 };
