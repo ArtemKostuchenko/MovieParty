@@ -22,3 +22,12 @@ export const formatDate = (inputDate) => {
 
   return `${day} ${month} ${year} рік`;
 };
+
+export const getFileExtension = (fileName = "") => {
+  const lastIndex = fileName.lastIndexOf(".");
+  if (fileName !== -1) {
+    return fileName.slice(lastIndex + 1);
+  } else {
+    return "";
+  }
+};
