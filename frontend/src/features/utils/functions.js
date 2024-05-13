@@ -2,25 +2,25 @@ export const formatDate = (inputDate) => {
   const dateObj = new Date(inputDate);
 
   const months = [
-    "січня",
-    "лютого",
-    "березня",
-    "квітня",
-    "травня",
-    "червня",
-    "липня",
-    "серпня",
-    "вересня",
-    "жовтня",
-    "листопада",
-    "грудня",
+    "січ",
+    "лют",
+    "бер",
+    "кві",
+    "тра",
+    "чер",
+    "лип",
+    "сер",
+    "вер",
+    "жов",
+    "лис",
+    "гру",
   ];
 
-  const day = dateObj.getDate();
-  const month = months[dateObj.getMonth()];
-  const year = dateObj.getFullYear();
+  const formattedDate = `${dateObj.getDate()} ${
+    months[dateObj.getMonth()]
+  }, ${dateObj.getFullYear()}`;
 
-  return `${day} ${month} ${year} рік`;
+  return formattedDate;
 };
 
 export const getFileExtension = (fileName = "") => {

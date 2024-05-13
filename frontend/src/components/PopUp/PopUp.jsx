@@ -8,6 +8,9 @@ const PopUp = ({ title = "PopUp", children, open, setOpen }) => {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [open]);
 
   return (

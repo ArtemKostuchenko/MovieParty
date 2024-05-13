@@ -8,10 +8,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
 import useCountry from "../../../hooks/useCountry";
+import { useGetCountriesQuery } from "../../../features/services/countries/countriesService";
+import { formatDate } from "../../../features/utils/functions";
 
 const CountryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { addNewCountry } = useCountry();
+  const { data, isLoading } = useGetCountriesQuery();
 
   const {
     register,
@@ -23,7 +26,7 @@ const CountryPage = () => {
   });
 
   const onSubmitHandler = (_, e) => {
-    const formData =new FormData(e.target);
+    const formData = new FormData(e.target);
     addNewCountry(formData);
     setIsOpen(false);
     reset();
@@ -55,47 +58,37 @@ const CountryPage = () => {
               </div>
             </div>
             <div className="overflow-content">
-              <div className="view-items">
-                <div className="view-row head">
-                  <div className="view-col">Назва країни</div>
-                  <div className="view-col">Оригінальна назва</div>
-                  <div className="view-col">Дата додавання</div>
-                  <div className="view-col">Дії</div>
+              {isLoading && "Loading..."}
+              {!isLoading && data && (
+                <div className="view-items">
+                  <div className="view-row head">
+                    <div className="view-col">Назва країни</div>
+                    <div className="view-col">Оригінальна назва</div>
+                    <div className="view-col">Дата додавання</div>
+                    <div className="view-col">Дії</div>
+                  </div>
+                  {data.data.map((item) => {
+                    const icon = `${
+                      import.meta.env.VITE_BACK_HOST
+                    }/static/files/crs/${item.icon}`;
+                    return (
+                      <div className="view-row">
+                        <div className="view-col flex r g10">
+                          <img src={icon} alt={item.name} className="c-i" />
+                          {item.name}
+                        </div>
+                        <div className="view-col">{item.originName}</div>
+                        <div className="view-col">
+                          {formatDate(item.createdAt)}
+                        </div>
+                        <div className="view-col">
+                          <div className="icon action" />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="view-row">
-                  <div className="view-col flex r g10">
-                    <img src={ua} alt="Україна" className="c-i" />
-                    Україна
-                  </div>
-                  <div className="view-col">Ukraine</div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col flex r g10">
-                    <img src={us} alt="США" className="c-i" />
-                    США
-                  </div>
-                  <div className="view-col">USA</div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col flex r g10">
-                    <img src={gb} alt="Велика Британія" className="c-i" />
-                    Велика Британія
-                  </div>
-                  <div className="view-col">United Kingdom</div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -137,9 +130,8 @@ const CountryPage = () => {
                     type="button"
                     className="button primary fill"
                     onClick={() => {
-                      const inputRef = document.querySelector(
-                        'input[name="icon"]'
-                      );
+                      const inputRef =
+                        document.querySelector('input[name="icon"]');
                       if (!inputRef) return;
                       inputRef.click();
                     }}
