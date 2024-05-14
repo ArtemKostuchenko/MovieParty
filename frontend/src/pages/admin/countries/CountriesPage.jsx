@@ -1,20 +1,15 @@
-import React, { useRef, useState } from "react";
-import ua from "../../../assets/icons/ua.svg";
-import us from "../../../assets/icons/us.svg";
-import gb from "../../../assets/icons/gb.svg";
+import React, { useState } from "react";
 import "./style.page.scss";
 import PopUp from "../../../components/PopUp/PopUp";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
 import useCountry from "../../../hooks/useCountry";
-import { useGetCountriesQuery } from "../../../features/services/countries/countriesService";
-import { formatDate } from "../../../features/utils/functions";
+import { CountryList } from "../../../components";
 
 const CountryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { addNewCountry } = useCountry();
-  const { data, isLoading } = useGetCountriesQuery();
+  const { addCountry, isSuccessAdd, isLoadingAdd } = useCountry();
 
   const {
     register,
@@ -25,9 +20,9 @@ const CountryPage = () => {
     resolver: yupResolver(CountrySchema),
   });
 
-  const onSubmitHandler = (_, e) => {
-    const formData = new FormData(e.target);
-    addNewCountry(formData);
+  const onSubmitHandler = async (data) => {
+    const res = await addCountry(data);
+    console.log(res);
     setIsOpen(false);
     reset();
   };
@@ -41,7 +36,7 @@ const CountryPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isOpen}
+                disabled={isOpen || isLoadingAdd}
                 onClick={() => setIsOpen(!isOpen)}
               >
                 Додати країну
@@ -57,39 +52,7 @@ const CountryPage = () => {
                 </div>
               </div>
             </div>
-            <div className="overflow-content">
-              {isLoading && "Loading..."}
-              {!isLoading && data && (
-                <div className="view-items">
-                  <div className="view-row head">
-                    <div className="view-col">Назва країни</div>
-                    <div className="view-col">Оригінальна назва</div>
-                    <div className="view-col">Дата додавання</div>
-                    <div className="view-col">Дії</div>
-                  </div>
-                  {data.data.map((item) => {
-                    const icon = `${
-                      import.meta.env.VITE_BACK_HOST
-                    }/static/files/crs/${item.icon}`;
-                    return (
-                      <div className="view-row">
-                        <div className="view-col flex r g10">
-                          <img src={icon} alt={item.name} className="c-i" />
-                          {item.name}
-                        </div>
-                        <div className="view-col">{item.originName}</div>
-                        <div className="view-col">
-                          {formatDate(item.createdAt)}
-                        </div>
-                        <div className="view-col">
-                          <div className="icon action" />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+            <CountryList />
           </div>
         </div>
       </div>

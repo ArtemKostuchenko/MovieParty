@@ -1,23 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addCountry } from "../features/store/slices/country";
+import { useAddCountryMutation } from "../features/services/countries/countriesService";
 
 const useCountry = () => {
-  const { isLoading, country, isError, error } = useSelector(
-    (state) => state.user
-  );
+  const [mutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
+    useAddCountryMutation();
 
-  const dispatch = useDispatch();
-
-  const addNewCountry = (formData) => {
-    dispatch(addCountry(formData));
+  const addCountry = async (country) => {
+    return await mutation(country).unwrap();
   };
 
   return {
-    isLoading,
-    country,
-    isError,
-    error,
-    addNewCountry,
+    addCountry,
+    isLoadingAdd,
+    isSuccessAdd,
   };
 };
 
