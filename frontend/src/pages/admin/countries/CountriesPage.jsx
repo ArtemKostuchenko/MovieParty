@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style.page.scss";
 import useCountry from "../../../hooks/useCountry";
 import CountriesAddPopup from "./CountriesAddPopup";
 import { CountryList } from "../../../components";
 
 const CountryPage = () => {
-  const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const { isLoadingAdd } = useCountry();
+  const { isAddCountry, addCountryHandler, isLoadingAdd } = useCountry();
 
   return (
     <>
@@ -17,8 +16,8 @@ const CountryPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isOpenAdd || isLoadingAdd}
-                onClick={() => setIsOpenAdd(!isOpenAdd)}
+                disabled={isAddCountry || isLoadingAdd}
+                onClick={() => addCountryHandler()}
               >
                 Додати країну
               </button>
@@ -37,9 +36,7 @@ const CountryPage = () => {
           </div>
         </div>
       </div>
-      {isOpenAdd && (
-        <CountriesAddPopup isOpen={isOpenAdd} setIsOpen={setIsOpenAdd} />
-      )}
+      {isAddCountry && <CountriesAddPopup />}
     </>
   );
 };

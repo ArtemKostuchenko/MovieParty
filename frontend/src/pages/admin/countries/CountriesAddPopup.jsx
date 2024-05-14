@@ -6,8 +6,8 @@ import { CountrySchema } from "../../../features/validations";
 import { PreviewImage } from "../../../components";
 import useCountry from "../../../hooks/useCountry";
 
-const CountriesAddPopup = ({ isOpen, setIsOpen }) => {
-  const { addCountry } = useCountry();
+const CountriesAddPopup = () => {
+  const { isAddCountry, resetHandler, addCountry } = useCountry();
 
   const {
     register,
@@ -23,7 +23,7 @@ const CountriesAddPopup = ({ isOpen, setIsOpen }) => {
   const onSubmitHandler = async (data) => {
     const res = await addCountry(data);
     console.log(res);
-    setIsOpen(false);
+    resetHandler();
     reset();
   };
 
@@ -34,7 +34,7 @@ const CountriesAddPopup = ({ isOpen, setIsOpen }) => {
   const watchIcon = watch("icon");
 
   return (
-    <PopUp title="Додавання країни" open={isOpen} setOpen={setIsOpen}>
+    <PopUp title="Додавання країни" open={isAddCountry} setOpen={resetHandler}>
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>
           <div className="popup__form-items">
