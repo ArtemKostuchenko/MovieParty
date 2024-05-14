@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useCountry from "../../../hooks/useCountry";
 import PopUp from "../../../components/PopUp/PopUp";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,6 @@ const CountriesEditPopup = () => {
     register,
     handleSubmit,
     setValue,
-    getValues,
     resetField,
     watch,
     formState: { errors, isDirty, isValid },
@@ -110,13 +109,6 @@ const CountriesEditPopup = () => {
               ) : (
                 <PreviewImage icon={watchIcon} removeIcon={resetIcon} />
               )}
-
-              <input
-                type="file"
-                {...register("icon")}
-                className="hidden"
-                accept="image/*"
-              />
             </div>
             <button
               type="submit"
