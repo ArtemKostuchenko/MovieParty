@@ -282,6 +282,20 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/action.svg");
   }
+
+  &.eda {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/edit-action.svg");
+  }
+
+  &.rma {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/remove-action.svg");
+  }
 }
 
 /* responsive icons */

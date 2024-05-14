@@ -882,6 +882,63 @@ body {
   }
 }
 
+/* action menu */
+
+.action-menu {
+  &__button {
+    background: transparent;
+  }
+  &__container {
+    position: relative;
+  }
+  &__items {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 0;
+    z-index: 100;
+    padding: 6px 4px;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
+    border: 2px solid var(--dropdown-color);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    padding: 4px 6px;
+    border-radius: 5px;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: var(--lochmara);
+    }
+  }
+
+  &__title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    @include adaptiveFont(14, 12);
+    color: var(--text-color);
+  }
+
+  &.active {
+    .action-menu__items {
+      display: flex;
+    }
+  }
+}
+
 /* profile */
 
 .profile {
