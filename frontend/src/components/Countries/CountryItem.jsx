@@ -5,7 +5,7 @@ import ActionItem from "../Menu/ActionItem";
 import useCountry from "../../hooks/useCountry";
 
 const CountryItem = ({ _id, name, originName, icon, createdAt }) => {
-  const { removeCountryHandler } = useCountry();
+  const { removeCountryHandler, editCountryHandler } = useCountry();
 
   const countryIcon = `${
     import.meta.env.VITE_BACK_HOST
@@ -21,7 +21,11 @@ const CountryItem = ({ _id, name, originName, icon, createdAt }) => {
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
         <ActionMenu>
-          <ActionItem icon="eda" title="Редагувати" />
+          <ActionItem
+            icon="eda"
+            title="Редагувати"
+            onClick={() => editCountryHandler(_id)}
+          />
           <ActionItem
             icon="rma"
             title="Видалити"
