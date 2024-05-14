@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
 import useCountry from "../../../hooks/useCountry";
-import { CountryList } from "../../../components";
+import { CountryList, PreviewImage } from "../../../components";
 
 const CountryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +15,8 @@ const CountryPage = () => {
     register,
     handleSubmit,
     reset,
+    resetField,
+    watch,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(CountrySchema),
@@ -26,6 +28,12 @@ const CountryPage = () => {
     setIsOpen(false);
     reset();
   };
+
+  const resetIcon = () => {
+    resetField("icon");
+  };
+
+  const watchIcon = watch("icon");
 
   return (
     <>
@@ -81,26 +89,31 @@ const CountryPage = () => {
                     {...register("originName")}
                     className="form__input linear"
                   />
-                  {errors.originalName && (
+                  {errors.originName && (
                     <span className="message error">
-                      {errors.originalName.message}
+                      {errors.originName.message}
                     </span>
                   )}
                 </div>
                 <div className="popup__form-item">
                   <div className="popup__form-title">Іконку країни (25x20)</div>
-                  <button
-                    type="button"
-                    className="button primary fill"
-                    onClick={() => {
-                      const inputRef =
-                        document.querySelector('input[name="icon"]');
-                      if (!inputRef) return;
-                      inputRef.click();
-                    }}
-                  >
-                    Обрати іконку
-                  </button>
+                  {!Boolean(watchIcon?.length) ? (
+                    <button
+                      type="button"
+                      className="button primary fill"
+                      onClick={() => {
+                        const inputRef =
+                          document.querySelector('input[name="icon"]');
+                        if (!inputRef) return;
+                        inputRef.click();
+                      }}
+                    >
+                      Обрати іконку
+                    </button>
+                  ) : (
+                    <PreviewImage file={watchIcon[0]} removeIcon={resetIcon} />
+                  )}
+
                   <input
                     type="file"
                     {...register("icon")}

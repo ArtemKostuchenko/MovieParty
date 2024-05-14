@@ -1065,6 +1065,67 @@ body {
   }
 }
 
+/* preview image */
+
+.preview-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      .preview-image__name {
+        color: var(--light-yellow);
+      }
+    }
+  }
+
+  & img {
+    &.crs {
+      width: 60px;
+      height: 55px;
+    }
+  }
+
+  &__close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(54, 54, 54, 0.7);
+    border-radius: 50%;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: rgba(54, 54, 54, 1);
+    }
+  }
+
+  &__name {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--text-color);
+    @include adaptiveFont(16, 14);
+    @include transition(color);
+  }
+}
+
 /* loaders */
 
 .loader {
