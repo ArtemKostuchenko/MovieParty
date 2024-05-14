@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleAddCountry,
+  editCountry,
+  removeCountry,
   resetCountry,
 } from "../features/store/slices/country";
 import { useAddCountryMutation } from "../features/services/countries/countriesService";
@@ -23,6 +25,14 @@ const useCountry = () => {
     dispatch(handleAddCountry());
   };
 
+  const editCountryHandler = (id) => {
+    dispatch(editCountry(id));
+  };
+
+  const removeCountryHandler = (id) => {
+    dispatch(removeCountry(id));
+  };
+
   const resetHandler = () => {
     dispatch(resetCountry());
   };
@@ -34,7 +44,9 @@ const useCountry = () => {
     isLoadingAdd,
     isSuccessAdd,
     editId,
+    editCountryHandler,
     removeId,
+    removeCountryHandler,
     resetHandler,
   };
 };

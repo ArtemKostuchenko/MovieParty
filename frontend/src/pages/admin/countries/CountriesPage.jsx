@@ -3,9 +3,11 @@ import "./style.page.scss";
 import useCountry from "../../../hooks/useCountry";
 import CountriesAddPopup from "./CountriesAddPopup";
 import { CountryList } from "../../../components";
+import CountriesRemovePopup from "./CountriesRemovePopup";
 
 const CountryPage = () => {
-  const { isAddCountry, addCountryHandler, isLoadingAdd } = useCountry();
+  const { isAddCountry, removeId, addCountryHandler, isLoadingAdd } =
+    useCountry();
 
   return (
     <>
@@ -37,6 +39,7 @@ const CountryPage = () => {
         </div>
       </div>
       {isAddCountry && <CountriesAddPopup />}
+      {removeId && <CountriesRemovePopup />}
     </>
   );
 };

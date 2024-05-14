@@ -2,15 +2,14 @@ import React from "react";
 import { formatDate } from "../../features/utils/functions";
 import ActionMenu from "../Menu/ActionMenu";
 import ActionItem from "../Menu/ActionItem";
+import useCountry from "../../hooks/useCountry";
 
-const CountryItem = ({ id, name, originName, icon, createdAt }) => {
+const CountryItem = ({ _id, name, originName, icon, createdAt }) => {
+  const { removeCountryHandler } = useCountry();
+
   const countryIcon = `${
     import.meta.env.VITE_BACK_HOST
   }/static/files/crs/${icon}`;
-
-  const editNow = () => {
-    console.log("Edit!");
-  };
 
   return (
     <div className="view-row">
@@ -22,8 +21,12 @@ const CountryItem = ({ id, name, originName, icon, createdAt }) => {
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
         <ActionMenu>
-          <ActionItem icon="eda" title="Редагувати" onClick={editNow} />
-          <ActionItem icon="rma" title="Видалити" />
+          <ActionItem icon="eda" title="Редагувати" />
+          <ActionItem
+            icon="rma"
+            title="Видалити"
+            onClick={() => removeCountryHandler(_id)}
+          />
         </ActionMenu>
       </div>
     </div>
