@@ -76,6 +76,29 @@
     @include adaptiveFont(16, 14);
   }
 
+  &__text {
+    font-family: "Mulish";
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text-color);
+    @include adaptiveFont(16, 14);
+
+    .highlight {
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 600;
+      @include adaptiveFont(18, 16);
+      color: var(--scarlet);
+    }
+
+    &.center {
+      text-align: center;
+    }
+  }
+
   &.po {
     display: flex;
     align-items: center;

@@ -13,6 +13,10 @@ export const countriesApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["countries"],
     }),
+    getCountryById: builder.query({
+      query: (id) => ({ url: `countries/${id}` }),
+      transformResponse: (resp) => resp.data,
+    }),
     addCountry: builder.mutation({
       query: ({ name, originName, icon }) => {
         const bodyData = new FormData();
@@ -31,7 +35,19 @@ export const countriesApi = createApi({
       },
       invalidatesTags: ["countries"],
     }),
+    removeCountry: builder.mutation({
+      query: (id) => ({
+        url: `countries/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["countries"],
+    }),
   }),
 });
 
-export const { useGetCountriesQuery, useAddCountryMutation } = countriesApi;
+export const {
+  useGetCountriesQuery,
+  useGetCountryByIdQuery,
+  useAddCountryMutation,
+  useRemoveCountryMutation,
+} = countriesApi;

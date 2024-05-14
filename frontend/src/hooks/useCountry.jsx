@@ -2,14 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   handleAddCountry,
   editCountry,
-  removeCountry,
+  removeCountry as rmCountry,
   resetCountry,
 } from "../features/store/slices/country";
-import { useAddCountryMutation } from "../features/services/countries/countriesService";
+import {
+  useAddCountryMutation,
+  useRemoveCountryMutation,
+} from "../features/services/countries/countriesService";
 
 const useCountry = () => {
-  const [mutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
+  const [addMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useAddCountryMutation();
+
+  const [
+    removeMutation,
+    { isLoading: isLoadingRemove, isSuccess: isSuccessRemove },
+  ] = useRemoveCountryMutation();
 
   const dispatch = useDispatch();
 
@@ -18,7 +26,7 @@ const useCountry = () => {
   );
 
   const addCountry = async (country) => {
-    return await mutation(country).unwrap();
+    return await addMutation(country).unwrap();
   };
 
   const addCountryHandler = () => {
@@ -30,7 +38,11 @@ const useCountry = () => {
   };
 
   const removeCountryHandler = (id) => {
-    dispatch(removeCountry(id));
+    dispatch(rmCountry(id));
+  };
+
+  const removeCountry = async (id) => {
+    return await removeMutation(id);
   };
 
   const resetHandler = () => {
@@ -47,6 +59,9 @@ const useCountry = () => {
     editCountryHandler,
     removeId,
     removeCountryHandler,
+    removeCountry,
+    isLoadingRemove,
+    isSuccessRemove,
     resetHandler,
   };
 };
