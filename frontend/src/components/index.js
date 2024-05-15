@@ -7,3 +7,4 @@ export { default as DropDown } from "./DropDown/DropDown";
 export { default as DropDownItem } from "./DropDown/DropDownItem";
 export { default as CountryList } from "./Countries/CountryList";
 export { default as PreviewImage } from "./Preview/PreviewImage";
+export { default as Pagination } from "./Pagination/Pagination";

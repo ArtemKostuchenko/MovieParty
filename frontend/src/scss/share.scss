@@ -734,6 +734,10 @@ body {
   justify-content: center;
   gap: 20px;
 
+  &__container {
+    margin: 15px 0;
+  }
+
   &__action {
     cursor: pointer;
     font-size: 0;
@@ -771,7 +775,7 @@ body {
     @include adaptiveFont(18, 16);
     @include transition(background-color);
 
-    &.active {
+    &.current {
       background-color: var(--pagination-color-active);
     }
 
@@ -1421,14 +1425,24 @@ body {
   }
 
   &-items {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-rows: 1fr;
   }
 
   &-row {
     display: grid;
     grid-template-rows: 1fr;
     align-items: center;
+
+    &.skeleton {
+      .view-col {
+        height: max-content;
+        &::after {
+          content: "";
+          display: none;
+        }
+      }
+    }
   }
 
   .head {

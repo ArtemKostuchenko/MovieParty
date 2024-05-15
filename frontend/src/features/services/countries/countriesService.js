@@ -10,7 +10,9 @@ export const countriesApi = createApi({
   tagTypes: ["countries"],
   endpoints: (builder) => ({
     getCountries: builder.query({
-      query: () => ({ url: "countries" }),
+      query: ({ page, limit }) => ({
+        url: `countries?page=${page}&limit=${limit}`,
+      }),
       transformResponse: (resp) => resp.data,
       providesTags: ["countries"],
     }),

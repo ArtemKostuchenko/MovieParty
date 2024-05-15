@@ -4,8 +4,26 @@ import ActionMenu from "../Menu/ActionMenu";
 import ActionItem from "../Menu/ActionItem";
 import useCountry from "../../hooks/useCountry";
 
-const CountryItem = ({ _id, name, originName, icon, createdAt }) => {
+const CountryItem = ({
+  _id,
+  name,
+  originName,
+  icon,
+  createdAt,
+  skeleton = false,
+}) => {
   const { removeCountryHandler, editCountryHandler } = useCountry();
+
+  if (skeleton) {
+    return (
+      <div className="view-row skeleton">
+        <div className="view-col"></div>
+        <div className="view-col"></div>
+        <div className="view-col"></div>
+        <div className="view-col"></div>
+      </div>
+    );
+  }
 
   const countryIcon = `${
     import.meta.env.VITE_BACK_HOST

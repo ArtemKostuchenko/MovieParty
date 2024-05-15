@@ -4,6 +4,8 @@ import {
   editCountry,
   removeCountry as rmCountry,
   resetCountry,
+  changePage,
+  resetPage as resPage,
 } from "../features/store/slices/country";
 import {
   useAddCountryMutation,
@@ -21,7 +23,7 @@ const useCountry = () => {
 
   const dispatch = useDispatch();
 
-  const { isAddCountry, editId, removeId } = useSelector(
+  const { isAddCountry, editId, removeId, page } = useSelector(
     (store) => store.country
   );
 
@@ -49,6 +51,14 @@ const useCountry = () => {
     dispatch(resetCountry());
   };
 
+  const onChangePage = (page) => {
+    dispatch(changePage(page));
+  };
+
+  const resetPage = () => {
+    dispatch(resPage());
+  };
+
   return {
     isAddCountry,
     addCountryHandler,
@@ -63,6 +73,9 @@ const useCountry = () => {
     isLoadingRemove,
     isSuccessRemove,
     resetHandler,
+    page,
+    onChangePage,
+    resPage,
   };
 };
 
