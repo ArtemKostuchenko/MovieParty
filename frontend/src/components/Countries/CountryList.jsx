@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetCountriesQuery } from "../../features/services/countries/countriesService";
 import CountryItem from "./CountryItem";
 import Pagination from "../Pagination/Pagination";
 import useCountry from "../../hooks/useCountry";
 
-const CountryList = ({ limit = 5 }) => {
-  const { page, onChangePage } = useCountry();
+const CountryList = ({ limit = 5, name = "" }) => {
+  const { page, onChangePage, resetPage } = useCountry();
   const { data, isLoading, isError } = useGetCountriesQuery({
+    name,
     page,
     limit,
   });
+
+  useEffect(() => {
+    return () => {
+      resetPage();
+    };
+  }, []);
 
   if (isLoading) {
     return (

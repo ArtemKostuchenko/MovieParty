@@ -75,7 +75,7 @@ const useCountry = () => {
     resetHandler,
     page,
     onChangePage,
-    resPage,
+    resetPage,
   };
 };
 

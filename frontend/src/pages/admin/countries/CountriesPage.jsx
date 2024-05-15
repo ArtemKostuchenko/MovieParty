@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.page.scss";
 import useCountry from "../../../hooks/useCountry";
 import CountriesAddPopup from "./CountriesAddPopup";
@@ -9,6 +9,16 @@ import CountriesEditPopup from "./CountriesEditPopup";
 const CountryPage = () => {
   const { isAddCountry, removeId, editId, addCountryHandler, isLoadingAdd } =
     useCountry();
+
+  const [name, setName] = useState("");
+
+  const handleSearch = (e) => {
+    const timer = setTimeout(() => {
+      setName(e.target.value);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  };
 
   return (
     <>
@@ -29,13 +39,17 @@ const CountryPage = () => {
                   <div className="form__item">
                     <div className="form__input__icon g8">
                       <div className="icon find" />
-                      <input type="text" placeholder="Пошук..." />
+                      <input
+                        type="text"
+                        placeholder="Пошук..."
+                        onChange={handleSearch}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <CountryList />
+            <CountryList limit={8} name={name} />
           </div>
         </div>
       </div>
