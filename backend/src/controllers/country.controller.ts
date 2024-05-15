@@ -37,7 +37,7 @@ const deleteCountry = async (req: Request, res: Response): Promise<Response> => 
 }
 
 const getCountries = async (req: Request, res: Response): Promise<Response> => {
-    const countries = await CountryRepository.getCountries();
+    const countries = await CountryRepository.getCountries(req.query);
 
     return res.status(StatusCodes.OK).json({ data: countries });
 }

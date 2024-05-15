@@ -1,60 +1,100 @@
 import CountryModel, { Country } from '../models/country.model';
 import { BadRequestError, NotFoundError } from '../errors';
 
+interface Query{
+    name?: {$regex: string; $options: string};
+}
+
 class CountryRepository {
-    constructor() { }
+  constructor() {}
 
-    async createCountry(countryData: Country): Promise<Country> {
-        const { name, originName, icon} = countryData;
+  async createCountry(countryData: Country): Promise<Country> {
+    const { name, originName, icon } = countryData;
 
-        if (!name || !originName || !icon) {
-          throw new BadRequestError(
-            "Please provide name, originName and icon country"
-          );
-        }
-
-        return await CountryModel.create(countryData);
+    if (!name || !originName || !icon) {
+      throw new BadRequestError(
+        "Please provide name, originName and icon country"
+      );
     }
 
-    async getCountryById(countryId: string): Promise<Country> {
-        const country = await CountryModel.findById(countryId);
+    return await CountryModel.create(countryData);
+  }
 
-        if (!country) {
-            throw new NotFoundError("Country not found");
-        }
+  async getCountryById(countryId: string): Promise<Country> {
+    const country = await CountryModel.findById(countryId);
 
-        return country;
+    if (!country) {
+      throw new NotFoundError("Country not found");
     }
 
-    async updateCountryById(countryId: string, countryData: Country): Promise<Country> {
-        const { name, originName, icon } = countryData;
+    return country;
+  }
 
-        const country = await CountryModel.findById(countryId);
+  async updateCountryById(
+    countryId: string,
+    countryData: Country
+  ): Promise<Country> {
+    const { name, originName, icon } = countryData;
 
-        if (!country) {
-            throw new NotFoundError("Country not found");
-        }
+    const country = await CountryModel.findById(countryId);
 
-        country.name = name || country.name;
-        country.originName = originName || country.originName;
-        country.icon = icon || country.icon;
-
-        return await country.save();
+    if (!country) {
+      throw new NotFoundError("Country not found");
     }
 
-    async deleteCountryById(countryId: string): Promise<void> {
-        const country = await CountryModel.findById(countryId);
+    country.name = name || country.name;
+    country.originName = originName || country.originName;
+    country.icon = icon || country.icon;
 
-        if (!country) {
-            throw new NotFoundError("Country not found");
-        }
+    return await country.save();
+  }
 
-        await country.deleteOne();
+  async deleteCountryById(countryId: string): Promise<void> {
+    const country = await CountryModel.findById(countryId);
+
+    if (!country) {
+      throw new NotFoundError("Country not found");
     }
 
-    async getCountries(): Promise<Country[]> {
-        return await CountryModel.find({});
+    await country.deleteOne();
+  }
+
+  async getCountries(
+    query: any
+  ): Promise<{ countries: Country[]; totalCount: number }> {
+    const { name, fields, sort } = query;
+
+    const queryObj: Query = {};
+
+    if (name) {
+      queryObj.name = { $regex: name, $options: "i" };
     }
+
+    let countriesQuery = CountryModel.find(queryObj);
+
+    // Застосовуємо сортування
+    if (sort) {
+      const sortList = sort.split(",").join(" ");
+      countriesQuery = countriesQuery.sort(sortList);
+    }
+
+    // Вибірка полів
+    if (fields) {
+      const fieldList = fields.split(",").join(" ");
+      countriesQuery = countriesQuery.select(fieldList);
+    }
+
+    const countriesPerPage = query.limit || 20;
+    const page = query.page || 1;
+    const skip = (page - 1) * countriesPerPage;
+
+    const [countries, totalCount] = await Promise.all([
+      countriesQuery.skip(skip).limit(countriesPerPage),
+      CountryModel.countDocuments(queryObj),
+    ]);
+
+    return { countries, totalCount };
+  }
 }
 
 export default new CountryRepository();
