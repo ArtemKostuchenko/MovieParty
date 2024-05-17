@@ -31,3 +31,17 @@ export const getFileExtension = (fileName = "") => {
     return "";
   }
 };
+
+export const getFormateSort = (sortName, sortType) => {
+  return `${
+    sortType
+      ? `&sort=${
+          sortType === "asc"
+            ? sortName
+            : sortType === "desc"
+            ? `-${sortName}`
+            : ""
+        }`
+      : ""
+  }`;
+};

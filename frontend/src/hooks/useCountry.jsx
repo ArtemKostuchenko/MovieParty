@@ -6,6 +6,7 @@ import {
   resetCountry,
   changePage,
   resetPage as resPage,
+  changeSort,
 } from "../features/store/slices/country";
 import {
   useAddCountryMutation,
@@ -23,9 +24,8 @@ const useCountry = () => {
 
   const dispatch = useDispatch();
 
-  const { isAddCountry, editId, removeId, page } = useSelector(
-    (store) => store.country
-  );
+  const { isAddCountry, editId, removeId, page, sortName, sortType } =
+    useSelector((store) => store.country);
 
   const addCountry = async (country) => {
     return await addMutation(country).unwrap();
@@ -59,6 +59,10 @@ const useCountry = () => {
     dispatch(resPage());
   };
 
+  const onChangeSort = (sortName, sortType) => {
+    dispatch(changeSort({ sortName, sortType }));
+  };
+
   return {
     isAddCountry,
     addCountryHandler,
@@ -76,6 +80,9 @@ const useCountry = () => {
     page,
     onChangePage,
     resetPage,
+    sortName,
+    sortType,
+    onChangeSort,
   };
 };
 

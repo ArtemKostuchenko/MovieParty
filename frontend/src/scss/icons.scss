@@ -296,6 +296,21 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/remove-action.svg");
   }
+
+  &.sort {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/sort.svg");
+
+    &.up {
+      mask-image: url("/src/assets/icons/sort-up.svg");
+    }
+
+    &.down {
+      mask-image: url("/src/assets/icons/sort-down.svg");
+    }
+  }
 }
 
 /* responsive icons */

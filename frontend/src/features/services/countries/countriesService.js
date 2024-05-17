@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
 import { string } from "yup";
+import { getFormateSort } from "../../utils/functions";
 
 export const countriesApi = createApi({
   reducerPath: "countriesApi",
@@ -10,8 +11,11 @@ export const countriesApi = createApi({
   tagTypes: ["countries"],
   endpoints: (builder) => ({
     getCountries: builder.query({
-      query: ({ name, page, limit }) => ({
-        url: `countries?name=${name}&page=${page}&limit=${limit}`,
+      query: ({ name, page, limit, sortName, sortType }) => ({
+        url: `countries?name=${name}&page=${page}&limit=${limit}${getFormateSort(
+          sortName,
+          sortType
+        )}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["countries"],

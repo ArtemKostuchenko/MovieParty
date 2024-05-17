@@ -3,13 +3,18 @@ import { useGetCountriesQuery } from "../../features/services/countries/countrie
 import CountryItem from "./CountryItem";
 import Pagination from "../Pagination/Pagination";
 import useCountry from "../../hooks/useCountry";
+import Sort from "../Sort/Sort";
+import SortItem from "../Sort/SortItem";
 
 const CountryList = ({ limit = 5, name = "" }) => {
-  const { page, onChangePage, resetPage } = useCountry();
+  const { page, onChangePage, resetPage, sortName, sortType, onChangeSort } =
+    useCountry();
   const { data, isLoading, isError } = useGetCountriesQuery({
     name,
     page,
     limit,
+    sortName,
+    sortType,
   });
 
   useEffect(() => {
@@ -40,9 +45,23 @@ const CountryList = ({ limit = 5, name = "" }) => {
       <div className="overflow-content">
         <div className="view-items">
           <div className="view-row head">
-            <div className="view-col">Назва країни</div>
-            <div className="view-col">Оригінальна назва</div>
-            <div className="view-col">Дата додавання</div>
+            <Sort
+              onChange={(sortName, sortType) => {
+                onChangeSort(sortName, sortType);
+              }}
+              sortName={sortName}
+              sortType={sortType}
+            >
+              <SortItem name="name">
+                <div className="view-col">Назва країни</div>
+              </SortItem>
+              <SortItem name="originName">
+                <div className="view-col">Оригінальна назва</div>
+              </SortItem>
+              <SortItem name="createdAt">
+                <div className="view-col">Дата додавання</div>
+              </SortItem>
+            </Sort>
             <div className="view-col">Дії</div>
           </div>
           {countries.length !== limit &&

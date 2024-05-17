@@ -78,7 +78,7 @@ const CountriesAddPopup = () => {
                   Обрати іконку
                 </button>
               ) : (
-                <PreviewImage file={watchIcon[0]} removeIcon={resetIcon} />
+                <PreviewImage icon={watchIcon} removeIcon={resetIcon} />
               )}
 
               <input

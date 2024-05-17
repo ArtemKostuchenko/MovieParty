@@ -1,8 +1,8 @@
-import CountryModel, { Country } from '../models/country.model';
-import { BadRequestError, NotFoundError } from '../errors';
+import CountryModel, { Country } from "../models/country.model";
+import { BadRequestError, NotFoundError } from "../errors";
 
-interface Query{
-    name?: {$regex: string; $options: string};
+interface Query {
+  name?: { $regex: string; $options: string };
 }
 
 class CountryRepository {

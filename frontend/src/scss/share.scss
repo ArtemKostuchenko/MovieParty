@@ -122,7 +122,7 @@ body {
   text-align: center;
   border: 1px solid transparent;
 
-  @include adaptiveFont(18, 14);
+  @include adaptiveFont(16, 14);
   @include transition(background-color, color, border);
 
   &.primary {
@@ -673,6 +673,25 @@ body {
     display: flex;
     align-items: center;
     gap: 35px;
+  }
+
+  &-item {
+    user-select: none;
+    width: max-content;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    > .icon.sort {
+      @include transition(background-color);
+    }
+
+    &:hover {
+      > .icon.sort {
+        background-color: var(--light-yellow);
+      }
+    }
   }
 }
 

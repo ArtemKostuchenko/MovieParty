@@ -5,6 +5,8 @@ const initialState = {
   isAddCountry: false,
   editId: null,
   removeId: null,
+  sortName: "createdAt",
+  sortType: "asc",
 };
 
 const countrySlice = createSlice({
@@ -36,6 +38,12 @@ const countrySlice = createSlice({
     resetPage: (state) => {
       state.page = 1;
     },
+
+    changeSort: (state, action) => {
+      const { sortName, sortType } = action.payload;
+      state.sortName = sortName;
+      state.sortType = sortType;
+    },
   },
 });
 
@@ -46,6 +54,7 @@ export const {
   resetCountry,
   changePage,
   resetPage,
+  changeSort,
 } = countrySlice.actions;
 
 export default countrySlice.reducer;
