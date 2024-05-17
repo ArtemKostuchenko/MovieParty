@@ -28,7 +28,11 @@ router
 router
   .route("/:id")
   .get(getCountry)
-  .patch(adminMiddleware, updateCountry)
+  .patch(
+    adminMiddleware,
+    uploadFile("./src/files/crs").single("icon"),
+    updateCountry
+  )
   .delete(adminMiddleware, deleteCountry);
 
 export default router;

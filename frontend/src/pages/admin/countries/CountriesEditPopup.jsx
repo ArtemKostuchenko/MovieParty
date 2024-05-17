@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useCountry from "../../../hooks/useCountry";
 import PopUp from "../../../components/PopUp/PopUp";
 import { useForm } from "react-hook-form";
@@ -8,16 +8,22 @@ import { PreviewImage } from "../../../components";
 import { useGetCountryByIdQuery } from "../../../features/services/countries/countriesService";
 
 const CountriesEditPopup = () => {
-  const { editId, resetHandler } = useCountry();
+  const { editId, resetHandler, updateCountry, isLoadingUpdate } = useCountry();
+  const [countryIcon, setCountryIcon] = useState(null);
+
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     resetField,
     watch,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(CountrySchema),
+    defaultValues: {
+      isEdit: true,
+    },
   });
 
   if (!editId) {
@@ -27,12 +33,12 @@ const CountriesEditPopup = () => {
   const { data: country, isLoading } = useGetCountryByIdQuery(editId);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (country) {
       setValue("name", country.name);
       setValue("originName", country.originName);
-      setValue("icon", country.icon);
+      setCountryIcon(country.icon);
     }
-  }, [isLoading]);
+  }, [country, setValue]);
 
   if (isLoading) {
     return (
@@ -44,17 +50,24 @@ const CountriesEditPopup = () => {
     );
   }
 
-  const onSubmitHandler = (data) => {
+  const onSubmitHandler = async (data) => {
+    const res = await updateCountry({ id: country._id, ...data });
+    console.log(res);
+    reset();
     resetHandler();
   };
 
   const resetIcon = () => {
+    if (countryIcon) {
+      setCountryIcon(null);
+      return;
+    }
     resetField("icon");
   };
 
   const watchIcon = watch("icon");
 
-  const { name, originName } = country;
+  const { name } = country;
 
   return (
     <PopUp
@@ -71,7 +84,6 @@ const CountriesEditPopup = () => {
                 {...register("name")}
                 type="text"
                 className="form__input linear"
-                defaultValue={name}
               />
               {errors.name && (
                 <span className="message error">{errors.name.message}</span>
@@ -83,7 +95,6 @@ const CountriesEditPopup = () => {
                 type="text"
                 {...register("originName")}
                 className="form__input linear"
-                defaultValue={originName}
               />
               {errors.originName && (
                 <span className="message error">
@@ -93,27 +104,38 @@ const CountriesEditPopup = () => {
             </div>
             <div className="popup__form-item">
               <div className="popup__form-title">Іконку країни (25x20)</div>
-              {!Boolean(watchIcon?.length) ? (
-                <button
-                  type="button"
-                  className="button primary fill"
-                  onClick={() => {
-                    const inputRef =
-                      document.querySelector('input[name="icon"]');
-                    if (!inputRef) return;
-                    inputRef.click();
-                  }}
-                >
-                  Обрати іконку
-                </button>
+              {!Boolean(watchIcon?.length) && !Boolean(countryIcon) ? (
+                <>
+                  <button
+                    type="button"
+                    className="button primary fill"
+                    onClick={() => {
+                      const inputRef =
+                        document.querySelector('input[name="icon"]');
+                      if (!inputRef) return;
+                      inputRef.click();
+                    }}
+                  >
+                    Обрати іконку
+                  </button>
+                  <input
+                    type="file"
+                    {...register("icon")}
+                    className="hidden"
+                    accept="image/*"
+                  />
+                </>
               ) : (
-                <PreviewImage icon={watchIcon} removeIcon={resetIcon} />
+                <PreviewImage
+                  icon={countryIcon || watchIcon}
+                  removeIcon={resetIcon}
+                />
               )}
             </div>
             <button
               type="submit"
               className="button primary fill"
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoadingUpdate}
             >
               Зберегти
             </button>

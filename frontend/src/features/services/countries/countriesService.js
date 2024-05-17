@@ -1,6 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
-import { string } from "yup";
 import { getFormateSort } from "../../utils/functions";
 
 export const countriesApi = createApi({
@@ -23,6 +22,7 @@ export const countriesApi = createApi({
     getCountryById: builder.query({
       query: (id) => ({ url: `countries/${id}` }),
       transformResponse: (resp) => resp.data,
+      providesTags: ["countries"],
     }),
     addCountry: builder.mutation({
       query: ({ name, originName, icon }) => {
@@ -44,28 +44,20 @@ export const countriesApi = createApi({
     }),
 
     updateCountry: builder.mutation({
-      query: ({ name, originName, icon }) => {
-        if (typeof icon !== string) {
-          const bodyData = new FormData();
-          bodyData.append("name", name);
-          bodyData.append("originName", originName);
-          bodyData.append("icon", icon[0]);
+      query: ({ id, name, originName, icon }) => {
+        const bodyData = new FormData();
+        bodyData.append("name", name);
+        bodyData.append("originName", originName);
+        bodyData.append("icon", icon[0]);
 
-          return {
-            url: "countries",
-            method: "PATCH",
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            data: bodyData,
-          };
-        } else {
-          return {
-            url: "countries",
-            method: "PATCH",
-            data: { name, originName, icon },
-          };
-        }
+        return {
+          url: `countries/${id}`,
+          method: "PATCH",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          data: bodyData,
+        };
       },
       invalidatesTags: ["countries"],
     }),
@@ -84,5 +76,6 @@ export const {
   useGetCountriesQuery,
   useGetCountryByIdQuery,
   useAddCountryMutation,
+  useUpdateCountryMutation,
   useRemoveCountryMutation,
 } = countriesApi;

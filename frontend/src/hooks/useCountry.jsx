@@ -11,11 +11,17 @@ import {
 import {
   useAddCountryMutation,
   useRemoveCountryMutation,
+  useUpdateCountryMutation,
 } from "../features/services/countries/countriesService";
 
 const useCountry = () => {
   const [addMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useAddCountryMutation();
+
+  const [
+    updateMutation,
+    { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
+  ] = useUpdateCountryMutation();
 
   const [
     removeMutation,
@@ -33,6 +39,10 @@ const useCountry = () => {
 
   const addCountryHandler = () => {
     dispatch(handleAddCountry());
+  };
+
+  const updateCountry = async (country) => {
+    return await updateMutation(country).unwrap();
   };
 
   const editCountryHandler = (id) => {
@@ -71,6 +81,9 @@ const useCountry = () => {
     isSuccessAdd,
     editId,
     editCountryHandler,
+    updateCountry,
+    isLoadingUpdate,
+    isSuccessUpdate,
     removeId,
     removeCountryHandler,
     removeCountry,
