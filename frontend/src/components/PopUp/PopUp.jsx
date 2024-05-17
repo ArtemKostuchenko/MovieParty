@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.component.scss";
+import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 const PopUp = ({ title = "PopUp", children, open, setOpen }) => {
   const toggleOpen = () => {
@@ -7,9 +8,12 @@ const PopUp = ({ title = "PopUp", children, open, setOpen }) => {
   };
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "auto";
+    if (open) {
+      disablePageScroll();
+    }
+
     return () => {
-      document.body.style.overflow = "auto";
+      enablePageScroll();
     };
   }, [open]);
 
