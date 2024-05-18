@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.page.scss";
+import TypeContentList from "../../../components/TypesContent/TypeContentList";
 
 const TypeContentPage = () => {
   return (
@@ -21,68 +22,7 @@ const TypeContentPage = () => {
                 </div>
               </div>
             </div>
-            <div className="overflow-content">
-              <div className="view-items">
-                <div className="view-row head">
-                  <div className="view-col">Назва типу</div>
-                  <div className="view-col">Шлях</div>
-                  <div className="view-col">Дата додавання</div>
-                  <div className="view-col">Дії</div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col">Фільми</div>
-                  <div className="view-col">
-                    <div className="path">
-                      <div className="path__icon">/</div>
-                      <div className="path__content">movies</div>
-                    </div>
-                  </div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col">Серіали</div>
-                  <div className="view-col">
-                    <div className="path">
-                      <div className="path__icon">/</div>
-                      <div className="path__content">series</div>
-                    </div>
-                  </div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col">Мультфільми</div>
-                  <div className="view-col">
-                    <div className="path">
-                      <div className="path__icon">/</div>
-                      <div className="path__content">cartoons</div>
-                    </div>
-                  </div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-                <div className="view-row">
-                  <div className="view-col">Мультсеріали</div>
-                  <div className="view-col">
-                    <div className="path">
-                      <div className="path__icon">/</div>
-                      <div className="path__content">cartoon-series</div>
-                    </div>
-                  </div>
-                  <div className="view-col">20 бер, 2024</div>
-                  <div className="view-col">
-                    <div className="icon action" />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TypeContentList limit={8} name="" />
           </div>
         </div>
       </div>

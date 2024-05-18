@@ -4,7 +4,7 @@ import user from "./slices/user";
 import country from "./slices/country";
 import typeContent from "./slices/type-content";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { contentApi, countriesApi, typeContentApi } from "../services";
+import { contentApi, countriesApi, typesContentApi } from "../services";
 
 const store = configureStore({
   reducer: {
@@ -12,9 +12,9 @@ const store = configureStore({
     user: user,
     country: country,
     typeContent: typeContent,
+    [typesContentApi.reducerPath]: typesContentApi.reducer,
     [contentApi.reducerPath]: contentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
-    [typeContentApi.reducerPath]: typeContentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -22,7 +22,7 @@ const store = configureStore({
     })
       .concat(contentApi.middleware)
       .concat(countriesApi.middleware)
-      .concat(typeContentApi.middleware),
+      .concat(typesContentApi.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -1,23 +1,21 @@
-import { createApi } from "@reduxjs/toolkit/query";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
 
-export const typeContentApi = createApi({
-  reducerPath: "typeContentApi",
+export const typesContentApi = createApi({
+  reducerPath: "typesContentApi",
   baseQuery: axiosBaseQuery(),
   refetchOnFocus: true,
   refetchOnReconnect: true,
-  tagTypes: ["typeContent"],
-
+  tagTypes: ["typesContent"],
   endpoints: (builder) => ({
     getTypesContent: builder.query({
-      query: ({ name, page, limit, sortName, sortType }) => ({
-        url: `content/types?name=${name}&page=${page}&limit=${limit}${getFormateSort(
-          sortName,
-          sortType
-        )}`,
+      query: () => ({
+        url: `content/type`,
       }),
+      transformResponse: (resp) => resp.data,
+      providesTags: ["typesContent"],
     }),
   }),
 });
 
-export const { useGetTypesContentQuery } = typeContentApi;
+export const { useGetTypesContentQuery } = typesContentApi;
