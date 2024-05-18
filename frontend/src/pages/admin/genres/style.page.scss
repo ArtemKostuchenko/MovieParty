@@ -1,0 +1,13 @@
+@import "../../../scss/mixins.scss";
+
+/* genres page */
+
+.genre {
+  width: 100%;
+
+  .view {
+    &-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) 50px;
+    }
+  }
+}

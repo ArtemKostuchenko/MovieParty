@@ -16,6 +16,7 @@ import {
   AdminLayout,
   CountriesPage,
   TypeContentPage,
+  GenresPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           {
             path: "countries",
             element: <CountriesPage />,
+          },
+          {
+            path: "genres",
+            element: <GenresPage />,
           },
         ],
       },

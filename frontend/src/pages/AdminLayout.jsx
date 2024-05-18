@@ -37,7 +37,7 @@ const AdminLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Країни</div>
                     </NavLink>
-                    <NavLink to="countries" className="profile-menu-item">
+                    <NavLink to="genres" className="profile-menu-item">
                       <div className="profile-menu-item-icon">
                         <div className="icon genre" />
                       </div>

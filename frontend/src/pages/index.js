@@ -13,3 +13,5 @@ export { default as ProfilePasswordPage } from "./profile/password/PasswordPage"
 export { default as ProfileSubscribePage } from "./profile/subscribe/SubscribePage";
 export { default as CountriesPage } from "./admin/countries/CountriesPage";
 export { default as TypeContentPage } from "./admin/type-content/TypeContentPage";
+
+export { default as GenresPage } from "./admin/genres/GenresPage";
