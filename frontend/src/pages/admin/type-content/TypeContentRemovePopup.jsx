@@ -4,7 +4,7 @@ import PopUp from "../../../components/PopUp/PopUp";
 import { useGetTypeContentByIdQuery } from "../../../features/services/type-content/typeContentService";
 
 const TypeContentRemovePopup = () => {
-  const { removeId, resetHandler } = useTypeContent();
+  const { removeId, resetHandler, removeTypeContent } = useTypeContent();
 
   if (!removeId) {
     return <></>;
@@ -29,6 +29,8 @@ const TypeContentRemovePopup = () => {
   const { _id, name } = country;
 
   const handleRemoveTypeContent = async () => {
+    const res = await removeTypeContent(_id);
+    console.log(res);
     resetHandler();
   };
 

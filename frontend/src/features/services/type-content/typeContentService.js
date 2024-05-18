@@ -34,6 +34,13 @@ export const typesContentApi = createApi({
       },
       invalidatesTags: ["typesContent"],
     }),
+    removeTypeContent: builder.mutation({
+      query: (id) => ({
+        url: `content/type/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["typesContent"],
+    }),
   }),
 });
 
@@ -41,4 +48,5 @@ export const {
   useGetTypesContentQuery,
   useGetTypeContentByIdQuery,
   useAddTypeContentMutation,
+  useRemoveTypeContentMutation,
 } = typesContentApi;
