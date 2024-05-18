@@ -39,7 +39,7 @@ class TypeContentRepository {
 
     typeContent.name = name || typeContent.name;
     typeContent.path = path || typeContent.path;
-    typeContent.isSeries = isSeries || typeContent.isSeries;
+    typeContent.isSeries = isSeries ?? typeContent.isSeries;
 
     return await typeContent.save();
   }
