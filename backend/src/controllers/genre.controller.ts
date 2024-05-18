@@ -33,7 +33,7 @@ const deleteGenre = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const getGenres = async (req: Request, res: Response): Promise<Response> => {
-    const genres = await GenreRepository.getGenres();
+    const genres = await GenreRepository.getGenres(req.body);
 
     return res.status(StatusCodes.OK).json({ data: genres });
 }
