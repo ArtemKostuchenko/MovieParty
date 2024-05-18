@@ -3,6 +3,7 @@ import "./style.page.scss";
 import useGenre from "../../../hooks/useGenre";
 import GenreList from "../../../components/Genres/GenreList";
 import GenresAddPopup from "./GenresAddPopup";
+import GenresEditPopup from "./GenresEditPopup";
 
 const GenresPage = () => {
   const { isAddGenre, addGenreHandler, removeId, editId } = useGenre();
@@ -50,6 +51,7 @@ const GenresPage = () => {
         </div>
       </div>
       {isAddGenre && <GenresAddPopup />}
+      {editId && <GenresEditPopup />}
     </>
   );
 };
