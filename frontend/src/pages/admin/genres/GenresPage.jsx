@@ -4,6 +4,7 @@ import useGenre from "../../../hooks/useGenre";
 import GenreList from "../../../components/Genres/GenreList";
 import GenresAddPopup from "./GenresAddPopup";
 import GenresEditPopup from "./GenresEditPopup";
+import GenresRemovePopup from "./GenresRemovePopup";
 
 const GenresPage = () => {
   const { isAddGenre, addGenreHandler, removeId, editId } = useGenre();
@@ -52,6 +53,7 @@ const GenresPage = () => {
       </div>
       {isAddGenre && <GenresAddPopup />}
       {editId && <GenresEditPopup />}
+      {removeId && <GenresRemovePopup />}
     </>
   );
 };
