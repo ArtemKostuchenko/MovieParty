@@ -59,8 +59,6 @@ const TypeContentEditPopup = () => {
 
   const { name } = typeContent;
 
-  console.log(isSeries);
-
   return (
     <PopUp
       title={`Редагування типу контенту ${name}`}
