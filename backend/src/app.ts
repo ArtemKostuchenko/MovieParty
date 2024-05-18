@@ -17,6 +17,7 @@ import selectionRouter from "./routes/selection.route";
 import reviewRouter from "./routes/review.route";
 import videoContentRouter from "./routes/content.route";
 import roomRouter from "./routes/room.route";
+import typeContentRouter from "./routes/type-content.route";
 import errorMiddleware from "./middlewares/error.middleware";
 import RoomRepository from "./repositories/room.repository";
 import MessageRepository from "./repositories/message.repository";
@@ -73,6 +74,7 @@ app.use("/api/v1/selections", selectionRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/content/v/", videoContentRouter);
 app.use("/api/v1/rooms", roomRouter);
+app.use("/api/v1/content/type", typeContentRouter);
 
 // middleware
 app.use(errorMiddleware);
