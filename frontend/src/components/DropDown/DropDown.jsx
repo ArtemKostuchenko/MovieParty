@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import DropDownItem from "./DropDownItem";
 
-const DropDown = ({ children, onChange = null }) => {
+const DropDown = ({
+  children,
+  onChange = null,
+  fill = false,
+  linear = false,
+}) => {
   const [selectedItem, setSelectedItem] = useState(
     children.find((child) => child.props.selected)
   );
@@ -38,7 +43,9 @@ const DropDown = ({ children, onChange = null }) => {
 
   return (
     <div
-      className={`dropdown${isOpen ? " dropdown-open" : ""}`}
+      className={`dropdown${fill ? " fill" : ""}${linear ? " linear" : ""}${
+        isOpen ? " dropdown-open" : ""
+      }`}
       ref={dropdownRef}
     >
       <div className="dropdown__selected" onClick={() => toggleDropDown()}>

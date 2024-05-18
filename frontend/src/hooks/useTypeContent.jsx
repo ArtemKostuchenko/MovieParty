@@ -4,12 +4,14 @@ import {
   changePage,
   resetPage as resPage,
   changeSort,
+  handleAddTypeContent,
+  resetTypeContent,
 } from "../features/store/slices/type-content";
 
 const useTypeContent = () => {
   const dispatch = useDispatch();
 
-  const { page, sortName, sortType } = useSelector(
+  const { isAddTypeContent, page, sortName, sortType } = useSelector(
     (store) => store.typeContent
   );
 
@@ -25,6 +27,14 @@ const useTypeContent = () => {
     dispatch(changeSort({ sortName, sortType }));
   };
 
+  const addTypeContentHandler = () => {
+    dispatch(handleAddTypeContent());
+  };
+
+  const resetHandler = () => {
+    dispatch(resetTypeContent());
+  };
+
   return {
     page,
     onChangePage,
@@ -32,6 +42,9 @@ const useTypeContent = () => {
     sortName,
     sortType,
     onChangeSort,
+    isAddTypeContent,
+    addTypeContentHandler,
+    resetHandler,
   };
 };
 

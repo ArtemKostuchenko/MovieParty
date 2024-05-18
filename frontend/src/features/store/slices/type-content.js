@@ -4,6 +4,9 @@ const initialState = {
   page: 1,
   sortName: "createdAt",
   sortType: "asc",
+  isAddTypeContent: false,
+  editId: null,
+  removeId: null,
 };
 
 const typeContentSlice = createSlice({
@@ -23,9 +26,25 @@ const typeContentSlice = createSlice({
       state.sortName = sortName;
       state.sortType = sortType;
     },
+
+    handleAddTypeContent: (state) => {
+      state.isAddTypeContent = true;
+    },
+
+    resetTypeContent: (state) => {
+      state.isAddTypeContent = false;
+      state.editId = null;
+      state.removeId = null;
+    },
   },
 });
 
-export const { changePage, resetPage, changeSort } = typeContentSlice.actions;
+export const {
+  changePage,
+  resetPage,
+  changeSort,
+  handleAddTypeContent,
+  resetTypeContent,
+} = typeContentSlice.actions;
 
 export default typeContentSlice.reducer;

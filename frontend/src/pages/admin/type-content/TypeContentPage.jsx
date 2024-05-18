@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import TypeContentList from "../../../components/TypesContent/TypeContentList";
+import useTypeContent from "../../../hooks/useTypeContent";
+import TypeContentAddPopup from "./TypeContentAddPopup";
 
 const TypeContentPage = () => {
+  const { isAddTypeContent, addTypeContentHandler } = useTypeContent();
   const [name, setName] = useState("");
 
   const handleSearch = (e) => {
@@ -19,7 +22,13 @@ const TypeContentPage = () => {
         <div className="typeContent">
           <div className="view">
             <div className="view-actions">
-              <button className="button primary">Додати тип</button>
+              <button
+                className="button primary"
+                disabled={isAddTypeContent}
+                onClick={() => addTypeContentHandler()}
+              >
+                Додати тип
+              </button>
               <div className="view-filters">
                 <div className="form">
                   <div className="form__item">
@@ -39,6 +48,7 @@ const TypeContentPage = () => {
           </div>
         </div>
       </div>
+      {isAddTypeContent && <TypeContentAddPopup />}
     </>
   );
 };
