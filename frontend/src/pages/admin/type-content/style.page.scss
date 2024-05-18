@@ -1,0 +1,41 @@
+@import "../../../scss/mixins.scss";
+
+/* type content page */
+
+.typeContent {
+  width: 100%;
+
+  .view {
+    &-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) 50px;
+    }
+  }
+}
+
+.path {
+  user-select: none;
+  display: flex;
+  border: 2px solid var(--lochmara);
+  border-radius: 2px;
+  color: var(--text-color);
+
+  &__content {
+    padding: 0 10px;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    @include adaptiveFont(18, 16);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    background-color: var(--lochmara);
+  }
+}

@@ -15,6 +15,7 @@ import {
   ProfileSubscribePage,
   AdminLayout,
   CountriesPage,
+  TypeContentPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -92,9 +93,12 @@ const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           {
+            path: "type-content",
+            element: <TypeContentPage />,
+          },
+          {
             path: "countries",
             element: <CountriesPage />,
-            index: true,
           },
         ],
       },
