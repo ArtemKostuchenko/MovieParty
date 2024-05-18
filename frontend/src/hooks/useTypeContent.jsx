@@ -11,6 +11,7 @@ import {
 import {
   useAddTypeContentMutation,
   useRemoveTypeContentMutation,
+  useUpdateTypeContentMutation,
 } from "../features/services/type-content/typeContentService";
 
 const useTypeContent = () => {
@@ -26,6 +27,11 @@ const useTypeContent = () => {
     removeMutation,
     { isLoading: isLoadingRemove, isSuccess: isSuccessRemove },
   ] = useRemoveTypeContentMutation();
+
+  const [
+    updateMutation,
+    { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
+  ] = useUpdateTypeContentMutation();
 
   const onChangePage = (page) => {
     dispatch(changePage(page));
@@ -63,6 +69,10 @@ const useTypeContent = () => {
     return await removeMutation(id).unwrap();
   };
 
+  const updateTypeContent = async (typeContent) => {
+    return await updateMutation(typeContent).unwrap();
+  };
+
   return {
     page,
     onChangePage,
@@ -79,8 +89,13 @@ const useTypeContent = () => {
     removeId,
     removeTypeContentHandler,
     removeTypeContent,
+    isLoadingRemove,
+    isSuccessRemove,
     editId,
     editTypeContentHandler,
+    updateTypeContent,
+    isLoadingUpdate,
+    isSuccessUpdate,
   };
 };
 

@@ -41,6 +41,16 @@ export const typesContentApi = createApi({
       }),
       invalidatesTags: ["typesContent"],
     }),
+    updateTypeContent: builder.mutation({
+      query: ({ id, name, path, isSeries }) => {
+        return {
+          url: `content/type/${id}`,
+          method: "PATCH",
+          data: { name, path, isSeries },
+        };
+      },
+      invalidatesTags: ["typesContent"],
+    }),
   }),
 });
 
@@ -49,4 +59,5 @@ export const {
   useGetTypeContentByIdQuery,
   useAddTypeContentMutation,
   useRemoveTypeContentMutation,
+  useUpdateTypeContentMutation,
 } = typesContentApi;

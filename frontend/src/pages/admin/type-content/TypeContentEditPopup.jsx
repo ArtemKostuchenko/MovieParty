@@ -8,7 +8,8 @@ import PopUp from "../../../components/PopUp/PopUp";
 import { DropDown, DropDownItem } from "../../../components";
 
 const TypeContentEditPopup = () => {
-  const { editId, resetHandler } = useTypeContent();
+  const { editId, resetHandler, updateTypeContent, isLoadingUpdate } =
+    useTypeContent();
   const [isSeries, setIsSeries] = useState(false);
 
   const {
@@ -46,12 +47,19 @@ const TypeContentEditPopup = () => {
   }
 
   const onSubmitHandler = async (data) => {
-    console.log(data);
+    const res = await updateTypeContent({
+      id: typeContent._id,
+      isSeries,
+      ...data,
+    });
+    console.log(res);
     reset();
     resetHandler();
   };
 
   const { name } = typeContent;
+
+  console.log(isSeries);
 
   return (
     <PopUp
@@ -87,8 +95,10 @@ const TypeContentEditPopup = () => {
             <div className="popup__form-item">
               <div className="popup__form-title">Серійний тип</div>
               <DropDown linear fill onChange={(value) => setIsSeries(value)}>
-                <DropDownItem value={true}>Так</DropDownItem>
-                <DropDownItem value={false} selected>
+                <DropDownItem value={true} selected={isSeries === true}>
+                  Так
+                </DropDownItem>
+                <DropDownItem value={false} selected={isSeries === false}>
                   Ні
                 </DropDownItem>
               </DropDown>
@@ -96,7 +106,7 @@ const TypeContentEditPopup = () => {
             <button
               type="submit"
               className="button primary fill"
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoadingUpdate}
             >
               Зберегти
             </button>
