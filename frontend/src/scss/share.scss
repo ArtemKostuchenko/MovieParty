@@ -765,6 +765,14 @@ body {
   &__action {
     cursor: pointer;
     font-size: 0;
+
+    &.transparent {
+      cursor: auto;
+
+      .icon.arrow {
+        background-color: transparent;
+      }
+    }
   }
 
   &__icon {

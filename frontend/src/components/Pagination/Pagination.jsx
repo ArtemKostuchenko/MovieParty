@@ -14,9 +14,18 @@ const Pagination = ({ page, limit, totalCount, onChangePage }) => {
   return (
     <div className="pagination__container">
       <div className="pagination">
-        <div className="pagination__action">
-          <div className="icon arrow left" />
-        </div>
+        {page !== 1 ? (
+          <div
+            className="pagination__action"
+            onClick={() => handleChangePage(page - 1)}
+          >
+            <div className="icon arrow left" />
+          </div>
+        ) : (
+          <div className="pagination__action transparent">
+            <div className="icon arrow left" />
+          </div>
+        )}
         <div className="pagination__items">
           {countPages < 5 &&
             Array.from({ length: countPages }).map((_, index) => {
@@ -51,9 +60,18 @@ const Pagination = ({ page, limit, totalCount, onChangePage }) => {
               }
             })}
         </div>
-        <div className="pagination__action">
-          <div className="icon arrow right" />
-        </div>
+        {page !== countPages ? (
+          <div
+            className="pagination__action"
+            onClick={() => handleChangePage(page + 1)}
+          >
+            <div className="icon arrow right" />
+          </div>
+        ) : (
+          <div className="pagination__action transparent">
+            <div className="icon arrow right" />
+          </div>
+        )}
       </div>
     </div>
   );
