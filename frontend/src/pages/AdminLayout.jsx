@@ -37,6 +37,12 @@ const AdminLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Країни</div>
                     </NavLink>
+                    <NavLink to="countries" className="profile-menu-item">
+                      <div className="profile-menu-item-icon">
+                        <div className="icon genre" />
+                      </div>
+                      <div className="profile-menu-item-title">Жанри</div>
+                    </NavLink>
                   </div>
                 </div>
               </div>
