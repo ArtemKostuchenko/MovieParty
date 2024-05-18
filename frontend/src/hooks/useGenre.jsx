@@ -60,7 +60,7 @@ const useGenre = () => {
   };
 
   const resetHandler = () => {
-    dispatch(resetTypeContent());
+    dispatch(resetGenre());
   };
 
   const addGenre = async (genre) => {

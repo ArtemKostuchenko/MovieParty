@@ -39,8 +39,6 @@ const GenreList = ({ limit = 5, name = "" }) => {
     return <div className="overflow-content">Error...</div>;
   }
 
-  console.log(data);
-
   const { genres, totalCount } = data;
 
   return (

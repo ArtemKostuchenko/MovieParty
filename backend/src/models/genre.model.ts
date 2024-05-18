@@ -1,19 +1,24 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface Genre extends Document {
-    name: string;
-    originName: string;
+  name: string;
+  originName: string;
 }
 
-const GenreSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: [true, "Please provide genre name"],
+const GenreSchema: Schema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Please provide genre name"],
+    },
+    originName: {
+      type: String,
+      required: [true, "Please provide genre originName"],
+    },
   },
-  originName: {
-    type: String,
-    required: [true, "Please provide genre originName"],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model<Genre>('Genre', GenreSchema);
+export default mongoose.model<Genre>("Genre", GenreSchema);

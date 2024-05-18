@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.page.scss";
 import useGenre from "../../../hooks/useGenre";
 import GenreList from "../../../components/Genres/GenreList";
+import GenresAddPopup from "./GenresAddPopup";
 
 const GenresPage = () => {
   const { isAddGenre, addGenreHandler, removeId, editId } = useGenre();
@@ -43,11 +44,12 @@ const GenresPage = () => {
                   </div>
                 </div>
               </div>
-              <GenreList limit={8} name={name} />
             </div>
+            <GenreList limit={8} name={name} />
           </div>
         </div>
       </div>
+      {isAddGenre && <GenresAddPopup />}
     </>
   );
 };
