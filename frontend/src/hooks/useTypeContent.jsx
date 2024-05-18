@@ -5,6 +5,7 @@ import {
   changeSort,
   handleAddTypeContent,
   removeTypeContent as rmTypeContent,
+  editTypeContent,
   resetTypeContent,
 } from "../features/store/slices/type-content";
 import {
@@ -15,9 +16,8 @@ import {
 const useTypeContent = () => {
   const dispatch = useDispatch();
 
-  const { isAddTypeContent, page, sortName, sortType, removeId } = useSelector(
-    (store) => store.typeContent
-  );
+  const { isAddTypeContent, page, sortName, sortType, removeId, editId } =
+    useSelector((store) => store.typeContent);
 
   const [addMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useAddTypeContentMutation();
@@ -45,6 +45,10 @@ const useTypeContent = () => {
 
   const removeTypeContentHandler = (id) => {
     dispatch(rmTypeContent(id));
+  };
+
+  const editTypeContentHandler = (id) => {
+    dispatch(editTypeContent(id));
   };
 
   const resetHandler = () => {
@@ -75,6 +79,8 @@ const useTypeContent = () => {
     removeId,
     removeTypeContentHandler,
     removeTypeContent,
+    editId,
+    editTypeContentHandler,
   };
 };
 

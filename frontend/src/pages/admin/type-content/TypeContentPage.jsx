@@ -4,9 +4,10 @@ import TypeContentList from "../../../components/TypesContent/TypeContentList";
 import useTypeContent from "../../../hooks/useTypeContent";
 import TypeContentAddPopup from "./TypeContentAddPopup";
 import TypeContentRemovePopup from "./TypeContentRemovePopup";
+import TypeContentEditPopup from "./TypeContentEditPopup";
 
 const TypeContentPage = () => {
-  const { isAddTypeContent, addTypeContentHandler, removeId } =
+  const { isAddTypeContent, addTypeContentHandler, removeId, editId } =
     useTypeContent();
   const [name, setName] = useState("");
 
@@ -52,6 +53,7 @@ const TypeContentPage = () => {
       </div>
       {isAddTypeContent && <TypeContentAddPopup />}
       {removeId && <TypeContentRemovePopup />}
+      {editId && <TypeContentEditPopup />}
     </>
   );
 };

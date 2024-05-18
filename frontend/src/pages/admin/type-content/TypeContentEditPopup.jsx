@@ -1,34 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useTypeContent from "../../../hooks/useTypeContent";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TypeContentSchema } from "../../../features/validations";
+import { useGetTypeContentByIdQuery } from "../../../features/services/type-content/typeContentService";
 import PopUp from "../../../components/PopUp/PopUp";
-import useTypeContent from "../../../hooks/useTypeContent";
 import { DropDown, DropDownItem } from "../../../components";
 
-const TypeContentAddPopup = () => {
-  const { isAddTypeContent, resetHandler, addTypeContent } = useTypeContent();
+const TypeContentEditPopup = () => {
+  const { editId, resetHandler } = useTypeContent();
   const [isSeries, setIsSeries] = useState(false);
+
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(TypeContentSchema),
   });
 
+  if (!editId) {
+    return <></>;
+  }
+
+  const { data: typeContent, isLoading } = useGetTypeContentByIdQuery(editId);
+
+  useEffect(() => {
+    if (typeContent) {
+      setValue("name", typeContent.name);
+      setValue("path", typeContent.path);
+      setIsSeries(typeContent.isSeries);
+    }
+  }, [typeContent, setValue]);
+
+  if (isLoading) {
+    return (
+      <PopUp title="" open={Boolean(editId)} setOpen={resetHandler}>
+        <div className="loader__container">
+          <div className="loader"></div>
+        </div>
+      </PopUp>
+    );
+  }
+
   const onSubmitHandler = async (data) => {
-    const res = await addTypeContent({ isSeries, ...data });
-    console.log(res);
-    resetHandler();
+    console.log(data);
     reset();
+    resetHandler();
   };
+
+  const { name } = typeContent;
 
   return (
     <PopUp
-      title="Додавання типу контенту"
-      open={isAddTypeContent}
+      title={`Редагування типу контенту ${name}`}
+      open={Boolean(editId)}
       setOpen={resetHandler}
     >
       <div className="popup__form">
@@ -70,7 +98,7 @@ const TypeContentAddPopup = () => {
               className="button primary fill"
               disabled={!isDirty || !isValid}
             >
-              Додати
+              Зберегти
             </button>
           </div>
         </form>
@@ -79,4 +107,4 @@ const TypeContentAddPopup = () => {
   );
 };
 
-export default TypeContentAddPopup;
+export default TypeContentEditPopup;

@@ -5,7 +5,7 @@ import ActionItem from "../Menu/ActionItem";
 import useTypeContent from "../../hooks/useTypeContent";
 
 const TypeContentItem = ({ _id, name, path, createdAt, skeleton = false }) => {
-  const { removeTypeContentHandler } = useTypeContent();
+  const { removeTypeContentHandler, editTypeContentHandler } = useTypeContent();
 
   if (skeleton) {
     return (
@@ -29,7 +29,11 @@ const TypeContentItem = ({ _id, name, path, createdAt, skeleton = false }) => {
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
         <ActionMenu>
-          <ActionItem icon="eda" title="Редагувати" onClick={() => {}} />
+          <ActionItem
+            icon="eda"
+            title="Редагувати"
+            onClick={() => editTypeContentHandler(_id)}
+          />
           <ActionItem
             icon="rma"
             title="Видалити"
