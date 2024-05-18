@@ -89,3 +89,5 @@ class TypeContentRepository {
     return { typesContent, totalCount };
   }
 }
+
+export default new TypeContentRepository();
