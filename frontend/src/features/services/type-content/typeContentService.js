@@ -19,7 +19,18 @@ export const typesContentApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["typesContent"],
     }),
+    addTypeContent: builder.mutation({
+      query: ({ name, path, isSeries }) => {
+        return {
+          url: "content/type",
+          method: "POST",
+          data: { name, path, isSeries },
+        };
+      },
+      invalidatesTags: ["typesContent"],
+    }),
   }),
 });
 
-export const { useGetTypesContentQuery } = typesContentApi;
+export const { useGetTypesContentQuery, useAddTypeContentMutation } =
+  typesContentApi;

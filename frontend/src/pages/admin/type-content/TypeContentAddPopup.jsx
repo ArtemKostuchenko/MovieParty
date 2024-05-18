@@ -7,7 +7,7 @@ import useTypeContent from "../../../hooks/useTypeContent";
 import { DropDown, DropDownItem } from "../../../components";
 
 const TypeContentAddPopup = () => {
-  const { isAddTypeContent, resetHandler } = useTypeContent();
+  const { isAddTypeContent, resetHandler, addTypeContent } = useTypeContent();
   const [isSeries, setIsSeries] = useState(false);
   const {
     register,
@@ -19,9 +19,10 @@ const TypeContentAddPopup = () => {
   });
 
   const onSubmitHandler = async (data) => {
-    console.log(data);
-    // resetHandler();
-    // reset();
+    const res = await addTypeContent({ isSeries, ...data });
+    console.log(res);
+    resetHandler();
+    reset();
   };
 
   return (

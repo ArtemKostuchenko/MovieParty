@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   changePage,
   resetPage as resPage,
@@ -7,6 +6,7 @@ import {
   handleAddTypeContent,
   resetTypeContent,
 } from "../features/store/slices/type-content";
+import { useAddTypeContentMutation } from "../features/services/type-content/typeContentService";
 
 const useTypeContent = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,9 @@ const useTypeContent = () => {
   const { isAddTypeContent, page, sortName, sortType } = useSelector(
     (store) => store.typeContent
   );
+
+  const [addMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
+    useAddTypeContentMutation();
 
   const onChangePage = (page) => {
     dispatch(changePage(page));
@@ -35,6 +38,10 @@ const useTypeContent = () => {
     dispatch(resetTypeContent());
   };
 
+  const addTypeContent = async (typeContent) => {
+    return await addMutation(typeContent).unwrap();
+  };
+
   return {
     page,
     onChangePage,
@@ -45,6 +52,9 @@ const useTypeContent = () => {
     isAddTypeContent,
     addTypeContentHandler,
     resetHandler,
+    addTypeContent,
+    isLoadingAdd,
+    isSuccessAdd,
   };
 };
 
