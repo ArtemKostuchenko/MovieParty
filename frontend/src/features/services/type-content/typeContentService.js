@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
+import { getFormateSort } from "../../utils/functions";
 
 export const typesContentApi = createApi({
   reducerPath: "typesContentApi",
@@ -9,8 +10,11 @@ export const typesContentApi = createApi({
   tagTypes: ["typesContent"],
   endpoints: (builder) => ({
     getTypesContent: builder.query({
-      query: () => ({
-        url: `content/type`,
+      query: ({ name, page, limit, sortName, sortType }) => ({
+        url: `content/type?name=${name}&page=${page}&limit=${limit}${getFormateSort(
+          sortName,
+          sortType
+        )}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["typesContent"],

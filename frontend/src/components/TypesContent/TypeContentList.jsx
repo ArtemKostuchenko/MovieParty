@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetTypesContentQuery } from "../../features/services/type-content/typeContentService";
 import Sort from "../Sort/Sort";
 import SortItem from "../Sort/SortItem";
 import TypeContentItem from "./TypeContentItem";
+import useTypeContent from "../../hooks/useTypeContent";
+import Pagination from "../Pagination/Pagination";
 
 const TypeContentList = ({ limit = 5, name = "" }) => {
-  const { data, isLoading, isError } = useGetTypesContentQuery();
+  const { page, onChangePage, resetPage, sortName, sortType, onChangeSort } =
+    useTypeContent();
+
+  const { data, isLoading, isError } = useGetTypesContentQuery({
+    name,
+    page,
+    limit,
+    sortName,
+    sortType,
+  });
+
+  useEffect(() => {
+    return () => {
+      resetPage();
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -13,7 +30,7 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
         <div className="loader__container">
           <div className="loader"></div>
         </div>
-        <Pagination page={1} limit={limit} totalCount={1} />
+        <Pagination page={page} limit={limit} totalCount={1} />
       </>
     );
   }
@@ -30,10 +47,10 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
         <div className="view-row head">
           <Sort
             onChange={(sortName, sortType) => {
-              console.log(sortName, sortType);
+              onChangeSort(sortName, sortType);
             }}
-            sortName={"createdAt"}
-            sortType={"asc"}
+            sortName={sortName}
+            sortType={sortType}
           >
             <SortItem name="name">
               <div className="view-col">Назва типу</div>
@@ -66,6 +83,12 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
             <TypeContentItem key={typeContent._id} {...typeContent} />
           ))}
       </div>
+      <Pagination
+        page={page}
+        limit={limit}
+        totalCount={totalCount}
+        onChangePage={(ePage) => onChangePage(ePage)}
+      />
     </div>
   );
 };

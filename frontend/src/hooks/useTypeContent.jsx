@@ -9,7 +9,9 @@ import {
 const useTypeContent = () => {
   const dispatch = useDispatch();
 
-  const { page, sortName, sortType } = useSelector((store) => store.country);
+  const { page, sortName, sortType } = useSelector(
+    (store) => store.typeContent
+  );
 
   const onChangePage = (page) => {
     dispatch(changePage(page));
