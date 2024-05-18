@@ -4,6 +4,7 @@ import {
   resetPage as resPage,
   changeSort,
   handleAddTypeContent,
+  removeTypeContent as rmTypeContent,
   resetTypeContent,
 } from "../features/store/slices/type-content";
 import { useAddTypeContentMutation } from "../features/services/type-content/typeContentService";
@@ -11,7 +12,7 @@ import { useAddTypeContentMutation } from "../features/services/type-content/typ
 const useTypeContent = () => {
   const dispatch = useDispatch();
 
-  const { isAddTypeContent, page, sortName, sortType } = useSelector(
+  const { isAddTypeContent, page, sortName, sortType, removeId } = useSelector(
     (store) => store.typeContent
   );
 
@@ -32,6 +33,10 @@ const useTypeContent = () => {
 
   const addTypeContentHandler = () => {
     dispatch(handleAddTypeContent());
+  };
+
+  const removeTypeContentHandler = (id) => {
+    dispatch(rmTypeContent(id));
   };
 
   const resetHandler = () => {
@@ -55,6 +60,8 @@ const useTypeContent = () => {
     addTypeContent,
     isLoadingAdd,
     isSuccessAdd,
+    removeId,
+    removeTypeContentHandler,
   };
 };
 

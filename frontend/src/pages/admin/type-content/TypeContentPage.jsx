@@ -3,9 +3,11 @@ import "./style.page.scss";
 import TypeContentList from "../../../components/TypesContent/TypeContentList";
 import useTypeContent from "../../../hooks/useTypeContent";
 import TypeContentAddPopup from "./TypeContentAddPopup";
+import TypeContentRemovePopup from "./TypeContentRemovePopup";
 
 const TypeContentPage = () => {
-  const { isAddTypeContent, addTypeContentHandler } = useTypeContent();
+  const { isAddTypeContent, addTypeContentHandler, removeId } =
+    useTypeContent();
   const [name, setName] = useState("");
 
   const handleSearch = (e) => {
@@ -49,6 +51,7 @@ const TypeContentPage = () => {
         </div>
       </div>
       {isAddTypeContent && <TypeContentAddPopup />}
+      {removeId && <TypeContentRemovePopup />}
     </>
   );
 };

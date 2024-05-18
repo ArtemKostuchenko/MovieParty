@@ -19,6 +19,11 @@ export const typesContentApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["typesContent"],
     }),
+    getTypeContentById: builder.query({
+      query: (id) => ({ url: `content/type/${id}` }),
+      transformResponse: (resp) => resp.data,
+      providesTags: ["typesContent"],
+    }),
     addTypeContent: builder.mutation({
       query: ({ name, path, isSeries }) => {
         return {
@@ -32,5 +37,8 @@ export const typesContentApi = createApi({
   }),
 });
 
-export const { useGetTypesContentQuery, useAddTypeContentMutation } =
-  typesContentApi;
+export const {
+  useGetTypesContentQuery,
+  useGetTypeContentByIdQuery,
+  useAddTypeContentMutation,
+} = typesContentApi;

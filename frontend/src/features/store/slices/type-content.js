@@ -31,6 +31,10 @@ const typeContentSlice = createSlice({
       state.isAddTypeContent = true;
     },
 
+    removeTypeContent: (state, action) => {
+      state.removeId = action.payload;
+    },
+
     resetTypeContent: (state) => {
       state.isAddTypeContent = false;
       state.editId = null;
@@ -44,6 +48,7 @@ export const {
   resetPage,
   changeSort,
   handleAddTypeContent,
+  removeTypeContent,
   resetTypeContent,
 } = typeContentSlice.actions;
 
