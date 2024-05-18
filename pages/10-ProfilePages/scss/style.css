@@ -381,6 +381,27 @@ p {
   -webkit-mask-image: url("/pages/images/icons/delete.svg");
           mask-image: url("/pages/images/icons/delete.svg");
 }
+.icon.earth {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/earth.svg");
+          mask-image: url("/pages/images/icons/earth.svg");
+}
+.icon.action {
+  width: 24px;
+  height: 6px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/action.svg");
+          mask-image: url("/pages/images/icons/action.svg");
+}
+.icon.action {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/layers.svg");
+          mask-image: url("/pages/images/icons/layers.svg");
+}
 
 /* responsive icons */
 @media (max-width: 767px) {
@@ -953,6 +974,9 @@ body::-webkit-scrollbar-thumb:hover {
 .flex.g5 {
   gap: 5px;
 }
+.flex.g10 {
+  gap: 10px;
+}
 
 /* grid */
 .grid__main {
@@ -1106,8 +1130,8 @@ body::-webkit-scrollbar-thumb:hover {
 .form__input__icon input::placeholder, .form__input__icon input::-ms-input-placeholder {
   color: var(--silver-chalice);
 }
-.form__input__icon img {
-  height: 25px;
+.form__input__icon.g8 {
+  gap: 8px;
 }
 .form__input.linear {
   background-image: linear-gradient(to right, rgba(0, 114, 187, 0.7), rgba(0, 52, 85, 0.7));
@@ -1601,12 +1625,33 @@ body::-webkit-scrollbar-thumb:hover {
 }
 @media (max-width: 767px) {
   .profile-user-nickname {
-    font-size: calc(20px + 8.5 * (100vw - 320px) / 1440);
+    font-size: calc(18px + 3.4 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
   .profile-user-nickname {
-    font-size: calc(20px + 5 * 100vw / 1440);
+    font-size: calc(18px + 2 * 100vw / 1440);
+  }
+}
+.profile-user-role {
+  padding: 0 2px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--silver-chalice);
+}
+@media (max-width: 767px) {
+  .profile-user-role {
+    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .profile-user-role {
+    font-size: calc(16px + 2 * 100vw / 1440);
   }
 }
 .profile-user-email {
@@ -1946,6 +1991,96 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: var(--scarlet);
 }
 
+/* view */
+.view {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.view-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.view-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.view-items {
+  display: flex;
+  flex-direction: column;
+}
+.view-row {
+  display: grid;
+  grid-template-rows: 1fr;
+  align-items: center;
+}
+.view .head .view-col {
+  padding: 10px 0;
+  font-family: "Mulish", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--silver-chalice);
+}
+@media (max-width: 767px) {
+  .view .head .view-col {
+    font-size: calc(14px + 6.8 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .view .head .view-col {
+    font-size: calc(14px + 4 * 100vw / 1440);
+  }
+}
+.view .head .view-col::after {
+  content: "";
+  display: none;
+}
+.view-col {
+  position: relative;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+@media (max-width: 767px) {
+  .view-col {
+    font-size: calc(14px + 6.8 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .view-col {
+    font-size: calc(14px + 4 * 100vw / 1440);
+  }
+}
+.view-col::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--boulder);
+}
+.view-col:last-child {
+  justify-content: center;
+  height: 100%;
+}
+
 /* responsive */
 @media screen and (max-width: 1350px) {
   .content__cards {
@@ -2076,6 +2211,19 @@ body::-webkit-scrollbar-thumb:hover {
   .comment-content-ref {
     grid-row: 2/3;
     grid-column: 1/5;
+  }
+}
+@media screen and (max-width: 800px) {
+  .view-actions {
+    flex-direction: column-reverse;
+    align-items: start;
+  }
+  .view-actions > .button {
+    width: 100%;
+  }
+  .view-actions > .view-filters,
+  .view-actions .form {
+    width: 100%;
   }
 }
 /* profile page */

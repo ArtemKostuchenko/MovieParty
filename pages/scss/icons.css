@@ -279,6 +279,13 @@
   -webkit-mask-image: url("/pages/images/icons/action.svg");
           mask-image: url("/pages/images/icons/action.svg");
 }
+.icon.layers {
+  width: 28px;
+  height: 28px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/layers.svg");
+          mask-image: url("/pages/images/icons/layers.svg");
+}
 
 /* responsive icons */
 @media (max-width: 767px) {
