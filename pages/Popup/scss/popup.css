@@ -395,7 +395,7 @@ p {
   -webkit-mask-image: url("/pages/images/icons/action.svg");
           mask-image: url("/pages/images/icons/action.svg");
 }
-.icon.action {
+.icon.layers {
   width: 28px;
   height: 28px;
   background-color: var(--text-color);
@@ -2051,6 +2051,7 @@ body::-webkit-scrollbar-thumb:hover {
   font-family: "Nunito Sans", sans-serif;
   font-weight: normal;
   font-stretch: normal;
+  height: 100%;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;

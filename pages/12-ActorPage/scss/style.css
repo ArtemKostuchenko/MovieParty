@@ -2227,129 +2227,44 @@ body::-webkit-scrollbar-thumb:hover {
     width: 100%;
   }
 }
-/* profile page */
-.user {
+/* person */
+.person {
+  padding: 30px 0;
+  display: flex;
+  gap: 20px;
+  align-items: start;
+}
+.person__info {
+  max-width: 320px;
+  padding: 20px;
   width: 100%;
-}
-.user-info {
-  width: 100%;
-}
-.user-info-items {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  -moz-column-gap: 20px;
-       column-gap: 20px;
-  row-gap: 25px;
-}
-.user-info-item {
+  border-radius: 5px;
+  background-color: rgba(0, 114, 187, 0.3);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 5px;
-}
-.user-info-title {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--boulder);
-}
-@media (max-width: 767px) {
-  .user-info-title {
-    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .user-info-title {
-    font-size: calc(16px + 2 * 100vw / 1440);
-  }
-}
-.user-info-desc {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--text-color);
-}
-@media (max-width: 767px) {
-  .user-info-desc {
-    font-size: calc(18px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .user-info-desc {
-    font-size: calc(18px + 2 * 100vw / 1440);
-  }
-}
-.user-comments {
-  width: 100%;
-}
-.user-comments-items {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   gap: 15px;
 }
-.user-comments-item {
-  width: 100%;
-}
-
-.country-icon {
-  width: 35px;
-  height: 26px;
-}
-
-@media screen and (max-width: 1220px) {
-  .user-info-items {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media screen and (max-width: 990px) {
-  .user-info-items {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media screen and (max-width: 450px) {
-  .user-info-items {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-/* saved page */
-.saved__cards {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(4, minmax(var(--min-width-card), var(--max-width-card)));
-  justify-content: space-between;
-  row-gap: 20px;
-  -moz-column-gap: 20px;
-       column-gap: 20px;
-}
-.saved__card {
-  max-width: 205px;
+.person__card {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
-.saved__card-image img {
+.person__photo {
+  max-width: 225px;
+  border-radius: 5px;
+}
+.person__photo img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
 }
-.saved__card-title {
+.person__fullname {
   font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -2358,264 +2273,69 @@ body::-webkit-scrollbar-thumb:hover {
   color: var(--text-color);
 }
 @media (max-width: 767px) {
-  .saved__card-title {
-    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .saved__card-title {
-    font-size: calc(16px + 2 * 100vw / 1440);
-  }
-}
-.saved__card:hover .saved__card-title {
-  text-decoration: underline;
-}
-
-/* responsive */
-@media screen and (max-width: 1220px) {
-  .saved__cards {
-    grid-template-columns: repeat(3, minmax(var(--min-width-card), var(--max-width-card)));
-    justify-content: center;
-  }
-}
-@media screen and (max-width: 990px) {
-  .saved__cards {
-    grid-template-columns: repeat(2, minmax(var(--min-width-card), var(--max-width-card)));
-  }
-}
-@media screen and (max-width: 350px) {
-  .saved__cards {
-    grid-template-columns: repeat(1, minmax(var(--min-width-card), var(--max-width-card)));
-  }
-}
-/* personal page */
-.personal {
-  width: 100%;
-}
-.personal-items {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  -moz-column-gap: 20px;
-       column-gap: 20px;
-  row-gap: 25px;
-}
-.personal-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 5px;
-}
-.personal-title {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--boulder);
-}
-@media (max-width: 767px) {
-  .personal-title {
-    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .personal-title {
-    font-size: calc(16px + 2 * 100vw / 1440);
-  }
-}
-.personal-desc {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-color);
-}
-@media (max-width: 767px) {
-  .personal-desc {
+  .person__fullname {
     font-size: calc(18px + 3.4 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
-  .personal-desc {
+  .person__fullname {
     font-size: calc(18px + 2 * 100vw / 1440);
   }
 }
-
-@media screen and (max-width: 650px) {
-  .personal-items {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-/* personal page */
-.password {
-  width: 100%;
-}
-.password-items {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  -moz-column-gap: 20px;
-       column-gap: 20px;
-  row-gap: 25px;
-}
-.password-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 5px;
-}
-.password-title {
-  font-family: "Nunito Sans", sans-serif;
+.person__origin-fullname {
+  font-family: "Mulish", sans-serif;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  text-align: left;
-  color: var(--boulder);
+  text-align: center;
+  color: var(--silver-chalice);
 }
 @media (max-width: 767px) {
-  .password-title {
+  .person__origin-fullname {
     font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
-  .password-title {
+  .person__origin-fullname {
     font-size: calc(16px + 2 * 100vw / 1440);
   }
 }
-.password-desc {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-color);
-}
-@media (max-width: 767px) {
-  .password-desc {
-    font-size: calc(18px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .password-desc {
-    font-size: calc(18px + 2 * 100vw / 1440);
-  }
-}
-
-/* subscribe user page */
-.user-subscribe {
-  padding: 30px;
+.person__bio {
   width: 100%;
+}
+.person__items {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-  border-radius: 15px;
-  background-image: linear-gradient(to top, rgba(250, 192, 20, 0.2), rgba(148, 114, 12, 0.2)), linear-gradient(to bottom, rgba(0, 114, 187, 0.6), rgba(0, 52, 85, 0.6));
+  gap: 10px;
 }
-.user-subscribe-active {
-  width: 100%;
+.person__item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 5px;
 }
-.user-subscribe.starter {
-  background-image: linear-gradient(to top, rgba(250, 192, 20, 0.2), rgba(148, 114, 12, 0.2)), linear-gradient(to bottom, rgba(0, 114, 187, 0.6), rgba(0, 52, 85, 0.6));
-}
-.user-subscribe-name {
+.person__item-title {
   font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: var(--text-color);
+  color: var(--mercury);
 }
 @media (max-width: 767px) {
-  .user-subscribe-name {
-    font-size: calc(20px + 10.2 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .user-subscribe-name {
-    font-size: calc(20px + 6 * 100vw / 1440);
-  }
-}
-.user-subscribe-bill {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--text-color);
-}
-@media (max-width: 767px) {
-  .user-subscribe-bill {
+  .person__item-title {
     font-size: calc(14px + 3.4 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
-  .user-subscribe-bill {
+  .person__item-title {
     font-size: calc(14px + 2 * 100vw / 1440);
   }
 }
-.user-subscribe-expires {
-  color: var(--silver-chalice);
-}
-.user-subscribe-splitter {
-  width: 100%;
-  height: 2px;
-  border-radius: 2px;
-  background-color: var(--silver-chalice);
-}
-.user-subscribe-title {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: var(--text-color);
-}
-@media (max-width: 767px) {
-  .user-subscribe-title {
-    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
-  }
-}
-@media (min-width: 767px) {
-  .user-subscribe-title {
-    font-size: calc(16px + 2 * 100vw / 1440);
-  }
-}
-.user-subscribe-benefits {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
-}
-.user-subscribe-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.user-subscribe-item-title {
+.person__item-info {
   font-family: "Mulish", sans-serif;
   font-weight: 500;
   font-stretch: normal;
@@ -2623,28 +2343,25 @@ body::-webkit-scrollbar-thumb:hover {
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
+  color: var(--text-color);
 }
 @media (max-width: 767px) {
-  .user-subscribe-item-title {
-    font-size: calc(14px + 6.8 * (100vw - 320px) / 1440);
+  .person__item-info {
+    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
-  .user-subscribe-item-title {
-    font-size: calc(14px + 4 * 100vw / 1440);
+  .person__item-info {
+    font-size: calc(16px + 2 * 100vw / 1440);
   }
 }
-.user-subscribe-item > .success {
-  min-width: 22px;
-  min-height: 22px;
-}
-.user-subscribe-ad {
+.person__content {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
 }
-.user-subscribe-price {
+.person__content-title {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   font-stretch: normal;
@@ -2652,49 +2369,50 @@ body::-webkit-scrollbar-thumb:hover {
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
+  color: var(--text-color);
 }
 @media (max-width: 767px) {
-  .user-subscribe-price {
-    font-size: calc(22px + 13.6 * (100vw - 320px) / 1440);
+  .person__content-title {
+    font-size: calc(18px + 6.8 * (100vw - 320px) / 1440);
   }
 }
 @media (min-width: 767px) {
-  .user-subscribe-price {
-    font-size: calc(22px + 8 * 100vw / 1440);
+  .person__content-title {
+    font-size: calc(18px + 4 * 100vw / 1440);
   }
 }
-.user-subscribe-actions {
+.person__content-filters {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
-@media screen and (max-width: 1250px) {
-  .user-subscribe-benefits {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.person__content-items .content__cards {
+  grid-template-columns: repeat(4, minmax(var(--min-width-card), var(--max-width-card)));
 }
-@media screen and (max-width: 995px) {
-  .user-subscribe-benefits {
-    grid-template-columns: repeat(2, 1fr);
+
+@media screen and (max-width: 1050px) {
+  .person__content-items .content__cards {
+    grid-template-columns: repeat(3, minmax(var(--min-width-card), var(--max-width-card)));
   }
 }
 @media screen and (max-width: 900px) {
-  .user-subscribe-ad {
+  .person__content-filters {
     flex-direction: column;
-    align-items: start;
-    gap: 10px;
+  }
+  .person__content-items .content__cards {
+    grid-template-columns: repeat(2, minmax(var(--min-width-card), var(--max-width-card)));
   }
 }
-@media screen and (max-width: 800px) {
-  .user-subscribe-benefits {
-    grid-template-columns: 1fr;
+@media screen and (max-width: 700px) {
+  .person {
+    flex-direction: column;
+  }
+  .person__info {
+    max-width: none;
   }
 }
-@media screen and (max-width: 600px) {
-  .user-subscribe-active {
-    flex-direction: column;
-    align-items: start;
-    gap: 20px;
+@media screen and (max-width: 350px) {
+  .person__content-items .content__cards {
+    grid-template-columns: repeat(1, minmax(var(--min-width-card), var(--max-width-card)));
   }
 }/*# sourceMappingURL=style.css.map */
