@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import { BestList } from "../../../components";
-
+import BestListsAddPopup from "./BestListsAddPopup";
 import useBestList from "../../../hooks/useBestList";
 import usePopup from "../../../hooks/usePopup";
 
@@ -22,7 +22,7 @@ const BestListsPage = () => {
     <>
       <div className="profile-user-content-title">Списки</div>
       <div className="profile-user-content-container">
-        <div className="genre">
+        <div className="best-lists">
           <div className="view">
             <div className="view-actions">
               <button
@@ -51,6 +51,7 @@ const BestListsPage = () => {
           </div>
         </div>
       </div>
+      {isAdd && <BestListsAddPopup />}
     </>
   );
 };
