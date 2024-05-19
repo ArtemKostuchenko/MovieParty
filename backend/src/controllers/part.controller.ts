@@ -33,7 +33,7 @@ const deletePart = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const getParts = async (req: Request, res: Response): Promise<Response> => {
-    const parts = await PartRepository.getParts();
+    const parts = await PartRepository.getParts(req.query);
 
     return res.status(StatusCodes.OK).json({ data: parts });
 }

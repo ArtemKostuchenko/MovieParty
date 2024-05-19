@@ -9,6 +9,6 @@ const PartSchema: Schema = new Schema({
         type: String,
         required: [true, 'Please provide part name'],
     }
-});
+},{timestamps: true});
 
 export default mongoose.model<Part>('Part', PartSchema);
