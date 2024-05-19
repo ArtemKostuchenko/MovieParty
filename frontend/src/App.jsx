@@ -17,6 +17,7 @@ import {
   CountriesPage,
   TypeContentPage,
   GenresPage,
+  BestListsPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
           {
             path: "genres",
             element: <GenresPage />,
+          },
+          {
+            path: "best-lists",
+            element: <BestListsPage />,
           },
         ],
       },
