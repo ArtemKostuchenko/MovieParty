@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./style.page.scss";
+import { PartList } from "../../../components";
 
 import usePart from "../../../hooks/usePart";
 import usePopup from "../../../hooks/usePopup";
@@ -46,6 +47,7 @@ const PartsPage = () => {
                 </div>
               </div>
             </div>
+            <PartList limit={8} name={name} />
           </div>
         </div>
       </div>
