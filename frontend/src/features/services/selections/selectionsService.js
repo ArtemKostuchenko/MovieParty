@@ -21,9 +21,9 @@ export const selectionsApi = createApi({
     }),
 
     getSelectionById: builder.query({
-      query: (id) => ({ url: `parts/${id}` }),
+      query: (id) => ({ url: `selections/${id}` }),
       transformResponse: (resp) => resp.data,
-      providesTags: ["parts"],
+      providesTags: ["selections"],
     }),
 
     addSelection: builder.mutation({

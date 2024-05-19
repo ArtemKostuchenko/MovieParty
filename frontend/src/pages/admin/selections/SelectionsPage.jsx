@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.page.scss";
 import { SelectionList } from "../../../components";
 import SelectionsAddPopup from "./SelectionsAddPopup";
+import SelectionsEditPopup from "./SelectionsEditPopup";
 import useSelection from "../../../hooks/useSelection";
 import usePopup from "../../../hooks/usePopup";
 
@@ -52,6 +53,7 @@ const SelectionsPage = () => {
         </div>
       </div>
       {isAdd && <SelectionsAddPopup />}
+      {editId && <SelectionsEditPopup />}
     </>
   );
 };
