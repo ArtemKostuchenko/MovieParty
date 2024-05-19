@@ -3,6 +3,7 @@ import "./style.page.scss";
 import { BestList } from "../../../components";
 import BestListsAddPopup from "./BestListsAddPopup";
 import BestListsEditPopup from "./BestListsEditPopup";
+import BestListRemovePopup from "./BestListRemovePopup";
 import useBestList from "../../../hooks/useBestList";
 import usePopup from "../../../hooks/usePopup";
 
@@ -54,6 +55,7 @@ const BestListsPage = () => {
       </div>
       {isAdd && <BestListsAddPopup />}
       {editId && <BestListsEditPopup />}
+      {removeId && <BestListRemovePopup />}
     </>
   );
 };
