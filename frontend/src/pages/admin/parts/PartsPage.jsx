@@ -4,6 +4,7 @@ import { PartList } from "../../../components";
 import PartsAddPopup from "./PartsAddPopup";
 import usePart from "../../../hooks/usePart";
 import usePopup from "../../../hooks/usePopup";
+import PartsEditPopup from "./PartsEditPopup";
 
 const PartsPage = () => {
   const { isLoadingAdd } = usePart();
@@ -52,6 +53,7 @@ const PartsPage = () => {
         </div>
       </div>
       {isAdd && <PartsAddPopup />}
+      {editId && <PartsEditPopup />}
     </>
   );
 };

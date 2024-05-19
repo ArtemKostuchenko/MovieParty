@@ -60,7 +60,7 @@ export const partsApi = createApi({
 
 export const {
   useGetPartsQuery,
-  useLazyGetPartByIdQuery,
+  useGetPartByIdQuery,
   useAddPartMutation,
   useUpdatePartMutation,
   useRemovePartMutation,
