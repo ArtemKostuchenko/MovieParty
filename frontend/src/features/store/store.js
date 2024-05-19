@@ -37,7 +37,7 @@ const store = configureStore({
       .concat(typesContentApi.middleware)
       .concat(genresApi.middleware)
       .concat(bestListsApi.middleware)
-      .concat(parts.middleware),
+      .concat(partsApi.middleware),
 });
 
 setupListeners(store.dispatch);

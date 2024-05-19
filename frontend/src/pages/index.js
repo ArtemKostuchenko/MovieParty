@@ -15,3 +15,4 @@ export { default as CountriesPage } from "./admin/countries/CountriesPage";
 export { default as TypeContentPage } from "./admin/type-content/TypeContentPage";
 export { default as GenresPage } from "./admin/genres/GenresPage";
 export { default as BestListsPage } from "./admin/best-lists/BestListsPage";
+export { default as PartsPage } from "./admin/parts/PartsPage";

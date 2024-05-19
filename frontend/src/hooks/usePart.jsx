@@ -42,3 +42,5 @@ const usePart = () => {
     isSuccessRemove,
   };
 };
+
+export default usePart;
