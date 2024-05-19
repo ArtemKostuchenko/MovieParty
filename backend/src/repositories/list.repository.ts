@@ -1,4 +1,5 @@
 import ListModel, { List } from "../models/list.model";
+import VideoContentModel from "../models/content.model";
 import { BadRequestError, NotFoundError } from "../errors";
 
 interface Query {
@@ -52,7 +53,9 @@ class ListRepository {
     await list.deleteOne();
   }
 
-  async getLists(query: any): Promise<{ bestLists: List[]; totalCount: number }> {
+  async getLists(
+    query: any
+  ): Promise<{ bestLists: any[]; totalCount: number }> {
     const { name, fields, sort } = query;
 
     const queryObj: Query = {};
@@ -73,16 +76,35 @@ class ListRepository {
       bestListsQuery = bestListsQuery.select(fieldList);
     }
 
-     const bestListsPerPage = query.limit || 20;
-     const page = query.page || 1;
-     const skip = (page - 1) * bestListsPerPage;
+    const bestListsPerPage = query.limit || 20;
+    const page = query.page || 1;
+    const skip = (page - 1) * bestListsPerPage;
 
     const [bestLists, totalCount] = await Promise.all([
       bestListsQuery.skip(skip).limit(bestListsPerPage),
       ListModel.countDocuments(queryObj),
     ]);
 
-    return { bestLists, totalCount };
+    const listIds = bestLists.map((list) => list._id);
+
+    const contentCounts = await VideoContentModel.aggregate([
+      { $match: { lists: { $in: listIds } } },
+      { $unwind: "$lists" },
+      { $match: { lists: { $in: listIds } } },
+      { $group: { _id: "$lists", count: { $sum: 1 } } },
+    ]);
+
+    const contentCountMap = contentCounts.reduce((acc, item) => {
+      acc[item._id] = item.count;
+      return acc;
+    }, {});
+
+    const bestListsWithCounts = bestLists.map((list) => ({
+      ...list.toObject(),
+      contentCount: contentCountMap[list._id] || 0,
+    }));
+
+    return { bestLists: bestListsWithCounts, totalCount };
   }
 }
 
