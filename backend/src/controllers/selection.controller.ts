@@ -33,7 +33,7 @@ const deleteSelection = async (req: Request, res: Response) => {
 }
 
 const getSelections = async (req: Request, res: Response) => {
-    const selections = await SelectionRepository.getSelections();
+    const selections = await SelectionRepository.getSelections(req.query);
 
     return res.status(StatusCodes.OK).json({ data: selections });
 }

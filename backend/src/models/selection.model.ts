@@ -1,24 +1,29 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface Selection extends Document {
-    name: string;
-    description: string;
-    contents: Types.ObjectId[];
+  name: string;
+  description: string;
+  contents: Types.ObjectId[];
 }
 
-const SelectionSchema: Schema = new Schema({
+const SelectionSchema: Schema = new Schema(
+  {
     name: {
-        type: String,
-        required: [true, 'Please provide name'],
+      type: String,
+      required: [true, "Please provide name"],
     },
     description: {
-        type: String,
-        required: [true, 'Please provide description'],
+      type: String,
+      required: [true, "Please provide description"],
     },
-    contents: [{
+    contents: [
+      {
         type: Types.ObjectId,
-        ref: 'Content',
-    }],
-});
+        ref: "Content",
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model<Selection>('Selection', SelectionSchema);
+export default mongoose.model<Selection>("Selection", SelectionSchema);
