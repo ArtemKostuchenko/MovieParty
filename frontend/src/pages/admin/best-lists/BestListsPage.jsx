@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.page.scss";
 import { BestList } from "../../../components";
 import BestListsAddPopup from "./BestListsAddPopup";
+import BestListsEditPopup from "./BestListsEditPopup";
 import useBestList from "../../../hooks/useBestList";
 import usePopup from "../../../hooks/usePopup";
 
@@ -52,6 +53,7 @@ const BestListsPage = () => {
         </div>
       </div>
       {isAdd && <BestListsAddPopup />}
+      {editId && <BestListsEditPopup />}
     </>
   );
 };
