@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import { PartList } from "../../../components";
-
+import PartsAddPopup from "./PartsAddPopup";
 import usePart from "../../../hooks/usePart";
 import usePopup from "../../../hooks/usePopup";
 
@@ -51,6 +51,7 @@ const PartsPage = () => {
           </div>
         </div>
       </div>
+      {isAdd && <PartsAddPopup />}
     </>
   );
 };
