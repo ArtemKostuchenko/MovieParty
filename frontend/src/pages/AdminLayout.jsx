@@ -43,6 +43,12 @@ const AdminLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Жанри</div>
                     </NavLink>
+                    <NavLink to="best-lists" className="profile-menu-item">
+                      <div className="profile-menu-item-icon">
+                        <div className="icon best-list" />
+                      </div>
+                      <div className="profile-menu-item-title">Списки</div>
+                    </NavLink>
                   </div>
                 </div>
               </div>

@@ -325,6 +325,12 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/genre.svg");
   }
+  &.best-list {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/best-list.svg");
+  }
 }
 
 /* responsive icons */
