@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./style.page.scss";
+import { BestList } from "../../../components";
 
 import useBestList from "../../../hooks/useBestList";
 import usePopup from "../../../hooks/usePopup";
@@ -46,6 +47,7 @@ const BestListsPage = () => {
                 </div>
               </div>
             </div>
+            <BestList limit={8} name={name} />
           </div>
         </div>
       </div>
