@@ -3,6 +3,7 @@ import "./style.page.scss";
 import { SelectionList } from "../../../components";
 import SelectionsAddPopup from "./SelectionsAddPopup";
 import SelectionsEditPopup from "./SelectionsEditPopup";
+import SelectionsRemovePopup from "./SelectionsRemovePopup";
 import useSelection from "../../../hooks/useSelection";
 import usePopup from "../../../hooks/usePopup";
 
@@ -54,6 +55,7 @@ const SelectionsPage = () => {
       </div>
       {isAdd && <SelectionsAddPopup />}
       {editId && <SelectionsEditPopup />}
+      {removeId && <SelectionsRemovePopup />}
     </>
   );
 };
