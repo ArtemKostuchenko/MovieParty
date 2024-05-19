@@ -19,6 +19,7 @@ import {
   GenresPage,
   BestListsPage,
   PartsPage,
+  SelectionsPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
           {
             path: "parts",
             element: <PartsPage />,
+          },
+          {
+            path: "selections",
+            element: <SelectionsPage />,
           },
         ],
       },

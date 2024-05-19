@@ -1,0 +1,13 @@
+@import "../../../scss/mixins.scss";
+
+/* selections page */
+
+.selections-list {
+  width: 100%;
+
+  .view {
+    &-row {
+      grid-template-columns: 2fr repeat(2, minmax(0, 1fr)) 50px;
+    }
+  }
+}
