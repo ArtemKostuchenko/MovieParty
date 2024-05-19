@@ -7,7 +7,7 @@ import usePopUp from "../../hooks/usePopup";
 const BestListItem = ({
   _id,
   name,
-  countContent,
+  contentCount,
   createdAt,
   skeleton = false,
 }) => {
@@ -27,7 +27,7 @@ const BestListItem = ({
   return (
     <div className="view-row">
       <div className="view-col">{name}</div>
-      <div className="view-col">{countContent}</div>
+      <div className="view-col">{contentCount}</div>
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
         <ActionMenu>
