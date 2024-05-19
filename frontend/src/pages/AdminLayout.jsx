@@ -49,6 +49,12 @@ const AdminLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Списки</div>
                     </NavLink>
+                    <NavLink to="parts" className="profile-menu-item">
+                      <div className="profile-menu-item-icon">
+                        <div className="icon parts" />
+                      </div>
+                      <div className="profile-menu-item-title">Частини</div>
+                    </NavLink>
                   </div>
                 </div>
               </div>
