@@ -18,12 +18,12 @@ const usePart = () => {
     { isLoading: isLoadingRemove, isSuccess: isSuccessRemove },
   ] = useRemovePartMutation();
 
-  const addPart = async (genre) => {
-    return await addMutation(genre).unwrap();
+  const addPart = async (part) => {
+    return await addMutation(part).unwrap();
   };
 
-  const updatePart = async (genre) => {
-    return await updateMutation(genre).unwrap();
+  const updatePart = async (part) => {
+    return await updateMutation(part).unwrap();
   };
 
   const removePart = async (id) => {
