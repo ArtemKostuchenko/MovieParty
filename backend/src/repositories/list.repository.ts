@@ -1,56 +1,89 @@
-import ListModel, { List } from '../models/list.model';
-import { BadRequestError, NotFoundError } from '../errors';
+import ListModel, { List } from "../models/list.model";
+import { BadRequestError, NotFoundError } from "../errors";
+
+interface Query {
+  name?: { $regex: string; $options: string };
+}
 
 class ListRepository {
-    constructor() { }
+  constructor() {}
 
-    async createList(listData: List): Promise<List> {
-        const { name } = listData;
+  async createList(listData: List): Promise<List> {
+    const { name } = listData;
 
-        if (!name) {
-            throw new BadRequestError("Please provide name list");
-        }
-
-        return await ListModel.create(listData);
+    if (!name) {
+      throw new BadRequestError("Please provide name list");
     }
 
-    async getListById(listId: string): Promise<List> {
-        const list = await ListModel.findById(listId);
+    return await ListModel.create(listData);
+  }
 
-        if (!list) {
-            throw new NotFoundError("List not found")
-        }
+  async getListById(listId: string): Promise<List> {
+    const list = await ListModel.findById(listId);
 
-        return list;
+    if (!list) {
+      throw new NotFoundError("List not found");
     }
 
-    async updateListById(listId: string, listData: List): Promise<List> {
-        const { name } = listData;
+    return list;
+  }
 
-        const list = await ListModel.findById(listId);
+  async updateListById(listId: string, listData: List): Promise<List> {
+    const { name } = listData;
 
-        if (!list) {
-            throw new NotFoundError("List not found");
-        }
+    const list = await ListModel.findById(listId);
 
-        list.name = name || list.name;
-
-        return await list.save();
+    if (!list) {
+      throw new NotFoundError("List not found");
     }
 
-    async deleteListById(listId: string): Promise<void> {
-        const list = await ListModel.findById(listId);
+    list.name = name || list.name;
 
-        if (!list) {
-            throw new NotFoundError("List not found");
-        }
+    return await list.save();
+  }
 
-        await list.deleteOne();
+  async deleteListById(listId: string): Promise<void> {
+    const list = await ListModel.findById(listId);
+
+    if (!list) {
+      throw new NotFoundError("List not found");
     }
 
-    async getLists(): Promise<List[]> {
-        return await ListModel.find({});
+    await list.deleteOne();
+  }
+
+  async getLists(query: any): Promise<{ bestLists: List[]; totalCount: number }> {
+    const { name, fields, sort } = query;
+
+    const queryObj: Query = {};
+
+    if (name) {
+      queryObj.name = { $regex: name, $options: "i" };
     }
+
+    let bestListsQuery = ListModel.find(queryObj);
+
+    if (sort) {
+      const sortList = sort.split(",").join(" ");
+      bestListsQuery = bestListsQuery.sort(sortList);
+    }
+
+    if (fields) {
+      const fieldList = fields.split(",").join(" ");
+      bestListsQuery = bestListsQuery.select(fieldList);
+    }
+
+     const bestListsPerPage = query.limit || 20;
+     const page = query.page || 1;
+     const skip = (page - 1) * bestListsPerPage;
+
+    const [bestLists, totalCount] = await Promise.all([
+      bestListsQuery.skip(skip).limit(bestListsPerPage),
+      ListModel.countDocuments(queryObj),
+    ]);
+
+    return { bestLists, totalCount };
+  }
 }
 
 export default new ListRepository();

@@ -33,7 +33,7 @@ const deleteList = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const getLists = async (req: Request, res: Response): Promise<Response> => {
-    const lists = await ListRepository.getLists();
+    const lists = await ListRepository.getLists(req.query);
 
     return res.status(StatusCodes.OK).json({ data: lists });
 }
