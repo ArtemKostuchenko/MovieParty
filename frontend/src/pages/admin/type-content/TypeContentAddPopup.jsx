@@ -4,11 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TypeContentSchema } from "../../../features/validations";
 import PopUp from "../../../components/PopUp/PopUp";
 import useTypeContent from "../../../hooks/useTypeContent";
+import usePopUp from "../../../hooks/usePopup";
 import { DropDown, DropDownItem } from "../../../components";
 
 const TypeContentAddPopup = () => {
-  const { isAddTypeContent, resetHandler, addTypeContent } = useTypeContent();
+  const { addTypeContent, isLoadingAdd } = useTypeContent();
+  const { isAdd, handleResetPopUp } = usePopUp();
   const [isSeries, setIsSeries] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,15 +24,15 @@ const TypeContentAddPopup = () => {
   const onSubmitHandler = async (data) => {
     const res = await addTypeContent({ isSeries, ...data });
     console.log(res);
-    resetHandler();
+    handleResetPopUp();
     reset();
   };
 
   return (
     <PopUp
       title="Додавання типу контенту"
-      open={isAddTypeContent}
-      setOpen={resetHandler}
+      open={isAdd}
+      setOpen={handleResetPopUp}
     >
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>
@@ -68,7 +71,7 @@ const TypeContentAddPopup = () => {
             <button
               type="submit"
               className="button primary fill"
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoadingAdd}
             >
               Додати
             </button>

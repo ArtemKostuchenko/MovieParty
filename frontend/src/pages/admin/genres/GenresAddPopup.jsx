@@ -4,9 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { GenreSchema } from "../../../features/validations";
 import PopUp from "../../../components/PopUp/PopUp";
 import useGenre from "../../../hooks/useGenre";
+import usePopUp from "../../../hooks/usePopup";
 
 const GenresAddPopup = () => {
-  const { isAddGenre, resetHandler, addGenre, isLoadingAdd } = useGenre();
+  const { addGenre, isLoadingAdd } = useGenre();
+  const { isAdd, handleResetPopUp } = usePopUp();
 
   const {
     register,
@@ -20,12 +22,12 @@ const GenresAddPopup = () => {
   const onSubmitHandler = async (data) => {
     const res = await addGenre(data);
     console.log(res);
-    resetHandler();
+    handleResetPopUp();
     reset();
   };
 
   return (
-    <PopUp title="Додавання жанру" open={isAddGenre} setOpen={resetHandler}>
+    <PopUp title="Додавання жанру" open={isAdd} setOpen={handleResetPopUp}>
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>
           <div className="popup__form-items">

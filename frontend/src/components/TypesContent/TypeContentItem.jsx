@@ -2,10 +2,10 @@ import React from "react";
 import { formatDate } from "../../features/utils/functions";
 import ActionMenu from "../Menu/ActionMenu";
 import ActionItem from "../Menu/ActionItem";
-import useTypeContent from "../../hooks/useTypeContent";
+import usePopUp from "../../hooks/usePopup";
 
 const TypeContentItem = ({ _id, name, path, createdAt, skeleton = false }) => {
-  const { removeTypeContentHandler, editTypeContentHandler } = useTypeContent();
+  const { handleEditPopUp, handleRemovePopUp } = usePopUp();
 
   if (skeleton) {
     return (
@@ -32,12 +32,12 @@ const TypeContentItem = ({ _id, name, path, createdAt, skeleton = false }) => {
           <ActionItem
             icon="eda"
             title="Редагувати"
-            onClick={() => editTypeContentHandler(_id)}
+            onClick={() => handleEditPopUp(_id)}
           />
           <ActionItem
             icon="rma"
             title="Видалити"
-            onClick={() => removeTypeContentHandler(_id)}
+            onClick={() => handleRemovePopUp(_id)}
           />
         </ActionMenu>
       </div>

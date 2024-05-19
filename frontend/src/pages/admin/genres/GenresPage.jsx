@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import useGenre from "../../../hooks/useGenre";
-import GenreList from "../../../components/Genres/GenreList";
+import usePopup from "../../../hooks/usePopup";
+import { GenreList } from "../../../components";
 import GenresAddPopup from "./GenresAddPopup";
 import GenresEditPopup from "./GenresEditPopup";
 import GenresRemovePopup from "./GenresRemovePopup";
 
 const GenresPage = () => {
-  const { isAddGenre, addGenreHandler, removeId, editId } = useGenre();
+  const { isLoadingAdd } = useGenre();
+  const { isAdd, removeId, editId, handleAddPopUp } = usePopup();
   const [name, setName] = useState("");
 
   const handleSearch = (e) => {
@@ -27,8 +29,8 @@ const GenresPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isAddGenre}
-                onClick={() => addGenreHandler()}
+                disabled={isAdd || isLoadingAdd}
+                onClick={() => handleAddPopUp()}
               >
                 Додати жанр
               </button>
@@ -51,7 +53,7 @@ const GenresPage = () => {
           </div>
         </div>
       </div>
-      {isAddGenre && <GenresAddPopup />}
+      {isAdd && <GenresAddPopup />}
       {editId && <GenresEditPopup />}
       {removeId && <GenresRemovePopup />}
     </>

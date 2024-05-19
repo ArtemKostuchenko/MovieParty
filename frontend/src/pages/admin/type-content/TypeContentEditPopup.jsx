@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useTypeContent from "../../../hooks/useTypeContent";
+import usePopUp from "../../../hooks/usePopup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TypeContentSchema } from "../../../features/validations";
@@ -8,8 +9,8 @@ import PopUp from "../../../components/PopUp/PopUp";
 import { DropDown, DropDownItem } from "../../../components";
 
 const TypeContentEditPopup = () => {
-  const { editId, resetHandler, updateTypeContent, isLoadingUpdate } =
-    useTypeContent();
+  const { updateTypeContent, isLoadingUpdate } = useTypeContent();
+  const { editId, handleResetPopUp } = usePopUp();
   const [isSeries, setIsSeries] = useState(false);
 
   const {
@@ -38,7 +39,7 @@ const TypeContentEditPopup = () => {
 
   if (isLoading) {
     return (
-      <PopUp title="" open={Boolean(editId)} setOpen={resetHandler}>
+      <PopUp title="" open={Boolean(editId)} setOpen={handleResetPopUp}>
         <div className="loader__container">
           <div className="loader"></div>
         </div>
@@ -54,7 +55,7 @@ const TypeContentEditPopup = () => {
     });
     console.log(res);
     reset();
-    resetHandler();
+    handleResetPopUp();
   };
 
   const { name } = typeContent;
@@ -63,7 +64,7 @@ const TypeContentEditPopup = () => {
     <PopUp
       title={`Редагування типу контенту ${name}`}
       open={Boolean(editId)}
-      setOpen={resetHandler}
+      setOpen={handleResetPopUp}
     >
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>

@@ -5,8 +5,11 @@ import { GenreSchema } from "../../../features/validations";
 import { useGetGenreByIdQuery } from "../../../features/services/genre/genreService";
 import PopUp from "../../../components/PopUp/PopUp";
 import useGenre from "../../../hooks/useGenre";
+import usePopUp from "../../../hooks/usePopup";
+
 const GenresEditPopup = () => {
-  const { editId, resetHandler, updateGenre, isLoadingUpdate } = useGenre();
+  const { updateGenre, isLoadingUpdate } = useGenre();
+  const { editId, handleResetPopUp } = usePopUp();
 
   const {
     register,
@@ -33,7 +36,7 @@ const GenresEditPopup = () => {
 
   if (isLoading) {
     return (
-      <PopUp title="" open={Boolean(editId)} setOpen={resetHandler}>
+      <PopUp title="" open={Boolean(editId)} setOpen={handleResetPopUp}>
         <div className="loader__container">
           <div className="loader"></div>
         </div>
@@ -48,7 +51,7 @@ const GenresEditPopup = () => {
     });
     console.log(res);
     reset();
-    resetHandler();
+    handleResetPopUp();
   };
 
   const { name } = genre;
@@ -57,7 +60,7 @@ const GenresEditPopup = () => {
     <PopUp
       title={`Редагування жанру`}
       open={Boolean(editId)}
-      setOpen={resetHandler}
+      setOpen={handleResetPopUp}
     >
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>

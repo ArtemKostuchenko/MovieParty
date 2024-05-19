@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./style.page.scss";
-import TypeContentList from "../../../components/TypesContent/TypeContentList";
+import { TypeContentList } from "../../../components";
 import useTypeContent from "../../../hooks/useTypeContent";
+import usePopup from "../../../hooks/usePopup";
 import TypeContentAddPopup from "./TypeContentAddPopup";
 import TypeContentRemovePopup from "./TypeContentRemovePopup";
 import TypeContentEditPopup from "./TypeContentEditPopup";
 
 const TypeContentPage = () => {
-  const { isAddTypeContent, addTypeContentHandler, removeId, editId } =
-    useTypeContent();
+  const { isLoadingAdd } = useTypeContent();
+  const { isAdd, removeId, editId, handleAddPopUp } = usePopup();
   const [name, setName] = useState("");
 
   const handleSearch = (e) => {
@@ -27,8 +28,8 @@ const TypeContentPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isAddTypeContent}
-                onClick={() => addTypeContentHandler()}
+                disabled={isAdd || isLoadingAdd}
+                onClick={() => handleAddPopUp()}
               >
                 Додати тип
               </button>
@@ -51,7 +52,7 @@ const TypeContentPage = () => {
           </div>
         </div>
       </div>
-      {isAddTypeContent && <TypeContentAddPopup />}
+      {isAdd && <TypeContentAddPopup />}
       {removeId && <TypeContentRemovePopup />}
       {editId && <TypeContentEditPopup />}
     </>

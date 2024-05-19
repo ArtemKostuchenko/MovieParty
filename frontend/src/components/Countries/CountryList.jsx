@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetCountriesQuery } from "../../features/services/countries/countriesService";
 import CountryItem from "./CountryItem";
-import Pagination from "../Pagination/Pagination";
-import useCountry from "../../hooks/useCountry";
-import Sort from "../Sort/Sort";
-import SortItem from "../Sort/SortItem";
+import { Pagination } from "../Pagination";
+import { Sort, SortItem } from "../Sort";
+import useSort from "../../hooks/useSort";
+import usePagination from "../../hooks/usePagination";
 
 const CountryList = ({ limit = 5, name = "" }) => {
-  const { page, onChangePage, resetPage, sortName, sortType, onChangeSort } =
-    useCountry();
+  const { sortName, sortType, handleChangeSort } = useSort();
+  const { page, handleChangePage } = usePagination();
+
   const { data, isLoading, isError } = useGetCountriesQuery({
     name,
     page,
@@ -16,12 +17,6 @@ const CountryList = ({ limit = 5, name = "" }) => {
     sortName,
     sortType,
   });
-
-  useEffect(() => {
-    return () => {
-      resetPage();
-    };
-  }, []);
 
   if (isLoading) {
     return (
@@ -47,7 +42,7 @@ const CountryList = ({ limit = 5, name = "" }) => {
           <div className="view-row head">
             <Sort
               onChange={(sortName, sortType) => {
-                onChangeSort(sortName, sortType);
+                handleChangeSort(sortName, sortType);
               }}
               sortName={sortName}
               sortType={sortType}
@@ -84,7 +79,7 @@ const CountryList = ({ limit = 5, name = "" }) => {
           page={page}
           limit={limit}
           totalCount={totalCount}
-          onChangePage={(ePage) => onChangePage(ePage)}
+          onChangePage={(ePage) => handleChangePage(ePage)}
         />
       </div>
     </>

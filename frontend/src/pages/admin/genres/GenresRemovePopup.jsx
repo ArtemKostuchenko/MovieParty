@@ -2,9 +2,11 @@ import React from "react";
 import { useGetGenreByIdQuery } from "../../../features/services/genre/genreService";
 import PopUp from "../../../components/PopUp/PopUp";
 import useGenre from "../../../hooks/useGenre";
+import usePopUp from "../../../hooks/usePopup";
 
 const GenresRemovePopup = () => {
-  const { removeId, resetHandler, removeGenre, isLoadingRemove } = useGenre();
+  const { removeGenre, isLoadingRemove } = useGenre();
+  const { removeId, handleResetPopUp } = usePopUp();
 
   if (!removeId) {
     return <></>;
@@ -17,7 +19,7 @@ const GenresRemovePopup = () => {
       <PopUp
         title="Видалення жанру"
         open={Boolean(removeId)}
-        setOpen={resetHandler}
+        setOpen={handleResetPopUp}
       >
         <div className="loader__container">
           <div className="loader"></div>
@@ -29,7 +31,7 @@ const GenresRemovePopup = () => {
   const handleRemoveGenre = async () => {
     const res = await removeGenre(_id);
     console.log(res);
-    resetHandler();
+    handleResetPopUp();
   };
 
   const { _id, name } = genre;
@@ -38,7 +40,7 @@ const GenresRemovePopup = () => {
     <PopUp
       title="Видалення жанру"
       open={Boolean(removeId)}
-      setOpen={resetHandler}
+      setOpen={handleResetPopUp}
     >
       <div className="flex col g10">
         <div className="popup__text center">

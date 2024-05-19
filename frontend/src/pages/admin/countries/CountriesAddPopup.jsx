@@ -5,9 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
 import { PreviewImage } from "../../../components";
 import useCountry from "../../../hooks/useCountry";
+import usePopUp from "../../../hooks/usePopup";
 
 const CountriesAddPopup = () => {
-  const { isAddCountry, resetHandler, addCountry } = useCountry();
+  const { addCountry, isLoadingAdd } = useCountry();
+  const { isAdd, handleResetPopUp } = usePopUp();
 
   const {
     register,
@@ -23,7 +25,7 @@ const CountriesAddPopup = () => {
   const onSubmitHandler = async (data) => {
     const res = await addCountry(data);
     console.log(res);
-    resetHandler();
+    handleResetPopUp();
     reset();
   };
 
@@ -34,7 +36,7 @@ const CountriesAddPopup = () => {
   const watchIcon = watch("icon");
 
   return (
-    <PopUp title="Додавання країни" open={isAddCountry} setOpen={resetHandler}>
+    <PopUp title="Додавання країни" open={isAdd} setOpen={handleResetPopUp}>
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>
           <div className="popup__form-items">
@@ -91,7 +93,7 @@ const CountriesAddPopup = () => {
             <button
               type="submit"
               className="button primary fill"
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoadingAdd}
             >
               Додати
             </button>

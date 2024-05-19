@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import faq from "./slices/faq";
 import user from "./slices/user";
-import country from "./slices/country";
-import typeContent from "./slices/type-content";
-import genre from "./slices/genre";
+import pagination from "./slices/pagination";
+import sort from "./slices/sort";
+import popup from "./slices/popup";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   contentApi,
@@ -16,9 +16,9 @@ const store = configureStore({
   reducer: {
     faq: faq,
     user: user,
-    country: country,
-    typeContent: typeContent,
-    genre: genre,
+    pagination: pagination,
+    sort: sort,
+    popup: popup,
     [typesContentApi.reducerPath]: typesContentApi.reducer,
     [contentApi.reducerPath]: contentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,

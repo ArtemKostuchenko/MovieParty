@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import useCountry from "../../../hooks/useCountry";
+import usePopup from "../../../hooks/usePopup";
 import CountriesAddPopup from "./CountriesAddPopup";
 import { CountryList } from "../../../components";
 import CountriesRemovePopup from "./CountriesRemovePopup";
 import CountriesEditPopup from "./CountriesEditPopup";
 
 const CountryPage = () => {
-  const { isAddCountry, removeId, editId, addCountryHandler, isLoadingAdd } =
-    useCountry();
+  const { isLoadingAdd } = useCountry();
+  const { isAdd, removeId, editId, handleAddPopUp } = usePopup();
 
   const [name, setName] = useState("");
 
@@ -29,8 +30,8 @@ const CountryPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isAddCountry || isLoadingAdd}
-                onClick={() => addCountryHandler()}
+                disabled={isAdd || isLoadingAdd}
+                onClick={() => handleAddPopUp()}
               >
                 Додати країну
               </button>
@@ -53,7 +54,7 @@ const CountryPage = () => {
           </div>
         </div>
       </div>
-      {isAddCountry && <CountriesAddPopup />}
+      {isAdd && <CountriesAddPopup />}
       {removeId && <CountriesRemovePopup />}
       {editId && <CountriesEditPopup />}
     </>

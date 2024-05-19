@@ -2,10 +2,10 @@ import React from "react";
 import { formatDate } from "../../features/utils/functions";
 import ActionMenu from "../Menu/ActionMenu";
 import ActionItem from "../Menu/ActionItem";
-import useGenre from "../../hooks/useGenre";
+import usePopUp from "../../hooks/usePopup";
 
 const GenreItem = ({ _id, name, originName, createdAt, skeleton = false }) => {
-  const { editGenreHandler, removeGenreHandler } = useGenre();
+  const { handleEditPopUp, handleRemovePopUp } = usePopUp();
 
   if (skeleton) {
     return (
@@ -27,12 +27,12 @@ const GenreItem = ({ _id, name, originName, createdAt, skeleton = false }) => {
           <ActionItem
             icon="eda"
             title="Редагувати"
-            onClick={() => editGenreHandler(_id)}
+            onClick={() => handleEditPopUp(_id)}
           />
           <ActionItem
             icon="rma"
             title="Видалити"
-            onClick={() => removeGenreHandler(_id)}
+            onClick={() => handleRemovePopUp(_id)}
           />
         </ActionMenu>
       </div>

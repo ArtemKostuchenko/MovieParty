@@ -6,5 +6,7 @@ export { default as ClosedRoute } from "./ClosedRoute";
 export { default as DropDown } from "./DropDown/DropDown";
 export { default as DropDownItem } from "./DropDown/DropDownItem";
 export { default as CountryList } from "./Countries/CountryList";
+export { default as GenreList } from "./Genres/GenreList";
+export { default as TypeContentList } from "./TypesContent/TypeContentList";
 export { default as PreviewImage } from "./Preview/PreviewImage";
 export { default as Pagination } from "./Pagination/Pagination";

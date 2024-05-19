@@ -1,11 +1,12 @@
 import React from "react";
 import useCountry from "../../../hooks/useCountry";
+import usePopUp from "../../../hooks/usePopup";
 import PopUp from "../../../components/PopUp/PopUp";
 import { useGetCountryByIdQuery } from "../../../features/services/countries/countriesService";
 
 const CountriesRemovePopup = () => {
-  const { removeId, removeCountry, isLoadingRemove, resetHandler } =
-    useCountry();
+  const { removeCountry, isLoadingRemove } = useCountry();
+  const { removeId, handleResetPopUp } = usePopUp();
 
   if (!removeId) {
     return <></>;
@@ -18,7 +19,7 @@ const CountriesRemovePopup = () => {
       <PopUp
         title="Видалення країни"
         open={Boolean(removeId)}
-        setOpen={resetHandler}
+        setOpen={handleResetPopUp}
       >
         <div className="loader__container">
           <div className="loader"></div>
@@ -32,14 +33,14 @@ const CountriesRemovePopup = () => {
   const handleRemoveCountry = async () => {
     const res = await removeCountry(_id);
     console.log(res);
-    resetHandler();
+    handleResetPopUp();
   };
 
   return (
     <PopUp
       title="Видалення країни"
       open={Boolean(removeId)}
-      setOpen={resetHandler}
+      setOpen={handleResetPopUp}
     >
       <div className="flex col g10">
         <div className="popup__text center">

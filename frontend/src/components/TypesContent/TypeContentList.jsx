@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetTypesContentQuery } from "../../features/services/type-content/typeContentService";
-import Sort from "../Sort/Sort";
-import SortItem from "../Sort/SortItem";
 import TypeContentItem from "./TypeContentItem";
-import useTypeContent from "../../hooks/useTypeContent";
-import Pagination from "../Pagination/Pagination";
+import { Pagination } from "../Pagination";
+import { Sort, SortItem } from "../Sort";
+import useSort from "../../hooks/useSort";
+import usePagination from "../../hooks/usePagination";
 
 const TypeContentList = ({ limit = 5, name = "" }) => {
-  const { page, onChangePage, resetPage, sortName, sortType, onChangeSort } =
-    useTypeContent();
+  const { sortName, sortType, handleChangeSort } = useSort();
+  const { page, handleChangePage } = usePagination();
 
   const { data, isLoading, isError } = useGetTypesContentQuery({
     name,
@@ -17,12 +17,6 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
     sortName,
     sortType,
   });
-
-  useEffect(() => {
-    return () => {
-      resetPage();
-    };
-  }, []);
 
   if (isLoading) {
     return (
@@ -47,7 +41,7 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
         <div className="view-row head">
           <Sort
             onChange={(sortName, sortType) => {
-              onChangeSort(sortName, sortType);
+              handleChangeSort(sortName, sortType);
             }}
             sortName={sortName}
             sortType={sortType}
@@ -87,7 +81,7 @@ const TypeContentList = ({ limit = 5, name = "" }) => {
         page={page}
         limit={limit}
         totalCount={totalCount}
-        onChangePage={(ePage) => onChangePage(ePage)}
+        onChangePage={(ePage) => handleChangePage(ePage)}
       />
     </div>
   );

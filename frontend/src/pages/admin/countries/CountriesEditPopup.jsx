@@ -6,9 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CountrySchema } from "../../../features/validations";
 import { PreviewImage } from "../../../components";
 import { useGetCountryByIdQuery } from "../../../features/services/countries/countriesService";
+import usePopUp from "../../../hooks/usePopup";
 
 const CountriesEditPopup = () => {
-  const { editId, resetHandler, updateCountry, isLoadingUpdate } = useCountry();
+  const { updateCountry, isLoadingUpdate } = useCountry();
+  const { editId, handleResetPopUp } = usePopUp();
   const [countryIcon, setCountryIcon] = useState(null);
 
   const {
@@ -42,7 +44,7 @@ const CountriesEditPopup = () => {
 
   if (isLoading) {
     return (
-      <PopUp title="" open={Boolean(editId)} setOpen={resetHandler}>
+      <PopUp title="" open={Boolean(editId)} setOpen={handleResetPopUp}>
         <div className="loader__container">
           <div className="loader"></div>
         </div>
@@ -54,7 +56,7 @@ const CountriesEditPopup = () => {
     const res = await updateCountry({ id: country._id, ...data });
     console.log(res);
     reset();
-    resetHandler();
+    handleResetPopUp();
   };
 
   const resetIcon = () => {
@@ -73,7 +75,7 @@ const CountriesEditPopup = () => {
     <PopUp
       title={`Редагування країни ${name}`}
       open={Boolean(editId)}
-      setOpen={resetHandler}
+      setOpen={handleResetPopUp}
     >
       <div className="popup__form">
         <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>

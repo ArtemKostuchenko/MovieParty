@@ -2,7 +2,7 @@ import React from "react";
 import { formatDate } from "../../features/utils/functions";
 import ActionMenu from "../Menu/ActionMenu";
 import ActionItem from "../Menu/ActionItem";
-import useCountry from "../../hooks/useCountry";
+import usePopUp from "../../hooks/usePopup";
 
 const CountryItem = ({
   _id,
@@ -12,7 +12,7 @@ const CountryItem = ({
   createdAt,
   skeleton = false,
 }) => {
-  const { removeCountryHandler, editCountryHandler } = useCountry();
+  const { handleEditPopUp, handleRemovePopUp } = usePopUp();
 
   if (skeleton) {
     return (
@@ -42,12 +42,12 @@ const CountryItem = ({
           <ActionItem
             icon="eda"
             title="Редагувати"
-            onClick={() => editCountryHandler(_id)}
+            onClick={() => handleEditPopUp(_id)}
           />
           <ActionItem
             icon="rma"
             title="Видалити"
-            onClick={() => removeCountryHandler(_id)}
+            onClick={() => handleRemovePopUp(_id)}
           />
         </ActionMenu>
       </div>
