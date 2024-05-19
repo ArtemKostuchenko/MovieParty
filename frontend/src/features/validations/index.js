@@ -5,3 +5,4 @@ export { default as TypeContentSchema } from "./type-content.schema";
 export { default as GenreSchema } from "./genre.schema";
 export { default as BestListSchema } from "./best-list.schema";
 export { default as PartSchema } from "./part.schema";
+export { default as SelectionSchema } from "./selection.schema";

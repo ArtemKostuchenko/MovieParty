@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import { SelectionList } from "../../../components";
+import SelectionsAddPopup from "./SelectionsAddPopup";
 import useSelection from "../../../hooks/useSelection";
 import usePopup from "../../../hooks/usePopup";
 
@@ -50,6 +51,7 @@ const SelectionsPage = () => {
           </div>
         </div>
       </div>
+      {isAdd && <SelectionsAddPopup />}
     </>
   );
 };
