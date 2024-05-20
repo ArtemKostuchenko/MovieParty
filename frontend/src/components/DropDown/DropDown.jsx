@@ -3,12 +3,15 @@ import DropDownItem from "./DropDownItem";
 
 const DropDown = ({
   children,
+  value = "",
   onChange = null,
   fill = false,
   linear = false,
 }) => {
   const [selectedItem, setSelectedItem] = useState(
-    children.find((child) => child.props.selected)
+    children.find(
+      (child) => child.props.value === value || child.props.selected
+    )
   );
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -40,6 +43,14 @@ const DropDown = ({
       document.removeEventListener("mousedown", handleCloseDropDown);
     };
   }, []);
+
+  useEffect(() => {
+    setSelectedItem(
+      children.find(
+        (child) => child.props.value === value || child.props.selected
+      )
+    );
+  }, [value]);
 
   return (
     <div

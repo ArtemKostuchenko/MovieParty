@@ -46,6 +46,7 @@ const ActorsEditPage = () => {
       setValue("dateBirth", formatDate(actor.dateBirth, "hyphen"));
       setValue("dateDeath", formatDate(actor.dateDeath, "hyphen"));
       setValue("placeBirth", actor.placeBirth);
+      setSex(actor.sex);
       setPhotoURL(actor.photoURL);
     }
   }, [actor, setValue]);
@@ -194,10 +195,13 @@ const ActorsEditPage = () => {
             </div>
             <div className="form__item label fg">
               <div className="form__item-label">Стать</div>
-              <DropDown linear fill onChange={(value) => setSex(value)}>
-                <DropDownItem value="Man" selected>
-                  Чоловік
-                </DropDownItem>
+              <DropDown
+                value={sex}
+                linear
+                fill
+                onChange={(value) => setSex(value)}
+              >
+                <DropDownItem value="Man">Чоловік</DropDownItem>
                 <DropDownItem value="Woman">Жінка</DropDownItem>
               </DropDown>
             </div>
