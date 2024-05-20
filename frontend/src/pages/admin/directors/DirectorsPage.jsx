@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.page.scss";
 import { useNavigate } from "react-router-dom";
 import { DirectorList } from "../../../components";
+import DirectorsRemovePopup from "./DirectorsRemovePopup";
 import usePopup from "../../../hooks/usePopup";
 
 const DirectorsPage = () => {
@@ -49,6 +50,7 @@ const DirectorsPage = () => {
           </div>
         </div>
       </div>
+      {removeId && <DirectorsRemovePopup />}
     </>
   );
 };
