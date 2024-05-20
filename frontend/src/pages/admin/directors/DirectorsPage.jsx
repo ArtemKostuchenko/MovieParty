@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./style.page.scss";
 import { useNavigate } from "react-router-dom";
-
+import { DirectorList } from "../../../components";
 import usePopup from "../../../hooks/usePopup";
+
 const DirectorsPage = () => {
   const { removeId } = usePopup();
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const DirectorsPage = () => {
                 </div>
               </div>
             </div>
+            <DirectorList limit={8} fullName={fullName} />
           </div>
         </div>
       </div>
