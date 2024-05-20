@@ -22,7 +22,7 @@ class ActorRepository {
   }
 
   async getActorById(actorId: string): Promise<ActorWithAge> {
-    const actor = await ActorModel.findById(actorId).lean();
+    const actor = await ActorModel.findById(actorId);
 
     if (!actor) {
       throw new NotFoundError("Actor not found");

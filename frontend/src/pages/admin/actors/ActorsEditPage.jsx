@@ -1,36 +1,73 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PersonSchema } from "../../../features/validations";
 import { PreviewImage } from "../../../components";
 import { DropDown, DropDownItem } from "../../../components";
+import { useGetActorByIdQuery } from "../../../features/services/actors/actorsService";
 import useActor from "../../../hooks/useActor";
 
-const ActorsAddPage = () => {
-  const { addActor, isLoadingAdd } = useActor();
+const ActorsEditPage = () => {
+  const { updateActor, isLoadingUpdate } = useActor();
+  const { id: editId } = useParams();
   const navigate = useNavigate();
   const [sex, setSex] = useState("Man");
+  const [photoURL, setPhotoURL] = useState(null);
 
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     resetField,
     watch,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(PersonSchema),
+    defaultValues: {
+      isEdit: true,
+    },
   });
 
+  if (!editId) {
+    return <></>;
+  }
+
+  const { data: actor, isLoading } = useGetActorByIdQuery(editId);
+
+  useEffect(() => {
+    if (actor) {
+      setValue("firstName", actor.firstName);
+      setValue("lastName", actor.lastName);
+      setValue("firstNameEng", actor.firstNameEng);
+      setValue("lastNameEng", actor.lastNameEng);
+      setValue("dateBirth", actor.dateBirth);
+      setValue("placeBirth", actor.placeBirth);
+      setPhotoURL(actor.photoURL);
+    }
+  }, [actor, setValue]);
+
+  if (isLoading) {
+    return (
+      <div className="loader__container">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
   const onSubmitHandler = async (data) => {
-    const res = await addActor({ sex, ...data });
+    const res = await updateActor({ id: actor._id, sex, ...data });
     console.log(res);
     reset();
-    navigate("..", { relative: "path" });
+    navigate("../actors", { relative: "route" });
   };
 
   const resetPhoto = () => {
+    if (photoURL) {
+      setPhotoURL(null);
+      return;
+    }
     resetField("photoURL");
   };
 
@@ -40,36 +77,41 @@ const ActorsAddPage = () => {
     <form className="person__form" onSubmit={handleSubmit(onSubmitHandler)}>
       <div className="person__form-info">
         <div className="person__form-card">
-          {!Boolean(watchPhotoURL?.length) ? (
-            <button
-              className="button primary"
-              onClick={() => {
-                const inputRef = document.querySelector(
-                  'input[name="photoURL"]'
-                );
-                if (!inputRef) return;
-                inputRef.click();
-              }}
-            >
-              Обрати фото
-            </button>
+          {!Boolean(watchPhotoURL?.length) && !Boolean(photoURL) ? (
+            <>
+              <button
+                className="button primary"
+                onClick={() => {
+                  const inputRef = document.querySelector(
+                    'input[name="photoURL"]'
+                  );
+                  if (!inputRef) return;
+                  inputRef.click();
+                }}
+              >
+                Обрати фото
+              </button>
+              <input
+                type="file"
+                {...register("photoURL")}
+                className="hidden"
+                accept="image/*"
+              />
+            </>
           ) : (
             <PreviewImage
-              icon={watchPhotoURL}
+              icon={photoURL || watchPhotoURL}
               removeIcon={resetPhoto}
               classImage="prs"
+              path="images/actors"
             />
           )}
-          <input
-            type="file"
-            {...register("photoURL")}
-            className="hidden"
-            accept="image/*"
-          />
         </div>
       </div>
       <div className="person__form-content">
-        <div className="person__form-content-title">Дані про актора</div>
+        <div className="person__form-content-title">
+          Редагування даних актора
+        </div>
         <div className="person__form-form">
           <div className="form__grid">
             <div className="form__item label">
@@ -161,9 +203,9 @@ const ActorsAddPage = () => {
               <button
                 className="button primary fill"
                 type="submit"
-                disabled={!isDirty || !isValid || isLoadingAdd}
+                disabled={!isDirty || !isValid || isLoadingUpdate}
               >
-                Додати актора
+                Зберегти
               </button>
             </div>
           </div>
@@ -173,4 +215,4 @@ const ActorsAddPage = () => {
   );
 };
 
-export default ActorsAddPage;
+export default ActorsEditPage;

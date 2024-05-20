@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-const PreviewImage = ({ icon, removeIcon, classImage = "crs" }) => {
+const PreviewImage = ({
+  icon,
+  path = "crs",
+  removeIcon,
+  classImage = "crs",
+}) => {
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
@@ -13,7 +18,9 @@ const PreviewImage = ({ icon, removeIcon, classImage = "crs" }) => {
         setPreview(reader.result);
       };
     } else {
-      setPreview(`${import.meta.env.VITE_BACK_HOST}/static/files/crs/${icon}`);
+      setPreview(
+        `${import.meta.env.VITE_BACK_HOST}/static/files/${path}/${icon}`
+      );
     }
   }, [icon]);
 

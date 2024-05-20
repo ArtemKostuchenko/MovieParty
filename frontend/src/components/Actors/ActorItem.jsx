@@ -42,7 +42,7 @@ const ActorItem = ({
           <ActionItem
             icon="eda"
             title="Редагувати"
-            onClick={() => navigate(`${id}/edit`)}
+            onClick={() => navigate(`${_id}/edit`)}
           />
           <ActionItem
             icon="rma"
