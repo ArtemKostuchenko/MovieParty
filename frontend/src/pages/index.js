@@ -23,3 +23,4 @@ export { default as ActorsEditPage } from "./admin/actors/ActorsEditPage";
 export { default as ActorPage } from "./actor/ActorPage";
 export { default as DirectorsPage } from "./admin/directors/DirectorsPage";
 export { default as DirectorsAddPage } from "./admin/directors/DirectorsAddPage";
+export { default as DirectorsEditPage } from "./admin/directors/DirectorsEditPage";

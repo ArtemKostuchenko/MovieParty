@@ -50,7 +50,7 @@ export const directorsApi = createApi({
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
         bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
-        if (dateDeath) {
+        if (dateDeath && dateDeath !== "NaN-NaN-NaN") {
           bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
         }
         bodyData.append("sex", sex);
@@ -88,7 +88,8 @@ export const directorsApi = createApi({
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
         bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
-        if (dateDeath) {
+        if (dateDeath && dateDeath !== "NaN-NaN-NaN") {
+          console.log(dateDeath);
           bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
         }
         bodyData.append("sex", sex);
