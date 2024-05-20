@@ -1,8 +1,47 @@
 import React from "react";
 import "./style.page.scss";
 import { DropDown, DropDownItem, Pagination } from "../../components";
+import { Navigate, useParams } from "react-router-dom";
+import { useGetActorByFullNameQuery } from "../../features/services/actors/actorsService";
+import { formatDate } from "../../features/utils/functions";
 
 const ActorPage = () => {
+  const { fullName } = useParams();
+
+  if (!fullName) {
+    return <Navigate to="/" />;
+  }
+
+  const { data: actor, isLoading } = useGetActorByFullNameQuery(fullName);
+
+  if (isLoading) {
+    return (
+      <div className="loader__container">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
+  if (!actor) {
+    return <Navigate to="/" />;
+  }
+
+  const {
+    firstName,
+    lastName,
+    firstNameEng,
+    lastNameEng,
+    age,
+    dateBirth,
+    dateDeath,
+    sex,
+    placeBirth,
+  } = actor;
+
+  const photoURL = `${
+    import.meta.env.VITE_BACK_HOST
+  }/static/files/images/actors/${actor.photoURL}`;
+
   return (
     <div className="container cnt-mn">
       <div className="container">
@@ -11,45 +50,54 @@ const ActorPage = () => {
             <div className="actor__info">
               <div className="actor__card">
                 <div className="actor__photo">
-                  <img src="../images/actor.jpg" alt="Керрі Фішшер" />
+                  <img src={photoURL} alt={`${firstName} ${lastName}`} />
                 </div>
-                <div className="actor__fullname">Керрі Фішшер</div>
-                <div className="actor__origin-fullname">Carrie Fisher</div>
+                <div className="actor__fullname">
+                  {firstName} {lastName}
+                </div>
+                <div className="actor__origin-fullname">
+                  {firstNameEng} {lastNameEng}
+                </div>
               </div>
               <div className="actor__bio">
                 <div className="actor__items">
                   <div className="actor__item">
                     <div className="actor__item-title">Вік:</div>
-                    <div className="actor__item-info">60 років</div>
+                    <div className="actor__item-info">{age} років</div>
                   </div>
                   <div className="actor__item">
                     <div className="actor__item-title">Дата народження:</div>
-                    <div className="actor__item-info">21.10.1956</div>
+                    <div className="actor__item-info">
+                      {formatDate(dateBirth, "dots")}
+                    </div>
                   </div>
-                  <div className="actor__item">
-                    <div className="actor__item-title">Дата смерті:</div>
-                    <div className="actor__item-info">27.12.2016</div>
-                  </div>
+                  {dateDeath && (
+                    <div className="actor__item">
+                      <div className="actor__item-title">Дата смерті:</div>
+                      <div className="actor__item-info">{dateDeath}</div>
+                    </div>
+                  )}
                   <div className="actor__item">
                     <div className="actor__item-title">Кількість робіт:</div>
-                    <div className="actor__item-info">22</div>
+                    <div className="actor__item-info">0</div>
                   </div>
                   <div className="actor__item">
                     <div className="actor__item-title">Стать:</div>
-                    <div className="actor__item-info">Жіноча</div>
+                    <div className="actor__item-info">
+                      {sex === "Man" ? "Чоловіча" : "Жіноча"}
+                    </div>
                   </div>
                   <div className="actor__item">
                     <div className="actor__item-title">Місце народження:</div>
-                    <div className="actor__item-info">
-                      Беверлі-Хіллз, Лос-Анджелес, Каліфорнія, США
-                    </div>
+                    <div className="actor__item-info">{placeBirth}</div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="actor__content">
               <div className="actor__content-title">
-                Всі фільми та серіали з акторкою Керрі Фішшер
+                Всі фільми та серіали з {sex === "Man" ? "актором" : "акторкою"}{" "}
+                {firstName} {lastName}
               </div>
               <div className="actor__content-filters">
                 <DropDown>

@@ -34,7 +34,7 @@ class ActorRepository {
   async getActorByFullName(fullName: string): Promise<ActorWithAge> {
     const splitFullName = fullName.split("-");
 
-    const actor = await ActorModel.findById({
+    const actor = await ActorModel.find({
       firstNameEng: { $regex: splitFullName[0], $options: "i" },
       lastNameEng: { $regex: splitFullName[1], $options: "i" },
     });
@@ -43,7 +43,7 @@ class ActorRepository {
       throw new NotFoundError("Actor not found");
     }
 
-    return { ...actor.toObject(), age: actor.age };
+    return { ...actor[0].toObject(), age: actor[0].age };
   }
 
   async updateActorById(actorId: string, actorData: Actor): Promise<Actor> {

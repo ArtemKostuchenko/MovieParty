@@ -1,4 +1,4 @@
-export const formatDate = (inputDate) => {
+export const formatDate = (inputDate, type = "months") => {
   const dateObj = new Date(inputDate);
 
   const months = [
@@ -15,6 +15,14 @@ export const formatDate = (inputDate) => {
     "лис",
     "гру",
   ];
+
+  if (type === "dots") {
+    const day = String(dateObj.getUTCDate()).padStart(2, "0");
+    const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
+    const year = dateObj.getUTCFullYear();
+
+    return `${day}.${month}.${year}`;
+  }
 
   const formattedDate = `${dateObj.getDate()} ${
     months[dateObj.getMonth()]
