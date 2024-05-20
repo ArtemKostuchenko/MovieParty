@@ -346,6 +346,13 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/slct.svg");
   }
+
+  &.actors {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/actors.svg");
+  }
 }
 
 /* responsive icons */

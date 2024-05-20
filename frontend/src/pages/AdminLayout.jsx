@@ -55,6 +55,12 @@ const AdminLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Частини</div>
                     </NavLink>
+                    <NavLink to="actors" className="profile-menu-item">
+                      <div className="profile-menu-item-icon">
+                        <div className="icon actors" />
+                      </div>
+                      <div className="profile-menu-item-title">Актори</div>
+                    </NavLink>
                     <NavLink to="selections" className="profile-menu-item">
                       <div className="profile-menu-item-icon">
                         <div className="icon slct" />
