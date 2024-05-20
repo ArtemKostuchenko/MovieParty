@@ -93,13 +93,14 @@ const TypeContentEditPopup = () => {
             </div>
             <div className="popup__form-item">
               <div className="popup__form-title">Серійний тип</div>
-              <DropDown linear fill onChange={(value) => setIsSeries(value)}>
-                <DropDownItem value={true} selected={isSeries === true}>
-                  Так
-                </DropDownItem>
-                <DropDownItem value={false} selected={isSeries === false}>
-                  Ні
-                </DropDownItem>
+              <DropDown
+                value={isSeries}
+                linear
+                fill
+                onChange={(value) => setIsSeries(value)}
+              >
+                <DropDownItem value={true}>Так</DropDownItem>
+                <DropDownItem value={false}>Ні</DropDownItem>
               </DropDown>
             </div>
             <button
