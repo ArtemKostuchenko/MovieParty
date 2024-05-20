@@ -117,9 +117,15 @@ const validateActorDirector = (person: Actor | Director) => {
   if (!person.lastName) {
     errors.push("lastName");
   }
-  if (!person.originalFullName) {
-    errors.push("originalFullName");
+
+  if (!person.firstNameEng) {
+    errors.push("firstNameEng");
   }
+
+  if (!person.lastNameEng) {
+    errors.push("lastNameEng");
+  }
+
   if (!person.photoURL) {
     errors.push("photoURL");
   }

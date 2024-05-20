@@ -35,7 +35,7 @@ const deleteDirector = async (req: Request, res: Response): Promise<Response> =>
 }
 
 const getDirectors = async (req: Request, res: Response): Promise<Response> => {
-    const directors: DirectorWithAge[] = await DirectorRepository.getDirectors();
+    const directors = await DirectorRepository.getDirectors(req.query);
 
     return res.status(StatusCodes.OK).json({ data: directors });
 }

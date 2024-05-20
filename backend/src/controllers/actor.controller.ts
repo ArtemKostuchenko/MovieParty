@@ -35,7 +35,7 @@ const deleteActor = async (req: Request, res: Response): Promise<Response> => {
 }
 
 const getActors = async (req: Request, res: Response): Promise<Response> => {
-    const actors: ActorWithAge[] = await ActorRepository.getActors();
+    const actors = await ActorRepository.getActors(req.query);
     
     return res.status(StatusCodes.OK).json({ data: actors });
 }

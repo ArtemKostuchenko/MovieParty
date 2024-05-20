@@ -3,7 +3,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface Director extends Document {
     firstName: string;
     lastName: string;
-    originalFullName: string;
+    firstNameEng: string;
+    lastNameEng: string;
     photoURL: string;
     dateBirth?: Date;
     dateDeath?: Date;
@@ -21,9 +22,13 @@ const DirectorSchema: Schema = new Schema({
         type: String,
         required: [true, 'Please provide lastName'],
     },
-    originalFullName: {
+    firstNameEng: {
         type: String,
-        required: [true, 'Please provide originalFullName'],
+        required: [true, 'Please provide firstNameEng'],
+    },
+    lastNameEng: {
+        type: String,
+        required: [true, 'Please provide lastNameEng'],
     },
     photoURL: {
         type: String,
@@ -44,7 +49,7 @@ const DirectorSchema: Schema = new Schema({
         type: String,
         required: [true, 'Please provide placeBirth'],
     }
-});
+}, {timestamps: true});
 
 DirectorSchema.virtual('age').get(function(this: Director) {
     const currentDate = new Date();
