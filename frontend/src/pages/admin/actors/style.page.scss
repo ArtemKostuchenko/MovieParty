@@ -1,0 +1,13 @@
+@import "../../../scss/mixins.scss";
+
+/* actors page */
+
+.actors-list {
+  width: 100%;
+
+  .view {
+    &-row {
+      grid-template-columns: repeat(4, minmax(0, 1fr)) 50px;
+    }
+  }
+}

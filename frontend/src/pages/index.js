@@ -17,3 +17,4 @@ export { default as GenresPage } from "./admin/genres/GenresPage";
 export { default as BestListsPage } from "./admin/best-lists/BestListsPage";
 export { default as PartsPage } from "./admin/parts/PartsPage";
 export { default as SelectionsPage } from "./admin/selections/SelectionsPage";
+export { default as ActorsPage } from "./admin/actors/ActorsPage";
