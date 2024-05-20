@@ -189,3 +189,19 @@
     }
   }
 }
+
+/* person add */
+
+@media screen and (max-width: 900px) {
+  .form {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__item {
+      &.fg {
+        grid-column: 1 / 2;
+      }
+    }
+  }
+}

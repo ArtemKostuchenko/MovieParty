@@ -1047,8 +1047,41 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   gap: 18px;
 }
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 .form__item {
   width: 100%;
+}
+.form__item.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form__item-label {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--boulder);
+}
+@media (max-width: 767px) {
+  .form__item-label {
+    font-size: calc(16px + 3.4 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .form__item-label {
+    font-size: calc(16px + 2 * 100vw / 1440);
+  }
+}
+.form__item.fg {
+  grid-column: 1/3;
 }
 .form__text {
   width: 100%;
@@ -2414,5 +2447,14 @@ body::-webkit-scrollbar-thumb:hover {
 @media screen and (max-width: 350px) {
   .person__content-items .content__cards {
     grid-template-columns: repeat(1, minmax(var(--min-width-card), var(--max-width-card)));
+  }
+}
+/* person add */
+@media screen and (max-width: 900px) {
+  .form__grid {
+    grid-template-columns: 1fr;
+  }
+  .form__item.fg {
+    grid-column: 1/2;
   }
 }/*# sourceMappingURL=style.css.map */

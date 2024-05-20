@@ -1047,8 +1047,17 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   gap: 18px;
 }
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 .form__item {
   width: 100%;
+}
+.form__item.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 .form__text {
   width: 100%;
