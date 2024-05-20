@@ -353,6 +353,13 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/actors.svg");
   }
+
+  &.directors {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/directors.svg");
+  }
 }
 
 /* responsive icons */
