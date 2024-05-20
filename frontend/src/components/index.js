@@ -11,5 +11,6 @@ export { default as BestList } from "./BestLists/BestList";
 export { default as TypeContentList } from "./TypesContent/TypeContentList";
 export { default as PartList } from "./Parts/PartList";
 export { default as SelectionList } from "./Selections/SelectionList";
+export { default as ActorList } from "./Actors/ActorList";
 export { default as PreviewImage } from "./Preview/PreviewImage";
 export { default as Pagination } from "./Pagination/Pagination";

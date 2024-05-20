@@ -10,8 +10,8 @@ export const actorsApi = createApi({
   tagTypes: ["actors"],
   endpoints: (builder) => ({
     getActors: builder.query({
-      query: ({ fullname, page, limit, sortName, sortType }) => ({
-        url: `actors?fullname=${fullname}&page=${page}&limit=${limit}${getFormateSort(
+      query: ({ fullName, page, limit, sortName, sortType }) => ({
+        url: `actors?fullname=${fullName}&page=${page}&limit=${limit}${getFormateSort(
           sortName,
           sortType
         )}`,

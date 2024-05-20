@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./style.page.scss";
-
+import { ActorList } from "../../../components";
 import useActor from "../../../hooks/useActor";
 import usePopup from "../../../hooks/usePopup";
 
@@ -45,6 +45,7 @@ const ActorsPage = () => {
                   </div>
                 </div>
               </div>
+              <ActorList limit={8} fullName={fullName} />
             </div>
           </div>
         </div>
