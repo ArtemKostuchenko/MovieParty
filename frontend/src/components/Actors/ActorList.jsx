@@ -65,7 +65,7 @@ const PersonList = ({ limit = 5, fullName = "" }) => {
           Array.from({ length: limit }).map((_, index) => {
             if (actors.length > index) {
               const actor = actors[index];
-              return <ActorItem key={selection._id} {...actor} />;
+              return <ActorItem key={actor._id} {...actor} />;
             } else {
               return <ActorItem key={`skeleton-actor-${index}`} skeleton />;
             }

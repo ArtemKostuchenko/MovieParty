@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.page.scss";
 import { ActorList } from "../../../components";
-import useActor from "../../../hooks/useActor";
 import usePopup from "../../../hooks/usePopup";
 
 const ActorsPage = () => {
-  const { isLoadingAdd } = useActor();
-  const { isAdd, removeId, editId, handleAddPopUp } = usePopup();
+  const { removeId } = usePopup();
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
 
   const handleSearch = (e) => {
@@ -21,13 +21,12 @@ const ActorsPage = () => {
     <>
       <div className="profile-user-content-title">Актори</div>
       <div className="profile-user-content-container">
-        <div className="best-lists">
+        <div className="actors-list">
           <div className="view">
             <div className="view-actions">
               <button
                 className="button primary"
-                disabled={isAdd || isLoadingAdd}
-                onClick={() => handleAddPopUp()}
+                onClick={() => navigate("add")}
               >
                 Додати актора
               </button>
@@ -45,8 +44,8 @@ const ActorsPage = () => {
                   </div>
                 </div>
               </div>
-              <ActorList limit={8} fullName={fullName} />
             </div>
+            <ActorList limit={8} fullName={fullName} />
           </div>
         </div>
       </div>
