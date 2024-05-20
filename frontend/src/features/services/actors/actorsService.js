@@ -50,7 +50,9 @@ export const actorsApi = createApi({
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
         bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
-        bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
+        if (dateDeath) {
+          bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
+        }
         bodyData.append("sex", sex);
         bodyData.append("placeBirth", placeBirth);
         bodyData.append("photoURL", photoURL[0]);
@@ -86,7 +88,9 @@ export const actorsApi = createApi({
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
         bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
-        bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
+        if (dateDeath) {
+          bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
+        }
         bodyData.append("sex", sex);
         bodyData.append("placeBirth", placeBirth);
         bodyData.append("photoURL", photoURL[0]);
