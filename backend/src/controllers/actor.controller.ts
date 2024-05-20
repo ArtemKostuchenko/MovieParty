@@ -1,49 +1,50 @@
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import ActorRepository from '../repositories/actor.repository';
-import { ActorWithAge } from '../utils/interfaces';
-import { Actor } from '../models/actor.model';
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import ActorRepository from "../repositories/actor.repository";
+import { ActorWithAge } from "../utils/interfaces";
+import { Actor } from "../models/actor.model";
 
 const createActor = async (req: Request, res: Response): Promise<Response> => {
-    const actor: ActorWithAge = await ActorRepository.createActor(req.body);
+  req.body.photoURL = req.file?.filename as string;
 
-    return res.status(StatusCodes.CREATED).json({ data: actor });
-}
+  const actor: ActorWithAge = await ActorRepository.createActor(req.body);
+
+  return res.status(StatusCodes.CREATED).json({ data: actor });
+};
 
 const getActor = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idActor } = req.params;
+  const { id: idActor } = req.params;
 
-    const actor: ActorWithAge = await ActorRepository.getActorById(idActor);
+  const actor: ActorWithAge = await ActorRepository.getActorById(idActor);
 
-    return res.status(StatusCodes.OK).json({ data: actor });
-}
+  return res.status(StatusCodes.OK).json({ data: actor });
+};
 
 const updateActor = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idActor } = req.params;
+  const { id: idActor } = req.params;
 
-    const updatedActor: Actor = await ActorRepository.updateActorById(idActor, req.body);
+  req.body.photoURL = req.file?.filename as string;
 
-    return res.status(StatusCodes.OK).json({ data: updatedActor });
-}
+  const updatedActor: Actor = await ActorRepository.updateActorById(
+    idActor,
+    req.body
+  );
+
+  return res.status(StatusCodes.OK).json({ data: updatedActor });
+};
 
 const deleteActor = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idActor } = req.params;
+  const { id: idActor } = req.params;
 
-    await ActorRepository.deleteActorById(idActor);
+  await ActorRepository.deleteActorById(idActor);
 
-    return res.status(StatusCodes.OK).json({ success: true });
-}
+  return res.status(StatusCodes.OK).json({ success: true });
+};
 
 const getActors = async (req: Request, res: Response): Promise<Response> => {
-    const actors = await ActorRepository.getActors(req.query);
-    
-    return res.status(StatusCodes.OK).json({ data: actors });
-}
+  const actors = await ActorRepository.getActors(req.query);
 
-export {
-    createActor,
-    getActor,
-    updateActor,
-    deleteActor,
-    getActors,
+  return res.status(StatusCodes.OK).json({ data: actors });
 };
+
+export { createActor, getActor, updateActor, deleteActor, getActors };
