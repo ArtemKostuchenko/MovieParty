@@ -26,6 +26,12 @@ export const actorsApi = createApi({
       providesTags: ["actors"],
     }),
 
+    getActorByFullName: builder.query({
+      query: (fullName) => ({ url: `actors/fullName/${fullName}` }),
+      transformResponse: (resp) => resp.data,
+      providesTags: ["actors"],
+    }),
+
     addActor: builder.mutation({
       query: ({
         firstName,
@@ -110,6 +116,7 @@ export const actorsApi = createApi({
 export const {
   useGetActorsQuery,
   useGetActorByIdQuery,
+  useGetActorByFullNameQuery,
   useAddActorMutation,
   useUpdateActorMutation,
   useRemoveActorMutation,
