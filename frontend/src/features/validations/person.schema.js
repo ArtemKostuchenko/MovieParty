@@ -23,6 +23,7 @@ const PersonSchema = yup.object().shape({
     .min(3, "Поле повинне бути більше 3 символів")
     .required("Поле 'Прізвище (англійською)' є обов'язковим"),
   dateBirth: yup.date().required("Поле 'Дата народження' є обов'язковим"),
+  dateDeath: yup.date(),
   placeBirth: yup
     .string()
     .trim()

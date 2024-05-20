@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
-import { getFormateSort } from "../../utils/functions";
+import { formatDate, getFormateSort } from "../../utils/functions";
 
 export const actorsApi = createApi({
   reducerPath: "actorsApi",
@@ -38,8 +38,8 @@ export const actorsApi = createApi({
         lastName,
         firstNameEng,
         lastNameEng,
-        age,
         dateBirth,
+        dateDeath,
         sex,
         placeBirth,
         photoURL,
@@ -49,8 +49,8 @@ export const actorsApi = createApi({
         bodyData.append("lastName", lastName);
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
-        bodyData.append("age", age);
-        bodyData.append("dateBirth", dateBirth);
+        bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
+        bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
         bodyData.append("sex", sex);
         bodyData.append("placeBirth", placeBirth);
         bodyData.append("photoURL", photoURL[0]);
@@ -74,8 +74,8 @@ export const actorsApi = createApi({
         lastName,
         firstNameEng,
         lastNameEng,
-        age,
         dateBirth,
+        dateDeath,
         sex,
         placeBirth,
         photoURL,
@@ -85,8 +85,8 @@ export const actorsApi = createApi({
         bodyData.append("lastName", lastName);
         bodyData.append("firstNameEng", firstNameEng);
         bodyData.append("lastNameEng", lastNameEng);
-        bodyData.append("age", age);
-        bodyData.append("dateBirth", dateBirth);
+        bodyData.append("dateBirth", formatDate(dateBirth, "hyphen"));
+        bodyData.append("dateDeath", formatDate(dateDeath, "hyphen"));
         bodyData.append("sex", sex);
         bodyData.append("placeBirth", placeBirth);
         bodyData.append("photoURL", photoURL[0]);

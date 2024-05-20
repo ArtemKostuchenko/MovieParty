@@ -24,6 +24,14 @@ export const formatDate = (inputDate, type = "months") => {
     return `${day}.${month}.${year}`;
   }
 
+  if (type === "hyphen") {
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  }
+
   const formattedDate = `${dateObj.getDate()} ${
     months[dateObj.getMonth()]
   }, ${dateObj.getFullYear()}`;

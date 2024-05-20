@@ -74,7 +74,9 @@ const ActorPage = () => {
                   {dateDeath && (
                     <div className="actor__item">
                       <div className="actor__item-title">Дата смерті:</div>
-                      <div className="actor__item-info">{dateDeath}</div>
+                      <div className="actor__item-info">
+                        {formatDate(dateDeath, "dots")}
+                      </div>
                     </div>
                   )}
                   <div className="actor__item">

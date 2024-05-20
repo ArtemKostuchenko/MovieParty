@@ -164,7 +164,7 @@ const ActorsEditPage = () => {
                 </span>
               )}
             </div>
-            <div className="form__item label fg">
+            <div className="form__item label">
               <div className="form__item-label">Дата народження</div>
               <input
                 {...register("dateBirth")}
@@ -174,6 +174,19 @@ const ActorsEditPage = () => {
               {errors.dateBirth && (
                 <span className="message error">
                   {errors.dateBirth.message}
+                </span>
+              )}
+            </div>
+            <div className="form__item label">
+              <div className="form__item-label">Дата смерті (опціонально)</div>
+              <input
+                {...register("dateDeath")}
+                type="date"
+                className="form__input linear"
+              />
+              {errors.dateDeath && (
+                <span className="message error">
+                  {errors.dateDeath.message}
                 </span>
               )}
             </div>
