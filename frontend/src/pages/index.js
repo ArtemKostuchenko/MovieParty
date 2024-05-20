@@ -20,3 +20,4 @@ export { default as SelectionsPage } from "./admin/selections/SelectionsPage";
 export { default as ActorsPage } from "./admin/actors/ActorsPage";
 export { default as ActorsAddPage } from "./admin/actors/ActorsAddPage";
 export { default as ActorsEditPage } from "./admin/actors/ActorsEditPage";
+export { default as ActorPage } from "./actor/ActorPage";

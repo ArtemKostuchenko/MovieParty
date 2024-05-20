@@ -1,0 +1,191 @@
+@import "../../scss/mixins.scss";
+
+/* actor page */
+
+.actor {
+  padding: 30px 0;
+  display: flex;
+  gap: 20px;
+  align-items: start;
+
+  &__info {
+    max-width: 320px;
+    padding: 20px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgba(0, 114, 187, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__photo {
+    max-width: 225px;
+    border-radius: 5px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+
+  &__fullname {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    @include adaptiveFont(20, 18);
+    color: var(--text-color);
+  }
+
+  &__origin-fullname {
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    @include adaptiveFont(18, 16);
+    color: var(--silver-chalice);
+  }
+
+  &__bio {
+    width: 100%;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__item-title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--mercury);
+    @include adaptiveFont(16, 14);
+  }
+
+  &__item-info {
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text-color);
+    @include adaptiveFont(18, 16);
+  }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__content-title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text-color);
+    @include adaptiveFont(22, 18);
+  }
+
+  &__content-filters {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__content-items {
+    .content__cards {
+      grid-template-columns: repeat(
+        4,
+        minmax(var(--min-width-card), var(--max-width-card))
+      );
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .actor {
+    &__content-items {
+      .content__cards {
+        grid-template-columns: repeat(
+          3,
+          minmax(var(--min-width-card), var(--max-width-card))
+        );
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .actor {
+    &__content-filters {
+      flex-direction: column;
+    }
+    &__content-items {
+      .content__cards {
+        grid-template-columns: repeat(
+          2,
+          minmax(var(--min-width-card), var(--max-width-card))
+        );
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .actor {
+    flex-direction: column;
+
+    &__info {
+      max-width: none;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .actor {
+    &__content-items {
+      .content__cards {
+        grid-template-columns: repeat(
+          1,
+          minmax(var(--min-width-card), var(--max-width-card))
+        );
+      }
+    }
+  }
+}

@@ -53,10 +53,18 @@ const Pagination = ({ page, limit, totalCount, onChangePage }) => {
                 );
               }
               if (index === 5) {
-                return <div className="pagination__item skip">...</div>;
+                return (
+                  <div className="pagination__item skip" key={`page_${index}`}>
+                    ...
+                  </div>
+                );
               }
               if (index + 1 === countPages) {
-                return <div className="pagination__item">{countPages}</div>;
+                return (
+                  <div className="pagination__item" key={`page_${index}`}>
+                    {countPages}
+                  </div>
+                );
               }
             })}
         </div>
