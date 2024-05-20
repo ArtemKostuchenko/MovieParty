@@ -7,6 +7,7 @@ import { PreviewImage } from "../../../components";
 import { DropDown, DropDownItem } from "../../../components";
 import { useGetActorByIdQuery } from "../../../features/services/actors/actorsService";
 import useActor from "../../../hooks/useActor";
+import { formatDate } from "../../../features/utils/functions";
 
 const ActorsEditPage = () => {
   const { updateActor, isLoadingUpdate } = useActor();
@@ -42,7 +43,8 @@ const ActorsEditPage = () => {
       setValue("lastName", actor.lastName);
       setValue("firstNameEng", actor.firstNameEng);
       setValue("lastNameEng", actor.lastNameEng);
-      setValue("dateBirth", actor.dateBirth);
+      setValue("dateBirth", formatDate(actor.dateBirth, "hyphen"));
+      setValue("dateDeath", formatDate(actor.dateDeath, "hyphen"));
       setValue("placeBirth", actor.placeBirth);
       setPhotoURL(actor.photoURL);
     }
