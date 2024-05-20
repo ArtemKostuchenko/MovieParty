@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import {
   createDirector,
   getDirector,
+  getDirectorByFullName,
   updateDirector,
   deleteDirector,
   getDirectors,
@@ -24,6 +25,8 @@ router
     createDirector
   )
   .get(getDirectors);
+
+router.route("/fullName/:fullName").get(getDirectorByFullName);
 
 router
   .route("/:id")

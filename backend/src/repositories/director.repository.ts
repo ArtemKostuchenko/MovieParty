@@ -69,6 +69,21 @@ class DirectorRepository {
     return await director.save();
   }
 
+  async getDirectorByFullName(fullName: string): Promise<DirectorWithAge> {
+    const splitFullName = fullName.split("-");
+
+    const director = await DirectorModel.find({
+      firstNameEng: { $regex: splitFullName[0], $options: "i" },
+      lastNameEng: { $regex: splitFullName[1], $options: "i" },
+    });
+
+    if (!director) {
+      throw new NotFoundError("Director not found");
+    }
+
+    return { ...director[0].toObject(), age: director[0].age };
+  }
+
   async deleteDirectorById(directorId: string): Promise<void> {
     const director = await DirectorModel.findById(directorId);
 

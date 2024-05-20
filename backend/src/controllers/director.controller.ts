@@ -27,6 +27,18 @@ const getDirector = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ data: director });
 };
 
+const getDirectorByFullName = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { fullName } = req.params;
+
+  const director: DirectorWithAge =
+    await DirectorRepository.getDirectorByFullName(fullName);
+
+  return res.status(StatusCodes.OK).json({ data: director });
+};
+
 const updateDirector = async (
   req: Request,
   res: Response
@@ -63,6 +75,7 @@ const getDirectors = async (req: Request, res: Response): Promise<Response> => {
 export {
   createDirector,
   getDirector,
+  getDirectorByFullName,
   updateDirector,
   deleteDirector,
   getDirectors,

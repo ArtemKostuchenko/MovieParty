@@ -99,8 +99,7 @@ const DirectorPage = () => {
             </div>
             <div className="director__content">
               <div className="director__content-title">
-                Всі фільми та серіали режисера
-                {firstName} {lastName}
+                Всі фільми та серіали режисера {firstName} {lastName}
               </div>
               <div className="director__content-filters">
                 <DropDown>
