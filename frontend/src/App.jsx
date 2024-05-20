@@ -24,6 +24,7 @@ import {
   ActorsAddPage,
   ActorsEditPage,
   ActorPage,
+  DirectorsPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
           {
             path: "actors/:id/edit",
             element: <ActorsEditPage />,
+          },
+          {
+            path: "directors",
+            element: <DirectorsPage />,
           },
           {
             path: "selections",
