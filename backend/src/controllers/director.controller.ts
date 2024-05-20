@@ -1,49 +1,69 @@
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import DirectorRepository from '../repositories/director.repository';
-import { DirectorWithAge } from '../utils/interfaces';
-import { Director } from '../models/director.model';
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import DirectorRepository from "../repositories/director.repository";
+import { DirectorWithAge } from "../utils/interfaces";
+import { Director } from "../models/director.model";
 
-const createDirector = async (req: Request, res: Response): Promise<Response> => {
-    const director: DirectorWithAge = await DirectorRepository.createDirector(req.body);
+const createDirector = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  req.body.photoURL = req.file?.filename as string;
 
-    return res.status(StatusCodes.CREATED).json({ data: director });
-}
+  const director: DirectorWithAge = await DirectorRepository.createDirector(
+    req.body
+  );
+
+  return res.status(StatusCodes.CREATED).json({ data: director });
+};
 
 const getDirector = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idDirector } = req.params;
+  const { id: idDirector } = req.params;
 
-    const director: DirectorWithAge = await DirectorRepository.getDirectorById(idDirector);
+  const director: DirectorWithAge = await DirectorRepository.getDirectorById(
+    idDirector
+  );
 
-    return res.status(StatusCodes.OK).json({ data: director });
-}
+  return res.status(StatusCodes.OK).json({ data: director });
+};
 
-const updateDirector = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idDirector } = req.params;
+const updateDirector = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: idDirector } = req.params;
 
-    const updatedDirector: Director = await DirectorRepository.updateDirectorById(idDirector, req.body);
+  req.body.photoURL = req.file?.filename as string;
 
-    return res.status(StatusCodes.OK).json({ data: updatedDirector });
-}
+  const updatedDirector: Director = await DirectorRepository.updateDirectorById(
+    idDirector,
+    req.body
+  );
 
-const deleteDirector = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idDirector } = req.params;
+  return res.status(StatusCodes.OK).json({ data: updatedDirector });
+};
 
-    await DirectorRepository.deleteDirectorById(idDirector);
+const deleteDirector = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: idDirector } = req.params;
 
-    return res.status(StatusCodes.OK).json({ success: true });
-}
+  await DirectorRepository.deleteDirectorById(idDirector);
+
+  return res.status(StatusCodes.OK).json({ success: true });
+};
 
 const getDirectors = async (req: Request, res: Response): Promise<Response> => {
-    const directors = await DirectorRepository.getDirectors(req.query);
+  const directors = await DirectorRepository.getDirectors(req.query);
 
-    return res.status(StatusCodes.OK).json({ data: directors });
-}
+  return res.status(StatusCodes.OK).json({ data: directors });
+};
 
 export {
-    createDirector,
-    getDirector,
-    updateDirector,
-    deleteDirector,
-    getDirectors,
+  createDirector,
+  getDirector,
+  updateDirector,
+  deleteDirector,
+  getDirectors,
 };
