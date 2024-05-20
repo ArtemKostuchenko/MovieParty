@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.page.scss";
 import { ActorList } from "../../../components";
+import ActorsRemovePopup from "./ActorsRemovePopup";
 import usePopup from "../../../hooks/usePopup";
 
 const ActorsPage = () => {
@@ -49,6 +50,7 @@ const ActorsPage = () => {
           </div>
         </div>
       </div>
+      {removeId && <ActorsRemovePopup />}
     </>
   );
 };
