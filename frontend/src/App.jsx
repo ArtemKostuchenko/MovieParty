@@ -27,6 +27,7 @@ import {
   DirectorsPage,
   DirectorsAddPage,
   DirectorsEditPage,
+  DirectorPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -156,6 +157,10 @@ const router = createBrowserRouter([
       {
         path: "actor/:fullName",
         element: <ActorPage />,
+      },
+      {
+        path: "director/:fullName",
+        element: <DirectorPage />,
       },
     ],
   },
