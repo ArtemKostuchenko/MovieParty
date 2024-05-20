@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import {
   createActor,
   getActor,
+  getActorByFullName,
   updateActor,
   deleteActor,
   getActors,
@@ -24,6 +25,8 @@ router
     createActor
   )
   .get(getActors);
+
+router.route("/fullName/:fullName").get(getActorByFullName);
 
 router
   .route("/:id")

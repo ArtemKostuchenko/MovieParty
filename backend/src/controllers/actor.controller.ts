@@ -20,6 +20,19 @@ const getActor = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ data: actor });
 };
 
+const getActorByFullName = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { fullName } = req.params;
+
+  const actor: ActorWithAge = await ActorRepository.getActorByFullName(
+    fullName
+  );
+
+  return res.status(StatusCodes.OK).json({ data: actor });
+};
+
 const updateActor = async (req: Request, res: Response): Promise<Response> => {
   const { id: idActor } = req.params;
 
@@ -47,4 +60,11 @@ const getActors = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ data: actors });
 };
 
-export { createActor, getActor, updateActor, deleteActor, getActors };
+export {
+  createActor,
+  getActor,
+  getActorByFullName,
+  updateActor,
+  deleteActor,
+  getActors,
+};
