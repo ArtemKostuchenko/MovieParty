@@ -18,3 +18,4 @@ export { default as BestListsPage } from "./admin/best-lists/BestListsPage";
 export { default as PartsPage } from "./admin/parts/PartsPage";
 export { default as SelectionsPage } from "./admin/selections/SelectionsPage";
 export { default as ActorsPage } from "./admin/actors/ActorsPage";
+export { default as ActorsAddPage } from "./admin/actors/ActorsAddPage";

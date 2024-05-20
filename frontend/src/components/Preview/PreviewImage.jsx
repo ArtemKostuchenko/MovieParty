@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const PreviewImage = ({ icon, removeIcon }) => {
+const PreviewImage = ({ icon, removeIcon, classImage = "crs" }) => {
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const PreviewImage = ({ icon, removeIcon }) => {
   return (
     <div className="preview-image">
       <div className="preview-image__container">
-        <img src={preview} className="crs" alt="Preview" />
+        <img src={preview} className={classImage} alt="Preview" />
         <button
           type="button"
           className="preview-image__close"
@@ -29,7 +29,7 @@ const PreviewImage = ({ icon, removeIcon }) => {
           <div className="icon close"></div>
         </button>
         <div className="preview-image__name">
-          {icon[0]?.name ? icon.name : icon}
+          {icon[0]?.name ? icon[0].name : icon}
         </div>
       </div>
     </div>
