@@ -23,6 +23,14 @@ const AdminLayout = () => {
               <div className="profile-user-menu">
                 <div className="profile-menu">
                   <div className="profile-menu-items">
+                    <NavLink to="video-content" className="profile-menu-item">
+                      <div className="profile-menu-item-icon">
+                        <div className="icon video-content" />
+                      </div>
+                      <div className="profile-menu-item-title">
+                        Відео-контент
+                      </div>
+                    </NavLink>
                     <NavLink to="type-content" className="profile-menu-item">
                       <div className="profile-menu-item-icon">
                         <div className="icon layers" />

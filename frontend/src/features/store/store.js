@@ -6,7 +6,7 @@ import sort from "./slices/sort";
 import popup from "./slices/popup";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
-  contentApi,
+  videoContentApi,
   countriesApi,
   typesContentApi,
   genresApi,
@@ -25,7 +25,7 @@ const store = configureStore({
     sort: sort,
     popup: popup,
     [typesContentApi.reducerPath]: typesContentApi.reducer,
-    [contentApi.reducerPath]: contentApi.reducer,
+    [videoContentApi.reducerPath]: videoContentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
     [genresApi.reducerPath]: genresApi.reducer,
     [bestListsApi.reducerPath]: bestListsApi.reducer,
@@ -38,7 +38,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     })
-      .concat(contentApi.middleware)
+      .concat(videoContentApi.middleware)
       .concat(countriesApi.middleware)
       .concat(typesContentApi.middleware)
       .concat(genresApi.middleware)

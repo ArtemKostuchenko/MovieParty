@@ -18,7 +18,7 @@ const VideoContentPage = () => {
     return <div>Loading...</div>;
   }
 
-  const content = data.data;
+  const content = data;
 
   if (!content) {
     return <div>Content not found</div>;

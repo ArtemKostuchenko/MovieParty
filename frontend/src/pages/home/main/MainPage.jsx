@@ -18,7 +18,13 @@ import { useGetVideoContentQuery } from "../../../features/services/content/cont
 
 const MainPage = () => {
   const { user } = useUser();
-  const { data, isLoading } = useGetVideoContentQuery();
+  const { data, isLoading } = useGetVideoContentQuery({
+    title: "",
+    page: "",
+    limit: "",
+    sortName: "",
+    sortType: "",
+  });
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">
@@ -278,11 +284,7 @@ const MainPage = () => {
               </div>
             </div>
             <div className="content__items">
-              {isLoading ? (
-                <>Loading...</>
-              ) : (
-                <VideoContentItems items={data.data} />
-              )}
+              {isLoading ? <>Loading...</> : <VideoContentItems items={data} />}
               <div className="content__pagination">
                 <div className="pagination">
                   <div className="pagination__action">
