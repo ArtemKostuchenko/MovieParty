@@ -362,27 +362,30 @@ class VideoContentRepository {
 
     if (title) {
       const regex = new RegExp(title, "i");
-      queryObj.$or = [
-        {
-          title: { $regex: regex },
-          originTitle: { $regex: regex },
-        },
-      ];
+      if (!queryObj.$or) {
+        queryObj.$or = [];
+      }
+      queryObj.$or = queryObj.$or.concat([
+        { title: { $regex: regex } },
+        { originTitle: { $regex: regex } },
+      ]);
     }
 
     if (releaseYears) {
-      const years: number[] = releaseYears
+      const years = releaseYears
         .split(",")
         .map((year: string) => parseInt(year.trim()));
-
-      const yearRanges: object[] = years.map((year: number) => ({
+      const yearRanges = years.map((year: number) => ({
         releaseDate: {
           $gte: new Date(year, 0, 1),
           $lte: new Date(year, 11, 31),
         },
       }));
 
-      queryObj.$or = yearRanges;
+      if (!queryObj.$or) {
+        queryObj.$or = [];
+      }
+      queryObj.$or = queryObj.$or.concat(yearRanges);
     }
 
     if (ratingRange) {
