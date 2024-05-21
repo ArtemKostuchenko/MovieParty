@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.page.scss";
-
+import { VideoContentList } from "../../../components";
 import usePopup from "../../../hooks/usePopup";
 
 const VideoContentListPage = () => {
@@ -45,6 +45,7 @@ const VideoContentListPage = () => {
                 </div>
               </div>
             </div>
+            <VideoContentList limit={8} title={title} />
           </div>
         </div>
       </div>
