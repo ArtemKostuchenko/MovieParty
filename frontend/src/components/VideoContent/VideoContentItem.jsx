@@ -32,7 +32,9 @@ const VideoContentItem = ({
     <div className="view-row">
       <div className="view-col">{title}</div>
       <div className="view-col">{originTitle}</div>
-      <div className="view-col">{typeVideoContent}</div>
+      <div className="view-col">
+        <div className="type__video-content">{typeVideoContent}</div>
+      </div>
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
         <ActionMenu>

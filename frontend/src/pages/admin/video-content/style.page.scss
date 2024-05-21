@@ -7,7 +7,16 @@
 
   .view {
     &-row {
-      grid-template-columns: 2fr 2fr repeat(2, minmax(0, 1fr)) 50px;
+      grid-template-columns: repeat(2, 2fr) repeat(2, minmax(0, 1fr)) 50px;
     }
+  }
+
+  .type__video-content {
+    padding: 4px 12px;
+    border-radius: 15px;
+    background-color: var(--lochmara);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
