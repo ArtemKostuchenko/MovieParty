@@ -342,10 +342,12 @@ class VideoContentRepository {
     await videoContent.deleteOne();
   }
 
-  async getVideoContents(query: any): Promise<VideoContent[]> {
+  async getVideoContents(query: any): Promise<{
+    videoContent: VideoContent[];
+    totalCount: number;
+  }> {
     const {
       title,
-      originTitle,
       releaseYears,
       ratingRange,
       genres,
@@ -359,10 +361,13 @@ class VideoContentRepository {
     const queryObj: Query = {};
 
     if (title) {
-      queryObj.title = { $regex: title, $options: "i" };
-    }
-    if (originTitle) {
-      queryObj.originTitle = { $regex: originTitle, $options: "i" };
+      const regex = new RegExp(title, "i");
+      queryObj.$or = [
+        {
+          title: { $regex: regex },
+          originTitle: { $regex: regex },
+        },
+      ];
     }
 
     if (releaseYears) {
@@ -419,14 +424,16 @@ class VideoContentRepository {
       videoContents = videoContents.select(fieldList);
     }
 
+    const videoContentPerPage = query.limit || 20;
     const page = query.page || 1;
-    const limit = query.limit || 20;
+    const skip = (page - 1) * videoContentPerPage;
 
-    const skip = (page - 1) * limit;
+    const [videoContent, totalCount] = await Promise.all([
+      videoContents.skip(skip).limit(videoContentPerPage),
+      VideoContentModel.countDocuments(queryObj),
+    ]);
 
-    videoContents = videoContents.skip(skip).limit(limit);
-
-    return await videoContents;
+    return { videoContent, totalCount };
   }
 }
 
