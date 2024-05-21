@@ -28,6 +28,7 @@ import {
   DirectorsAddPage,
   DirectorsEditPage,
   DirectorPage,
+  VideoContentListPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
         path: "panel/admin",
         element: <AdminLayout />,
         children: [
+          {
+            path: "video-content",
+            element: <VideoContentListPage />,
+          },
           {
             path: "type-content",
             element: <TypeContentPage />,

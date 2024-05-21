@@ -28,7 +28,7 @@ const AdminLayout = () => {
                         <div className="icon video-content" />
                       </div>
                       <div className="profile-menu-item-title">
-                        Відео-контент
+                        Відеоконтент
                       </div>
                     </NavLink>
                     <NavLink to="type-content" className="profile-menu-item">
