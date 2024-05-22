@@ -284,7 +284,11 @@ const MainPage = () => {
               </div>
             </div>
             <div className="content__items">
-              {isLoading ? <>Loading...</> : <VideoContentItems items={data} />}
+              {isLoading ? (
+                <>Loading...</>
+              ) : (
+                <VideoContentItems items={data.videoContent} />
+              )}
               <div className="content__pagination">
                 <div className="pagination">
                   <div className="pagination__action">
