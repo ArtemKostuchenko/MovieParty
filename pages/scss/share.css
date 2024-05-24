@@ -274,6 +274,11 @@ p {
   -webkit-mask-image: url("/pages/images/icons/plus.svg");
           mask-image: url("/pages/images/icons/plus.svg");
 }
+.icon.plus.rounded {
+  background-color: var(--midnight);
+  -webkit-mask-image: url("/pages/images/icons/plus-rounded.svg");
+          mask-image: url("/pages/images/icons/plus-rounded.svg");
+}
 .icon.google {
   max-width: 22px;
   min-width: 22px;
@@ -854,6 +859,22 @@ body::-webkit-scrollbar-thumb:hover {
 .button.light.outline:hover {
   background-color: transparent;
 }
+.button.remove.rounded {
+  min-height: 0;
+  min-width: 0;
+  font-size: 0;
+  padding: 4px;
+  border: 1px solid transparent;
+  background-color: rgba(83, 83, 83, 0.7);
+  border-radius: 50%;
+}
+.button.remove.rounded .icon.close {
+  width: 16px;
+  height: 16px;
+}
+.button.remove.rounded:hover {
+  background-color: rgba(60, 60, 60, 0.7);
+}
 .button.primary:hover {
   background-color: transparent;
   color: var(--light-yellow);
@@ -1172,6 +1193,127 @@ body::-webkit-scrollbar-thumb:hover {
 }
 .form__input.linear:focus {
   outline: 2px solid var(--lochmara);
+}
+.form__input.linear::-moz-placeholder {
+  color: #d8d8d8;
+}
+.form__input.linear::placeholder {
+  color: #d8d8d8;
+}
+.form__input.linear.fi {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form__input.linear.fi input {
+  padding: 0;
+  border: 1px solid transparent;
+}
+.form__input.linear.fi input::-moz-placeholder {
+  color: #d8d8d8;
+}
+.form__input.linear.fi input::placeholder {
+  color: #d8d8d8;
+}
+.form__input.linear.fi .icon.add:hover {
+  background-color: var(--light-yellow);
+}
+.form__input.auto-content {
+  width: -moz-min-content;
+  width: min-content;
+  min-width: 0;
+}
+.form__textarea {
+  padding: 10px 10px;
+  width: 100%;
+  min-height: 120px;
+  resize: none;
+  border-radius: 5px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--silver-chalice);
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+}
+@media (max-width: 767px) {
+  .form__textarea {
+    font-size: calc(14px + 3.4 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .form__textarea {
+    font-size: calc(14px + 2 * 100vw / 1440);
+  }
+}
+.form__textarea.linear {
+  background-image: linear-gradient(to right, rgba(0, 114, 187, 0.7), rgba(0, 52, 85, 0.7));
+  border: none;
+}
+.form__textarea.linear:focus {
+  outline: 2px solid var(--lochmara);
+}
+.form__radio-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-radius: 20px;
+  background-color: rgba(0, 114, 187, 0.4);
+}
+.form__radio-list-item {
+  display: flex;
+}
+.form__radio-list-item-elem {
+  display: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form__radio-list-item-elem:checked + .form__radio-list-item-title {
+  background-color: var(--lochmara);
+}
+.form__radio-list-item-title {
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 30px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  transition: background-color var(--transition-delay);
+  color: var(--text-color);
+}
+@media (max-width: 767px) {
+  .form__radio-list-item-title {
+    font-size: calc(14px + 3.4 * (100vw - 320px) / 1440);
+  }
+}
+@media (min-width: 767px) {
+  .form__radio-list-item-title {
+    font-size: calc(14px + 2 * 100vw / 1440);
+  }
+}
+.form__button-add {
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background-color: var(--light-yellow);
+  border-radius: 50%;
+}
+.form__button-add .icon.plus.rounded {
+  width: 12px;
+  height: 12px;
 }
 
 .message {

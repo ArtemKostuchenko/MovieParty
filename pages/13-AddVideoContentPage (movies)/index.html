@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Actor Page</title>
+    <link rel="stylesheet" href="./scss/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid">
+        <div class="grid__header">
+          <div class="wrapper">
+            <header class="header">
+              <div class="header__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <div class="header__menu">
+                <div class="menu">
+                  <ul class="menu__items">
+                    <li class="menu__item">
+                      <a href="#">
+                        <svg
+                          class="menu__icon selections"
+                          viewBox="0 0 22 20"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M18.2917 0.625H3.7084L0.583405 6.875L11.0001 19.375L21.4167 6.875L18.2917 0.625ZM8.52091 5.83333L10.0834 2.70833H11.9167L13.4792 5.83333H8.52091ZM9.95841 7.91667V14.875L4.16674 7.91667H9.95841ZM12.0417 7.91667H17.8334L12.0417 14.875V7.91667ZM18.5626 5.83333H15.8022L14.2397 2.70833H17.0001L18.5626 5.83333ZM5.00007 2.70833H7.76049L6.19799 5.83333H3.43757L5.00007 2.70833Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+
+                        <h5 class="menu__title">Підбірки</h5>
+                      </a>
+                    </li>
+                    <li class="menu__item">
+                      <a href="#">
+                        <svg
+                          class="menu__icon favorite"
+                          width="23"
+                          height="18"
+                          viewBox="0 0 23 18"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M17.5001 14V11H14.5001V9H17.5001V6H19.5001V9H22.5001V11H19.5001V14H17.5001ZM10.5001 18L7.32506 15.15C6.12506 14.0667 5.09606 13.1 4.23806 12.25C3.37939 11.4 2.67106 10.6 2.11306 9.85C1.55439 9.1 1.14606 8.375 0.888061 7.675C0.629394 6.975 0.500061 6.24167 0.500061 5.475C0.500061 3.90833 1.02506 2.604 2.07506 1.562C3.12506 0.520666 4.43339 0 6.00006 0C6.86673 0 7.69173 0.179 8.47506 0.537C9.2584 0.895667 9.93339 1.40833 10.5001 2.075C11.0667 1.40833 11.7417 0.895667 12.5251 0.537C13.3084 0.179 14.1334 0 15.0001 0C16.4167 0 17.6041 0.429 18.5621 1.287C19.5207 2.14567 20.1167 3.15 20.3501 4.3C20.0501 4.18333 19.7501 4.09567 19.4501 4.037C19.1501 3.979 18.8584 3.95 18.5751 3.95C16.8917 3.95 15.4584 4.53733 14.2751 5.712C13.0917 6.88733 12.5001 8.31667 12.5001 10C12.5001 10.8667 12.6751 11.6873 13.0251 12.462C13.3751 13.2373 13.8667 13.9 14.5001 14.45C14.1834 14.7333 13.7707 15.096 13.2621 15.538C12.7541 15.9793 12.3167 16.3667 11.9501 16.7L10.5001 18Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <h5 class="menu__title">Збережене</h5>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="header__search">
+                <div class="search">
+                  <div class="icon find"></div>
+                  <div class="search__input">
+                    <label for="search"
+                      ><span>Пошук</span>
+                      <span class="search__input-query"
+                        >фільмів, серіалів тощо...</span
+                      ></label
+                    >
+                    <input type="text" class="search__input" name="search" />
+                  </div>
+                </div>
+              </div>
+              <div class="header__profile">
+                <div class="profile">
+                  <div class="profile__avatar">
+                    <img
+                      src="../images/avatar.png"
+                      alt="Qwerty"
+                      class="profile__avatar"
+                    />
+                  </div>
+                  <div class="profile__menu"></div>
+                </div>
+              </div>
+              <button class="menu-burger">
+                <div class="icon menu-burger"></div>
+              </button>
+            </header>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="video-content__form">
+          <div class="video-content__form-columns">
+            <div class="video-content__form-item">
+              <div class="video-content__form-container">
+                <div class="video-content__form-container-title">
+                  Основна інформація
+                </div>
+                <div class="video-content__form-container-description">
+                  Ця інформація є обов'язковою для створення відеоконтенту
+                </div>
+                <div class="video-content__form-container-form">
+                  <div class="form__item label">
+                    <div class="form__item-label">Назва відеоконтенту</div>
+                    <input
+                      type="text"
+                      class="form__input linear"
+                      value="Зоряні війни: Епізод IX -Скайвокер. Сходження"
+                    />
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">
+                      Назва відеоконтенту (англійською)
+                    </div>
+                    <input
+                      type="text"
+                      class="form__input linear"
+                      value="Star Wars: Episode IX - The Rise of Skywalker"
+                    />
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Опис відеоконтенту</div>
+                    <textarea class="form__textarea linear"></textarea>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Тип відеоконтенту</div>
+                    <div class="overflow-content">
+                      <div class="form__radio-list">
+                        <div class="form__radio-list-item">
+                          <input
+                            type="radio"
+                            class="form__radio-list-item-elem"
+                            name="typeContent"
+                            id="movies"
+                            checked="checked"
+                          />
+                          <label
+                            for="movies"
+                            class="form__radio-list-item-title"
+                            >Фільми</label
+                          >
+                        </div>
+                        <div class="form__radio-list-item">
+                          <input
+                            type="radio"
+                            class="form__radio-list-item-elem"
+                            name="typeContent"
+                            id="series"
+                          />
+                          <label
+                            for="series"
+                            class="form__radio-list-item-title"
+                            >Серіали</label
+                          >
+                        </div>
+                        <div class="form__radio-list-item">
+                          <input
+                            type="radio"
+                            class="form__radio-list-item-elem"
+                            name="typeContent"
+                            id="cartoons"
+                          />
+                          <label
+                            for="cartoons"
+                            class="form__radio-list-item-title"
+                            >Мультфільми</label
+                          >
+                        </div>
+                        <div class="form__radio-list-item">
+                          <input
+                            type="radio"
+                            class="form__radio-list-item-elem"
+                            name="typeContent"
+                            id="cartoon-series"
+                          />
+                          <label
+                            for="cartoon-series"
+                            class="form__radio-list-item-title"
+                            >Мультсеріали</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Дата релізу</div>
+                    <input
+                      type="date"
+                      class="form__input linear"
+                      value="2019-12-18"
+                    />
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Тривалість</div>
+                    <input
+                      type="text"
+                      class="form__input linear"
+                      value="2 год 21 хв"
+                    />
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">
+                      Трейлер відеоконтенту (YouTube)
+                    </div>
+                    <input
+                      type="text"
+                      class="form__input linear"
+                      value="https://www.youtube.com/watch?v=pLvIea6UtXo"
+                    />
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Звукова доріжка</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Назва звукової доріжки"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="sound-tracks">
+                      <div class="sound-tracks__list">
+                        <div class="sound-tracks__item">
+                          <div class="sound-track__flex">
+                            <div class="sound-track__title">
+                              Професійний Дубльований
+                            </div>
+                            <button class="button remove rounded">
+                              <div class="icon close"></div>
+                            </button>
+                          </div>
+                          <div class="sound-track__links">
+                            <div class="sound-track__links-title">
+                              Посилання відео-якості звукової доріжки
+                            </div>
+                            <div class="sound-track__link">
+                              <div class="dropdown linear fill">
+                                <div class="dropdown__selected">
+                                  <div class="dropdown__title">1080p</div>
+                                  <div class="dropdown__icon">
+                                    <svg
+                                      width="14"
+                                      height="9"
+                                      viewBox="0 0 14 9"
+                                      fill="currentColor"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M0.938664 0.727821C1.32889 0.337597 1.96146 0.337252 2.35211 0.72705L6.29366 4.66002C6.68401 5.04952 7.31599 5.04952 7.70634 4.66002L11.6479 0.72705C12.0385 0.337253 12.6711 0.337597 13.0613 0.72782L13.2929 0.959377C13.6834 1.3499 13.6834 1.98307 13.2929 2.37359L7.70711 7.95938C7.31658 8.3499 6.68342 8.3499 6.29289 7.95938L0.707106 2.37359C0.316582 1.98307 0.316582 1.3499 0.707107 0.959377L0.938664 0.727821Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div class="dropdown__list">
+                                  <div class="dropdown__item">480p</div>
+                                  <div class="dropdown__item">720p</div>
+                                  <div class="dropdown__item">1080p</div>
+                                  <div class="dropdown__item">1440p</div>
+                                  <div class="dropdown__item">2160p</div>
+                                </div>
+                              </div>
+                              <input
+                                type="text"
+                                class="form__input linear"
+                                value="https://calypso.tortuga.wtf/hls/1080/index.m3u8"
+                              />
+                            </div>
+                            <div class="sound-track__link">
+                              <div class="dropdown linear fill">
+                                <div class="dropdown__selected">
+                                  <div class="dropdown__title">720p</div>
+                                  <div class="dropdown__icon">
+                                    <svg
+                                      width="14"
+                                      height="9"
+                                      viewBox="0 0 14 9"
+                                      fill="currentColor"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M0.938664 0.727821C1.32889 0.337597 1.96146 0.337252 2.35211 0.72705L6.29366 4.66002C6.68401 5.04952 7.31599 5.04952 7.70634 4.66002L11.6479 0.72705C12.0385 0.337253 12.6711 0.337597 13.0613 0.72782L13.2929 0.959377C13.6834 1.3499 13.6834 1.98307 13.2929 2.37359L7.70711 7.95938C7.31658 8.3499 6.68342 8.3499 6.29289 7.95938L0.707106 2.37359C0.316582 1.98307 0.316582 1.3499 0.707107 0.959377L0.938664 0.727821Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div class="dropdown__list">
+                                  <div class="dropdown__item">480p</div>
+                                  <div class="dropdown__item">720p</div>
+                                  <div class="dropdown__item">1080p</div>
+                                  <div class="dropdown__item">1440p</div>
+                                  <div class="dropdown__item">2160p</div>
+                                </div>
+                              </div>
+                              <input
+                                type="text"
+                                class="form__input linear"
+                                value="https://calypso.tortuga.wtf/hls/720/index.m3u8"
+                              />
+                            </div>
+                            <button class="button primary">
+                              Додати відео-посилання
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="video-content__form-item">
+              <div class="video-content__form-rs">
+                <div class="video-content__form-images">
+                  <div class="video-content__form-images-container">
+                    <div class="video-content__form-images-title">
+                      Оберіть основне фото відеоконтенту
+                    </div>
+                    <div class="video-content__form-image">
+                      <img
+                        src="../images/preview-1.jpg"
+                        alt=""
+                        class="video-content__form-preview"
+                      />
+                    </div>
+                    <button class="button primary">Обрати фото</button>
+                  </div>
+                  <div class="video-content__form-images-container">
+                    <div class="video-content__form-images-title">
+                      Оберіть задній фон відеоконтенту
+                    </div>
+                    <div class="video-content__form-image">
+                      <img
+                        src="../images/slide-1.png"
+                        alt=""
+                        class="video-content__form-background"
+                      />
+                    </div>
+                    <button class="button primary">Обрати фото</button>
+                  </div>
+                </div>
+                <button type="submit" class="button primary">
+                  Додати відеоконтент
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="video-content__form-rows">
+            <div class="video-content__form-item">
+              <div class="video-content__form-container">
+                <div class="video-content__form-container-title">
+                  Додаткова інформація
+                </div>
+                <div class="video-content__form-container-description">
+                  Ця інформація може бути додана зараз або пізніше
+                </div>
+                <div class="video-content__form-container-form">
+                  <div class="form__item label">
+                    <div class="form__item-label">Країни</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Назва країни"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list">
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="flex r center-h g5">
+                            <img
+                              src="../images/icons/us.svg"
+                              class="country-icon"
+                              alt="США"
+                            />
+                            <div class="f-list__content-title">США</div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="flex r center-h g5">
+                            <img
+                              src="../images/icons/ua.svg"
+                              class="country-icon"
+                              alt="Україна"
+                            />
+                            <div class="f-list__content-title">Україна</div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="flex r center-h g5">
+                            <img
+                              src="../images/icons/gb.svg"
+                              class="country-icon"
+                              alt="Велика Британія"
+                            />
+                            <div class="f-list__content-title">
+                              Велика Британія
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Жанри</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Назва жанру"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list">
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Бойовик</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Фантастика</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Екшн</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Пригоди</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Фентезі</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Актори</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Прізвище, ім`я актора"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list">
+                      <div class="f-list__item top">
+                        <div class="f-list__content">
+                          <div class="f-list__person">
+                            <img
+                              src="../images/actor.jpg"
+                              class="f-list__person-image"
+                            />
+                            <div class="f-list__person-info">
+                              <div class="f-list__person-fullname">
+                                Керрі Фішер
+                              </div>
+                              <div class="f-list__person-origin-fullname">
+                                 Carrie Fisher
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item top">
+                        <div class="f-list__content">
+                          <div class="f-list__person">
+                            <img
+                              src="../images/actor.jpg"
+                              class="f-list__person-image"
+                            />
+                            <div class="f-list__person-info">
+                              <div class="f-list__person-fullname">
+                                Керрі Фішер
+                              </div>
+                              <div class="f-list__person-origin-fullname">
+                                 Carrie Fisher
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item top">
+                        <div class="f-list__content">
+                          <div class="f-list__person">
+                            <img
+                              src="../images/actor.jpg"
+                              class="f-list__person-image"
+                            />
+                            <div class="f-list__person-info">
+                              <div class="f-list__person-fullname">
+                                Керрі Фішер
+                              </div>
+                              <div class="f-list__person-origin-fullname">
+                                 Carrie Fisher
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Режисери</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Прізвище, ім`я режисера"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list">
+                      <div class="f-list__item top">
+                        <div class="f-list__content">
+                          <div class="f-list__person">
+                            <img
+                              src="../images/director.webp"
+                              class="f-list__person-image"
+                            />
+                            <div class="f-list__person-info">
+                              <div class="f-list__person-fullname">
+                                Джордж Лукас
+                              </div>
+                              <div class="f-list__person-origin-fullname">
+                                George Lucas
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item top">
+                        <div class="f-list__content">
+                          <div class="f-list__person">
+                            <img
+                              src="../images/director.webp"
+                              class="f-list__person-image"
+                            />
+                            <div class="f-list__person-info">
+                              <div class="f-list__person-fullname">
+                                Джордж Лукас
+                              </div>
+                              <div class="f-list__person-origin-fullname">
+                                George Lucas
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Найкращі списки</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Назва списку"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list r">
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__best-lists">
+                            <div class="f-list__content-title">
+                              01 Найкращі серіали в жанрі спорт
+                            </div>
+                            <input
+                              type="text"
+                              class="form__input linear"
+                              placeholder="Місце"
+                            />
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__best-lists">
+                            <div class="f-list__content-title">
+                              02 Найкращі фільми в жанрі фантастика 2019
+                            </div>
+                            <input
+                              type="text"
+                              class="form__input linear"
+                              value="15"
+                              placeholder="Місце"
+                            />
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                      <div class="f-list__item">
+                        <div class="f-list__content">
+                          <div class="f-list__best-lists">
+                            <div class="f-list__content-title">
+                              03 Найкращі фільми в жанрі фентезі 2019
+                            </div>
+                            <input
+                              type="text"
+                              class="form__input linear"
+                              value="20"
+                              placeholder="Місце"
+                            />
+                          </div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form__item label">
+                    <div class="form__item-label">Частина відеоконтенту</div>
+                    <div class="form__input linear fi">
+                      <input
+                        type="text"
+                        class="form__input"
+                        placeholder="Назва частини"
+                      />
+                      <button class="form__button-add">
+                        <div class="icon plus rounded"></div>
+                      </button>
+                    </div>
+                    <div class="f-list r">
+                      <div class="f-list__item full colorized mg">
+                        <div class="f-list__content">
+                          <div class="f-list__content-title">Зоряні війни</div>
+                        </div>
+                        <button class="button remove rounded">
+                          <div class="icon close"></div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="container">
+      <div class="wrapper">
+        <footer class="footer">
+          <div class="footer__items">
+            <div class="footer__item">
+              <div class="footer__logo logo">
+                <div class="icon logo"></div>
+              </div>
+              <p class="footer__tagline">
+                Насолоджуйтеся вашим улюбленим контентом без обмежень!
+              </p>
+            </div>
+            <div class="footer__item">
+              <h3 class="footer__title">Контакти</h3>
+              <div class="contacts__items">
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon phone"></div>
+                  </div>
+                  <div class="contact__title">(380) 687802095</div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contact__icon">
+                    <div class="icon email"></div>
+                  </div>
+                  <div class="contact__title">moviepartyteam@gmail.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer__copyright">© All rights reserved, 2024</div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

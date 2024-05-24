@@ -159,6 +159,11 @@
     height: 30px;
     background-color: var(--white);
     mask-image: url("/pages/images/icons/plus.svg");
+
+    &.rounded {
+      background-color: var(--midnight);
+      mask-image: url("/pages/images/icons/plus-rounded.svg");
+    }
   }
 
   &.google {

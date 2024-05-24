@@ -158,6 +158,11 @@
   -webkit-mask-image: url("/pages/images/icons/plus.svg");
           mask-image: url("/pages/images/icons/plus.svg");
 }
+.icon.plus.rounded {
+  background-color: var(--midnight);
+  -webkit-mask-image: url("/pages/images/icons/plus-rounded.svg");
+          mask-image: url("/pages/images/icons/plus-rounded.svg");
+}
 .icon.google {
   max-width: 22px;
   min-width: 22px;
