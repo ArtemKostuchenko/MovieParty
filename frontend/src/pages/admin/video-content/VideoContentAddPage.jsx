@@ -12,6 +12,7 @@ import SearchCountries from "../../../components/Countries/SearchCountries";
 import SearchGenres from "../../../components/Genres/SearchGenres";
 import SearchActors from "../../../components/Actors/SearchActors";
 import SearchDirectors from "../../../components/Directors/SearchDirectors";
+import SearchBestLists from "../../../components/BestLists/SearchBestLists";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -381,71 +382,11 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Найкращі списки</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Назва списку"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list r">
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__best-lists">
-                              <div className="f-list__content-title">
-                                01 Найкращі серіали в жанрі спорт
-                              </div>
-                              <input
-                                type="text"
-                                className="form__input linear"
-                                placeholder="Місце"
-                              />
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__best-lists">
-                              <div className="f-list__content-title">
-                                02 Найкращі фільми в жанрі фантастика 2019
-                              </div>
-                              <input
-                                type="text"
-                                className="form__input linear"
-                                defaultValue={15}
-                                placeholder="Місце"
-                              />
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__best-lists">
-                              <div className="f-list__content-title">
-                                03 Найкращі фільми в жанрі фентезі 2019
-                              </div>
-                              <input
-                                type="text"
-                                className="form__input linear"
-                                defaultValue={20}
-                                placeholder="Місце"
-                              />
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchBestLists
+                        limit={6}
+                        control={control}
+                        register={register}
+                      />
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">
