@@ -10,6 +10,7 @@ import { useGetTypesContentQuery } from "../../../features/services/type-content
 import SoundTrackItem from "../../../components/SoundTracks/SoundTrackItem";
 import SearchCountries from "../../../components/Countries/SearchCountries";
 import SearchGenres from "../../../components/Genres/SearchGenres";
+import SearchActors from "../../../components/Actors/SearchActors";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -371,81 +372,7 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Актори</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Прізвище, ім`я актора"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list">
-                        <div className="f-list__item top">
-                          <div className="f-list__content">
-                            <div className="f-list__person">
-                              <img
-                                src="../images/actor.jpg"
-                                className="f-list__person-image"
-                              />
-                              <div className="f-list__person-info">
-                                <div className="f-list__person-fullname">
-                                  Керрі Фішер
-                                </div>
-                                <div className="f-list__person-origin-fullname">
-                                  &nbsp;Carrie Fisher
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item top">
-                          <div className="f-list__content">
-                            <div className="f-list__person">
-                              <img
-                                src="../images/actor.jpg"
-                                className="f-list__person-image"
-                              />
-                              <div className="f-list__person-info">
-                                <div className="f-list__person-fullname">
-                                  Керрі Фішер
-                                </div>
-                                <div className="f-list__person-origin-fullname">
-                                  &nbsp;Carrie Fisher
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item top">
-                          <div className="f-list__content">
-                            <div className="f-list__person">
-                              <img
-                                src="../images/actor.jpg"
-                                className="f-list__person-image"
-                              />
-                              <div className="f-list__person-info">
-                                <div className="f-list__person-fullname">
-                                  Керрі Фішер
-                                </div>
-                                <div className="f-list__person-origin-fullname">
-                                  &nbsp;Carrie Fisher
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchActors limit={6} control={control} />
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Режисери</div>

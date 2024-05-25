@@ -54,7 +54,7 @@ const SearchGenres = ({ limit = 5, control }) => {
             onChange={handleInputChange}
             onFocus={handleFocus}
             className="form__input"
-            placeholder="Назва країни"
+            placeholder="Назва жанру"
           />
           <button className="form__button-add">
             <div className="icon plus rounded" />

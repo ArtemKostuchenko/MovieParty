@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const useSearch = ({ limit: lm = 1000, queryFn }) => {
+const useSearch = ({ limit: lm = 1000, queryFn, name = "name" }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(lm);
   const [page, setPage] = useState(1);
@@ -13,7 +13,7 @@ const useSearch = ({ limit: lm = 1000, queryFn }) => {
   const listRef = useRef(null);
 
   const { data, isLoading, isFetching } = queryFn({
-    name: searchTerm,
+    [name]: searchTerm,
     limit: limit * page,
   });
 
