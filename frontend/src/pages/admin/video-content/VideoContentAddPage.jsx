@@ -11,6 +11,7 @@ import SoundTrackItem from "../../../components/SoundTracks/SoundTrackItem";
 import SearchCountries from "../../../components/Countries/SearchCountries";
 import SearchGenres from "../../../components/Genres/SearchGenres";
 import SearchActors from "../../../components/Actors/SearchActors";
+import SearchDirectors from "../../../components/Directors/SearchDirectors";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -376,60 +377,7 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Режисери</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Прізвище, ім`я режисера"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list">
-                        <div className="f-list__item top">
-                          <div className="f-list__content">
-                            <div className="f-list__person">
-                              <img
-                                src="../images/director.webp"
-                                className="f-list__person-image"
-                              />
-                              <div className="f-list__person-info">
-                                <div className="f-list__person-fullname">
-                                  Джордж Лукас
-                                </div>
-                                <div className="f-list__person-origin-fullname">
-                                  George Lucas
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item top">
-                          <div className="f-list__content">
-                            <div className="f-list__person">
-                              <img
-                                src="../images/director.webp"
-                                className="f-list__person-image"
-                              />
-                              <div className="f-list__person-info">
-                                <div className="f-list__person-fullname">
-                                  Джордж Лукас
-                                </div>
-                                <div className="f-list__person-origin-fullname">
-                                  George Lucas
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchDirectors limit={6} control={control} />
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Найкращі списки</div>

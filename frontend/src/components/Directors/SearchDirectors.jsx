@@ -1,9 +1,9 @@
 import React from "react";
-import { useGetActorsQuery } from "../../features/services/actors/actorsService";
+import { useGetDirectorsQuery } from "../../features/services/directors/directorsService";
 import useSearch from "../../hooks/useSearch";
 import { useFieldArray } from "react-hook-form";
 
-const SearchActors = ({ limit = 5, control }) => {
+const SearchDirectors = ({ limit = 5, control }) => {
   const {
     selectedItems,
     containerRef,
@@ -20,26 +20,28 @@ const SearchActors = ({ limit = 5, control }) => {
     handleUnCheckItem,
   } = useSearch({
     limit,
-    queryFn: useGetActorsQuery,
+    queryFn: useGetDirectorsQuery,
     name: "fullName",
   });
 
   const {
-    fields: actors,
-    append: addActor,
-    remove: removeActor,
+    fields: directors,
+    append: addDirector,
+    remove: removeDirector,
   } = useFieldArray({
     control,
-    name: "actors",
+    name: "directors",
   });
 
   const handleChange = (item) => {
-    const itemIndex = actors.findIndex((actor) => actor._id === item._id);
+    const itemIndex = directors.findIndex(
+      (director) => director._id === item._id
+    );
 
     if (itemIndex !== -1) {
-      removeActor(itemIndex);
+      removeDirector(itemIndex);
     } else {
-      addActor(item);
+      addDirector(item);
     }
 
     handleCheckboxChange(item);
@@ -55,7 +57,7 @@ const SearchActors = ({ limit = 5, control }) => {
             onChange={handleInputChange}
             onFocus={handleFocus}
             className="form__input"
-            placeholder="Прізвище, ім`я актора (актриси)"
+            placeholder="Прізвище, ім`я режисера"
           />
           <button className="form__button-add">
             <div className="icon plus rounded" />
@@ -67,16 +69,16 @@ const SearchActors = ({ limit = 5, control }) => {
             ref={listRef}
             onScroll={handleScroll}
           >
-            {data.actors.map((item, index) => {
+            {data.directors.map((item, index) => {
               const { _id, firstName, lastName, firstNameEng, lastNameEng } =
                 item;
               const photoURL = `${
                 import.meta.env.VITE_BACK_HOST
-              }/static/files/images/actors/${item.photoURL}`;
+              }/static/files/images/directors/${item.photoURL}`;
               return (
                 <div
                   key={item._id}
-                  ref={index === data.actors.length - 1 ? lastItemRef : null}
+                  ref={index === data.directors.length - 1 ? lastItemRef : null}
                   className="search-list__item"
                 >
                   <div className="form__item flex r h-center g10">
@@ -119,24 +121,24 @@ const SearchActors = ({ limit = 5, control }) => {
                 </div>
               </div>
             )}
-            {!isFetching && !Boolean(data.actors.length) && (
+            {!isFetching && !Boolean(data.directors.length) && (
               <div className="container flex r center" style={{ height: 275 }}>
-                <span className="message">Акторів не знайдено</span>
+                <span className="message">Режисерів не знайдено</span>
               </div>
             )}
           </div>
         )}
       </div>
-      {Boolean(actors.length) && (
+      {Boolean(directors.length) && (
         <div className="f-list">
-          {actors.map((actor, index) => {
-            const { firstName, lastName, firstNameEng, lastNameEng } = actor;
+          {directors.map((director, index) => {
+            const { firstName, lastName, firstNameEng, lastNameEng } = director;
             const photoURL = `${
               import.meta.env.VITE_BACK_HOST
-            }/static/files/images/actors/${actor.photoURL}`;
+            }/static/files/images/directors/${director.photoURL}`;
 
             return (
-              <div className="f-list__item top" key={actor.id}>
+              <div className="f-list__item top" key={director.id}>
                 <div className="f-list__content">
                   <div className="f-list__person">
                     <img
@@ -157,8 +159,8 @@ const SearchActors = ({ limit = 5, control }) => {
                 <button
                   className="button remove rounded"
                   onClick={() => {
-                    handleUnCheckItem(actor);
-                    removeActor(index);
+                    handleUnCheckItem(director);
+                    removeDirector(index);
                   }}
                 >
                   <div className="icon close" />
@@ -168,10 +170,10 @@ const SearchActors = ({ limit = 5, control }) => {
           })}
         </div>
       )}
-      {!Boolean(actors.length) && (
+      {!Boolean(directors.length) && (
         <div className="f-list flex r center">
           <span className="message" style={{ margin: 0 }}>
-            Жодних акторів (актрис) не додано
+            Жодних режисерів не додано
           </span>
         </div>
       )}
@@ -179,4 +181,4 @@ const SearchActors = ({ limit = 5, control }) => {
   );
 };
 
-export default SearchActors;
+export default SearchDirectors;
