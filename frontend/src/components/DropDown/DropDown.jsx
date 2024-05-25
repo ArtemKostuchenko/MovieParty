@@ -4,6 +4,7 @@ import DropDownItem from "./DropDownItem";
 const DropDown = ({
   children,
   value = "",
+  placeholder = "Оберіть варіант",
   onChange = null,
   fill = false,
   linear = false,
@@ -60,7 +61,9 @@ const DropDown = ({
       ref={dropdownRef}
     >
       <div className="dropdown__selected" onClick={() => toggleDropDown()}>
-        <div className="dropdown__title">{selectedItem.props.children}</div>
+        <div className="dropdown__title">
+          {selectedItem ? selectedItem.props.children : placeholder}
+        </div>
         <div className="dropdown__icon">
           <svg
             width={14}

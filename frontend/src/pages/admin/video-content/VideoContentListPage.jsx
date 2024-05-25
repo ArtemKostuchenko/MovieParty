@@ -26,7 +26,7 @@ const VideoContentListPage = () => {
             <div className="view-actions">
               <button
                 className="button primary"
-                onClick={() => navigate("add")}
+                onClick={() => navigate("/video-content/add")}
               >
                 Додати відеоконтент
               </button>

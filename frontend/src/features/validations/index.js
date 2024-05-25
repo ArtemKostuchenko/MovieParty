@@ -7,3 +7,4 @@ export { default as BestListSchema } from "./best-list.schema";
 export { default as PartSchema } from "./part.schema";
 export { default as SelectionSchema } from "./selection.schema";
 export { default as PersonSchema } from "./person.schema";
+export { default as VideoContentSchema } from "./video-content.schema";

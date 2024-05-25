@@ -10,11 +10,12 @@ export const typesContentApi = createApi({
   tagTypes: ["typesContent"],
   endpoints: (builder) => ({
     getTypesContent: builder.query({
-      query: ({ name, page, limit, sortName, sortType }) => ({
-        url: `content/type?name=${name}&page=${page}&limit=${limit}${getFormateSort(
-          sortName,
-          sortType
-        )}`,
+      query: ({ name, page, limit, sortName, sortType } = {}) => ({
+        url: `content/type${name ? `?name=${name}` : ``}${
+          page ? `&page=${page}` : ``
+        }${
+          limit ? `&limit=${limit}${getFormateSort(sortName, sortType)}` : ``
+        }`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["typesContent"],

@@ -155,6 +155,25 @@ body {
     }
   }
 
+  &.remove.rounded {
+    min-height: 0;
+    min-width: 0;
+    font-size: 0;
+    padding: 4px;
+    border: 1px solid transparent;
+    background-color: rgba(83, 83, 83, 0.7);
+    border-radius: 50%;
+
+    .icon.close {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: rgba(60, 60, 60, 0.7);
+    }
+  }
+
   &.primary:hover {
     background-color: transparent;
     color: var(--light-yellow);
@@ -486,6 +505,35 @@ body {
       &:focus {
         outline: 2px solid var(--lochmara);
       }
+
+      &::placeholder {
+        color: #d8d8d8;
+      }
+
+      &.fi {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        input {
+          padding: 0;
+          border: 1px solid transparent;
+
+          &::placeholder {
+            color: #d8d8d8;
+          }
+        }
+
+        .icon.add:hover {
+          background-color: var(--light-yellow);
+        }
+      }
+    }
+
+    &.auto-content {
+      width: min-content;
+      min-width: 0;
     }
   }
 
@@ -512,6 +560,68 @@ body {
 
       &:focus {
         outline: 2px solid var(--lochmara);
+      }
+    }
+  }
+
+  &__radio-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 114, 187, 0.4);
+
+    &-item {
+      display: flex;
+      &-elem {
+        display: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+
+        &:checked + .form__radio-list-item-title {
+          background-color: var(--lochmara);
+        }
+      }
+
+      &-title {
+        cursor: pointer;
+        padding: 5px 15px;
+        border-radius: 30px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Nunito Sans", sans-serif;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        @include adaptiveFont(16, 14);
+        @include transition(background-color);
+        color: var(--text-color);
+      }
+    }
+  }
+
+  &__button {
+    &-add {
+      font-size: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background-color: var(--light-yellow);
+      border-radius: 50%;
+
+      .icon.plus.rounded {
+        width: 12px;
+        height: 12px;
+        background-color: var(--midnight);
       }
     }
   }
