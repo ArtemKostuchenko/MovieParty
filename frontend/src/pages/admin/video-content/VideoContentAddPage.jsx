@@ -92,6 +92,11 @@ const VideoContentAddPage = () => {
                         {...register("title")}
                         className="form__input linear"
                       />
+                      {errors.title && (
+                        <span className="message error">
+                          {errors.title.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">
@@ -102,6 +107,11 @@ const VideoContentAddPage = () => {
                         {...register("originTitle")}
                         className="form__input linear"
                       />
+                      {errors.originTitle && (
+                        <span className="message error">
+                          {errors.originTitle.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Опис відеоконтенту</div>
@@ -109,6 +119,11 @@ const VideoContentAddPage = () => {
                         {...register("description")}
                         className="form__textarea linear"
                       />
+                      {errors.description && (
+                        <span className="message error">
+                          {errors.description.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Тип відеоконтенту</div>
@@ -145,6 +160,11 @@ const VideoContentAddPage = () => {
                           </div>
                         </div>
                       )}
+                      {errors.typeVideoContent && (
+                        <span className="message error">
+                          {errors.typeVideoContent.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Дата релізу</div>
@@ -153,6 +173,11 @@ const VideoContentAddPage = () => {
                         {...register("releaseDate")}
                         className="form__input linear"
                       />
+                      {errors.releaseDate && (
+                        <span className="message error">
+                          {errors.releaseDate.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Тривалість</div>
@@ -161,6 +186,11 @@ const VideoContentAddPage = () => {
                         {...register("duration")}
                         className="form__input linear"
                       />
+                      {errors.duration && (
+                        <span className="message error">
+                          {errors.duration.message}
+                        </span>
+                      )}
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">
@@ -212,6 +242,11 @@ const VideoContentAddPage = () => {
                           })}
                         </div>
                       </div>
+                      {errors.soundTracks && (
+                        <span className="message error">
+                          {errors.soundTracks.message}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -255,6 +290,11 @@ const VideoContentAddPage = () => {
                         className="hidden"
                         accept="image/*"
                       />
+                      {errors.previewURL && (
+                        <span className="message error">
+                          {errors.previewURL.message}
+                        </span>
+                      )}
                     </div>
                     <div className="video-content__form-images-container">
                       <div className="video-content__form-images-title">
@@ -292,6 +332,11 @@ const VideoContentAddPage = () => {
                         className="hidden"
                         accept="image/*"
                       />
+                      {errors.backgroundURL && (
+                        <span className="message error">
+                          {errors.backgroundURL.message}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <button
