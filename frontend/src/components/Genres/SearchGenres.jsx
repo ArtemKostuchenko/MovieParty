@@ -1,10 +1,9 @@
-// SearchComponent.js
 import React from "react";
-import { useGetCountriesQuery } from "../../features/services/countries/countriesService";
+import { useGetGenresQuery } from "../../features/services/genre/genreService";
 import useSearch from "../../hooks/useSearch";
 import { useFieldArray } from "react-hook-form";
 
-const SearchCountries = ({ limit = 5, control }) => {
+const SearchGenres = ({ limit = 5, control }) => {
   const {
     selectedItems,
     containerRef,
@@ -21,27 +20,25 @@ const SearchCountries = ({ limit = 5, control }) => {
     handleUnCheckItem,
   } = useSearch({
     limit,
-    queryFn: useGetCountriesQuery,
+    queryFn: useGetGenresQuery,
   });
 
   const {
-    fields: originCountries,
-    append: addOriginCountry,
-    remove: removeOriginCountry,
+    fields: genres,
+    append: addGenre,
+    remove: removeGenre,
   } = useFieldArray({
     control,
-    name: "originCountries",
+    name: "genres",
   });
 
   const handleChange = (item) => {
-    const itemIndex = originCountries.findIndex(
-      (originCountry) => originCountry._id === item._id
-    );
+    const itemIndex = genres.findIndex((genre) => genre._id === item._id);
 
     if (itemIndex !== -1) {
-      removeOriginCountry(itemIndex);
+      removeGenre(itemIndex);
     } else {
-      addOriginCountry(item);
+      addGenre(item);
     }
 
     handleCheckboxChange(item);
@@ -69,15 +66,13 @@ const SearchCountries = ({ limit = 5, control }) => {
             ref={listRef}
             onScroll={handleScroll}
           >
-            {data.countries.map((item, index) => {
+            {data.genres.map((item, index) => {
               const { _id, name } = item;
-              const icon = `${
-                import.meta.env.VITE_BACK_HOST
-              }/static/files/crs/${item.icon}`;
+
               return (
                 <div
                   key={item._id}
-                  ref={index === data.countries.length - 1 ? lastItemRef : null}
+                  ref={index === data.genres.length - 1 ? lastItemRef : null}
                   className="search-list__item"
                 >
                   <div className="form__item flex r h-center g10">
@@ -92,8 +87,7 @@ const SearchCountries = ({ limit = 5, control }) => {
                         <span className="checkmark"></span>
                       </div>
                     </div>
-                    <label htmlFor={_id} className="flex r h-center g10">
-                      <img src={icon} className="country-icon" alt={name} />
+                    <label htmlFor={_id} className="flex r h-center">
                       <div className="f-list__content-title">{name}</div>
                     </label>
                   </div>
@@ -107,34 +101,28 @@ const SearchCountries = ({ limit = 5, control }) => {
                 </div>
               </div>
             )}
-            {!isFetching && !Boolean(data.countries.length) && (
+            {!isFetching && !Boolean(data.genres.length) && (
               <div className="container flex r center" style={{ height: 275 }}>
-                <span className="message">Країну не знайдено</span>
+                <span className="message">Жанрів не знайдено</span>
               </div>
             )}
           </div>
         )}
       </div>
-      {Boolean(originCountries.length) && (
+      {Boolean(genres.length) && (
         <div className="f-list">
-          {originCountries.map((originCountry, index) => {
-            const { _id, name } = originCountry;
-            const icon = `${import.meta.env.VITE_BACK_HOST}/static/files/crs/${
-              originCountry.icon
-            }`;
+          {genres.map((genre, index) => {
+            const { name } = genre;
             return (
-              <div className="f-list__item" key={originCountry.id}>
+              <div className="f-list__item" key={genre.id}>
                 <div className="f-list__content">
-                  <div className="flex r center-h g5">
-                    <img src={icon} className="country-icon" alt={name} />
-                    <div className="f-list__content-title">{name}</div>
-                  </div>
+                  <div className="f-list__content-title">{name}</div>
                 </div>
                 <button
                   className="button remove rounded"
                   onClick={() => {
-                    handleUnCheckItem(originCountry);
-                    removeOriginCountry(index);
+                    handleUnCheckItem(genre);
+                    removeGenre(index);
                   }}
                 >
                   <div className="icon close" />
@@ -144,10 +132,10 @@ const SearchCountries = ({ limit = 5, control }) => {
           })}
         </div>
       )}
-      {!Boolean(originCountries.length) && (
+      {!Boolean(genres.length) && (
         <div className="f-list flex r center">
           <span className="message" style={{ margin: 0 }}>
-            Жодних країн не додано
+            Жодних жанрів не додано
           </span>
         </div>
       )}
@@ -155,4 +143,4 @@ const SearchCountries = ({ limit = 5, control }) => {
   );
 };
 
-export default SearchCountries;
+export default SearchGenres;

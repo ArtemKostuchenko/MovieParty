@@ -9,6 +9,7 @@ import useVideoContent from "../../../hooks/useVideoContent";
 import { useGetTypesContentQuery } from "../../../features/services/type-content/typeContentService";
 import SoundTrackItem from "../../../components/SoundTracks/SoundTrackItem";
 import SearchCountries from "../../../components/Countries/SearchCountries";
+import SearchGenres from "../../../components/Genres/SearchGenres";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -366,60 +367,7 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Жанри</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Назва жанру"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list">
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">Бойовик</div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">
-                              Фантастика
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">Екшн</div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">Пригоди</div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">Фентезі</div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchGenres limit={6} control={control} />
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Актори</div>
