@@ -8,6 +8,7 @@ import { PreviewImage } from "../../../components";
 import useVideoContent from "../../../hooks/useVideoContent";
 import { useGetTypesContentQuery } from "../../../features/services/type-content/typeContentService";
 import SoundTrackItem from "../../../components/SoundTracks/SoundTrackItem";
+import SearchCountries from "../../../components/Countries/SearchCountries";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -361,67 +362,7 @@ const VideoContentAddPage = () => {
                   <div className="video-content__form-container-form">
                     <div className="form__item label">
                       <div className="form__item-label">Країни</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Назва країни"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list">
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="flex r center-h g5">
-                              <img
-                                src="../images/icons/us.svg"
-                                className="country-icon"
-                                alt="США"
-                              />
-                              <div className="f-list__content-title">США</div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="flex r center-h g5">
-                              <img
-                                src="../images/icons/ua.svg"
-                                className="country-icon"
-                                alt="Україна"
-                              />
-                              <div className="f-list__content-title">
-                                Україна
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                        <div className="f-list__item">
-                          <div className="f-list__content">
-                            <div className="flex r center-h g5">
-                              <img
-                                src="../images/icons/gb.svg"
-                                className="country-icon"
-                                alt="Велика Британія"
-                              />
-                              <div className="f-list__content-title">
-                                Велика Британія
-                              </div>
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchCountries limit={6} control={control} />
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Жанри</div>

@@ -1761,6 +1761,115 @@ body {
   }
 }
 
+/* search-list */
+
+.search-list {
+  position: relative;
+
+  .search-list__items {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    z-index: 900;
+    width: 100%;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px solid var(--dropdown-color);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    max-height: 275px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scroll-color);
+      border-radius: 10px;
+      background-clip: content-box;
+      border: 5px solid transparent;
+
+      &:hover {
+        background-color: rgb(250, 192, 20, 80%);
+      }
+    }
+  }
+
+  &__item {
+    user-select: none;
+    padding: 10px 5px;
+    cursor: pointer;
+  }
+}
+
+/* checkbox */
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  &__container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 20px;
+    width: 20px;
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: rgba(0, 114, 187, 0.8);
+      border-radius: 5px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      &:after {
+        left: 8px;
+        top: 4px;
+        width: 5px;
+        height: 10px;
+        border: solid var(--light-yellow);
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+
+      &:checked ~ .checkmark {
+        &:after {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 /* responsive */
 
 @media screen and (max-width: 1350px) {
