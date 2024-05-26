@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-const useSearch = ({ limit: lm = 1000, queryFn, name = "name" }) => {
+const useSearch = ({
+  limit: lm = 1000,
+  queryFn,
+  name = "name",
+  single = false,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [limit, setLimit] = useState(lm);
   const [page, setPage] = useState(1);
@@ -65,10 +70,19 @@ const useSearch = ({ limit: lm = 1000, queryFn, name = "name" }) => {
   }, []);
 
   const handleCheckboxChange = (item) => {
-    const newSelectedItems = {
-      ...selectedItems,
-      [item._id]: !selectedItems[item._id],
-    };
+    let newSelectedItems;
+    if (single) {
+      if (selectedItems[item._id]) {
+        newSelectedItems = {};
+      } else {
+        newSelectedItems = { [item._id]: true };
+      }
+    } else {
+      newSelectedItems = {
+        ...selectedItems,
+        [item._id]: !selectedItems[item._id],
+      };
+    }
     setSelectedItems(newSelectedItems);
   };
 

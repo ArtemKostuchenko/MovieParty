@@ -57,6 +57,11 @@ const VideoContentSchema = yup.object().shape({
     .trim()
     .min(3, "Поле повинне бути більше 3 символів")
     .required("Поле 'Назва відеоконтенту (англійською)' є обов'язковим"),
+  IMDb: yup
+    .number()
+    .min(1, "Рейтинг IMDb повинен бути більше 1")
+    .max(10, "Рейтинг IMDb не повинен бути більше 10")
+    .required("Поле 'Рейтинг IMDb' є обов'язковим"),
   description: yup
     .string()
     .trim()

@@ -13,6 +13,7 @@ import SearchGenres from "../../../components/Genres/SearchGenres";
 import SearchActors from "../../../components/Actors/SearchActors";
 import SearchDirectors from "../../../components/Directors/SearchDirectors";
 import SearchBestLists from "../../../components/BestLists/SearchBestLists";
+import SearchParts from "../../../components/Parts/SearchParts";
 
 const VideoContentAddPage = () => {
   const { addVideoContent, isLoadingAdd } = useVideoContent();
@@ -43,10 +44,10 @@ const VideoContentAddPage = () => {
 
   const onSubmitHandler = async (data) => {
     console.log(data);
-    // const res = await addVideoContent(data);
-    // console.log(res);
-    // reset();
-    // navigate("/panel/admin/video-content");
+    const res = await addVideoContent(data);
+    console.log(res);
+    reset();
+    navigate("/panel/admin/video-content");
   };
 
   const resetPhoto = (field) => {
@@ -115,6 +116,19 @@ const VideoContentAddPage = () => {
                       {errors.originTitle && (
                         <span className="message error">
                           {errors.originTitle.message}
+                        </span>
+                      )}
+                    </div>
+                    <div className="form__item label">
+                      <div className="form__item-label">Рейтинг IMDb</div>
+                      <input
+                        type="number"
+                        {...register("IMDb")}
+                        className="form__input linear"
+                      />
+                      {errors.IMDb && (
+                        <span className="message error">
+                          {errors.IMDb.message}
                         </span>
                       )}
                     </div>
@@ -392,28 +406,7 @@ const VideoContentAddPage = () => {
                       <div className="form__item-label">
                         Частина відеоконтенту
                       </div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          placeholder="Назва частини"
-                        />
-                        <button className="form__button-add">
-                          <div className="icon plus rounded" />
-                        </button>
-                      </div>
-                      <div className="f-list r">
-                        <div className="f-list__item full colorized mg">
-                          <div className="f-list__content">
-                            <div className="f-list__content-title">
-                              Зоряні війни
-                            </div>
-                          </div>
-                          <button className="button remove rounded">
-                            <div className="icon close" />
-                          </button>
-                        </div>
-                      </div>
+                      <SearchParts limit={6} control={control} single />
                     </div>
                   </div>
                 </div>

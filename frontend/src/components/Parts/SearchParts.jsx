@@ -1,9 +1,9 @@
 import React from "react";
-import { useGetBestListsQuery } from "../../features/services/best-lists/bestListsService";
+import { useGetPartsQuery } from "../../features/services/parts/partsService";
 import useSearch from "../../hooks/useSearch";
 import { useFieldArray } from "react-hook-form";
 
-const SearchBestLists = ({ limit = 5, control, register }) => {
+const SearchParts = ({ limit = 5, control, single = false }) => {
   const {
     selectedItems,
     containerRef,
@@ -20,28 +20,43 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
     handleUnCheckItem,
   } = useSearch({
     limit,
-    queryFn: useGetBestListsQuery,
+    queryFn: useGetPartsQuery,
+    single,
   });
 
   const {
-    fields: lists,
-    append: addList,
-    remove: removeList,
+    fields: parts,
+    append: addPart,
+    remove: removePart,
   } = useFieldArray({
     control,
-    name: "lists",
+    name: "parts",
   });
 
   const handleChange = (item) => {
-    const itemIndex = lists.findIndex((list) => list._id === item._id);
+    const itemIndex = parts.findIndex((part) => part._id === item._id);
 
-    if (itemIndex !== -1) {
-      removeList(itemIndex);
+    if (single) {
+      if (itemIndex !== -1) {
+        removePart(itemIndex);
+        handleCheckboxChange(item);
+      } else {
+        parts.forEach((_, index) => {
+          removePart(index);
+        });
+        addPart(item);
+
+        handleCheckboxChange(item);
+      }
     } else {
-      addList(item);
-    }
+      if (itemIndex !== -1) {
+        removePart(itemIndex);
+      } else {
+        addPart(item);
+      }
 
-    handleCheckboxChange(item);
+      handleCheckboxChange(item);
+    }
   };
 
   return (
@@ -54,7 +69,7 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
             onChange={handleInputChange}
             onFocus={handleFocus}
             className="form__input"
-            placeholder="Назва списку"
+            placeholder="Назва частини"
           />
           <button className="form__button-add">
             <div className="icon plus rounded" />
@@ -66,13 +81,13 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
             ref={listRef}
             onScroll={handleScroll}
           >
-            {data.bestLists.map((item, index) => {
+            {data.parts.map((item, index) => {
               const { _id, name } = item;
 
               return (
                 <div
                   key={item._id}
-                  ref={index === data.bestLists.length - 1 ? lastItemRef : null}
+                  ref={index === data.parts.length - 1 ? lastItemRef : null}
                   className="search-list__item"
                 >
                   <div className="form__item flex r h-center g10">
@@ -101,41 +116,29 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
                 </div>
               </div>
             )}
-            {!isFetching && !Boolean(data.bestLists.length) && (
+            {!isFetching && !Boolean(data.parts.length) && (
               <div className="container flex r center" style={{ height: 275 }}>
-                <span className="message">Списків не знайдено</span>
+                <span className="message">Частини не знайдено</span>
               </div>
             )}
           </div>
         )}
       </div>
-      {Boolean(lists.length) && (
+      {Boolean(parts.length) && (
         <div className="f-list r">
-          {lists.map((list, index) => {
-            const { name } = list;
+          {parts.map((part, index) => {
+            const { name } = part;
             return (
-              <div className="f-list__item" key={list.id}>
+              <div className="f-list__item full colorized mg" key={part.id}>
                 <div className="f-list__content">
-                  <div className="f-list__best-lists">
-                    <div className="f-list__content-title">
-                      {`${index < 9 ? "0" : ""}${index + 1}`}
-                      {". "}
-                      {name}
-                    </div>
-                    <input
-                      type="number"
-                      {...register(`lists.${index}.placeInList`)}
-                      className="form__input linear"
-                      placeholder="Місце"
-                    />
-                  </div>
+                  <div className="f-list__content-title">{name}</div>
                 </div>
                 <button
                   type="button"
                   className="button remove rounded"
                   onClick={() => {
-                    handleUnCheckItem(list);
-                    removeList(index);
+                    handleUnCheckItem(part);
+                    removePart(index);
                   }}
                 >
                   <div className="icon close" />
@@ -145,10 +148,10 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
           })}
         </div>
       )}
-      {!Boolean(lists.length) && (
+      {!Boolean(parts.length) && (
         <div className="f-list flex r center">
           <span className="message" style={{ margin: 0 }}>
-            Жодних списків не додано
+            {single ? "Частини не додано" : "Жодних частин не додано"}
           </span>
         </div>
       )}
@@ -156,4 +159,4 @@ const SearchBestLists = ({ limit = 5, control, register }) => {
   );
 };
 
-export default SearchBestLists;
+export default SearchParts;
