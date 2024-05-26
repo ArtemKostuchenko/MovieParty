@@ -11,7 +11,7 @@ export const videoContentApi = createApi({
   endpoints: (builder) => ({
     getVideoContent: builder.query({
       query: ({ title, page, limit, sortName, sortType }) => ({
-        url: `content/v?fields=title,originTitle,previewURL,typeVideoContent&title=${title}&page=${page}&limit=${limit}${getFormateSort(
+        url: `content/v?fields=title,originTitle,previewURL,typeVideoContent,createdAt&title=${title}&page=${page}&limit=${limit}${getFormateSort(
           sortName,
           sortType
         )}`,

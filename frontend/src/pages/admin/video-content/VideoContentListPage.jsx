@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./style.page.scss";
+import { useNavigate } from "react-router-dom";
 import { VideoContentList } from "../../../components";
+import VideoContentRemovePopup from "./VideoContentRemovePopup";
 import usePopup from "../../../hooks/usePopup";
 
 const VideoContentListPage = () => {
@@ -49,6 +50,7 @@ const VideoContentListPage = () => {
           </div>
         </div>
       </div>
+      {removeId && <VideoContentRemovePopup />}
     </>
   );
 };
