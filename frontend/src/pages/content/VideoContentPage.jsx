@@ -50,11 +50,11 @@ const VideoContentPage = () => {
 
   const contentPreviewURL = `${
     import.meta.env.VITE_BACK_HOST
-  }/static${previewURL}`;
+  }/static/files/images/content/${previewURL}`;
 
   const contentBackgroundURL = `${
     import.meta.env.VITE_BACK_HOST
-  }/static${backgroundURL}`;
+  }/static/files/images/content/${backgroundURL}`;
 
   return (
     <>
