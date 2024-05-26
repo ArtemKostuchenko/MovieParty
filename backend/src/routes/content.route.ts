@@ -38,7 +38,20 @@ router
 router
   .route("/:id")
   .get(getVideoContent)
-  .patch(adminMiddleware, updateVideoContent)
+  .patch(
+    adminMiddleware,
+    uploadFile("./src/files/images/content").fields([
+      {
+        name: "previewURL",
+        maxCount: 1,
+      },
+      {
+        name: "backgroundURL",
+        maxCount: 1,
+      },
+    ]),
+    updateVideoContent
+  )
   .delete(adminMiddleware, deleteVideoContent);
 
 router.route("/originTitle/:originTitle").get(getVideoContentByOriginTitle);

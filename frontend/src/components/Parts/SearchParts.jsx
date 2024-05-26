@@ -5,7 +5,6 @@ import { useFieldArray } from "react-hook-form";
 
 const SearchParts = ({ limit = 5, control, single = false }) => {
   const {
-    selectedItems,
     containerRef,
     searchTerm,
     handleInputChange,
@@ -59,6 +58,10 @@ const SearchParts = ({ limit = 5, control, single = false }) => {
     }
   };
 
+  const isChecked = (id) => {
+    return parts.some((part) => part._id === id);
+  };
+
   return (
     <>
       <div ref={containerRef} className="search-list">
@@ -95,7 +98,7 @@ const SearchParts = ({ limit = 5, control, single = false }) => {
                       <div className="checkbox__container">
                         <input
                           type="checkbox"
-                          checked={!!selectedItems[_id]}
+                          checked={isChecked(_id)}
                           onChange={() => handleChange(item)}
                           id={_id}
                         />

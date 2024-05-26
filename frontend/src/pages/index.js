@@ -27,3 +27,4 @@ export { default as DirectorsEditPage } from "./admin/directors/DirectorsEditPag
 export { default as DirectorPage } from "./director/DirectorPage";
 export { default as VideoContentListPage } from "./admin/video-content/VideoContentListPage";
 export { default as VideoContentAddPage } from "./admin/video-content/VideoContentAddPage";
+export { default as VideoContentEditPage } from "./admin/video-content/VideoContentEditPage";

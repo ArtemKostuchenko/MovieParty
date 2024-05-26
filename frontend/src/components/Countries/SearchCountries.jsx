@@ -1,4 +1,3 @@
-// SearchComponent.js
 import React from "react";
 import { useGetCountriesQuery } from "../../features/services/countries/countriesService";
 import useSearch from "../../hooks/useSearch";
@@ -6,7 +5,6 @@ import { useFieldArray } from "react-hook-form";
 
 const SearchCountries = ({ limit = 5, control }) => {
   const {
-    selectedItems,
     containerRef,
     searchTerm,
     handleInputChange,
@@ -47,6 +45,10 @@ const SearchCountries = ({ limit = 5, control }) => {
     handleCheckboxChange(item);
   };
 
+  const isChecked = (id) => {
+    return originCountries.some((originCountry) => originCountry._id === id);
+  };
+
   return (
     <>
       <div ref={containerRef} className="search-list">
@@ -85,7 +87,7 @@ const SearchCountries = ({ limit = 5, control }) => {
                       <div className="checkbox__container">
                         <input
                           type="checkbox"
-                          checked={!!selectedItems[_id]}
+                          checked={isChecked(_id)}
                           onChange={() => handleChange(item)}
                           id={_id}
                         />

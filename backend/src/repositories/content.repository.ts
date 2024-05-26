@@ -2,6 +2,7 @@ import { validateVideoContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
 import mongoose from "mongoose";
+import { convertBodyVideoContent } from "../utils/functions";
 
 interface Query {
   title?: { $regex: string; $options: string };
@@ -21,15 +22,26 @@ class VideoContentRepository {
   async createVideoContent(
     videoContentData: VideoContent
   ): Promise<VideoContent> {
-    const validVideoContentData = validateVideoContent(videoContentData);
-    console.log(validVideoContentData);
+    const convertedVideoContentData = convertBodyVideoContent(videoContentData);
+    validateVideoContent(convertedVideoContentData);
 
-    return await VideoContentModel.create(validVideoContentData);
+    return await VideoContentModel.create(convertedVideoContentData);
   }
 
   async getVideoContentById(videoContentId: string): Promise<VideoContent> {
     const videoContents = await VideoContentModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(videoContentId) } },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "typeVideoContent",
+          foreignField: "_id",
+          as: "typeVideoContent",
+        },
+      },
+      {
+        $unwind: "$typeVideoContent",
+      },
       {
         $lookup: {
           from: "countries",
@@ -82,10 +94,8 @@ class VideoContentRepository {
               input: "$lists",
               as: "list",
               in: {
-                list: {
-                  _id: "$$list._id",
-                  name: "$$list.name",
-                },
+                _id: "$$list._id",
+                name: "$$list.name",
                 placeInList: {
                   $arrayElemAt: [
                     "$originalLists.placeInList",
@@ -280,7 +290,7 @@ class VideoContentRepository {
     videoContentId: string,
     videoContentData: VideoContent
   ): Promise<VideoContent> {
-    const validVideoContentData = validateVideoContent(videoContentData);
+    const convertedVideoContentData = convertBodyVideoContent(videoContentData);
 
     const {
       title,
@@ -302,7 +312,7 @@ class VideoContentRepository {
       part,
       soundTracks,
       seasons,
-    } = validVideoContentData;
+    } = convertedVideoContentData;
 
     const videoContent = await VideoContentModel.findById(videoContentId);
 
@@ -435,7 +445,10 @@ class VideoContentRepository {
     const skip = (page - 1) * videoContentPerPage;
 
     const [videoContent, totalCount] = await Promise.all([
-      videoContents.skip(skip).limit(videoContentPerPage),
+      videoContents
+        .populate("typeVideoContent")
+        .skip(skip)
+        .limit(videoContentPerPage),
       VideoContentModel.countDocuments(queryObj),
     ]);
 

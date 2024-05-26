@@ -33,7 +33,7 @@ const VideoContentItem = ({
       <div className="view-col">{title}</div>
       <div className="view-col">{originTitle}</div>
       <div className="view-col">
-        <div className="type__video-content">{typeVideoContent}</div>
+        <div className="type__video-content">{typeVideoContent?.name}</div>
       </div>
       <div className="view-col">{formatDate(createdAt)}</div>
       <div className="view-col">
@@ -41,7 +41,7 @@ const VideoContentItem = ({
           <ActionItem
             icon="eda"
             title="Редагувати"
-            onClick={() => navigate(`${_id}/edit`)}
+            onClick={() => navigate(`/video-content/${_id}/edit`)}
           />
           <ActionItem
             icon="rma"

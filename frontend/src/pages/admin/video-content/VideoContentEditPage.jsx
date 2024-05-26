@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.page.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { VideoContentSchema } from "../../../features/validations";
 import { PreviewImage } from "../../../components";
+import { useGetVideoContentByIdQuery } from "../../../features/services/content/contentService";
 import useVideoContent from "../../../hooks/useVideoContent";
 import { useGetTypesContentQuery } from "../../../features/services/type-content/typeContentService";
 import SoundTrackItem from "../../../components/SoundTracks/SoundTrackItem";
@@ -14,16 +15,23 @@ import SearchActors from "../../../components/Actors/SearchActors";
 import SearchDirectors from "../../../components/Directors/SearchDirectors";
 import SearchBestLists from "../../../components/BestLists/SearchBestLists";
 import SearchParts from "../../../components/Parts/SearchParts";
+import { formatDate } from "../../../features/utils/functions";
 
-const VideoContentAddPage = () => {
-  const { addVideoContent, isLoadingAdd } = useVideoContent();
+const VideoContentEditPage = () => {
+  const { updateVideoContent, isLoadingUpdate } = useVideoContent();
+
+  const { id: editId } = useParams();
+
   const [soundTrackName, setSoundTrackName] = useState("");
-  const { data, isLoading } = useGetTypesContentQuery();
+  const [previewURL, setPreviewURL] = useState(null);
+  const [backgroundURL, setBackgroundURL] = useState(null);
+
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     resetField,
     watch,
@@ -31,6 +39,9 @@ const VideoContentAddPage = () => {
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(VideoContentSchema),
+    defaultValues: {
+      isEdit: true,
+    },
   });
 
   const {
@@ -42,8 +53,49 @@ const VideoContentAddPage = () => {
     name: "soundTracks",
   });
 
+  if (!editId) {
+    return <></>;
+  }
+
+  const { data: videoContent, isLoadingVideoContent } =
+    useGetVideoContentByIdQuery(editId);
+
+  const { data: typeContentData, isLoading: isLoadingTypeContent } =
+    useGetTypesContentQuery();
+
+  useEffect(() => {
+    if (videoContent) {
+      setValue("title", videoContent.title);
+      setValue("originTitle", videoContent.originTitle);
+      setValue("IMDb", videoContent.IMDb);
+      setValue("description", videoContent.description);
+      setValue("typeVideoContent", videoContent.typeVideoContent._id);
+      console.log(videoContent.typeVideoContent.name);
+      setValue("releaseDate", formatDate(videoContent.releaseDate, "hyphen"));
+      setValue("duration", videoContent.duration);
+      setValue("trailerURL", videoContent.trailerURL);
+      setValue("soundTracks", videoContent.soundTracks);
+      setValue("originCountries", videoContent.originCountries);
+      setValue("genres", videoContent.genres);
+      setValue("actors", videoContent.actors);
+      setValue("directors", videoContent.directors);
+      setValue("lists", videoContent.lists);
+      setValue("parts", [videoContent.part]);
+      setPreviewURL(videoContent.previewURL);
+      setBackgroundURL(videoContent.backgroundURL);
+    }
+  }, [videoContent, setValue]);
+
+  if (isLoadingVideoContent) {
+    return (
+      <div className="loader__container">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
   const onSubmitHandler = async (data) => {
-    const res = await addVideoContent(data);
+    const res = await updateVideoContent({ id: videoContent._id, ...data });
     console.log(res);
     reset();
     navigate("/panel/admin/video-content");
@@ -146,14 +198,14 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="form__item label">
                       <div className="form__item-label">Тип відеоконтенту</div>
-                      {isLoading ? (
+                      {isLoadingTypeContent || isLoadingVideoContent ? (
                         <div className="loader__container">
                           <div className="loader"></div>
                         </div>
                       ) : (
                         <div className="overflow-content">
                           <div className="form__radio-list">
-                            {data.typesContent.map((typeContent) => {
+                            {typeContentData.typesContent.map((typeContent) => {
                               const { _id, name } = typeContent;
                               return (
                                 <div
@@ -275,12 +327,14 @@ const VideoContentAddPage = () => {
                   <div className="video-content__form-images">
                     <div className="video-content__form-images-container">
                       <div className="video-content__form-images-title">
-                        {!Boolean(watchPreviewURL?.length)
+                        {!Boolean(watchPreviewURL?.length) &&
+                        !Boolean(previewURL)
                           ? `Оберіть основне `
                           : `Основне `}
                         фото відеоконтенту
                       </div>
-                      {!Boolean(watchPreviewURL?.length) ? (
+                      {!Boolean(watchPreviewURL?.length) &&
+                      !Boolean(previewURL) ? (
                         <button
                           type="button"
                           className="button primary"
@@ -297,8 +351,9 @@ const VideoContentAddPage = () => {
                       ) : (
                         <div className="video-content__form-image">
                           <PreviewImage
-                            icon={watchPreviewURL}
+                            icon={previewURL || watchPreviewURL}
                             removeIcon={() => resetPhoto("previewURL")}
+                            path="images/content"
                             classImage="video-content__form-preview"
                           />
                         </div>
@@ -317,12 +372,14 @@ const VideoContentAddPage = () => {
                     </div>
                     <div className="video-content__form-images-container">
                       <div className="video-content__form-images-title">
-                        {!Boolean(watchBackgroundURL?.length)
+                        {!Boolean(watchBackgroundURL?.length) &&
+                        !Boolean(backgroundURL)
                           ? `Оберіть задній `
                           : `Задній `}
                         фон відеоконтенту
                       </div>
-                      {!Boolean(watchBackgroundURL?.length) ? (
+                      {!Boolean(watchBackgroundURL?.length) &&
+                      !Boolean(backgroundURL) ? (
                         <button
                           type="button"
                           className="button primary"
@@ -339,8 +396,9 @@ const VideoContentAddPage = () => {
                       ) : (
                         <div className="video-content__form-image">
                           <PreviewImage
-                            icon={watchBackgroundURL}
+                            icon={backgroundURL || watchBackgroundURL}
                             removeIcon={() => resetPhoto("backgroundURL")}
+                            path="images/content"
                             classImage="video-content__form-background"
                           />
                         </div>
@@ -361,9 +419,9 @@ const VideoContentAddPage = () => {
                   <button
                     type="submit"
                     className="button primary"
-                    disabled={!isDirty || !isValid || isLoadingAdd}
+                    disabled={!isDirty || !isValid || isLoadingUpdate}
                   >
-                    Додати відеоконтент
+                    Зберегти відеоконтент
                   </button>
                 </div>
               </div>
@@ -419,4 +477,4 @@ const VideoContentAddPage = () => {
   );
 };
 
-export default VideoContentAddPage;
+export default VideoContentEditPage;

@@ -102,96 +102,102 @@ const SeasonSchema: Schema = new Schema({
   episodes: [EpisodeSchema],
 });
 
-const VideoContentSchema: Schema = new Schema({
-  title: {
-    type: String,
-    required: [true, "Please provide title"],
-  },
-  originTitle: {
-    type: String,
-    required: [true, "Please provide originTitle"],
-  },
-  typeVideoContent: {
-    type: Types.ObjectId,
-    required: true,
-  },
-  IMDb: {
-    type: Number,
-    required: [true, "Please provide IMDb"],
-  },
-  description: {
-    type: String,
-    required: [true, "Please provide description"],
-  },
-  rating: {
-    type: Number,
-    default: 0,
-  },
-  releaseDate: {
-    type: Date,
-    required: [true, "Please provide releaseDate"],
-  },
-  duration: {
-    type: String,
-    required: [true, "Please provide duration"],
-  },
-  previewURL: {
-    type: String,
-    required: [true, "Please provide previewURL"],
-  },
-  backgroundURL: {
-    type: String,
-  },
-  trailerURL: {
-    type: String,
-  },
-  originCountries: [
-    {
-      type: Types.ObjectId,
-      ref: "Country",
+const VideoContentSchema: Schema = new Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "Please provide title"],
     },
-  ],
-  genres: [
-    {
-      type: Types.ObjectId,
-      ref: "Genre",
+    originTitle: {
+      type: String,
+      required: [true, "Please provide originTitle"],
     },
-  ],
-  actors: [
-    {
+    typeVideoContent: {
       type: Types.ObjectId,
-      ref: "Actor",
+      ref: "TypeContent",
+      required: true,
     },
-  ],
-  directors: [
-    {
-      type: Types.ObjectId,
-      ref: "Director",
+    IMDb: {
+      type: Number,
+      required: [true, "Please provide IMDb"],
     },
-  ],
-  lists: [
-    {
-      idList: {
+    description: {
+      type: String,
+      required: [true, "Please provide description"],
+    },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    releaseDate: {
+      type: Date,
+      required: [true, "Please provide releaseDate"],
+    },
+    duration: {
+      type: String,
+      required: [true, "Please provide duration"],
+    },
+    previewURL: {
+      type: String,
+      required: [true, "Please provide previewURL"],
+    },
+    backgroundURL: {
+      type: String,
+    },
+    trailerURL: {
+      type: String,
+    },
+    originCountries: [
+      {
         type: Types.ObjectId,
-        ref: "List",
+        ref: "Country",
       },
-      placeInList: {
-        type: Number,
+    ],
+    genres: [
+      {
+        type: Types.ObjectId,
+        ref: "Genre",
       },
-    },
-  ],
-  part: {
-    type: Types.ObjectId,
-    ref: "Part",
-  },
-  reviews: [
-    {
+    ],
+    actors: [
+      {
+        type: Types.ObjectId,
+        ref: "Actor",
+      },
+    ],
+    directors: [
+      {
+        type: Types.ObjectId,
+        ref: "Director",
+      },
+    ],
+    lists: [
+      {
+        idList: {
+          type: Types.ObjectId,
+          ref: "List",
+        },
+        placeInList: {
+          type: Number,
+        },
+      },
+    ],
+    part: {
       type: Types.ObjectId,
-      ref: "Review",
+      ref: "Part",
     },
-  ],
-  soundTracks: [SoundTrackSchema],
-  seasons: [SeasonSchema],
-});
+    reviews: [
+      {
+        type: Types.ObjectId,
+        ref: "Review",
+      },
+    ],
+    soundTracks: [SoundTrackSchema],
+    seasons: [SeasonSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model<VideoContent>("VideoContent", VideoContentSchema);

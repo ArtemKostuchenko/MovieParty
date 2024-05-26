@@ -12,7 +12,7 @@ const emitErrors = (errors: string[]) => {
   }
 };
 
-const validateVideoContent = (videoContent: VideoContent): VideoContent => {
+const validateVideoContent = (videoContent: VideoContent) => {
   const errors: string[] = [];
 
   if (!videoContent.title) {
@@ -50,10 +50,7 @@ const validateVideoContent = (videoContent: VideoContent): VideoContent => {
   if (!videoContent.originCountries) {
     errors.push("originCountries");
   } else if (!Array.isArray(videoContent.originCountries)) {
-    videoContent.originCountries = JSON.parse(videoContent.originCountries);
-    if (!Array.isArray(videoContent.originCountries)) {
-      errors.push("originCountries");
-    }
+    errors.push("originCountries");
   } else if (videoContent.originCountries.length == 0) {
     errors.push("originCountries (must be 1 country)");
   }
@@ -61,10 +58,7 @@ const validateVideoContent = (videoContent: VideoContent): VideoContent => {
   if (!videoContent.genres) {
     errors.push("genres");
   } else if (!Array.isArray(videoContent.genres)) {
-    videoContent.genres = JSON.parse(videoContent.genres);
-    if (!Array.isArray(videoContent.genres)) {
-      errors.push("genres");
-    }
+    errors.push("genres");
   } else if (videoContent.genres.length == 0) {
     errors.push("genres (must be 1 genre)");
   }
@@ -72,10 +66,7 @@ const validateVideoContent = (videoContent: VideoContent): VideoContent => {
   if (!videoContent.actors) {
     errors.push("actors");
   } else if (!Array.isArray(videoContent.actors)) {
-    videoContent.actors = JSON.parse(videoContent.actors);
-    if (!Array.isArray(videoContent.actors)) {
-      errors.push("actors");
-    }
+    errors.push("actors");
   } else if (videoContent.actors.length == 0) {
     errors.push("actors (must be 1 actor)");
   }
@@ -83,10 +74,7 @@ const validateVideoContent = (videoContent: VideoContent): VideoContent => {
   if (!videoContent.directors) {
     errors.push("directors");
   } else if (!Array.isArray(videoContent.directors)) {
-    videoContent.directors = JSON.parse(videoContent.directors);
-    if (!Array.isArray(videoContent.directors)) {
-      errors.push("directors");
-    }
+    errors.push("directors");
   } else if (videoContent.directors.length == 0) {
     errors.push("directors (must be 1 director)");
   }
@@ -94,33 +82,18 @@ const validateVideoContent = (videoContent: VideoContent): VideoContent => {
   if (!videoContent.lists) {
     errors.push("lists");
   } else if (!Array.isArray(videoContent.lists)) {
-    videoContent.lists = JSON.parse(videoContent.lists);
-    if (!Array.isArray(videoContent.lists)) {
-      errors.push("lists");
-    }
+    errors.push("lists");
   }
 
   if (videoContent.soundTracks && !Array.isArray(videoContent.soundTracks)) {
-    videoContent.soundTracks = JSON.parse(videoContent.soundTracks);
-    if (!Array.isArray(videoContent.soundTracks)) {
-      errors.push("soundTracks");
-    }
+    errors.push("soundTracks");
   }
 
   if (videoContent.seasons && !Array.isArray(videoContent.seasons)) {
-    if (videoContent.seasons === "undefined") {
-      videoContent.seasons = [];
-    } else {
-      videoContent.seasons = JSON.parse(videoContent.seasons);
-      if (!Array.isArray(videoContent.seasons)) {
-        errors.push("seasons");
-      }
-    }
+    errors.push("seasons");
   }
 
   emitErrors(errors);
-
-  return videoContent;
 };
 
 const validateActorDirector = (person: Actor | Director) => {
