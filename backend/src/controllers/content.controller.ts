@@ -1,57 +1,97 @@
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import VideoContentRepository from '../repositories/content.repository';
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import VideoContentRepository from "../repositories/content.repository";
 
-const createVideoContent = async (req: Request, res: Response): Promise<Response> => {
-    const videoContent = await VideoContentRepository.createVideoContent(req.body);
-
-    return res.status(StatusCodes.CREATED).json({ data: videoContent });
+interface MulterRequest extends Request {
+  files?: {
+    previewURL?: Express.Multer.File[];
+    backgroundURL?: Express.Multer.File[];
+  };
 }
 
-const getVideoContent = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idVideoContent } = req.params;
+const createVideoContent = async (
+  req: MulterRequest,
+  res: Response
+): Promise<Response> => {
+  req.body.previewURL = req.files?.previewURL?.[0].filename as string;
+  req.body.backgroundURL = req.files?.backgroundURL?.[0].filename as string;
 
-    const videoContent = await VideoContentRepository.getVideoContentById(idVideoContent);
+  const videoContent = await VideoContentRepository.createVideoContent(
+    req.body
+  );
 
-    return res.status(StatusCodes.OK).json({ data: videoContent });
-}
+  return res.status(StatusCodes.CREATED).json({ data: videoContent });
+};
 
-const getVideoContentByOriginTitle = async (req: Request, res: Response): Promise<Response> => {
-    const { originTitle } = req.params;
+const getVideoContent = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: idVideoContent } = req.params;
 
-    const videoContent =
-      await VideoContentRepository.getVideoContentByOriginTitle(originTitle);
+  const videoContent = await VideoContentRepository.getVideoContentById(
+    idVideoContent
+  );
 
-    return res.status(StatusCodes.OK).json({ data: videoContent });
-}
+  return res.status(StatusCodes.OK).json({ data: videoContent });
+};
 
-const updateVideoContent = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idVideoContent } = req.params;
+const getVideoContentByOriginTitle = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { originTitle } = req.params;
 
-    const updatedVideoContent = await VideoContentRepository.updateVideoContentById(idVideoContent, req.body);
+  const videoContent =
+    await VideoContentRepository.getVideoContentByOriginTitle(originTitle);
 
-    return res.status(StatusCodes.OK).json({ data: updatedVideoContent });
-}
+  return res.status(StatusCodes.OK).json({ data: videoContent });
+};
 
-const deleteVideoContent = async (req: Request, res: Response): Promise<Response> => {
-    const { id: idVideoContent } = req.params;
+const updateVideoContent = async (
+  req: MulterRequest,
+  res: Response
+): Promise<Response> => {
+  const { id: idVideoContent } = req.params;
+  req.body.previewURL = req.files?.previewURL?.[0].filename as string;
+  req.body.backgroundURL = req.files?.backgroundURL?.[0].filename as string;
 
-    await VideoContentRepository.deleteVideoContentById(idVideoContent);
+  const updatedVideoContent =
+    await VideoContentRepository.updateVideoContentById(
+      idVideoContent,
+      req.body
+    );
 
-    return res.status(StatusCodes.OK).json({ success: true });
-}
+  return res.status(StatusCodes.OK).json({ data: updatedVideoContent });
+};
 
-const getVideoContents = async (req: Request, res: Response): Promise<Response> => {
-    const videoContents = await VideoContentRepository.getVideoContents(req.query);
+const deleteVideoContent = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: idVideoContent } = req.params;
 
-    return res.status(StatusCodes.OK).json({ data: videoContents });
-}
+  await VideoContentRepository.deleteVideoContentById(idVideoContent);
+
+  return res.status(StatusCodes.OK).json({ success: true });
+};
+
+const getVideoContents = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const videoContents = await VideoContentRepository.getVideoContents(
+    req.query
+  );
+
+  return res.status(StatusCodes.OK).json({ data: videoContents });
+};
 
 export {
-    createVideoContent,
-    getVideoContent,
-    getVideoContentByOriginTitle,
-    updateVideoContent,
-    deleteVideoContent,
-    getVideoContents,
+  createVideoContent,
+  getVideoContent,
+  getVideoContentByOriginTitle,
+  updateVideoContent,
+  deleteVideoContent,
+  getVideoContents,
 };

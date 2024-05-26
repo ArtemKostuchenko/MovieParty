@@ -46,8 +46,8 @@ const VideoContentAddPage = () => {
     console.log(data);
     const res = await addVideoContent(data);
     console.log(res);
-    reset();
-    navigate("/panel/admin/video-content");
+    // reset();
+    // navigate("/panel/admin/video-content");
   };
 
   const resetPhoto = (field) => {
@@ -123,6 +123,7 @@ const VideoContentAddPage = () => {
                       <div className="form__item-label">Рейтинг IMDb</div>
                       <input
                         type="number"
+                        step="0.1"
                         {...register("IMDb")}
                         className="form__input linear"
                       />

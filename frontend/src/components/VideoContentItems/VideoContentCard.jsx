@@ -16,7 +16,9 @@ const VideoContentCard = ({
       <div className="content__card">
         <div className="content__card-image">
           <img
-            src={`${import.meta.env.VITE_BACK_HOST}/static${previewURL}`}
+            src={`${
+              import.meta.env.VITE_BACK_HOST
+            }/static/files/images/content/${previewURL}`}
             alt={title}
           />
         </div>

@@ -52,7 +52,7 @@ export const videoContentApi = createApi({
           actors,
           directors,
           lists,
-          part,
+          parts,
           soundTracks,
           seasons,
         } = content;
@@ -65,17 +65,37 @@ export const videoContentApi = createApi({
         bodyData.append("description", description);
         bodyData.append("releaseDate", formatDate(releaseDate, "hyphen"));
         bodyData.append("duration", duration);
-        bodyData.append("previewURL", previewURL);
-        bodyData.append("backgroundURL", backgroundURL);
+        bodyData.append("previewURL", previewURL[0]);
+        bodyData.append("backgroundURL", backgroundURL[0]);
         bodyData.append("trailerURL", trailerURL);
-        bodyData.append("originCountries", originCountries);
-        bodyData.append("genres", genres);
-        bodyData.append("actors", actors);
-        bodyData.append("directors", directors);
-        bodyData.append("lists", lists);
-        bodyData.append("part", part);
-        bodyData.append("soundTracks", soundTracks);
-        bodyData.append("seasons", seasons);
+        bodyData.append(
+          "originCountries",
+          JSON.stringify(originCountries.map((country) => country._id))
+        );
+        bodyData.append(
+          "genres",
+          JSON.stringify(genres.map((genre) => genre._id))
+        );
+        bodyData.append(
+          "actors",
+          JSON.stringify(actors.map((actor) => actor._id))
+        );
+        bodyData.append(
+          "directors",
+          JSON.stringify(directors.map((director) => director._id))
+        );
+        bodyData.append(
+          "lists",
+          JSON.stringify(
+            lists.map((list) => ({
+              idList: list._id,
+              placeInList: list.placeInList,
+            }))
+          )
+        );
+        bodyData.append("part", parts?.[0]._id);
+        bodyData.append("soundTracks", JSON.stringify(soundTracks));
+        bodyData.append("seasons", JSON.stringify(seasons));
 
         return {
           url: "content/v",

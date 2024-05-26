@@ -21,9 +21,10 @@ class VideoContentRepository {
   async createVideoContent(
     videoContentData: VideoContent
   ): Promise<VideoContent> {
-    validateVideoContent(videoContentData);
+    const validVideoContentData = validateVideoContent(videoContentData);
+    console.log(validVideoContentData);
 
-    return await VideoContentModel.create(videoContentData);
+    return await VideoContentModel.create(validVideoContentData);
   }
 
   async getVideoContentById(videoContentId: string): Promise<VideoContent> {
@@ -279,6 +280,8 @@ class VideoContentRepository {
     videoContentId: string,
     videoContentData: VideoContent
   ): Promise<VideoContent> {
+    const validVideoContentData = validateVideoContent(videoContentData);
+
     const {
       title,
       originTitle,
@@ -299,7 +302,7 @@ class VideoContentRepository {
       part,
       soundTracks,
       seasons,
-    } = videoContentData;
+    } = validVideoContentData;
 
     const videoContent = await VideoContentModel.findById(videoContentId);
 
