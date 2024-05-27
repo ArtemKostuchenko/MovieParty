@@ -16,3 +16,5 @@ export { default as DirectorList } from "./Directors/DirectorList";
 export { default as VideoContentList } from "./VideoContent/VideoContentList";
 export { default as PreviewImage } from "./Preview/PreviewImage";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as ContentSlider } from "./ContentSlider/ContentSlider";
+export { default as Skeleton } from "./Skeleton/Skeleton";

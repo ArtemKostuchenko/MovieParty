@@ -10,11 +10,21 @@ export const videoContentApi = createApi({
   tagTypes: ["video-content"],
   endpoints: (builder) => ({
     getVideoContent: builder.query({
-      query: ({ title, page, limit, sortName, sortType }) => ({
-        url: `content/v?fields=title,originTitle,previewURL,typeVideoContent,createdAt&title=${title}&page=${page}&limit=${limit}${getFormateSort(
-          sortName,
-          sortType
-        )}`,
+      query: ({
+        title = "",
+        page = 0,
+        limit = 0,
+        fields = "",
+        sortName = "",
+        sortType = "",
+      } = {}) => ({
+        url: `content/v?${
+          fields
+            ? fields
+            : "fields=title,originTitle,previewURL,typeVideoContent,createdAt"
+        }${title ? `&title=${title}` : ``}${page !== 0 ? `&page=${page}` : ``}${
+          limit ? `&limit=${limit}` : ``
+        }${getFormateSort(sortName, sortType)}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["video-content"],

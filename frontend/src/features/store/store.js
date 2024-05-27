@@ -4,6 +4,7 @@ import user from "./slices/user";
 import pagination from "./slices/pagination";
 import sort from "./slices/sort";
 import popup from "./slices/popup";
+import carousel from "./slices/carousel";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   videoContentApi,
@@ -24,6 +25,7 @@ const store = configureStore({
     pagination: pagination,
     sort: sort,
     popup: popup,
+    carousel: carousel,
     [typesContentApi.reducerPath]: typesContentApi.reducer,
     [videoContentApi.reducerPath]: videoContentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,

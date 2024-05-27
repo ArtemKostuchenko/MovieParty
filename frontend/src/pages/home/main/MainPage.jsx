@@ -1,20 +1,11 @@
 import React from "react";
 import "./style.page.scss";
 import Avatar from "../../../assets/avatar.png";
-import Slide1 from "../../../assets/slide-1.png";
-import Preview1 from "../../../assets/preview-1.jpg";
-import Preview2 from "../../../assets/preview-2.jpg";
-import Preview3 from "../../../assets/preview-3.jpg";
-import Preview4 from "../../../assets/preview-4.jpg";
-import Preview5 from "../../../assets/preview-5.jpg";
-import Preview6 from "../../../assets/preview-6.jpg";
-import Preview7 from "../../../assets/preview-7.jpg";
-import Preview8 from "../../../assets/preview-8.jpg";
-import Preview9 from "../../../assets/preview-9.jpg";
 import useUser from "../../../hooks/useUser";
 import { DropDown, DropDownItem } from "../../../components";
 import VideoContentItems from "../../../components/VideoContentItems/VideoContentItems";
 import { useGetVideoContentQuery } from "../../../features/services/content/contentService";
+import { ContentSlider } from "../../../components";
 
 const MainPage = () => {
   const { user } = useUser();
@@ -28,133 +19,7 @@ const MainPage = () => {
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">
-      <div className="container">
-        <div className="grid">
-          <div className="grid__content">
-            <div className="slider">
-              <div className="slider__background">
-                <div className="slider__background-filter"></div>
-                <div className="slider__background-image">
-                  <img
-                    src={Slide1}
-                    alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
-                  />
-                </div>
-              </div>
-              <div className="slider__content">
-                <div className="container wrapper">
-                  <div className="slide__information">
-                    <div className="slide">
-                      <h1 className="slide__title">
-                        Зоряні війни: Епізод IX - Скайвокер. Сходження
-                      </h1>
-                      <div className="slide__details">
-                        <div className="slide__IMDb">
-                          <div className="icon IMDb" />
-                          <p className="slide__IMDb-rating">6.4</p>
-                        </div>
-                        <span className="slide__splitter circle" />
-                        <div className="slide__additional">
-                          <p className="slide__year">2019</p>
-                          <span className="slide__splitter" />
-                          <p className="slide__duration">2 год 21 хв</p>
-                          <span className="slide__splitter" />
-                          <p className="slide__genre">Фентезі</p>
-                        </div>
-                      </div>
-                      <p className="slide__description">
-                        У цьому епічному завершенні саги про Скайуокера вцілілі
-                        члени Опору на чолі з генералом Леєю Органою (Керрі
-                        Фішер) стикаються зі своїм найбільшим викликом.
-                        Готуючись до фінальної сутички зі зловісним Першим
-                        Орденом, Рей (Дейзі Рідлі) продо...
-                        <a href="#" className="slide__link">
-                          Дивитись більше
-                        </a>
-                      </p>
-                      <div className="slide__actions">
-                        <a href="#" className="button light outline">
-                          Трейлер
-                        </a>
-                        <a href="#" className="button icon g8">
-                          <div className="icon watch" />
-                          Дивитися
-                        </a>
-                      </div>
-                    </div>
-                    <div className="slide__navigation">
-                      <button className="slide__navigation-button">
-                        <div className="icon arrow left" />
-                      </button>
-                      <button className="slide__navigation-button">
-                        <div className="icon arrow right" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="slides">
-                  <div className="slides__items">
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview6} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview7} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview8} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview9} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item selected">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview1} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview2} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview3} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview4} alt="Img" />
-                      </div>
-                    </button>
-                    <button className="slide__item">
-                      <div className="filter" />
-                      <div className="slide__image">
-                        <img src={Preview5} alt="Img" />
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ContentSlider />
       <aside className="side-nav">
         <section className="side-nav__content">
           <div className="side-nav__profile">
