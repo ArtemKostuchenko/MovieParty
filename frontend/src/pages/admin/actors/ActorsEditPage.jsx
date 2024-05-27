@@ -83,6 +83,7 @@ const ActorsEditPage = () => {
           {!Boolean(watchPhotoURL?.length) && !Boolean(photoURL) ? (
             <>
               <button
+                type="button"
                 className="button primary"
                 onClick={() => {
                   const inputRef = document.querySelector(

@@ -487,7 +487,7 @@ const VideoContentPage = () => {
                             <img
                               src={`${
                                 import.meta.env.VITE_BACK_HOST
-                              }/static${backgroundURL}`}
+                              }/static/files/images/content/${backgroundURL}`}
                               alt={title}
                             />
                           </div>
