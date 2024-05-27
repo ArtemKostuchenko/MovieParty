@@ -352,7 +352,13 @@ const VideoContentEditPage = () => {
                         <div className="video-content__form-image">
                           <PreviewImage
                             icon={previewURL || watchPreviewURL}
-                            removeIcon={() => resetPhoto("previewURL")}
+                            removeIcon={() => {
+                              if (previewURL) {
+                                setPreviewURL(null);
+                                return;
+                              }
+                              resetPhoto("previewURL");
+                            }}
                             path="images/content"
                             classImage="video-content__form-preview"
                           />
@@ -397,7 +403,13 @@ const VideoContentEditPage = () => {
                         <div className="video-content__form-image">
                           <PreviewImage
                             icon={backgroundURL || watchBackgroundURL}
-                            removeIcon={() => resetPhoto("backgroundURL")}
+                            removeIcon={() => {
+                              if (backgroundURL) {
+                                setBackgroundURL(null);
+                                return;
+                              }
+                              resetPhoto("backgroundURL");
+                            }}
                             path="images/content"
                             classImage="video-content__form-background"
                           />
