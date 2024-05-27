@@ -447,6 +447,7 @@ class VideoContentRepository {
     const [videoContent, totalCount] = await Promise.all([
       videoContents
         .populate("typeVideoContent")
+        .populate("genres")
         .skip(skip)
         .limit(videoContentPerPage),
       VideoContentModel.countDocuments(queryObj),

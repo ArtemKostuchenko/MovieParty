@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Slides from "./Slides";
 import useCarousel from "../../hooks/useCarousel";
@@ -46,6 +47,7 @@ const ContentSlider = () => {
 
   const slides = videoContents.map((videoContent) => {
     return {
+      _id: videoContent._id,
       previewURL: `${
         import.meta.env.VITE_BACK_HOST
       }/static/files/images/content/${videoContent.previewURL}`,
@@ -54,6 +56,10 @@ const ContentSlider = () => {
   });
 
   const currentSlide = videoContents[activeSlideIndex];
+
+  const videoContentLink = `/${
+    currentSlide.typeVideoContent.path
+  }/${currentSlide.originTitle.toLowerCase().replace(/\s/g, "-")}`;
 
   return (
     <div>
@@ -201,7 +207,7 @@ const ContentSlider = () => {
                                 exit={{ opacity: 0, x: -4 }}
                                 transition={{ duration: 0.5 }}
                               >
-                                Фентезі
+                                {currentSlide.genres?.[0]?.name}
                               </motion.div>
                             </AnimatePresence>
                           </p>
@@ -228,9 +234,9 @@ const ContentSlider = () => {
                           exit={{ opacity: 0, x: -4 }}
                           transition={{ duration: 0.5 }}
                         >
-                          <a href="#" className="slide__link">
+                          <Link to={videoContentLink} className="slide__link">
                             Дивитись більше
-                          </a>
+                          </Link>
                         </motion.div>
                       </AnimatePresence>
                       <div className="slide__actions">
@@ -242,9 +248,9 @@ const ContentSlider = () => {
                             exit={{ opacity: 0, x: -4 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <a href="#" className="button light outline">
+                            <button className="button light outline">
                               Трейлер
-                            </a>
+                            </button>
                           </motion.div>
                         </AnimatePresence>
                         <AnimatePresence mode="wait">
@@ -255,10 +261,13 @@ const ContentSlider = () => {
                             exit={{ opacity: 0, x: -4 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <a href="#" className="button icon g8">
+                            <Link
+                              to={`${videoContentLink}/watch`}
+                              className="button icon g8"
+                            >
                               <div className="icon watch" />
                               Дивитися
-                            </a>
+                            </Link>
                           </motion.div>
                         </AnimatePresence>
                       </div>

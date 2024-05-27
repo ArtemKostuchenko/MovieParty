@@ -10,6 +10,7 @@ const Slides = ({ handleSetActiveSlideIndex, slides }) => {
         {slides.map((slide, index) => {
           return (
             <button
+              key={slide._id}
               className={`slide__item${
                 activeSlideIndex === index ? " selected" : ""
               }`}

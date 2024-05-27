@@ -27,7 +27,6 @@ const useCarousel = (duration = 5000, length = 1) => {
   }, [isSlideDone]);
 
   const nextSlide = () => {
-    console.log(activeSlideIndex);
     const newIndex = activeSlideIndex >= length - 1 ? 0 : activeSlideIndex + 1;
     dispatch(setActiveSlideIndex(newIndex));
   };
