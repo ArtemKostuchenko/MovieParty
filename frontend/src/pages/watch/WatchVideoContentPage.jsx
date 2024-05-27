@@ -8,15 +8,15 @@ const WatchVideoContentPage = () => {
   const { originTitle: query } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
-    query.replace(/-/g, " ")
-  );
+  const {
+    data: content,
+    isLoading,
+    error,
+  } = useGetVideoContentByOriginTitleQuery(query.replace(/-/g, " "));
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  const content = data.data;
 
   if (!content) {
     return <div>Content not found</div>;
@@ -44,7 +44,7 @@ const WatchVideoContentPage = () => {
         <div className="watch-content__player">
           <ReactPlayer
             controls
-            url={soundTracks[0].m3u8URL}
+            url={soundTracks[0].m3u8Links[0].m3u8URL}
             width="100%"
             height="100%"
           />
