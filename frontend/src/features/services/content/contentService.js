@@ -12,6 +12,9 @@ export const videoContentApi = createApi({
     getVideoContent: builder.query({
       query: ({
         title = "",
+        typeVideoContent = "",
+        genres = [],
+        releaseYears = "",
         page = 0,
         limit = 0,
         fields = "",
@@ -22,7 +25,13 @@ export const videoContentApi = createApi({
           fields
             ? fields
             : "fields=title,originTitle,previewURL,typeVideoContent,createdAt"
-        }${title ? `&title=${title}` : ``}${page !== 0 ? `&page=${page}` : ``}${
+        }${title ? `&title=${title}` : ``}${
+          typeVideoContent !== "all" && typeVideoContent
+            ? `&typeVideoContent=${typeVideoContent}`
+            : ""
+        }${genres.length !== 0 ? `&genres=${genres.join(",")}` : ""}${
+          page !== 0 ? `&page=${page}` : ``
+        }${releaseYears ? `&releaseYears=${releaseYears}` : ""}${
           limit ? `&limit=${limit}` : ``
         }${getFormateSort(sortName, sortType)}`,
       }),

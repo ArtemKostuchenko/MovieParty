@@ -700,6 +700,8 @@ body {
   &__list {
     position: absolute;
     top: calc(100% + 16px);
+    max-height: 320px;
+
     left: 0;
     z-index: 100;
     width: 100%;
@@ -707,16 +709,37 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    overflow: hidden;
+    overflow: auto;
     border: 2px solid var(--dropdown-color);
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.7);
     visibility: hidden;
+
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scroll-color);
+      border-radius: 10px;
+      background-clip: content-box;
+      border: 5px solid transparent;
+
+      &:hover {
+        background-color: rgb(250, 192, 20, 80%);
+      }
+    }
   }
 
   &__item {
     cursor: pointer;
     width: 100%;
+    min-height: 45px;
     height: 45px;
     padding: 0 5px;
     display: flex;
@@ -794,6 +817,7 @@ body {
 .filter {
   display: flex;
   align-items: center;
+  gap: 20px;
   justify-content: space-between;
   position: relative;
 }
@@ -818,7 +842,8 @@ body {
     color: var(--filter-color);
     text-transform: uppercase;
     @include adaptiveFont(16, 14);
-    @include transition(text-shadow);
+    @include adaptiveHeight(33.33, 29.16);
+    @include transition(color, font-size);
 
     &:hover {
       text-shadow: 0 0 5px var(--filter-color);
@@ -862,6 +887,15 @@ body {
         background-color: var(--light-yellow);
       }
     }
+  }
+}
+
+.w {
+  &300 {
+    width: 300px;
+  }
+  &230 {
+    width: 230px;
   }
 }
 
@@ -1408,6 +1442,43 @@ body {
     height: 100%;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.loader-skeleton {
+  background-color: #022d47;
+  border-radius: 5px;
+  animation: pulse 1.5s infinite ease-in-out;
+  color: transparent;
+
+  &.type-content {
+    &-all {
+      width: 44px;
+      height: 39px;
+    }
+    &-item {
+      width: 117px;
+      height: 39px;
+    }
+  }
+
+  &.sort-content {
+    height: 50px;
+  }
+
+  &:hover {
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #03324e;
+  }
+  50% {
+    background-color: #022d47;
+  }
+  100% {
+    background-color: #03324e;
   }
 }
 

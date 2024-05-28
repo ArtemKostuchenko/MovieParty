@@ -18,3 +18,6 @@ export { default as PreviewImage } from "./Preview/PreviewImage";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as ContentSlider } from "./ContentSlider/ContentSlider";
 export { default as Skeleton } from "./Skeleton/Skeleton";
+export { default as TypeContentFilter } from "./TypesContent/TypeContentFilter";
+export { default as VideoContentSort } from "./VideoContent/VideoContentSort";
+export { default as VideoContentItems } from "./VideoContentItems/VideoContentItems";

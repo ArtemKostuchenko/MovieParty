@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { validateVideoContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
@@ -361,6 +362,7 @@ class VideoContentRepository {
   }> {
     const {
       title,
+      typeVideoContent,
       releaseYears,
       ratingRange,
       genres,
@@ -382,6 +384,10 @@ class VideoContentRepository {
         { title: { $regex: regex } },
         { originTitle: { $regex: regex } },
       ]);
+    }
+
+    if (typeVideoContent) {
+      queryObj.typeVideoContent = new Types.ObjectId(typeVideoContent);
     }
 
     if (releaseYears) {

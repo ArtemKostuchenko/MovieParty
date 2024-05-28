@@ -1,20 +1,35 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./style.page.scss";
+import {
+  ContentSlider,
+  TypeContentFilter,
+  VideoContentSort,
+  VideoContentItems,
+} from "../../../components";
 import Avatar from "../../../assets/avatar.png";
 import useUser from "../../../hooks/useUser";
-import { DropDown, DropDownItem } from "../../../components";
-import VideoContentItems from "../../../components/VideoContentItems/VideoContentItems";
 import { useGetVideoContentQuery } from "../../../features/services/content/contentService";
-import { ContentSlider } from "../../../components";
 
 const MainPage = () => {
   const { user } = useUser();
+
+  console.log(user);
+
+  const {
+    typeVideoContent,
+    selectedGenres,
+    selectedYears,
+    sortName,
+    sortType,
+  } = useSelector((store) => store.content);
+
   const { data, isLoading } = useGetVideoContentQuery({
-    title: "",
-    page: "",
-    limit: "",
-    sortName: "",
-    sortType: "",
+    typeVideoContent,
+    genres: selectedGenres ? [selectedGenres] : [],
+    releaseYears: selectedYears,
+    sortName,
+    sortType,
   });
 
   return (
@@ -81,72 +96,10 @@ const MainPage = () => {
         <div className="wrapper">
           <div className="content">
             <div className="content__filter">
-              <div className="filter">
-                <div className="flex row center-v h40">
-                  <div className="overflow-content">
-                    <div className="filter__items">
-                      <div className="filter__item active">
-                        <button>Все</button>
-                      </div>
-                      <div className="filter__item">
-                        <button>Фільми</button>
-                      </div>
-                      <div className="filter__item">
-                        <button>Серіали</button>
-                      </div>
-                      <div className="filter__item">
-                        <button>Мультфільми</button>
-                      </div>
-                      <div className="filter__item">
-                        <button>Мультсеріали</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="reset-button">
-                  <button className="button additional">Очистити</button>
-                </div>
-              </div>
+              <TypeContentFilter />
             </div>
             <div className="content__sort">
-              <div className="sort">
-                <div className="sort__items">
-                  <div className="sort__item">
-                    <DropDown>
-                      <DropDownItem selected value="new">
-                        🔥 За новизною
-                      </DropDownItem>
-                      <DropDownItem value="watch">
-                        👀 За переглядами
-                      </DropDownItem>
-                      <DropDownItem value="rating">
-                        🏆 За рейтингом
-                      </DropDownItem>
-                      <DropDownItem value="added">
-                        ⏰ Нещодавно додані
-                      </DropDownItem>
-                    </DropDown>
-                  </div>
-                  <div className="sort__item">
-                    <DropDown>
-                      <DropDownItem selected>Виберіть жанр</DropDownItem>
-                      <DropDownItem value="fantasy">Фантастика</DropDownItem>
-                      <DropDownItem value="action">Бойовик</DropDownItem>
-                      <DropDownItem value="drama">Драма</DropDownItem>
-                    </DropDown>
-                  </div>
-                  <div className="sort__item">
-                    <DropDown>
-                      <DropDownItem selected>Виберіть рік</DropDownItem>
-                      <DropDownItem value="2024">2024</DropDownItem>
-                      <DropDownItem value="2023">2023</DropDownItem>
-                      <DropDownItem value="2022">2022</DropDownItem>
-                      <DropDownItem value="2021">2021</DropDownItem>
-                      <DropDownItem value="2020">2020</DropDownItem>
-                    </DropDown>
-                  </div>
-                </div>
-              </div>
+              <VideoContentSort />
             </div>
             <div className="content__items">
               {isLoading ? (

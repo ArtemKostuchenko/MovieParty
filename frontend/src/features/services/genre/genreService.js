@@ -10,11 +10,16 @@ export const genresApi = createApi({
   tagTypes: ["genres"],
   endpoints: (builder) => ({
     getGenres: builder.query({
-      query: ({ name, page, limit, sortName, sortType }) => ({
-        url: `genres?name=${name}&page=${page}&limit=${limit}${getFormateSort(
-          sortName,
-          sortType
-        )}`,
+      query: ({
+        name = "",
+        page = 0,
+        limit = 0,
+        sortName = "",
+        sortType = "",
+      } = {}) => ({
+        url: `genres?name=${name}${page !== 0 ? `&page=${page}` : ""}${
+          limit !== 0 ? `&limit=${limit}` : ""
+        }${getFormateSort(sortName, sortType)}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["genres"],
