@@ -972,6 +972,11 @@ body {
         background-color: transparent;
       }
     }
+    .icon.arrow {
+      &:hover {
+        background-color: var(--light-yellow);
+      }
+    }
   }
 
   &__icon {
