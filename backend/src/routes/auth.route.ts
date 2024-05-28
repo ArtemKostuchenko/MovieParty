@@ -8,9 +8,12 @@ import {
   logOut,
 } from "../controllers/auth.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
+import FavoriteRouter from "./favorite.route";
 import passport from "passport";
 
 const router: Router = express.Router();
+
+router.use("/me/favorites", FavoriteRouter);
 
 router.post("/register", register);
 router.post("/login", login);
