@@ -17,7 +17,7 @@ const VideoContentCard = ({
     );
   }
 
-  const videoContentLink = `/${typeVideoContent}/${originTitle
+  const videoContentLink = `/${typeVideoContent.path}/${originTitle
     .toLowerCase()
     .replace(/\s/g, "-")}`;
 

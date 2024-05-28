@@ -5,10 +5,13 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 import "./style.page.scss";
+import usePopup from "../../hooks/usePopup";
+import { TrailerPopUp } from "../../components";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
   const navigate = useNavigate();
+  const { isAdd, handleAddPopUp } = usePopup();
 
   const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
@@ -37,6 +40,7 @@ const VideoContentPage = () => {
     originTitle,
     previewURL,
     backgroundURL,
+    trailerURL,
     IMDb,
     rating,
     originCountries,
@@ -89,6 +93,12 @@ const VideoContentPage = () => {
                         <button className="button transparent icon fill g8">
                           <div className="icon favorite" />В збережене
                         </button>
+                        <button
+                          className="button light outline fill"
+                          onClick={() => handleAddPopUp()}
+                        >
+                          Трейлер
+                        </button>
                       </div>
                     </div>
                     <div className="video-content__details">
@@ -137,14 +147,17 @@ const VideoContentPage = () => {
                           <div className="video-content__information-title">
                             Країна:
                           </div>
-                          <div className="video-content__information-content">
-                            {originCountries.map((country) => {
+                          <div className="video-content__information-content flex r g5 center-h">
+                            {originCountries.map((country, index) => {
                               return (
                                 <div
                                   className="video-content__information-text"
                                   key={country._id}
                                 >
                                   {country.name}
+                                  {index !== originCountries.length - 1
+                                    ? ", "
+                                    : ""}
                                 </div>
                               );
                             })}
@@ -190,31 +203,35 @@ const VideoContentPage = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="video-content__information-item start v-lists">
-                          <div className="video-content__information-title">
-                            Входить до:
-                          </div>
-                          <div className="video-content__information-content">
-                            <div className="link__items col">
-                              {lists.map((item) => {
-                                const {
-                                  list: { _id, name },
-                                  placeInList,
-                                } = item;
-                                return (
-                                  <a href="#" className="link" key={_id}>
-                                    <div className="lists">
-                                      <div className="lists__name">{name}</div>
-                                      <div className="lists__place">
-                                        ({placeInList} місце)
+                        {Boolean(lists.length) && (
+                          <div className="video-content__information-item start v-lists">
+                            <div className="video-content__information-title">
+                              Входить до:
+                            </div>
+                            <div className="video-content__information-content">
+                              <div className="link__items col">
+                                {lists.map((item) => {
+                                  const {
+                                    list: { _id, name },
+                                    placeInList,
+                                  } = item;
+                                  return (
+                                    <a href="#" className="link" key={_id}>
+                                      <div className="lists">
+                                        <div className="lists__name">
+                                          {name}
+                                        </div>
+                                        <div className="lists__place">
+                                          ({placeInList} місце)
+                                        </div>
                                       </div>
-                                    </div>
-                                  </a>
-                                );
-                              })}
+                                    </a>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -223,6 +240,7 @@ const VideoContentPage = () => {
             </div>
           </div>
         </div>
+        {isAdd && <TrailerPopUp trailer={trailerURL} />}
         <div className="splitter" />
         <div className="container">
           <div className="wrapper">

@@ -21,3 +21,4 @@ export { default as Skeleton } from "./Skeleton/Skeleton";
 export { default as TypeContentFilter } from "./TypesContent/TypeContentFilter";
 export { default as VideoContentSort } from "./VideoContent/VideoContentSort";
 export { default as VideoContentItems } from "./VideoContentItems/VideoContentItems";
+export { default as TrailerPopUp } from "./PopUp/TrailerPopUp";

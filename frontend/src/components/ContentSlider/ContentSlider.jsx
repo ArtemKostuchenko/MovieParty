@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Slides from "./Slides";
-import useCarousel from "../../hooks/useCarousel";
 import { useGetVideoContentQuery } from "../../features/services/content/contentService";
+import Slides from "./Slides";
+import TrailerPopUp from "../PopUp/TrailerPopUp";
+import useCarousel from "../../hooks/useCarousel";
+import usePopUp from "../../hooks/usePopup";
 
 const ContentSlider = () => {
+  const { isAdd, handleAddPopUp } = usePopUp();
+  const trailerURL = useRef(null);
+
   const { isLoading, data } = useGetVideoContentQuery({
     fields:
-      "title,previewURL,backgroundURL,IMDb,releaseDate,duration,genres,description",
+      "title,previewURL,backgroundURL,trailerURL,IMDb,releaseDate,duration,genres,description",
     limit: 9,
     sortName: "createdAt",
     sortType: "desc",
@@ -60,6 +65,11 @@ const ContentSlider = () => {
   const videoContentLink = `/${
     currentSlide.typeVideoContent.path
   }/${currentSlide.originTitle.toLowerCase().replace(/\s/g, "-")}`;
+
+  const handleShowTrailer = () => {
+    trailerURL.current = currentSlide.trailerURL;
+    handleAddPopUp();
+  };
 
   return (
     <div>
@@ -248,7 +258,10 @@ const ContentSlider = () => {
                             exit={{ opacity: 0, x: -4 }}
                             transition={{ duration: 0.5 }}
                           >
-                            <button className="button light outline">
+                            <button
+                              className="button light outline"
+                              onClick={handleShowTrailer}
+                            >
                               Трейлер
                             </button>
                           </motion.div>
@@ -294,6 +307,7 @@ const ContentSlider = () => {
                 />
               </div>
             </div>
+            {isAdd && <TrailerPopUp trailer={trailerURL.current} />}
           </div>
         </div>
       </div>
