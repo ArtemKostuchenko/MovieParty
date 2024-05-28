@@ -6,31 +6,15 @@ import {
   TypeContentFilter,
   VideoContentSort,
   VideoContentItems,
+  Pagination,
 } from "../../../components";
 import Avatar from "../../../assets/avatar.png";
 import useUser from "../../../hooks/useUser";
 import { useGetVideoContentQuery } from "../../../features/services/content/contentService";
+import usePagination from "../../../hooks/usePagination";
 
 const MainPage = () => {
   const { user } = useUser();
-
-  console.log(user);
-
-  const {
-    typeVideoContent,
-    selectedGenres,
-    selectedYears,
-    sortName,
-    sortType,
-  } = useSelector((store) => store.content);
-
-  const { data, isLoading } = useGetVideoContentQuery({
-    typeVideoContent,
-    genres: selectedGenres ? [selectedGenres] : [],
-    releaseYears: selectedYears,
-    sortName,
-    sortType,
-  });
 
   return (
     <div className="container cnt-mn overlay-cnt-mn">
@@ -102,30 +86,7 @@ const MainPage = () => {
               <VideoContentSort />
             </div>
             <div className="content__items">
-              {isLoading ? (
-                <>Loading...</>
-              ) : (
-                <VideoContentItems items={data.videoContent} />
-              )}
-              <div className="content__pagination">
-                <div className="pagination">
-                  <div className="pagination__action">
-                    <div className="icon arrow left" />
-                  </div>
-                  <div className="pagination__items">
-                    <div className="pagination__item">1</div>
-                    <div className="pagination__item">2</div>
-                    <div className="pagination__item">3</div>
-                    <div className="pagination__item">4</div>
-                    <div className="pagination__item">5</div>
-                    <div className="pagination__item skip">...</div>
-                    <div className="pagination__item">255</div>
-                  </div>
-                  <div className="pagination__action">
-                    <div className="icon arrow right" />
-                  </div>
-                </div>
-              </div>
+              <VideoContentItems />
             </div>
           </div>
         </div>
