@@ -122,6 +122,10 @@
     &.outline {
       mask-image: url("/src/assets/icons/star-outline.svg");
     }
+
+    &.half {
+      mask-image: url("/src/assets/icons/star-half.svg");
+    }
   }
 
   &.group-users {

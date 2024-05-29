@@ -8,6 +8,7 @@ import "./style.page.scss";
 import usePopup from "../../hooks/usePopup";
 import { TrailerPopUp } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
+import Rating from "../../components/Rating/Rating";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -115,23 +116,11 @@ const VideoContentPage = () => {
                       </div>
                       <div className="video-content__rating">
                         <div className="rating">
-                          <div className="rating__items">
-                            <div className="rating__item">
-                              <div className="icon star outline" />
-                            </div>
-                            <div className="rating__item">
-                              <div className="icon star outline" />
-                            </div>
-                            <div className="rating__item">
-                              <div className="icon star outline" />
-                            </div>
-                            <div className="rating__item">
-                              <div className="icon star outline" />
-                            </div>
-                            <div className="rating__item">
-                              <div className="icon star outline" />
-                            </div>
-                          </div>
+                          <Rating
+                            rating={rating}
+                            maxRating={5}
+                            onChange={(rat) => console.log(rat)}
+                          />
                           <div className="rating__point">{rating}</div>
                           <div className="rating__votes">
                             <div className="icon group-users" />
