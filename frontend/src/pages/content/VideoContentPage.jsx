@@ -223,7 +223,7 @@ const VideoContentPage = () => {
                                     placeInList,
                                   } = item;
 
-                                  const linkBest = `/${typeVideoContent.path}/best-lists/${name}`;
+                                  const linkBest = `/${typeVideoContent.path}/best-list/${name}`;
                                   return (
                                     <Link
                                       to={linkBest}

@@ -10,11 +10,17 @@ export const bestListsApi = createApi({
   tagTypes: ["bestLists"],
   endpoints: (builder) => ({
     getBestLists: builder.query({
-      query: ({ name, page, limit, sortName, sortType }) => ({
-        url: `lists?name=${name}&page=${page}&limit=${limit}${getFormateSort(
-          sortName,
-          sortType
-        )}`,
+      query: ({
+        name = "",
+        page = 0,
+        limit = 0,
+        sortName = "",
+        sortType = "",
+        reg = true,
+      } = {}) => ({
+        url: `lists?name=${name}${page !== 0 ? `&page=${page}` : ""}${
+          limit !== 0 ? `&limit=${limit}` : ""
+        }${getFormateSort(sortName, sortType)}${reg ? `&reg=1` : ""}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["bestLists"],

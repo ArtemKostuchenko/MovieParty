@@ -29,3 +29,4 @@ export { default as VideoContentListPage } from "./admin/video-content/VideoCont
 export { default as VideoContentAddPage } from "./admin/video-content/VideoContentAddPage";
 export { default as VideoContentEditPage } from "./admin/video-content/VideoContentEditPage";
 export { default as GenrePage } from "./genre/GenrePage";
+export { default as BestListPage } from "./best-list/BestListPage";

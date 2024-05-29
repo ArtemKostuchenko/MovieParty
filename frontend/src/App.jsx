@@ -32,6 +32,7 @@ import {
   VideoContentAddPage,
   VideoContentEditPage,
   GenrePage,
+  BestListPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -191,6 +192,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <GenrePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ":typeVideoContentName/best-list/:bestListName",
+        element: (
+          <ProtectedRoute>
+            <BestListPage />
           </ProtectedRoute>
         ),
       },

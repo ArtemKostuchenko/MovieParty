@@ -1,0 +1,23 @@
+/* genre page */
+@import "../../scss/mixins.scss";
+
+.best-list {
+  &__page {
+    padding: 25px 0;
+  }
+
+  &__title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    @include adaptiveFont(26, 24);
+    color: #fff;
+  }
+
+  &__content {
+    margin: 20px 0;
+  }
+}

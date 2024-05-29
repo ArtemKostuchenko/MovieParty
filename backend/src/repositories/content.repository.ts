@@ -5,7 +5,8 @@ import VideoContentModel, { VideoContent } from "../models/content.model";
 import mongoose from "mongoose";
 import { convertBodyVideoContent } from "../utils/functions";
 import TypeContentModel from "../models/type-content.model";
-import genreModel from "../models/genre.model";
+import GenreModel from "../models/genre.model";
+import ListModel from "../models/list.model";
 
 interface Query {
   title?: { $regex: string; $options: string };
@@ -16,7 +17,7 @@ interface Query {
   genres?: { $all: string[] };
   actors?: { $all: string[] };
   directors?: { $all: string[] };
-  lists?: { $all: string[] };
+  lists?: { $all: string[] } | { $elemMatch: { idList: Types.ObjectId } };
   [key: string]: any;
 }
 
@@ -490,6 +491,7 @@ class VideoContentRepository {
       releaseYears,
       ratingRange,
       genre,
+      bestList,
       genres,
       actors,
       directors,
@@ -549,11 +551,24 @@ class VideoContentRepository {
     }
 
     if (genre) {
-      const genreDoc = await genreModel.findOne({
+      const genreDoc = await GenreModel.findOne({
         originName: { $regex: new RegExp(genre, "i") },
       });
       if (genreDoc) {
         queryObj.genres = { $all: [genreDoc._id] };
+      }
+    }
+
+    if (bestList) {
+      const bestListDoc = await ListModel.findOne({
+        name: { $regex: new RegExp(bestList, "i") },
+      });
+      if (bestListDoc) {
+        queryObj.lists = {
+          $elemMatch: {
+            idList: bestListDoc._id,
+          },
+        };
       }
     }
 

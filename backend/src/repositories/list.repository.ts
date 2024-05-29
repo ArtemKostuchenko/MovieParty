@@ -56,12 +56,16 @@ class ListRepository {
   async getLists(
     query: any
   ): Promise<{ bestLists: any[]; totalCount: number }> {
-    const { name, fields, sort } = query;
+    const { name, fields, sort, reg } = query;
 
     const queryObj: Query = {};
 
     if (name) {
-      queryObj.name = { $regex: name, $options: "i" };
+      if (reg) {
+        queryObj.name = { $regex: name, $options: "i" };
+      } else {
+        queryObj.name = name;
+      }
     }
 
     let bestListsQuery = ListModel.find(queryObj);
