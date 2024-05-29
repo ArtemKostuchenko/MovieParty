@@ -1,10 +1,10 @@
 import React from "react";
+import "./style.page.scss";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 import { formatDate } from "../../features/utils/functions";
 import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
-import "./style.page.scss";
 import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
 import { TrailerPopUp } from "../../components";
@@ -222,8 +222,14 @@ const VideoContentPage = () => {
                                     list: { _id, name },
                                     placeInList,
                                   } = item;
+
+                                  const linkBest = `/${typeVideoContent.path}/best-lists/${name}`;
                                   return (
-                                    <a href="#" className="link" key={_id}>
+                                    <Link
+                                      to={linkBest}
+                                      className="link"
+                                      key={_id}
+                                    >
                                       <div className="lists">
                                         <div className="lists__name">
                                           {name}
@@ -232,7 +238,7 @@ const VideoContentPage = () => {
                                           ({placeInList} місце)
                                         </div>
                                       </div>
-                                    </a>
+                                    </Link>
                                   );
                                 })}
                               </div>
