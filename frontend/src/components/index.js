@@ -26,3 +26,4 @@ export { default as TrailerPopUp } from "./PopUp/TrailerPopUp";
 export { default as FavoriteItems } from "./Favorites/FavoriteItems";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Loader } from "./Loader/Loader";
+export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop";

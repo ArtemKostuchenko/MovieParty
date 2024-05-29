@@ -7,7 +7,7 @@ import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
-import { TrailerPopUp } from "../../components";
+import { ScrollToTop, TrailerPopUp } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
 
@@ -77,6 +77,7 @@ const VideoContentPage = () => {
 
   return (
     <>
+      <ScrollToTop animate />
       <div className="container cnt-mn overlay-cnt-mn">
         <div className="container">
           <div className="grid">
