@@ -16,7 +16,7 @@ export const ratingsApi = createApi({
           data: { videoContentId },
         };
       },
-      invalidatesTags: ["ratings", "video-content"],
+      invalidatesTags: ["video-content"],
     }),
     getRateByVideoContentAndUserId: builder.query({
       query: (videoContentId) => {

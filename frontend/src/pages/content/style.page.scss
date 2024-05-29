@@ -234,6 +234,12 @@
     display: flex;
     align-items: center;
     gap: 6px;
+
+    &.disabled {
+      .rating__item {
+        cursor: auto;
+      }
+    }
   }
 
   &__item {
