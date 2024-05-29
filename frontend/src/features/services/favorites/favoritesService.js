@@ -9,8 +9,8 @@ export const favoritesApi = createApi({
   tagTypes: ["favorites"],
   endpoints: (builder) => ({
     getFavorites: builder.query({
-      query: () => {
-        return { url: "auth/me/favorites" };
+      query: ({ page = 1, limit = 8 } = {}) => {
+        return { url: `auth/me/favorites?page=${page}&limit=${limit}` };
       },
       transformResponse: (resp) => resp.data,
       providesTags: ["favorites"],

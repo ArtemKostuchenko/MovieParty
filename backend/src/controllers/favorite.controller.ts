@@ -45,11 +45,16 @@ const getFavoritesVideoContent = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const favorites = await FavoriteRepository.getFavoritesVC(req.user?.id);
+  const { favorites, totalCount } = await FavoriteRepository.getFavoritesVC(
+    req.user?.id,
+    req.query
+  );
 
   return res.status(StatusCodes.OK).json({
-    data: favorites,
-    totalCount: favorites?.favorites?.length,
+    data: {
+      favorites,
+      totalCount,
+    },
   });
 };
 

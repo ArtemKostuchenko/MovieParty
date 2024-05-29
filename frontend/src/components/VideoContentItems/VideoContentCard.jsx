@@ -7,12 +7,22 @@ const VideoContentCard = ({
   previewURL,
   typeVideoContent,
   skeleton = false,
+  fake = false,
 }) => {
   if (skeleton) {
     return (
       <div className="content__card">
         <div className="content__card-image loader-skeleton card-image"></div>
         <div className="content__card-title loader-skeleton card-title"></div>
+      </div>
+    );
+  }
+
+  if (fake) {
+    return (
+      <div className="content__card">
+        <div className="content__card-image fake-skeleton card-image"></div>
+        <div className="content__card-title fake-skeleton card-title"></div>
       </div>
     );
   }

@@ -88,7 +88,27 @@ class FavoriteRepository {
     await user.save();
   }
 
-  async getFavoritesVC(userId: string) {
+  async getFavoritesVC(userId: string, query: any) {
+    const favoritesPerPage = parseInt(query.limit, 10) || 20;
+    const page = parseInt(query.page, 10) || 1;
+    const skip = (page - 1) * favoritesPerPage;
+
+    const totalFavoritesAggregation = await UserModel.aggregate([
+      { $match: { _id: new Types.ObjectId(userId) } },
+      {
+        $lookup: {
+          from: "videocontents",
+          localField: "favorites",
+          foreignField: "_id",
+          as: "favorites",
+        },
+      },
+      { $unwind: "$favorites" },
+      { $count: "totalFavorites" },
+    ]);
+
+    const totalCount = totalFavoritesAggregation[0]?.totalFavorites || 0;
+
     const favorites = await UserModel.aggregate([
       { $match: { _id: new Types.ObjectId(userId) } },
       {
@@ -121,6 +141,8 @@ class FavoriteRepository {
           },
         },
       },
+      { $skip: skip },
+      { $limit: favoritesPerPage },
       {
         $group: {
           _id: null,
@@ -135,7 +157,10 @@ class FavoriteRepository {
       },
     ]);
 
-    return favorites?.[0];
+    return {
+      favorites: favorites?.[0]?.favorites || [],
+      totalCount,
+    };
   }
 }
 

@@ -1,51 +1,27 @@
 @import "../../../scss/mixins.scss";
 
-/* saved page */
+/* favorite page */
 
-.saved {
+.favorite {
   &__cards {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(
-      4,
+      5,
       minmax(var(--min-width-card), var(--max-width-card))
     );
-    justify-content: space-between;
+    justify-content: center;
     row-gap: 20px;
     column-gap: 20px;
   }
 
   &__card {
-    max-width: 205px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: relative;
 
-    &-image {
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-      }
-    }
-
-    &-title {
-      font-family: "Nunito Sans", sans-serif;
-      font-weight: 600;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: center;
-      color: var(--text-color);
-      @include adaptiveFont(18, 16);
-    }
-
-    &:hover {
-      .saved__card-title {
-        text-decoration: underline;
-      }
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
     }
   }
 }
@@ -53,7 +29,7 @@
 /* responsive */
 
 @media screen and (max-width: 1220px) {
-  .saved__cards {
+  .favorite__cards {
     grid-template-columns: repeat(
       3,
       minmax(var(--min-width-card), var(--max-width-card))
@@ -63,7 +39,7 @@
 }
 
 @media screen and (max-width: 990px) {
-  .saved__cards {
+  .favorite__cards {
     grid-template-columns: repeat(
       2,
       minmax(var(--min-width-card), var(--max-width-card))
@@ -72,7 +48,7 @@
 }
 
 @media screen and (max-width: 350px) {
-  .saved__cards {
+  .favorite__cards {
     grid-template-columns: repeat(
       1,
       minmax(var(--min-width-card), var(--max-width-card))

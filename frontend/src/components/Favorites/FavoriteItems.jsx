@@ -1,0 +1,97 @@
+import React from "react";
+import VideoContentCard from "../VideoContentItems/VideoContentCard";
+import { useGetFavoritesQuery } from "../../features/services/favorites/favoritesService";
+import usePagination from "../../hooks/usePagination";
+import { Pagination } from "../Pagination";
+import useFavorite from "../../hooks/useFavorite";
+
+const FavoritesItems = ({ limit = 10 }) => {
+  const { removeFavorite, isLoadingRemove } = useFavorite();
+  const { page, handleChangePage } = usePagination();
+
+  const { data, isLoading } = useGetFavoritesQuery({
+    page,
+    limit,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="favorite__cards">
+        {Array.from({ length: limit }).map((_, index) => {
+          return <VideoContentCard skeleton />;
+        })}
+      </div>
+    );
+  }
+
+  const favorites = data.favorites;
+
+  return (
+    <>
+      <div className="favorite__cards">
+        {favorites.length < limit &&
+          Array.from({ length: limit }).map((_, index) => {
+            if (index <= favorites.length - 1) {
+              const favorite = favorites[index];
+
+              return (
+                <div className="favorite__card">
+                  <VideoContentCard
+                    key={favorite._id}
+                    {...favorite}
+                    typeVideoContent={{ path: favorite.typeVideoContent }}
+                  />
+                  <button
+                    className="button remove rounded"
+                    onClick={() => {
+                      removeFavorite(favorite._id);
+                    }}
+                    disabled={isLoadingRemove}
+                  >
+                    <div className="icon close" />
+                  </button>
+                </div>
+              );
+            } else {
+              return (
+                <div className="favorite__card">
+                  <VideoContentCard key={`fake__card-${index}`} fake />
+                </div>
+              );
+            }
+          })}
+        {favorites.length >= limit &&
+          favorites.map((favorite) => {
+            return (
+              <div className="favorite__card">
+                <VideoContentCard
+                  key={favorite._id}
+                  {...favorite}
+                  typeVideoContent={{ path: favorite.typeVideoContent }}
+                />
+                <button
+                  className="button remove rounded"
+                  onClick={() => {
+                    removeFavorite(favorite._id);
+                  }}
+                  disabled={isLoadingRemove}
+                >
+                  <div className="icon close" />
+                </button>
+              </div>
+            );
+          })}
+      </div>
+      <div className="content__pagination">
+        <Pagination
+          page={page}
+          limit={limit}
+          totalCount={data.totalCount}
+          onChangePage={(page) => handleChangePage(page)}
+        />
+      </div>
+    </>
+  );
+};
+
+export default FavoritesItems;
