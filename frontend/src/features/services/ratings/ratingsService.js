@@ -9,14 +9,13 @@ export const ratingsApi = createApi({
   tagTypes: ["ratings"],
   endpoints: (builder) => ({
     rateVideoContent: builder.mutation({
-      query: (videoContentId) => {
+      query: ({ videoContentId, rate }) => {
         return {
           url: `content/v/rating`,
           method: "POST",
-          data: { videoContentId },
+          data: { videoContentId, rate },
         };
       },
-      invalidatesTags: ["video-content"],
     }),
     getRateByVideoContentAndUserId: builder.query({
       query: (videoContentId) => {

@@ -18,7 +18,7 @@ const VideoContentPage = () => {
   const { isAdd, handleAddPopUp } = usePopup();
   const { rateVideoContent, isLoadingRate } = useRating();
 
-  const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
+  const { data, isLoading, refetch } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
   );
 
@@ -47,6 +47,7 @@ const VideoContentPage = () => {
     backgroundURL,
     trailerURL,
     IMDb,
+    ratedByMe,
     rating,
     originCountries,
     duration,
@@ -65,7 +66,14 @@ const VideoContentPage = () => {
     import.meta.env.VITE_BACK_HOST
   }/static/files/images/content/${backgroundURL}`;
 
-  const handleRateVideoContent = () => {};
+  const handleRateVideoContent = async (rate) => {
+    if (!ratedByMe) {
+      const rated = await rateVideoContent(videoContentId, rate);
+      if (rated.success) {
+        refetch();
+      }
+    }
+  };
 
   return (
     <>
@@ -124,7 +132,8 @@ const VideoContentPage = () => {
                           <Rating
                             rating={rating.averageRating || 0}
                             maxRating={5}
-                            onChange={(rat) => console.log(rat)}
+                            disabled={isLoadingRate || ratedByMe}
+                            onChange={handleRateVideoContent}
                           />
                           <div className="rating__point">
                             {rating.averageRating || 0}

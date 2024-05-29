@@ -6,8 +6,8 @@ const useRating = () => {
     { isLoading: isLoadingRate, isSuccess: isSuccessRated },
   ] = useRateVideoContentMutation();
 
-  const rateVideoContent = async (videoContentId) => {
-    return await rateMutation(videoContentId).unwrap();
+  const rateVideoContent = async (videoContentId, rate) => {
+    return await rateMutation({ videoContentId, rate }).unwrap();
   };
 
   return {
