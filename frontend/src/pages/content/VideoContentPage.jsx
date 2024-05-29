@@ -1,7 +1,7 @@
 import React from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 import { formatDate } from "../../features/utils/functions";
-import { useParams, Link, useNavigate } from "react-router-dom";
 import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 import "./style.page.scss";
@@ -10,7 +10,6 @@ import useRating from "../../hooks/useRating";
 import { TrailerPopUp } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
-import { useGetRateByVideoContentAndUserIdQuery } from "../../features/services/ratings/ratingsService";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -41,6 +40,7 @@ const VideoContentPage = () => {
 
   const {
     _id: videoContentId,
+    typeVideoContent,
     title,
     originTitle,
     previewURL,
@@ -194,14 +194,17 @@ const VideoContentPage = () => {
                           <div className="video-content__information-content">
                             <div className="link__items">
                               {genres.map((genre) => {
+                                const linkGenre = `/${
+                                  typeVideoContent.path
+                                }/genre/${genre.originName.toLowerCase()}`;
                                 return (
-                                  <a
-                                    href="#"
+                                  <Link
+                                    to={linkGenre}
                                     className="link outlined"
                                     key={genre._id}
                                   >
                                     {genre.name}
-                                  </a>
+                                  </Link>
                                 );
                               })}
                             </div>

@@ -225,6 +225,17 @@ class VideoContentRepository {
       { $match: { originTitle: { $regex: originTitle, $options: "i" } } },
       {
         $lookup: {
+          from: "typecontents",
+          localField: "typeVideoContent",
+          foreignField: "_id",
+          as: "typeVideoContent",
+        },
+      },
+      {
+        $unwind: "$typeVideoContent",
+      },
+      {
+        $lookup: {
           from: "countries",
           localField: "originCountries",
           foreignField: "_id",
