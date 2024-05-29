@@ -117,15 +117,17 @@ const VideoContentPage = () => {
                       <div className="video-content__rating">
                         <div className="rating">
                           <Rating
-                            rating={rating}
+                            rating={rating.averageRating || 0}
                             maxRating={5}
                             onChange={(rat) => console.log(rat)}
                           />
-                          <div className="rating__point">{rating}</div>
+                          <div className="rating__point">
+                            {rating.averageRating || 0}
+                          </div>
                           <div className="rating__votes">
                             <div className="icon group-users" />
                             <div className="rating__votes-amount">
-                              0 голосів
+                              {rating.voteCount} голосів
                             </div>
                           </div>
                         </div>
