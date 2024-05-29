@@ -110,7 +110,7 @@ const VideoContentPage = () => {
                         </div>
                         <div className="IMDb">
                           <div className="icon IMDb" />
-                          <p className="IMDb__rating">{IMDb}</p>
+                          <p className="IMDb__rating">{IMDb.toFixed(1)}</p>
                         </div>
                       </div>
                       <div className="video-content__rating">
