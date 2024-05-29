@@ -199,6 +199,13 @@ class VideoContentRepository {
           userRating: 0,
         },
       },
+      {
+        $addFields: {
+          genres: {
+            $sortArray: { input: "$genres", sortBy: { name: 1 } },
+          },
+        },
+      },
     ]);
 
     const videoContent = videoContents[0];
@@ -372,6 +379,13 @@ class VideoContentRepository {
         $project: {
           ratings: 0,
           userRating: 0,
+        },
+      },
+      {
+        $addFields: {
+          genres: {
+            $sortArray: { input: "$genres", sortBy: { name: 1 } },
+          },
         },
       },
     ]);
