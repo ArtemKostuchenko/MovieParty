@@ -17,6 +17,7 @@ import {
   selectionsApi,
   actorsApi,
   directorsApi,
+  favoritesApi,
 } from "../services";
 
 const store = configureStore({
@@ -37,6 +38,7 @@ const store = configureStore({
     [selectionsApi.reducerPath]: selectionsApi.reducer,
     [actorsApi.reducerPath]: actorsApi.reducer,
     [directorsApi.reducerPath]: directorsApi.reducer,
+    [favoritesApi.reducerPath]: favoritesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -50,7 +52,8 @@ const store = configureStore({
       .concat(partsApi.middleware)
       .concat(selectionsApi.middleware)
       .concat(actorsApi.middleware)
-      .concat(directorsApi.middleware),
+      .concat(directorsApi.middleware)
+      .concat(favoritesApi.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -7,3 +7,4 @@ export { partsApi } from "./parts/partsService";
 export { selectionsApi } from "./selections/selectionsService";
 export { actorsApi } from "./actors/actorsService";
 export { directorsApi } from "./directors/directorsService";
+export { favoritesApi } from "./favorites/favoritesService";
