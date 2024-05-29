@@ -502,9 +502,9 @@ const VideoContentPage = () => {
                         releaseDate,
                       } = content;
 
-                      const videoContentLink = `/${typeVideoContent}/${originTitle
-                        .toLowerCase()
-                        .replace(/\s/g, "-")}`;
+                      const videoContentLink = `/${
+                        typeVideoContent.path
+                      }/${originTitle.toLowerCase().replace(/\s/g, "-")}`;
 
                       return (
                         <Link

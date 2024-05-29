@@ -314,9 +314,7 @@ class VideoContentRepository {
           as: "part",
         },
       },
-      {
-        $unwind: "$part",
-      },
+      { $unwind: "$part" },
       {
         $lookup: {
           from: "videocontents",
@@ -334,6 +332,43 @@ class VideoContentRepository {
               in: {
                 _id: "$$content._id",
                 typeVideoContent: "$$content.typeVideoContent",
+                title: "$$content.title",
+                originTitle: "$$content.originTitle",
+                IMDb: "$$content.IMDb",
+                backgroundURL: "$$content.backgroundURL",
+                releaseDate: "$$content.releaseDate",
+              },
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "part.contents.typeVideoContent",
+          foreignField: "_id",
+          as: "partContentsTypeVideoContent",
+        },
+      },
+      {
+        $addFields: {
+          "part.contents": {
+            $map: {
+              input: "$part.contents",
+              as: "content",
+              in: {
+                _id: "$$content._id",
+                typeVideoContent: {
+                  $arrayElemAt: [
+                    "$partContentsTypeVideoContent",
+                    {
+                      $indexOfArray: [
+                        "$partContentsTypeVideoContent._id",
+                        "$$content.typeVideoContent",
+                      ],
+                    },
+                  ],
+                },
                 title: "$$content.title",
                 originTitle: "$$content.originTitle",
                 IMDb: "$$content.IMDb",
