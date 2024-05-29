@@ -3,7 +3,7 @@ import { validateTypeContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 
 interface Query {
-  name?: { $regex: string; $options: string };
+  $or?: object[];
 }
 
 class TypeContentRepository {
@@ -57,12 +57,23 @@ class TypeContentRepository {
   async getTypesContent(
     query: any
   ): Promise<{ typesContent: TypeContent[]; totalCount: number }> {
-    const { name, fields, sort } = query;
+    const { name, fields, reg, sort } = query;
 
     const queryObj: Query = {};
 
     if (name) {
-      queryObj.name = { $regex: name, $options: "i" };
+      if (!queryObj.$or) {
+        queryObj.$or = [];
+      }
+      if (reg) {
+        const regex = new RegExp(name, "i");
+        queryObj.$or = queryObj.$or.concat([
+          { name: { $regex: regex } },
+          { path: { $regex: regex } },
+        ]);
+      } else {
+        queryObj.$or = queryObj.$or.concat([{ name: name }, { path: name }]);
+      }
     }
 
     let typesContentQuery = TypeContentModel.find(queryObj);

@@ -32,7 +32,7 @@ const VideoContentPage = () => {
   }
 
   const handleWatch = () => {
-    const watchLink = `/${content.typeVideoContent}/${content.originTitle
+    const watchLink = `/${content.typeVideoContent.path}/${content.originTitle
       .toLowerCase()
       .replace(/\s/g, "-")}/watch`;
     navigate(watchLink);

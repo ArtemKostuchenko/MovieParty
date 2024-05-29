@@ -31,6 +31,7 @@ import {
   VideoContentListPage,
   VideoContentAddPage,
   VideoContentEditPage,
+  GenrePage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -182,6 +183,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <VideoContentEditPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ":typeVideoContentName/genre/:originNameGenre",
+        element: (
+          <ProtectedRoute>
+            <GenrePage />
           </ProtectedRoute>
         ),
       },

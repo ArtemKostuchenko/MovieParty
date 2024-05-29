@@ -21,5 +21,8 @@ export { default as Skeleton } from "./Skeleton/Skeleton";
 export { default as TypeContentFilter } from "./TypesContent/TypeContentFilter";
 export { default as VideoContentSort } from "./VideoContent/VideoContentSort";
 export { default as VideoContentItems } from "./VideoContentItems/VideoContentItems";
+export { default as VideoContentCard } from "./VideoContentItems/VideoContentCard";
 export { default as TrailerPopUp } from "./PopUp/TrailerPopUp";
 export { default as FavoriteItems } from "./Favorites/FavoriteItems";
+export { default as NotFound } from "./NotFound/NotFound";
+export { default as Loader } from "./Loader/Loader";

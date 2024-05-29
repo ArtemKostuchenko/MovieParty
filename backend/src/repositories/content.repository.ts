@@ -4,12 +4,15 @@ import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
 import mongoose from "mongoose";
 import { convertBodyVideoContent } from "../utils/functions";
+import TypeContentModel from "../models/type-content.model";
+import genreModel from "../models/genre.model";
 
 interface Query {
   title?: { $regex: string; $options: string };
   originTitle?: { $regex: string; $options: string };
   $or?: object[];
   rating?: { $gte: number; $lte: number };
+  genre?: string;
   genres?: { $all: string[] };
   actors?: { $all: string[] };
   directors?: { $all: string[] };
@@ -486,6 +489,7 @@ class VideoContentRepository {
       typeVideoContent,
       releaseYears,
       ratingRange,
+      genre,
       genres,
       actors,
       directors,
@@ -508,7 +512,16 @@ class VideoContentRepository {
     }
 
     if (typeVideoContent) {
-      queryObj.typeVideoContent = new Types.ObjectId(typeVideoContent);
+      if (Types.ObjectId.isValid(typeVideoContent)) {
+        queryObj.typeVideoContent = new Types.ObjectId(typeVideoContent);
+      } else {
+        const typeContentDoc = await TypeContentModel.findOne({
+          path: typeVideoContent,
+        });
+        if (typeContentDoc) {
+          queryObj.typeVideoContent = typeContentDoc._id;
+        }
+      }
     }
 
     if (releaseYears) {
@@ -533,6 +546,15 @@ class VideoContentRepository {
         .split(",")
         .map((rating: string) => parseFloat(rating.trim()));
       queryObj.rating = { $gte: minRating, $lte: maxRating };
+    }
+
+    if (genre) {
+      const genreDoc = await genreModel.findOne({
+        originName: { $regex: new RegExp(genre, "i") },
+      });
+      if (genreDoc) {
+        queryObj.genres = { $all: [genreDoc._id] };
+      }
     }
 
     if (genres) {

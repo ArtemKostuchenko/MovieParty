@@ -13,6 +13,7 @@ export const videoContentApi = createApi({
       query: ({
         title = "",
         typeVideoContent = "",
+        genre = "",
         genres = [],
         releaseYears = "",
         page = 0,
@@ -29,11 +30,14 @@ export const videoContentApi = createApi({
           typeVideoContent !== "all" && typeVideoContent
             ? `&typeVideoContent=${typeVideoContent}`
             : ""
-        }${genres.length !== 0 ? `&genres=${genres.join(",")}` : ""}${
-          page !== 0 ? `&page=${page}` : ``
-        }${releaseYears ? `&releaseYears=${releaseYears}` : ""}${
-          limit ? `&limit=${limit}` : ``
-        }${getFormateSort(sortName, sortType)}`,
+        }${genre ? `&genre=${genre}` : ""}${
+          genres.length !== 0 ? `&genres=${genres.join(",")}` : ""
+        }${page !== 0 ? `&page=${page}` : ``}${
+          releaseYears ? `&releaseYears=${releaseYears}` : ""
+        }${limit ? `&limit=${limit}` : ``}${getFormateSort(
+          sortName,
+          sortType
+        )}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["video-content"],

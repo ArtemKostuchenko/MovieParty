@@ -2,7 +2,7 @@ import GenreModel, { Genre } from "../models/genre.model";
 import { BadRequestError, NotFoundError } from "../errors";
 
 interface Query {
-  name?: { $regex: string; $options: string };
+  $or?: object[];
 }
 
 class GenreRepository {
@@ -32,7 +32,7 @@ class GenreRepository {
     const { name, originName } = genreData;
 
     if (!name || !originName) {
-       throw new BadRequestError("Please provide genre name, originName");
+      throw new BadRequestError("Please provide genre name, originName");
     }
 
     const genre = await GenreModel.findById(genreId);
@@ -60,12 +60,26 @@ class GenreRepository {
   async getGenres(
     query: any
   ): Promise<{ genres: Genre[]; totalCount: number }> {
-    const { name, fields, sort } = query;
+    const { name, reg, fields, sort } = query;
 
     const queryObj: Query = {};
 
     if (name) {
-      queryObj.name = { $regex: name, $options: "i" };
+      if (!queryObj.$or) {
+        queryObj.$or = [];
+      }
+      if (reg) {
+        const regex = new RegExp(name, "i");
+        queryObj.$or = queryObj.$or.concat([
+          { name: { $regex: regex } },
+          { originName: { $regex: regex } },
+        ]);
+      } else {
+        queryObj.$or = queryObj.$or.concat([
+          { name: name },
+          { originName: name },
+        ]);
+      }
     }
 
     let genresQuery = GenreModel.find(queryObj);
@@ -83,7 +97,7 @@ class GenreRepository {
     const genresPerPage = query.limit || 20;
     const page = query.page || 1;
     const skip = (page - 1) * genresPerPage;
-    
+
     const [genres, totalCount] = await Promise.all([
       genresQuery.skip(skip).limit(genresPerPage),
       GenreModel.countDocuments(queryObj),

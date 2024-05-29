@@ -16,10 +16,11 @@ export const genresApi = createApi({
         limit = 0,
         sortName = "",
         sortType = "",
+        reg = true,
       } = {}) => ({
         url: `genres?name=${name}${page !== 0 ? `&page=${page}` : ""}${
           limit !== 0 ? `&limit=${limit}` : ""
-        }${getFormateSort(sortName, sortType)}`,
+        }${getFormateSort(sortName, sortType)}${reg ? `&reg=1` : ""}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["genres"],
