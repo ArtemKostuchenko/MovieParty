@@ -31,7 +31,6 @@ export interface VideoContent extends Document {
   typeVideoContent: Types.ObjectId;
   IMDb: number;
   description: string;
-  rating: number;
   releaseDate: Date;
   duration: string;
   previewURL: string;
@@ -124,10 +123,6 @@ const VideoContentSchema: Schema = new Schema(
     description: {
       type: String,
       required: [true, "Please provide description"],
-    },
-    rating: {
-      type: Number,
-      default: 0,
     },
     releaseDate: {
       type: Date,

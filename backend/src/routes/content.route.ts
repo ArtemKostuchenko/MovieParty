@@ -8,6 +8,10 @@ import {
   getVideoContentByOriginTitle,
 } from "../controllers/content.controller";
 import {
+  rateVideoContent,
+  getRateByVideoContentAndUserId,
+} from "../controllers/rating.controller";
+import {
   authMiddleware,
   adminMiddleware,
 } from "../middlewares/auth.middleware";
@@ -35,6 +39,8 @@ router
   )
   .get(getVideoContents);
 
+router.route("/rating").post(rateVideoContent);
+
 router
   .route("/:id")
   .get(getVideoContent)
@@ -53,6 +59,8 @@ router
     updateVideoContent
   )
   .delete(adminMiddleware, deleteVideoContent);
+
+router.route("/:id/rating").get(getRateByVideoContentAndUserId);
 
 router.route("/originTitle/:originTitle").get(getVideoContentByOriginTitle);
 

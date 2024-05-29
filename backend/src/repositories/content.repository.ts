@@ -149,6 +149,27 @@ class VideoContentRepository {
           "part.contents.releaseDate": 1,
         },
       },
+      {
+        $lookup: {
+          from: "ratings",
+          localField: "_id",
+          foreignField: "videoContentId",
+          as: "ratings",
+        },
+      },
+      {
+        $addFields: {
+          rating: {
+            averageRating: { $avg: "$ratings.rate" },
+            voteCount: { $size: "$ratings" },
+          },
+        },
+      },
+      {
+        $project: {
+          ratings: 0,
+        },
+      },
     ]);
 
     const videoContent = videoContents[0];
@@ -276,6 +297,27 @@ class VideoContentRepository {
           "part.contents.releaseDate": 1,
         },
       },
+      {
+        $lookup: {
+          from: "ratings",
+          localField: "_id",
+          foreignField: "videoContentId",
+          as: "ratings",
+        },
+      },
+      {
+        $addFields: {
+          rating: {
+            averageRating: { $avg: "$ratings.rate" },
+            voteCount: { $size: "$ratings" },
+          },
+        },
+      },
+      {
+        $project: {
+          ratings: 0,
+        },
+      },
     ]);
 
     const videoContent = videoContents[0];
@@ -299,7 +341,6 @@ class VideoContentRepository {
       typeVideoContent,
       IMDb,
       description,
-      rating,
       releaseDate,
       duration,
       previewURL,
@@ -327,7 +368,6 @@ class VideoContentRepository {
       typeVideoContent || videoContent.typeVideoContent;
     videoContent.IMDb = IMDb || videoContent.IMDb;
     videoContent.description = description || videoContent.description;
-    videoContent.rating = rating || videoContent.rating;
     videoContent.releaseDate = releaseDate || videoContent.releaseDate;
     videoContent.duration = duration || videoContent.duration;
     videoContent.previewURL = previewURL || videoContent.previewURL;
