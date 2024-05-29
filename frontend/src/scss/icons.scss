@@ -82,9 +82,14 @@
   }
 
   &.favorite {
-    width: 14px;
-    height: 17px;
+    width: 22px;
+    height: 25px;
+    background-color: var(--white);
     mask-image: url("/src/assets/icons/favorite.svg");
+    &.fill {
+      background-color: var(--light-yellow);
+      mask-image: url("/src/assets/icons/favorite-fill.svg");
+    }
   }
 
   &.success {

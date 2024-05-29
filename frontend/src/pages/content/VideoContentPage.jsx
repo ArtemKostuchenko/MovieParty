@@ -7,6 +7,7 @@ import Avatar from "../../assets/avatar.png";
 import "./style.page.scss";
 import usePopup from "../../hooks/usePopup";
 import { TrailerPopUp } from "../../components";
+import Favorite from "../../components/Favorites/Favorite";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -35,7 +36,7 @@ const VideoContentPage = () => {
   };
 
   const {
-    _id: idContent,
+    _id: videoContentId,
     title,
     originTitle,
     previewURL,
@@ -81,7 +82,7 @@ const VideoContentPage = () => {
                       </div>
                       <div className="video-content__preview-actions">
                         <button
-                          className="button icon fill g8"
+                          className="button icon fill g8 t-icon"
                           onClick={handleWatch}
                         >
                           <div className="icon watch" />
@@ -90,9 +91,7 @@ const VideoContentPage = () => {
                         <button className="button fill">
                           Створити кімнату
                         </button>
-                        <button className="button transparent icon fill g8">
-                          <div className="icon favorite" />В збережене
-                        </button>
+                        <Favorite videoContentId={videoContentId} />
                         <button
                           className="button light outline fill"
                           onClick={() => handleAddPopUp()}
@@ -495,7 +494,7 @@ const VideoContentPage = () => {
                       return (
                         <Link
                           className={`part__item${
-                            idContent === _id ? " selected" : ""
+                            videoContentId === _id ? " selected" : ""
                           }`}
                           key={_id}
                           to={videoContentLink}

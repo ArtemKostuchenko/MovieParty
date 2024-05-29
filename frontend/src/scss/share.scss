@@ -223,10 +223,6 @@ body {
     justify-content: center;
     gap: 5px;
 
-    &.transparent .icon {
-      background-color: var(--text-color);
-    }
-
     &.i {
       padding: 0;
     }
@@ -262,11 +258,19 @@ body {
     }
 
     > div {
-      background-color: var(--main-color);
+      background-color: var(--text-color);
     }
 
-    &:hover > div {
-      background-color: var(--light-yellow);
+    &.t-icon {
+      .icon {
+        background-color: var(--main-color);
+      }
+
+      &:hover {
+        .icon {
+          background-color: var(--light-yellow);
+        }
+      }
     }
   }
 

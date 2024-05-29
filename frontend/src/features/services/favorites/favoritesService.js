@@ -29,7 +29,7 @@ export const favoritesApi = createApi({
         return {
           url: "auth/me/favorites",
           method: "POST",
-          data: { videoContentId },
+          data: { contentId: videoContentId },
         };
       },
       transformResponse: (resp) => resp.data,

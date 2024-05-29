@@ -1,17 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import "./style.page.scss";
 import {
   ContentSlider,
   TypeContentFilter,
   VideoContentSort,
   VideoContentItems,
-  Pagination,
 } from "../../../components";
 import Avatar from "../../../assets/avatar.png";
 import useUser from "../../../hooks/useUser";
-import { useGetVideoContentQuery } from "../../../features/services/content/contentService";
-import usePagination from "../../../hooks/usePagination";
 
 const MainPage = () => {
   const { user } = useUser();
