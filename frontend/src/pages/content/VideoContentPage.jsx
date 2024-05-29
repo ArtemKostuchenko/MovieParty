@@ -6,14 +6,17 @@ import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 import "./style.page.scss";
 import usePopup from "../../hooks/usePopup";
+import useRating from "../../hooks/useRating";
 import { TrailerPopUp } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
+import { useGetRateByVideoContentAndUserIdQuery } from "../../features/services/ratings/ratingsService";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
   const navigate = useNavigate();
   const { isAdd, handleAddPopUp } = usePopup();
+  const { rateVideoContent, isLoadingRate } = useRating();
 
   const { data, isLoading, error } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
@@ -61,6 +64,8 @@ const VideoContentPage = () => {
   const contentBackgroundURL = `${
     import.meta.env.VITE_BACK_HOST
   }/static/files/images/content/${backgroundURL}`;
+
+  const handleRateVideoContent = () => {};
 
   return (
     <>

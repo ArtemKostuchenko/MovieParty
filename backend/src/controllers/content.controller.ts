@@ -30,7 +30,8 @@ const getVideoContent = async (
   const { id: idVideoContent } = req.params;
 
   const videoContent = await VideoContentRepository.getVideoContentById(
-    idVideoContent
+    idVideoContent,
+    req.user?.id
   );
 
   return res.status(StatusCodes.OK).json({ data: videoContent });
@@ -43,7 +44,10 @@ const getVideoContentByOriginTitle = async (
   const { originTitle } = req.params;
 
   const videoContent =
-    await VideoContentRepository.getVideoContentByOriginTitle(originTitle);
+    await VideoContentRepository.getVideoContentByOriginTitle(
+      originTitle,
+      req.user?.id
+    );
 
   return res.status(StatusCodes.OK).json({ data: videoContent });
 };

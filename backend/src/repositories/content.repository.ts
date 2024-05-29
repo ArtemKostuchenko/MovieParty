@@ -29,7 +29,10 @@ class VideoContentRepository {
     return await VideoContentModel.create(convertedVideoContentData);
   }
 
-  async getVideoContentById(videoContentId: string): Promise<VideoContent> {
+  async getVideoContentById(
+    videoContentId: string,
+    userId: string
+  ): Promise<VideoContent> {
     const videoContents = await VideoContentModel.aggregate([
       { $match: { _id: new mongoose.Types.ObjectId(videoContentId) } },
       {
@@ -166,8 +169,34 @@ class VideoContentRepository {
         },
       },
       {
+        $lookup: {
+          from: "ratings",
+          let: { videoContentId: "$_id", userId: new Types.ObjectId(userId) },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$videoContentId", "$$videoContentId"] },
+                    { $eq: ["$userId", "$$userId"] },
+                  ],
+                },
+              },
+            },
+            { $limit: 1 },
+          ],
+          as: "userRating",
+        },
+      },
+      {
+        $addFields: {
+          ratedByMe: { $gt: [{ $size: "$userRating" }, 0] },
+        },
+      },
+      {
         $project: {
           ratings: 0,
+          userRating: 0,
         },
       },
     ]);
@@ -182,7 +211,8 @@ class VideoContentRepository {
   }
 
   async getVideoContentByOriginTitle(
-    originTitle: string
+    originTitle: string,
+    userId: string
   ): Promise<VideoContent> {
     const videoContents = await VideoContentModel.aggregate([
       { $match: { originTitle: { $regex: originTitle, $options: "i" } } },
@@ -314,8 +344,34 @@ class VideoContentRepository {
         },
       },
       {
+        $lookup: {
+          from: "ratings",
+          let: { videoContentId: "$_id", userId: new Types.ObjectId(userId) },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$videoContentId", "$$videoContentId"] },
+                    { $eq: ["$userId", "$$userId"] },
+                  ],
+                },
+              },
+            },
+            { $limit: 1 },
+          ],
+          as: "userRating",
+        },
+      },
+      {
+        $addFields: {
+          ratedByMe: { $gt: [{ $size: "$userRating" }, 0] },
+        },
+      },
+      {
         $project: {
           ratings: 0,
+          userRating: 0,
         },
       },
     ]);
