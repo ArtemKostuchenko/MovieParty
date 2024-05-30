@@ -7,7 +7,7 @@ import Profile2 from "../../assets/profile-2.png";
 import Avatar from "../../assets/avatar.png";
 import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
-import { ScrollToTop, TrailerPopUp } from "../../components";
+import { ReviewForm, ScrollToTop, TrailerPopUp } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
 
@@ -392,7 +392,7 @@ const VideoContentPage = () => {
             <div className="parts__wrapper">
               <div className="parts">
                 <div className="parts__title">{part.name} - всі частини</div>
-                <div class="overflow-content">
+                <div className="overflow-content">
                   <div className="parts__items">
                     {part.contents.map((content, index) => {
                       const {
@@ -460,25 +460,7 @@ const VideoContentPage = () => {
           <div className="wrapper">
             <div className="reviews">
               <div className="reviews__title">Відгуки (2)</div>
-              <div className="reviews__container">
-                <div className="review__owner">
-                  <div className="review__profile">
-                    <div className="profile profile__avatar">
-                      <img src={Avatar} alt="Qwerty" />
-                    </div>
-                    <h2 className="profile__name">Qwerty</h2>
-                  </div>
-                </div>
-                <div className="reviews__form">
-                  <textarea
-                    name="review"
-                    id="review"
-                    placeholder="Ваш відгук"
-                    defaultValue={""}
-                  />
-                  <button className="button">Додати відгук</button>
-                </div>
-              </div>
+              <ReviewForm videoContentId={videoContentId} />
               <div className="reviews__items">
                 <div className="reviews__item">
                   <div className="review owner">

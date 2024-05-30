@@ -18,7 +18,10 @@ class ReviewRepository {
       return reviewDoc;
     }
 
-    return await ReviewModel.create(reviewData);
+    return await ReviewModel.create({
+      ...reviewData,
+      userId,
+    });
   }
 
   async getReviewById(reviewId: string): Promise<Review> {

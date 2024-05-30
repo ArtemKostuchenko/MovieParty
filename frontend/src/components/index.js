@@ -27,3 +27,4 @@ export { default as FavoriteItems } from "./Favorites/FavoriteItems";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Loader } from "./Loader/Loader";
 export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop";
+export { default as ReviewForm } from "./Reviews/ReviewForm";

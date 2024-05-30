@@ -192,10 +192,6 @@ const validateReview = (review: Review) => {
     errors.push("contentId");
   }
 
-  if (!review.userId) {
-    errors.push("userId");
-  }
-
   if (!review.message) {
     errors.push("message");
   }
