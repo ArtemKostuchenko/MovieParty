@@ -50,6 +50,8 @@ const VideoContentPage = () => {
     ratedByMe,
     rating,
     originCountries,
+    actors,
+    directors,
     duration,
     releaseDate,
     genres,
@@ -261,229 +263,130 @@ const VideoContentPage = () => {
             <div className="video-content__description">{description}</div>
           </div>
         </div>
-        {/* <div className="container">
+        <div className="container">
           <div className="wrapper">
             <div className="people__content">
               <div className="people">
                 <div className="people__title">Режисери:</div>
                 <div className="people__items">
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Director} alt="Джордж Лукас" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Джордж Лукас</div>
-                        <div className="person__original-full-name">
-                          George Lucas
-                        </div>
-                        <div className="person__age">79 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
+                  {directors.map((director) => {
+                    const {
+                      _id,
+                      firstName,
+                      lastName,
+                      firstNameEng,
+                      lastNameEng,
+                      age,
+                      photoURL,
+                      placeBirth,
+                    } = director;
+
+                    const directorLink = `/director/${firstNameEng.toLowerCase()}-${lastNameEng.toLowerCase()}`;
+
+                    return (
+                      <div className="person__item" key={_id}>
+                        <div className="person">
+                          <div className="person__photo">
+                            <img
+                              src={`${
+                                import.meta.env.VITE_BACK_HOST
+                              }/static/files/images/directors/${photoURL}`}
+                              alt={`${firstName} ${lastName}`}
+                            />
                           </div>
-                          Модесто, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Director} alt="Джордж Лукас" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Джордж Лукас</div>
-                        <div className="person__original-full-name">
-                          George Lucas
-                        </div>
-                        <div className="person__age">79 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
+                          <div className="person__info">
+                            <Link
+                              to={directorLink}
+                              className="person__full-name"
+                            >
+                              {firstName} {lastName}
+                            </Link>
+                            <div className="person__original-full-name">
+                              {firstNameEng} {lastNameEng}
+                            </div>
+                            <div className="person__age">{age - 1} років</div>
+                            <div className="person__location">
+                              <div className="person__location-icon">
+                                <div className="icon location" />
+                              </div>
+                              {placeBirth}
+                            </div>
                           </div>
-                          Модесто, Каліфорнія, США
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Director} alt="Джордж Лукас" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Джордж Лукас</div>
-                        <div className="person__original-full-name">
-                          George Lucas
-                        </div>
-                        <div className="person__age">79 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Модесто, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Director} alt="Джордж Лукас" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Джордж Лукас</div>
-                        <div className="person__original-full-name">
-                          George Lucas
-                        </div>
-                        <div className="person__age">79 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Модесто, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
+                {directors.length > 6 && (
+                  <div className="people__more">
+                    <button className="button icon g8">
+                      <div className="icon add" />
+                      Показати більше
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="people">
                 <div className="people__title">Актори:</div>
                 <div className="people__items">
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
+                  {actors.map((actor) => {
+                    const {
+                      _id,
+                      firstName,
+                      lastName,
+                      firstNameEng,
+                      lastNameEng,
+                      age,
+                      photoURL,
+                      placeBirth,
+                    } = actor;
+
+                    const actorLink = `/actor/${firstNameEng.toLowerCase()}-${lastNameEng.toLowerCase()}`;
+
+                    return (
+                      <div className="person__item" key={_id}>
+                        <div className="person">
+                          <div className="person__photo">
+                            <img
+                              src={`${
+                                import.meta.env.VITE_BACK_HOST
+                              }/static/files/images/actors/${photoURL}`}
+                              alt={`${firstName} ${lastName}`}
+                            />
                           </div>
-                          Лос-Анджелес, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
+                          <div className="person__info">
+                            <Link to={actorLink} className="person__full-name">
+                              {firstName} {lastName}
+                            </Link>
+                            <div className="person__original-full-name">
+                              {firstNameEng} {lastNameEng}
+                            </div>
+                            <div className="person__age">{age - 1} років</div>
+                            <div className="person__location">
+                              <div className="person__location-icon">
+                                <div className="icon location" />
+                              </div>
+                              {placeBirth}
+                            </div>
                           </div>
-                          Лос-Анджелес, Каліфорнія, США
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Лос-Анджелес, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Лос-Анджелес, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Лос-Анджелес, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="person__item">
-                    <div className="person">
-                      <div className="person__photo">
-                        <img src={Actor} alt="Керрі Фішшер" />
-                      </div>
-                      <div className="person__info">
-                        <div className="person__full-name">Керрі Фішшер</div>
-                        <div className="person__original-full-name">
-                          Carrie&nbsp;Fisher
-                        </div>
-                        <div className="person__age">60 років</div>
-                        <div className="person__location">
-                          <div className="person__location-icon">
-                            <div className="icon location" />
-                          </div>
-                          Лос-Анджелес, Каліфорнія, США
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
-                <div className="people__more">
-                  <button className="button icon g8">
-                    <div className="icon add" />
-                    Показати більше
-                  </button>
-                </div>
+                {actors.length > 6 && (
+                  <div className="people__more">
+                    <button className="button icon g8">
+                      <div className="icon add" />
+                      Показати більше
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div> */}
-        {/* <div className="splitter" /> */}
+        </div>
+        <div className="splitter" />
         <div className="container">
           <div className="wrapper">
             <div className="parts__wrapper">
@@ -534,7 +437,9 @@ const VideoContentPage = () => {
                             <div className="part__item-IMDb">
                               <div className="IMDb">
                                 <div className="icon IMDb" />
-                                <p className="IMDb__rating">{IMDb}</p>
+                                <p className="IMDb__rating">
+                                  {IMDb.toFixed(1)}
+                                </p>
                               </div>
                             </div>
                             <div className="part__item-finished">

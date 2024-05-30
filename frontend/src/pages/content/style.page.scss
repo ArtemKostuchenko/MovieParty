@@ -402,6 +402,11 @@
     text-align: left;
     color: var(--text-color);
     @include adaptiveFont(17, 15);
+    @include transition(color);
+
+    &:hover {
+      color: var(--light-yellow);
+    }
   }
 
   &__original-full-name {
@@ -449,6 +454,11 @@
     text-align: left;
     color: var(--alabaster);
     @include adaptiveFont(15, 13);
+    height: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: horizontal;
+    overflow: hidden;
   }
 }
 

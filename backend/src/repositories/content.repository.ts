@@ -235,9 +235,7 @@ class VideoContentRepository {
           as: "typeVideoContent",
         },
       },
-      {
-        $unwind: "$typeVideoContent",
-      },
+      { $unwind: "$typeVideoContent" },
       {
         $lookup: {
           from: "countries",
@@ -268,6 +266,80 @@ class VideoContentRepository {
           localField: "directors",
           foreignField: "_id",
           as: "directors",
+        },
+      },
+      {
+        $addFields: {
+          actors: {
+            $map: {
+              input: "$actors",
+              as: "actor",
+              in: {
+                _id: "$$actor._id",
+                firstName: "$$actor.firstName",
+                lastName: "$$actor.lastName",
+                firstNameEng: "$$actor.firstNameEng",
+                lastNameEng: "$$actor.lastNameEng",
+                photoURL: "$$actor.photoURL",
+                dateBirth: "$$actor.dateBirth",
+                dateDeath: "$$actor.dateDeath",
+                age: {
+                  $cond: {
+                    if: { $ifNull: ["$$actor.dateDeath", false] },
+                    then: {
+                      $subtract: [
+                        { $year: "$$actor.dateDeath" },
+                        { $year: "$$actor.dateBirth" },
+                      ],
+                    },
+                    else: {
+                      $subtract: [
+                        { $year: "$$NOW" },
+                        { $year: "$$actor.dateBirth" },
+                      ],
+                    },
+                  },
+                },
+                placeBirth: "$$actor.placeBirth",
+                sex: "$$actor.sex",
+              },
+            },
+          },
+          directors: {
+            $map: {
+              input: "$directors",
+              as: "director",
+              in: {
+                _id: "$$director._id",
+                firstName: "$$director.firstName",
+                lastName: "$$director.lastName",
+                firstNameEng: "$$director.firstNameEng",
+                lastNameEng: "$$director.lastNameEng",
+                photoURL: "$$director.photoURL",
+                dateBirth: "$$director.dateBirth",
+                dateDeath: "$$director.dateDeath",
+                age: {
+                  $cond: {
+                    if: { $ifNull: ["$$director.dateDeath", false] },
+                    then: {
+                      $subtract: [
+                        { $year: "$$director.dateDeath" },
+                        { $year: "$$director.dateBirth" },
+                      ],
+                    },
+                    else: {
+                      $subtract: [
+                        { $year: "$$NOW" },
+                        { $year: "$$director.dateBirth" },
+                      ],
+                    },
+                  },
+                },
+                placeBirth: "$$director.placeBirth",
+                sex: "$$director.sex",
+              },
+            },
+          },
         },
       },
       {
