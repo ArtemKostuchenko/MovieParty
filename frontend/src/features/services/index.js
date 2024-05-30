@@ -9,3 +9,4 @@ export { actorsApi } from "./actors/actorsService";
 export { directorsApi } from "./directors/directorsService";
 export { favoritesApi } from "./favorites/favoritesService";
 export { ratingsApi } from "./ratings/ratingsService";
+export { reviewsApi } from "./reviews/reviewsService";
