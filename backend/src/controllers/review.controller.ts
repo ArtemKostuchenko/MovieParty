@@ -15,6 +15,28 @@ const getReview = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ data: review });
 };
 
+const likeReviewById = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { reviewId } = req.body;
+
+  await ReviewRepository.likeReviewById(reviewId, req.user?.id);
+
+  return res.status(StatusCodes.OK).json({ success: true });
+};
+
+const dislikeReviewById = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { reviewId } = req.body;
+
+  await ReviewRepository.dislikeReviewById(reviewId, req.user?.id);
+
+  return res.status(StatusCodes.OK).json({ success: true });
+};
+
 const deleteReview = async (req: Request, res: Response): Promise<Response> => {
   const { id: idReview } = req.params;
 
@@ -23,13 +45,13 @@ const deleteReview = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ success: true });
 };
 
-const getReviewsByOriginNameVideoContent = async (
+const getReviewsByVideoContentId = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { name: originName } = req.params;
-  const reviews = await ReviewRepository.getReviewsByOriginNameVideoContent(
-    originName
+  const { id: videoContentId } = req.params;
+  const reviews = await ReviewRepository.getReviewsByVideoContentId(
+    videoContentId
   );
 
   return res.status(StatusCodes.OK).json({ data: reviews });
@@ -44,7 +66,9 @@ const getReviews = async (req: Request, res: Response): Promise<Response> => {
 export {
   createReview,
   getReview,
+  likeReviewById,
+  dislikeReviewById,
   deleteReview,
   getReviews,
-  getReviewsByOriginNameVideoContent,
+  getReviewsByVideoContentId,
 };

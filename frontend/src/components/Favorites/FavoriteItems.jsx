@@ -18,7 +18,7 @@ const FavoritesItems = ({ limit = 10 }) => {
     return (
       <div className="favorite__cards">
         {Array.from({ length: limit }).map((_, index) => {
-          return <VideoContentCard skeleton />;
+          return <VideoContentCard key={`card__load_${index}`} skeleton />;
         })}
       </div>
     );
@@ -54,8 +54,8 @@ const FavoritesItems = ({ limit = 10 }) => {
               );
             } else {
               return (
-                <div className="favorite__card">
-                  <VideoContentCard key={`fake__card-${index}`} fake />
+                <div className="favorite__card" key={`fake__card-${index}`}>
+                  <VideoContentCard fake />
                 </div>
               );
             }

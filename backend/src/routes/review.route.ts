@@ -4,7 +4,9 @@ import {
   getReview,
   deleteReview,
   getReviews,
-  getReviewsByOriginNameVideoContent,
+  getReviewsByVideoContentId,
+  likeReviewById,
+  dislikeReviewById,
 } from "../controllers/review.controller";
 import {
   authMiddleware,
@@ -13,12 +15,15 @@ import {
 
 const router: Router = express.Router();
 
-router.use(authMiddleware, adminMiddleware);
+router.use(authMiddleware);
 
 router.route("/").post(createReview).get(getReviews);
 
+router.route("/like").post(likeReviewById);
+router.route("/dislike").post(dislikeReviewById);
+
 router.route("/:id").get(getReview).delete(deleteReview);
 
-router.route("/v/:name").get(getReviewsByOriginNameVideoContent);
+router.route("/v/:id").get(getReviewsByVideoContentId);
 
 export default router;

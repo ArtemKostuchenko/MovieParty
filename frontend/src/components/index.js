@@ -28,3 +28,4 @@ export { default as NotFound } from "./NotFound/NotFound";
 export { default as Loader } from "./Loader/Loader";
 export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop";
 export { default as ReviewForm } from "./Reviews/ReviewForm";
+export { default as ReviewItems } from "./Reviews/ReviewItems";

@@ -17,10 +17,10 @@ export const reviewsApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["reviews"],
     }),
-    getReviewsByOriginNameVideoContent: builder.query({
-      query: (originName) => {
+    getReviewsByVideoContentId: builder.query({
+      query: (videoContentId) => {
         return {
-          url: `reviews/v/${originName}`,
+          url: `reviews/v/${videoContentId}`,
         };
       },
       transformResponse: (resp) => resp.data,
@@ -32,6 +32,26 @@ export const reviewsApi = createApi({
           url: `reviews`,
           method: "POST",
           data: { contentId: videoContentId, message },
+        };
+      },
+      invalidatesTags: ["reviews"],
+    }),
+    likeReview: builder.mutation({
+      query: (reviewId) => {
+        return {
+          url: `reviews/like`,
+          method: "POST",
+          data: { reviewId },
+        };
+      },
+      invalidatesTags: ["reviews"],
+    }),
+    dislikeReview: builder.mutation({
+      query: (reviewId) => {
+        return {
+          url: `reviews/dislike`,
+          method: "POST",
+          data: { reviewId },
         };
       },
       invalidatesTags: ["reviews"],
@@ -60,8 +80,10 @@ export const reviewsApi = createApi({
 
 export const {
   useGetReviewsQuery,
-  useGetReviewsByOriginNameVideoContentQuery,
+  useGetReviewsByVideoContentIdQuery,
   useAddReviewMutation,
+  useLikeReviewMutation,
+  useDislikeReviewMutation,
   useUpdateReviewMutation,
   useRemoveReviewMutation,
 } = reviewsApi;

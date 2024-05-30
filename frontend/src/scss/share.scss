@@ -272,6 +272,22 @@ body {
         }
       }
     }
+
+    &:disabled {
+      cursor: auto;
+      border: 1px solid transparent;
+      &:hover {
+        border: 1px solid transparent;
+        .icon {
+          &.like {
+            background-color: var(--atlantis);
+          }
+          &.dislike {
+            background-color: var(--scarlet);
+          }
+        }
+      }
+    }
   }
 
   &:disabled {

@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ReviewSchema } from "../../features/validations";
 import useReview from "../../hooks/useReview";
+import useUser from "../../hooks/useUser";
 import Avatar from "../../assets/avatar.png";
 
 const ReviewForm = ({ videoContentId, disabled = false }) => {
   const { addReview, isLoadingAdd } = useReview();
+  const { user } = useUser();
 
   const {
     register,
@@ -33,7 +35,7 @@ const ReviewForm = ({ videoContentId, disabled = false }) => {
           <div className="profile profile__avatar">
             <img src={Avatar} alt="Qwerty" />
           </div>
-          <h2 className="profile__name">Qwerty</h2>
+          <h2 className="profile__name">{user.nickname}</h2>
         </div>
       </div>
       <div className="reviews__form">

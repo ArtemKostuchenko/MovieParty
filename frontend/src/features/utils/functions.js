@@ -66,3 +66,47 @@ export const capitalizeFirstLetter = (string) => {
   if (!string) return string;
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
+function getPlural(count, forms) {
+  if (count % 10 === 1 && count % 100 !== 11) {
+    return forms[0];
+  } else if (
+    count % 10 >= 2 &&
+    count % 10 <= 4 &&
+    (count % 100 < 10 || count % 100 >= 20)
+  ) {
+    return forms[1];
+  } else {
+    return forms[2];
+  }
+}
+
+export function getRelativeTime(date) {
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - date) / 1000);
+
+  const intervals = [
+    { label: ["секунда", "секунди", "секунд"], seconds: 1 },
+    { label: ["хвилина", "хвилини", "хвилин"], seconds: 60 },
+    { label: ["година", "години", "годин"], seconds: 3600 },
+    { label: ["день", "дні", "днів"], seconds: 86400 },
+    { label: ["місяць", "місяці", "місяців"], seconds: 2592000 },
+    { label: ["рік", "роки", "років"], seconds: 31536000 },
+  ];
+
+  for (let i = intervals.length - 1; i >= 0; i--) {
+    const interval = intervals[i];
+    const count = Math.floor(diffInSeconds / interval.seconds);
+    if (count > 0) {
+      return `${count} ${getPlural(count, interval.label)} тому`;
+    }
+  }
+
+  return "щойно";
+}
+
+export function getCommentTime(createdAt, updatedAt, edited) {
+  const date = edited ? updatedAt : createdAt;
+  const relativeTime = getRelativeTime(date);
+  return edited ? `Змінено ${relativeTime}` : relativeTime;
+}

@@ -3,11 +3,14 @@ import "./style.page.scss";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 import { formatDate } from "../../features/utils/functions";
-import Profile2 from "../../assets/profile-2.png";
-import Avatar from "../../assets/avatar.png";
 import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
-import { ReviewForm, ScrollToTop, TrailerPopUp } from "../../components";
+import {
+  ReviewForm,
+  ReviewItems,
+  ScrollToTop,
+  TrailerPopUp,
+} from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
 
@@ -459,80 +462,9 @@ const VideoContentPage = () => {
         <div className="container">
           <div className="wrapper">
             <div className="reviews">
-              <div className="reviews__title">Відгуки (2)</div>
+              <div className="reviews__title">Відгуки</div>
               <ReviewForm videoContentId={videoContentId} />
-              <div className="reviews__items">
-                <div className="reviews__item">
-                  <div className="review owner">
-                    <div className="review__owner">
-                      <div className="review__profile">
-                        <div className="profile profile__avatar">
-                          <img src={Avatar} alt="Qwerty" />
-                        </div>
-                        <h2 className="profile__name">Qwerty</h2>
-                      </div>
-                      <span className="review__splitter circle" />
-                      <div className="review__date">2 роки тому</div>
-                    </div>
-                    <div className="review__comment">
-                      Є фільми які були надзвичайно популярні у свій час і за
-                      рахунок своєї популярності знімалися інші частини але вони
-                      не несуть вже цінності так як використовують успіх
-                      попередніх частини. Ось це саме той випадок.
-                    </div>
-                    <div className="review__rating">
-                      <div className="review__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="review__rating-count">4</div>
-                      </div>
-                      <div className="review__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="review__rating-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="reviews__item">
-                  <div className="review">
-                    <div className="review__owner">
-                      <div className="review__profile">
-                        <div className="profile profile__avatar">
-                          <img src={Profile2} alt="3amec" />
-                        </div>
-                        <h2 className="profile__name">3amec</h2>
-                      </div>
-                      <span className="review__splitter circle" />
-                      <div className="review__date">2 роки тому</div>
-                    </div>
-                    <div className="review__comment">
-                      Генерал Хакс-принципово один з найкращих персонажів із
-                      гарною мотивацією. Все, що нам показали- як він став
-                      шпигуном та як його по тупому викрили. Я вже мовчу про те,
-                      що він в 7 епізоді вбив понад 155 мільярдів людей, а в
-                      цьому він-шпигун руху опору. Це називається викинути
-                      персонажа на смітник.
-                    </div>
-                    <div className="review__rating">
-                      <div className="review__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="review__rating-count">2</div>
-                      </div>
-                      <div className="review__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="review__rating-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ReviewItems videoContentId={videoContentId} />
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import {
   useAddReviewMutation,
+  useLikeReviewMutation,
+  useDislikeReviewMutation,
   useUpdateReviewMutation,
   useRemoveReviewMutation,
 } from "../features/services/reviews/reviewsService";
@@ -7,6 +9,16 @@ import {
 const useReview = () => {
   const [addMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useAddReviewMutation();
+
+  const [
+    likeMutation,
+    { isLoading: isLoadingLike, isSuccess: isSuccessLiked },
+  ] = useLikeReviewMutation();
+
+  const [
+    dislikeMutation,
+    { isLoading: isLoadingDisLike, isSuccess: isSuccessDisLiked },
+  ] = useDislikeReviewMutation();
 
   const [
     updateMutation,
@@ -22,6 +34,14 @@ const useReview = () => {
     return await addMutation({ videoContentId, message }).unwrap();
   };
 
+  const likeReview = async (reviewId) => {
+    return await likeMutation(reviewId).unwrap();
+  };
+
+  const dislikeReview = async (reviewId) => {
+    return await dislikeMutation(reviewId).unwrap();
+  };
+
   const updateReview = async (videoContentId, message) => {
     return await updateMutation({ videoContentId, message }).unwrap();
   };
@@ -34,6 +54,12 @@ const useReview = () => {
     addReview,
     isLoadingAdd,
     isSuccessAdd,
+    likeReview,
+    isLoadingLike,
+    isSuccessLiked,
+    dislikeReview,
+    isLoadingDisLike,
+    isSuccessDisLiked,
     updateReview,
     isLoadingUpdate,
     isSuccessUpdate,

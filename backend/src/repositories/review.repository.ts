@@ -1,8 +1,12 @@
-import ReviewModel, { Review } from "../models/review.model";
+import ReviewModel, {
+  Review,
+  ReviewWithLikeDislikeCounts,
+} from "../models/review.model";
 import { BadRequestError, NotFoundError } from "../errors";
 import { Request } from "express";
 import { validateReview } from "../utils/validations";
 import ContentModel from "../models/content.model";
+import { Types } from "mongoose";
 
 class ReviewRepository {
   constructor() {}
@@ -22,6 +26,72 @@ class ReviewRepository {
       ...reviewData,
       userId,
     });
+  }
+
+  async likeReviewById(reviewId: string, userId: string) {
+    if (!reviewId) {
+      throw new BadRequestError("Please provide reviewId");
+    }
+
+    const review = await ReviewModel.findById(reviewId);
+
+    if (!review) {
+      throw new NotFoundError("Review not found");
+    }
+
+    const userObjectId = new Types.ObjectId(userId);
+
+    const likedByUser = review.likes.some((like) => like.equals(userObjectId));
+    const dislikedByUser = review.dislikes.some((dislike) =>
+      dislike.equals(userObjectId)
+    );
+
+    if (likedByUser) {
+      review.likes = review.likes.filter((like) => !like.equals(userObjectId));
+    } else {
+      if (dislikedByUser) {
+        review.dislikes = review.dislikes.filter(
+          (dislike) => !dislike.equals(userObjectId)
+        );
+      }
+      review.likes.push(userObjectId);
+    }
+
+    await review.save();
+  }
+
+  async dislikeReviewById(reviewId: string, userId: string) {
+    if (!reviewId) {
+      throw new BadRequestError("Please provide reviewId");
+    }
+
+    const review = await ReviewModel.findById(reviewId);
+
+    if (!review) {
+      throw new NotFoundError("Review not found");
+    }
+
+    const userObjectId = new Types.ObjectId(userId);
+
+    const likedByUser = review.likes.some((like) => like.equals(userObjectId));
+    const dislikedByUser = review.dislikes.some((dislike) =>
+      dislike.equals(userObjectId)
+    );
+
+    if (dislikedByUser) {
+      review.dislikes = review.dislikes.filter(
+        (dislike) => !dislike.equals(userObjectId)
+      );
+    } else {
+      if (likedByUser) {
+        review.likes = review.likes.filter(
+          (like) => !like.equals(userObjectId)
+        );
+      }
+      review.dislikes.push(userObjectId);
+    }
+
+    await review.save();
   }
 
   async getReviewById(reviewId: string): Promise<Review> {
@@ -72,24 +142,56 @@ class ReviewRepository {
     await review.deleteOne();
   }
 
-  async getReviewsByOriginNameVideoContent(
-    originName: string
-  ): Promise<Review[]> {
-    if (!originName) {
-      throw new BadRequestError("Please provide originName");
+  async getReviewsByVideoContentId(videoContentId: string) {
+    if (!videoContentId) {
+      throw new BadRequestError("Please provide videoContentId");
     }
 
-    const videoContentDoc = await ContentModel.findOne({
-      originTitle: { $regex: new RegExp(`^${originName}$`, "i") },
-    });
+    const reviews = await ReviewModel.aggregate([
+      {
+        $match: { contentId: new Types.ObjectId(videoContentId) },
+      },
+      {
+        $project: {
+          _id: 1,
+          userId: 1,
+          contentId: 1,
+          responseId: 1,
+          message: 1,
+          likes: { $size: "$likes" },
+          dislikes: { $size: "$dislikes" },
+          edited: 1,
+          responses: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "userId",
+        },
+      },
+      {
+        $unwind: "$userId",
+      },
+    ]);
 
-    if (!videoContentDoc) {
-      throw new NotFoundError("VideoContent not found");
-    }
-
-    return await ReviewModel.find({
-      contentId: videoContentDoc._id,
-    });
+    return reviews.map((review: any) => ({
+      _id: review._id,
+      userId: review.userId,
+      contentId: review.contentId,
+      responseId: review.responseId,
+      message: review.message,
+      likes: review.likes,
+      dislikes: review.dislikes,
+      edited: review.edited,
+      responses: review.responses,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
+    }));
   }
 
   async getReviews(): Promise<Review[]> {
