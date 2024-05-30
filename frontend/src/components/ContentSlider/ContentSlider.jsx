@@ -276,7 +276,7 @@ const ContentSlider = () => {
                           >
                             <Link
                               to={`${videoContentLink}/watch`}
-                              className="button icon g8"
+                              className="button icon g8 t-icon"
                             >
                               <div className="icon watch" />
                               Дивитися
