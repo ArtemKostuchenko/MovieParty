@@ -5,6 +5,7 @@ import { Director } from "../models/director.model";
 import { Room } from "../models/room.model";
 import { Message } from "../models/message.model";
 import { TypeContent } from "../models/type-content.model";
+import { Review } from "../models/review.model";
 
 const emitErrors = (errors: string[]) => {
   if (errors.length > 0) {
@@ -184,10 +185,29 @@ const validateTypeContent = (typeContent: TypeContent) => {
   emitErrors(errors);
 };
 
+const validateReview = (review: Review) => {
+  const errors: string[] = [];
+
+  if (!review.contentId) {
+    errors.push("contentId");
+  }
+
+  if (!review.userId) {
+    errors.push("userId");
+  }
+
+  if (!review.message) {
+    errors.push("message");
+  }
+
+  emitErrors(errors);
+};
+
 export {
   validateVideoContent,
   validateActorDirector,
   validateRoom,
   validateMessage,
   validateTypeContent,
+  validateReview,
 };
