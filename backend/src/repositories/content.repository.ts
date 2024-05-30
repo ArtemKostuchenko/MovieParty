@@ -3,10 +3,14 @@ import { validateVideoContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
 import mongoose from "mongoose";
-import { convertBodyVideoContent } from "../utils/functions";
+import {
+  capitalizeFirstLetter,
+  convertBodyVideoContent,
+} from "../utils/functions";
 import TypeContentModel from "../models/type-content.model";
 import GenreModel from "../models/genre.model";
 import ListModel from "../models/list.model";
+import ActorModel from "../models/actor.model";
 
 interface Query {
   title?: { $regex: string; $options: string };
@@ -600,7 +604,9 @@ class VideoContentRepository {
       genre,
       bestList,
       genres,
+      actor,
       actors,
+      director,
       directors,
       lists,
       sort,
@@ -682,6 +688,19 @@ class VideoContentRepository {
     if (genres) {
       const genresQuery: string[] = genres.split(",");
       queryObj.genres = { $all: genresQuery };
+    }
+
+    if (actor) {
+      const splitFullName = actor.split("-");
+      if (Boolean(splitFullName.length) && splitFullName.length > 1) {
+        const actorDoc = await ActorModel.findOne({
+          firstNameEng: capitalizeFirstLetter(splitFullName[0]),
+          lastNameEng: capitalizeFirstLetter(splitFullName[1]),
+        });
+        if (actorDoc) {
+          queryObj.actors = { $all: [actorDoc._id] };
+        }
+      }
     }
 
     if (actors) {

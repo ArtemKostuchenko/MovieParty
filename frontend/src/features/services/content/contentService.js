@@ -14,6 +14,8 @@ export const videoContentApi = createApi({
         title = "",
         typeVideoContent = "",
         genre = "",
+        actor = "",
+        director = "",
         genres = [],
         bestList = "",
         releaseYears = "",
@@ -34,6 +36,8 @@ export const videoContentApi = createApi({
         }${genre ? `&genre=${genre}` : ""}${
           bestList ? `&bestList=${bestList}` : ""
         }${genres.length !== 0 ? `&genres=${genres.join(",")}` : ""}${
+          actor ? `&actor=${actor}` : ""
+        }${director ? `&director=${director}` : ""}${
           page !== 0 ? `&page=${page}` : ``
         }${releaseYears ? `&releaseYears=${releaseYears}` : ""}${
           limit ? `&limit=${limit}` : ``

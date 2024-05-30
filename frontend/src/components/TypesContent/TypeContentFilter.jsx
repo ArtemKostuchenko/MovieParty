@@ -6,13 +6,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useGetTypesContentQuery } from "../../features/services/type-content/typeContentService";
 import FilterItem from "../Filter/FilterItem";
+import DropDown from "../DropDown/DropDown";
+import DropDownItem from "../DropDown/DropDownItem";
 
-const TypeContentFilter = ({ selected = "all" }) => {
+const TypeContentFilter = ({ selected = "all", dropdown = false }) => {
   const dispatch = useDispatch();
   const { typeVideoContent } = useSelector((store) => store.content);
   const { data: dataTypes, isLoading } = useGetTypesContentQuery();
 
-  if (isLoading) {
+  if (isLoading && !dropdown) {
     return (
       <div className="filter">
         <div className="flex row center-v h40">
@@ -33,6 +35,10 @@ const TypeContentFilter = ({ selected = "all" }) => {
     );
   }
 
+  if (isLoading && dropdown) {
+    return <div className="sort__item w300 loader-skeleton sort-content"></div>;
+  }
+
   const typesContent = dataTypes.typesContent;
 
   const handleChangeTypeContent = (id) => {
@@ -42,6 +48,28 @@ const TypeContentFilter = ({ selected = "all" }) => {
     if (!typeContent) return;
     dispatch(setSelectedTypeVideoContent(typeContent._id));
   };
+
+  if (dropdown) {
+    return (
+      <div className="sort__item w300">
+        <DropDown
+          fill
+          placeholder="Виберіть тип"
+          value={"all"}
+          onChange={handleChangeTypeContent}
+        >
+          {typesContent.map((typeContent) => {
+            const { _id, name } = typeContent;
+            return (
+              <DropDownItem key={_id} value={_id}>
+                {name}
+              </DropDownItem>
+            );
+          })}
+        </DropDown>
+      </div>
+    );
+  }
 
   return (
     <div className="filter">

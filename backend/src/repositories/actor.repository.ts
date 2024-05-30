@@ -2,6 +2,7 @@ import ActorModel, { Actor } from "../models/actor.model";
 import { validateActorDirector } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import { ActorWithAge } from "../utils/interfaces";
+import { capitalizeFirstLetter } from "../utils/functions";
 
 interface QueryCondition {
   [key: string]: { $regex: RegExp };
@@ -35,8 +36,12 @@ class ActorRepository {
     const splitFullName = fullName.split("-");
 
     const actor = await ActorModel.find({
-      firstNameEng: { $regex: splitFullName[0], $options: "i" },
-      lastNameEng: { $regex: splitFullName[1], $options: "i" },
+      firstNameEng: splitFullName[0]
+        ? capitalizeFirstLetter(splitFullName[0])
+        : "not-found",
+      lastNameEng: splitFullName[1]
+        ? capitalizeFirstLetter(splitFullName[1])
+        : "not-found",
     });
 
     if (!actor) {

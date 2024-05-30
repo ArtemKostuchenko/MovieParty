@@ -27,6 +27,8 @@ const GenrePage = ({ limit = 30 }) => {
     genre: originNameGenre,
     sortName,
     sortType,
+    limit,
+    page,
   });
 
   const { data: dataTVC, isLoading: isLoadingTVC } = useGetTypesContentQuery({

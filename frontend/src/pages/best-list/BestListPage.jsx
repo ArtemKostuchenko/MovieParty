@@ -22,6 +22,8 @@ const BestListPage = ({ limit = 30 }) => {
   const { data: dataVC, isLoading: isLoadingVC } = useGetVideoContentQuery({
     typeVideoContent: typeVideoContentName,
     bestList: bestListName,
+    limit,
+    page,
   });
 
   const { data: dataTVC, isLoading: isLoadingTVC } = useGetTypesContentQuery({
