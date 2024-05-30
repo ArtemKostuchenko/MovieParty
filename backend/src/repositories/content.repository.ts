@@ -11,6 +11,7 @@ import TypeContentModel from "../models/type-content.model";
 import GenreModel from "../models/genre.model";
 import ListModel from "../models/list.model";
 import ActorModel from "../models/actor.model";
+import DirectorModel from "../models/director.model";
 
 interface Query {
   title?: { $regex: string; $options: string };
@@ -694,8 +695,17 @@ class VideoContentRepository {
       const splitFullName = actor.split("-");
       if (Boolean(splitFullName.length) && splitFullName.length > 1) {
         const actorDoc = await ActorModel.findOne({
-          firstNameEng: capitalizeFirstLetter(splitFullName[0]),
-          lastNameEng: capitalizeFirstLetter(splitFullName[1]),
+          firstNameEng: { $regex: new RegExp(`^${splitFullName[0]}$`, "i") },
+          lastNameEng: {
+            $regex: new RegExp(
+              `^${
+                splitFullName.length < 3
+                  ? splitFullName[1]
+                  : `${splitFullName[1]}-${splitFullName[2]}`
+              }$`,
+              "i"
+            ),
+          },
         });
         if (actorDoc) {
           queryObj.actors = { $all: [actorDoc._id] };
@@ -706,6 +716,28 @@ class VideoContentRepository {
     if (actors) {
       const actorsQuery: string[] = actors.split(",");
       queryObj.actors = { $all: actorsQuery };
+    }
+
+    if (director) {
+      const splitFullName = director.split("-");
+      if (Boolean(splitFullName.length) && splitFullName.length > 1) {
+        const directorDoc = await DirectorModel.findOne({
+          firstNameEng: { $regex: new RegExp(`^${splitFullName[0]}$`, "i") },
+          lastNameEng: {
+            $regex: new RegExp(
+              `^${
+                splitFullName.length < 3
+                  ? splitFullName[1]
+                  : `${splitFullName[1]}-${splitFullName[2]}`
+              }$`,
+              "i"
+            ),
+          },
+        });
+        if (directorDoc) {
+          queryObj.directors = { $all: [directorDoc._id] };
+        }
+      }
     }
 
     if (directors) {

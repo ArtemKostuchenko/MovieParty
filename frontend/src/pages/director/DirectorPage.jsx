@@ -1,30 +1,55 @@
-import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
 import "./style.page.scss";
-import { DropDown, DropDownItem, Pagination } from "../../components";
-import { formatDate } from "../../features/utils/functions";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useGetDirectorByFullNameQuery } from "../../features/services/directors/directorsService";
+import { useGetVideoContentQuery } from "../../features/services/content/contentService";
+import { formatDate } from "../../features/utils/functions";
+import {
+  ScrollToTop,
+  Loader,
+  NotFound,
+  Pagination,
+  VideoContentSort,
+  VideoContentCard,
+  TypeContentFilter,
+} from "../../components";
+import useFill from "../../hooks/useFill";
+import usePagination from "../../hooks/usePagination";
 
-const DirectorPage = () => {
+const DirectorPage = ({ limit = 8 }) => {
   const { fullName } = useParams();
-
-  if (!fullName) {
-    return <Navigate to="/" />;
-  }
+  const { disableFill } = useFill();
+  const { page, handleChangePage } = usePagination();
+  const { typeVideoContent, sortName, sortType } = useSelector(
+    (store) => store.content
+  );
 
   const { data: director, isLoading } = useGetDirectorByFullNameQuery(fullName);
 
-  if (isLoading) {
-    return (
-      <div className="loader__container">
-        <div className="loader"></div>
-      </div>
-    );
+  const { data: dataVC, isLoading: isLoadingVC } = useGetVideoContentQuery({
+    director: fullName,
+    typeVideoContent,
+    sortName,
+    sortType,
+    limit,
+    page,
+  });
+
+  useEffect(() => {
+    if (!isLoading && director) {
+      disableFill();
+    }
+  }, [isLoading]);
+
+  if (isLoading || isLoadingVC) {
+    return <Loader />;
   }
 
   if (!director) {
-    return <Navigate to="/" />;
+    return <NotFound title="Такого актора не існує" />;
   }
+
   const {
     firstName,
     lastName,
@@ -37,12 +62,16 @@ const DirectorPage = () => {
     placeBirth,
   } = director;
 
+  const { totalCount: totalVideoContents, videoContent: videoContents } =
+    dataVC;
+
   const photoURL = `${
     import.meta.env.VITE_BACK_HOST
   }/static/files/images/directors/${director.photoURL}`;
 
   return (
     <div className="container cnt-mn">
+      <ScrollToTop />
       <div className="container">
         <div className="wrapper">
           <div className="director">
@@ -79,8 +108,10 @@ const DirectorPage = () => {
                     </div>
                   )}
                   <div className="director__item">
-                    <div className="director__item-title">Кількість робіт:</div>
-                    <div className="director__item-info">0</div>
+                    <div className="director__item-title">Кількість праць:</div>
+                    <div className="director__item-info">
+                      {totalVideoContents}
+                    </div>
                   </div>
                   <div className="director__item">
                     <div className="director__item-title">Стать:</div>
@@ -102,98 +133,35 @@ const DirectorPage = () => {
                 Всі фільми та серіали режисера {firstName} {lastName}
               </div>
               <div className="director__content-filters">
-                <DropDown>
-                  <DropDownItem selected value="new">
-                    🔥 За новизною
-                  </DropDownItem>
-                  <DropDownItem value="watch">👀 За переглядами</DropDownItem>
-                  <DropDownItem value="rating">🏆 За рейтингом</DropDownItem>
-                  <DropDownItem value="added">⏰ Нещодавно додані</DropDownItem>
-                </DropDown>
-                <DropDown>
-                  <DropDownItem selected value="movies">
-                    Фільми
-                  </DropDownItem>
-                  <DropDownItem value="series">Серіали</DropDownItem>
-                  <DropDownItem value="cartoons">Мультфільми</DropDownItem>
-                  <DropDownItem value="cartoon-series">
-                    Мультсеріали
-                  </DropDownItem>
-                </DropDown>
+                <VideoContentSort includeGenres={false} includeYears={false} />
+                <TypeContentFilter dropdown />
               </div>
               <div className="director__content-items">
-                <div className="content__items">
-                  <div className="content__cards">
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-1.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод I - Прихована загроза
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-2.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 2 - Атака клонів
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-3.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 3 - Помста Сітхів
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-4.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 4 - Нова надія
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-5.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 5 - Імперія завдає удару у
-                        відповідь
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-6.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 6 - Повернення Джедая
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-1.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод I - Прихована загроза
-                      </div>
-                    </div>
-                    <div className="content__card">
-                      <div className="content__card-image">
-                        <img src="./images/preview-2.jpg" alt="Title" />
-                      </div>
-                      <div className="content__card-title">
-                        Зоряні війни: Епізод 2 - Атака клонів
-                      </div>
-                    </div>
-                  </div>
+                <div className="content__cards">
+                  {videoContents.length < limit &&
+                    Array.from({ length: limit }).map((_, index) => {
+                      if (index <= videoContents.length - 1) {
+                        const item = videoContents[index];
+                        return <VideoContentCard key={item._id} {...item} />;
+                      } else {
+                        return (
+                          <VideoContentCard key={`fake__card-${index}`} fake />
+                        );
+                      }
+                    })}
+                  {videoContents.length >= limit &&
+                    videoContents.map((item) => {
+                      return <VideoContentCard key={item._id} {...item} />;
+                    })}
                 </div>
               </div>
               <div className="content__pagination">
-                <Pagination page={1} limit={8} totalCount={13} />
+                <Pagination
+                  page={page}
+                  limit={limit}
+                  totalCount={totalVideoContents}
+                  onChangePage={(page) => handleChangePage(page)}
+                />
               </div>
             </div>
           </div>

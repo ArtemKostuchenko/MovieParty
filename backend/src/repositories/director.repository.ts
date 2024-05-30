@@ -1,7 +1,8 @@
 import DirectorModel, { Director } from "../models/director.model";
 import { validateActorDirector } from "../utils/validations";
-import { NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError } from "../errors";
 import { DirectorWithAge } from "../utils/interfaces";
+import { capitalizeFirstLetter } from "../utils/functions";
 
 interface QueryCondition {
   [key: string]: { $regex: RegExp };
@@ -70,11 +71,28 @@ class DirectorRepository {
   }
 
   async getDirectorByFullName(fullName: string): Promise<DirectorWithAge> {
+    if (!fullName) {
+      throw new BadRequestError("Please provide fullName");
+    }
+
     const splitFullName = fullName.split("-");
 
+    if (!Boolean(splitFullName.length) && splitFullName.length < 3) {
+      throw new BadRequestError("Please provide correct fullName");
+    }
+
     const director = await DirectorModel.find({
-      firstNameEng: { $regex: splitFullName[0], $options: "i" },
-      lastNameEng: { $regex: splitFullName[1], $options: "i" },
+      firstNameEng: { $regex: new RegExp(`^${splitFullName[0]}$`, "i") },
+      lastNameEng: {
+        $regex: new RegExp(
+          `^${
+            splitFullName.length < 3
+              ? splitFullName[1]
+              : `${splitFullName[1]}-${splitFullName[2]}`
+          }$`,
+          "i"
+        ),
+      },
     });
 
     if (!director) {

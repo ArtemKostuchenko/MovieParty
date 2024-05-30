@@ -1,6 +1,6 @@
 import ActorModel, { Actor } from "../models/actor.model";
 import { validateActorDirector } from "../utils/validations";
-import { NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError } from "../errors";
 import { ActorWithAge } from "../utils/interfaces";
 import { capitalizeFirstLetter } from "../utils/functions";
 
@@ -33,15 +33,28 @@ class ActorRepository {
   }
 
   async getActorByFullName(fullName: string): Promise<ActorWithAge> {
+    if (!fullName) {
+      throw new BadRequestError("Please provide fullName");
+    }
+
     const splitFullName = fullName.split("-");
 
+    if (!Boolean(splitFullName.length) && splitFullName.length < 3) {
+      throw new BadRequestError("Please provide correct fullName");
+    }
+
     const actor = await ActorModel.find({
-      firstNameEng: splitFullName[0]
-        ? capitalizeFirstLetter(splitFullName[0])
-        : "not-found",
-      lastNameEng: splitFullName[1]
-        ? capitalizeFirstLetter(splitFullName[1])
-        : "not-found",
+      firstNameEng: { $regex: new RegExp(`^${splitFullName[0]}$`, "i") },
+      lastNameEng: {
+        $regex: new RegExp(
+          `^${
+            splitFullName.length < 3
+              ? splitFullName[1]
+              : `${splitFullName[1]}-${splitFullName[2]}`
+          }$`,
+          "i"
+        ),
+      },
     });
 
     if (!actor) {
