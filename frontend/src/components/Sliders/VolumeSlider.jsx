@@ -40,8 +40,8 @@ const VolumeSlider = ({
 
   const handleWheel = (e) => {
     if (scrollable) {
-      const delta = e.deltaY < 0 ? Math.round(max / 10) : -Math.round(max / 10);
-      let newValue = sliderValue + delta;
+      const delta = e.deltaY < 0 ? 10 : -10;
+      let newValue = parseInt(sliderValue) + parseInt(delta);
       newValue = Math.max(min, Math.min(max, newValue));
       setSliderValue(newValue);
       if (!onChange || typeof onChange !== "function") return;

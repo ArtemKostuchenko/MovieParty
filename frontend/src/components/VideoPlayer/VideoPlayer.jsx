@@ -7,7 +7,13 @@ import SeekSlider from "../Sliders/SeekSlider";
 import VolumeSlider from "../Sliders/VolumeSlider";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
-  const { isPlaying, handleTogglePlaying } = useVideoPlayer();
+  const {
+    isPlaying,
+    volume,
+    handleTogglePlaying,
+    handleChangeVolume,
+    handleToggleVolume,
+  } = useVideoPlayer();
   const playerRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -28,6 +34,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
         {!isPlaying && <div className="video-player__filter"></div>}
         <ReactPlayer
           ref={playerRef}
+          volume={volume}
           playing={isPlaying}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
@@ -58,16 +65,29 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
           </div>
         </div>
         <div className="video-player__volume">
-          <button className="video-player__volume-button">
-            <div className="icon volume v-100"></div>
+          <button
+            className="video-player__volume-button"
+            onClick={handleToggleVolume}
+          >
+            <div
+              className={`icon volume${
+                volume <= 0.5
+                  ? volume <= 0.25
+                    ? volume === 0
+                      ? " v-mute"
+                      : " v-25"
+                    : " v-50"
+                  : " v-100"
+              }`}
+            ></div>
           </button>
           <div className="video-player__volume-seek">
             <VolumeSlider
-              value={30}
+              value={volume * 100}
               min={0}
               max={100}
               step={10}
-              onChange={(val) => console.log(val)}
+              onChange={handleChangeVolume}
               dark
               scrollable
             />

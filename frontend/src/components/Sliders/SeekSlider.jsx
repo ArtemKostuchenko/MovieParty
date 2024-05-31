@@ -53,6 +53,7 @@ const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
         onChange={handleChange}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        defaultValue={value}
         ref={sliderRef}
       />
     </div>
