@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
+import { motion, AnimatePresence } from "framer-motion";
 import "./style.component.scss";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
 import { convertTimeHumanFormat } from "../../features/utils/functions";
@@ -62,6 +63,20 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     <div className="video-player" ref={videoPlayerRef}>
       {!isPlaying && <div className="video-player__filter"></div>}
       <div className="video-player__display" onClick={handlePlay}>
+        <AnimatePresence>
+          {!isPlaying && (
+            <motion.button
+              className="video-player__play-center"
+              initial={{ opacity: 0, scale: 4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 4 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="icon play big"></div>
+            </motion.button>
+          )}
+        </AnimatePresence>
+
         <ReactPlayer
           ref={playerRef}
           playing={isPlaying}

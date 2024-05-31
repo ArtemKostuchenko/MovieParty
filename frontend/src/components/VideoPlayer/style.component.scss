@@ -217,6 +217,17 @@
     }
   }
 
+  &__play {
+    &-center {
+      background-color: transparent;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+    }
+  }
+
   &__play,
   &__volume-button,
   &__settings-button,
@@ -433,6 +444,13 @@
       grid-row: 3 / 4;
       grid-column: 2 / 4;
       justify-self: end;
+    }
+
+    &__settings {
+      &-menu {
+        bottom: 90px;
+        right: -90px;
+      }
     }
   }
 }
