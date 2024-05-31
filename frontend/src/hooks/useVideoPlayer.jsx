@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setPlayingState,
@@ -66,13 +66,24 @@ const useVideoPlayer = () => {
     }
   };
 
-  const handleToggleFullScreen = () => {
-    if (isFullScreen) {
-      dispatch(setFullScreenState(false));
+  const handleFullScreenChange = () => {
+    dispatch(setFullScreenState(document.fullscreenElement != null));
+  };
+
+  const handleToggleFullScreen = (element) => {
+    if (!document.fullscreenElement) {
+      element.requestFullscreen().catch((err) => console.log(err));
     } else {
-      dispatch(setFullScreenState(true));
+      document.exitFullscreen().catch((err) => console.log(err));
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
 
   return {
     isPlaying,
