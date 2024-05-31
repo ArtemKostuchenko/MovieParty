@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { convertTimeHumanFormat } from "../../features/utils/functions";
 
 const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
@@ -37,6 +37,10 @@ const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
     if (!onChange || typeof onChange !== "function") return;
     onChange(e.target.value);
   };
+
+  useEffect(() => {
+    setSliderValue(value);
+  }, [value]);
 
   return (
     <div className="seek-slider-container">
