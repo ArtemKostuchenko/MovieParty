@@ -7,6 +7,7 @@ const initialState = {
   isFullScreen: false,
   isSettingsOpen: false,
   speed: 1,
+  m3u8URL: null,
 };
 
 const playerSlice = createSlice({
@@ -31,6 +32,9 @@ const playerSlice = createSlice({
     setSpeedState: (state, action) => {
       state.speed = action.payload;
     },
+    setM3U8State: (state, action) => {
+      state.m3u8URL = action.payload;
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   setFullScreenState,
   setSettingState,
   setSpeedState,
+  setM3U8State,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

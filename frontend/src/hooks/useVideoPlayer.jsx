@@ -16,6 +16,7 @@ const useVideoPlayer = () => {
     isFullScreen,
     isSettingsOpen,
     speed,
+    m3u8URL,
   } = useSelector((store) => store.player);
   const lastVolume = useRef();
 
@@ -91,6 +92,7 @@ const useVideoPlayer = () => {
   }, []);
 
   return {
+    m3u8URL,
     isPlaying,
     volume,
     speed,

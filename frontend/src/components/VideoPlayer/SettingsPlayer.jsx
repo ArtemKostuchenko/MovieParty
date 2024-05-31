@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setSettingState,
   setSpeedState,
+  setM3U8State,
 } from "../../features/store/slices/player";
 
 const SettingsPlayer = ({ soundTracks }) => {
@@ -16,11 +17,44 @@ const SettingsPlayer = ({ soundTracks }) => {
   const [quality, setQuality] = useState(soundTracks[0].m3u8Links[0].quality);
   const [speed, setSpeed] = useState(speedState);
 
+  const soundTracksTitles = soundTracks.map((sTrack) => sTrack.title);
+
+  const m3u8Links = soundTracks
+    .find((sTrack) => sTrack.title === soundTrack)
+    .m3u8Links.map((m3u8Link) => m3u8Link.quality);
+
   const settingsRef = useRef(null);
 
-  const handleSoundTrackChange = (value) => setSoundTrack(value);
-  const handleQualityChange = (value) => setQuality(value);
-  const handleSpeedChange = (value) => dispatch(setSpeedState(value));
+  const handleSoundTrackChange = (value) => {
+    if (soundTrack === value) return;
+
+    const m3u8Link = soundTracks
+      .find((sTrack) => sTrack.title === value)
+      ?.m3u8Links.find((m3u8Link) => m3u8Link.quality === quality);
+
+    if (!m3u8Link) return;
+
+    setSoundTrack(value);
+
+    dispatch(setM3U8State(m3u8Link.m3u8URL));
+  };
+  const handleQualityChange = (value) => {
+    if (quality === value) return;
+
+    const m3u8Link = soundTracks
+      .find((sTrack) => sTrack.title === soundTrack)
+      ?.m3u8Links.find((m3u8Link) => m3u8Link.quality === value);
+
+    if (!m3u8Link) return;
+
+    setQuality(value);
+
+    dispatch(setM3U8State(m3u8Link.m3u8URL));
+  };
+  const handleSpeedChange = (value) => {
+    if (speed === value) return;
+    dispatch(setSpeedState(value));
+  };
 
   const toggleOpen = () => {
     setOpenMenu(null);
@@ -120,7 +154,7 @@ const SettingsPlayer = ({ soundTracks }) => {
             {openMenu === "soundTracks" && (
               <SettingsSelectItem
                 title={"Звукова доріжка"}
-                items={["Українська", "Англійська"]}
+                items={soundTracksTitles}
                 value={soundTrack}
                 onGoBack={() => setOpenMenu(null)}
                 onChange={handleSoundTrackChange}
@@ -129,7 +163,7 @@ const SettingsPlayer = ({ soundTracks }) => {
             {openMenu === "qualities" && (
               <SettingsSelectItem
                 title={"Якість"}
-                items={["1080p", "720p", "480p"]}
+                items={m3u8Links}
                 value={quality}
                 quality
                 onGoBack={() => setOpenMenu(null)}

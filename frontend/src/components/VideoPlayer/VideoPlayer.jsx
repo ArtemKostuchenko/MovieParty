@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import "./style.component.scss";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
@@ -9,6 +9,7 @@ import SettingsPlayer from "./SettingsPlayer";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
   const {
+    m3u8URL,
     isPlaying,
     volume,
     speed,
@@ -22,6 +23,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     handleTogglePIP,
     handleToggleFullScreen,
   } = useVideoPlayer();
+
   const playerRef = useRef();
   const videoPlayerRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
@@ -48,6 +50,14 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     }
   };
 
+  useEffect(() => {
+    if (m3u8URL) {
+      setTimeout(() => {
+        playerRef.current.seekTo(currentTime, "seconds");
+      }, 100);
+    }
+  }, [m3u8URL]);
+
   return (
     <div className="video-player" ref={videoPlayerRef}>
       {!isPlaying && <div className="video-player__filter"></div>}
@@ -58,7 +68,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
           volume={volume}
           playbackRate={speed}
           pip={isEnablePIP}
-          url={soundTracks[0].m3u8Links[0].m3u8URL}
+          url={m3u8URL || soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
           height="99%"
           onReady={handleReady}
