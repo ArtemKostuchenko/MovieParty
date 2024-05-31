@@ -11,11 +11,13 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     isPlaying,
     volume,
     isEnablePIP,
+    isFullScreen,
     handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
     handleToggleVolume,
     handleTogglePIP,
+    handleToggleFullScreen,
   } = useVideoPlayer();
   const playerRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
