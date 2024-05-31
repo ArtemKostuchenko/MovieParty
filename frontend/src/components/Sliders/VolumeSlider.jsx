@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const VolumeSlider = ({
   value,
@@ -54,6 +54,10 @@ const VolumeSlider = ({
     if (!onChange || typeof onChange !== "function") return;
     onChange(e.target.value);
   };
+
+  useEffect(() => {
+    setSliderValue(value);
+  }, [value]);
 
   return (
     <div className="seek-slider-container">
