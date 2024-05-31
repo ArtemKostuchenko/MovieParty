@@ -28,6 +28,12 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     setCurrentTime(playedSeconds);
   };
 
+  const handleSeekSliderChange = (seek) => {
+    if (playerRef.current) {
+      playerRef.current.seekTo(seek, "seconds");
+    }
+  };
+
   return (
     <div className="video-player">
       <div className="video-player__display" onClick={handleTogglePlaying}>
@@ -53,7 +59,12 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
           <div className={`icon${isPlaying ? " pause" : " play"}`}></div>
         </button>
         <div className="video-player__seek">
-          <SeekSlider value={currentTime} min={0} max={duration} />
+          <SeekSlider
+            value={currentTime}
+            min={0}
+            max={duration}
+            onChange={handleSeekSliderChange}
+          />
         </div>
         <div className="video-player__time">
           <div className="video-player__time-current">

@@ -6,11 +6,12 @@ const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
     display: "none",
   });
   const [sliderValue, setSliderValue] = useState(value);
+  const [progressValue, setProgressValue] = useState(value);
   const [tooltipValue, setTooltipValue] = useState(value);
   const tooltip = useRef();
   const sliderRef = useRef();
 
-  const progress = ((value - min) * 100) / (max - min) + "% 100%";
+  const progress = ((progressValue - min) * 100) / (max - min) + "% 100%";
 
   const handleMouseMove = (e) => {
     const slider = e.target;
@@ -32,15 +33,25 @@ const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
     setTooltipStyles({ display: "none" });
   };
 
-  const handleChange = (e) => {
-    setSliderValue(e.target.value);
+  const handleChange = (val) => {
+    setSliderValue(val);
+    setProgressValue(val);
     if (!onChange || typeof onChange !== "function") return;
-    onChange(e.target.value);
+    onChange(val);
   };
 
   useEffect(() => {
     setSliderValue(value);
   }, [value]);
+
+  const handleKeyPress = (e) => {
+    e.preventDefault();
+    if (e.code === "ArrowRight") {
+      handleChange(sliderValue + 5);
+    } else if (e.code === "ArrowLeft") {
+      handleChange(sliderValue - 5);
+    }
+  };
 
   return (
     <div className="seek-slider-container">
@@ -54,11 +65,11 @@ const SeekSlider = ({ value, max = 100, min = 0, onChange }) => {
         min={min}
         max={max}
         value={sliderValue}
-        onChange={handleChange}
+        onChange={(e) => handleChange(e.target.value)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        defaultValue={value}
         ref={sliderRef}
+        onKeyDown={handleKeyPress}
       />
     </div>
   );
