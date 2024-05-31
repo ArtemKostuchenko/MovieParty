@@ -15,8 +15,6 @@ const ReviewItems = ({ videoContentId, limit = 15 }) => {
     return <Loader />;
   }
 
-  console.log(reviews);
-
   return (
     <div className="reviews__items">
       {reviews.map((review) => {

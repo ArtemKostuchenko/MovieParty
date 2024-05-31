@@ -29,3 +29,4 @@ export { default as Loader } from "./Loader/Loader";
 export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop";
 export { default as ReviewForm } from "./Reviews/ReviewForm";
 export { default as ReviewItems } from "./Reviews/ReviewItems";
+export { default as VideoPlayer } from "./VideoPlayer/VideoPlayer";

@@ -376,6 +376,70 @@
     background-color: var(--text-color);
     mask-image: url("/src/assets/icons/video-content.svg");
   }
+
+  &.play {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/play.svg");
+    &.big {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &.volume {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+    &.v-100 {
+      mask-image: url("/src/assets/icons/volume-100.svg");
+    }
+    &.v-50 {
+      mask-image: url("/src/assets/icons/volume-50.svg");
+    }
+    &.v-25 {
+      mask-image: url("/src/assets/icons/volume-25.svg");
+    }
+    &.v-mute {
+      mask-image: url("/src/assets/icons/volume-mute.svg");
+    }
+  }
+
+  &.settings {
+    width: 28px;
+    height: 28px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/settings.svg");
+  }
+
+  &.p-in-p {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+
+    &.exit {
+      mask-image: url("/src/assets/icons/p-in-p-exit.svg");
+    }
+
+    &.inner {
+      mask-image: url("/src/assets/icons/p-in-p-inner.svg");
+    }
+  }
+
+  &.full-screen {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+
+    &.on {
+      mask-image: url("/src/assets/icons/full-screen-on.svg");
+    }
+
+    &.off {
+      mask-image: url("/src/assets/icons/full-screen-off.svg");
+    }
+  }
 }
 
 /* responsive icons */
