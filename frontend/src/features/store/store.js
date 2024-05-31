@@ -6,6 +6,7 @@ import sort from "./slices/sort";
 import popup from "./slices/popup";
 import carousel from "./slices/carousel";
 import content from "./slices/content";
+import player from "./slices/player";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   videoContentApi,
@@ -31,6 +32,7 @@ const store = configureStore({
     popup: popup,
     carousel: carousel,
     content: content,
+    player: player,
     [typesContentApi.reducerPath]: typesContentApi.reducer,
     [videoContentApi.reducerPath]: videoContentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,

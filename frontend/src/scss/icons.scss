@@ -388,6 +388,13 @@
     }
   }
 
+  &.pause {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/pause.svg");
+  }
+
   &.volume {
     width: 24px;
     height: 24px;

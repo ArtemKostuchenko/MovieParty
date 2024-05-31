@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./style.component.scss";
 import ReactPlayer from "react-player";
+import useVideoPlayer from "../../hooks/useVideoPlayer";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
+  const { isPlaying, handleTogglePlaying } = useVideoPlayer();
+  const playerRef = useRef();
+
   return (
     <div className="video-player">
       <div className="video-player__display">
         <ReactPlayer
+          playing={isPlaying}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
           height="100%"
+          ref={playerRef}
         />
       </div>
       <div className="video-player__controls">
-        <button className="video-player__play">
-          <div className="icon play"></div>
+        <button
+          className="video-player__play"
+          onClick={handleTogglePlaying}
+          tabIndex={-1}
+        >
+          <div className={`icon${isPlaying ? " pause" : " play"}`}></div>
         </button>
         <div className="video-player__seek">
           <input type="range" className="seek-slider" />
