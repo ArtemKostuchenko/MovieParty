@@ -110,3 +110,16 @@ export function getCommentTime(createdAt, updatedAt, edited) {
   const relativeTime = getRelativeTime(date);
   return edited ? `Змінено ${relativeTime}` : relativeTime;
 }
+
+export const convertTimeHumanFormat = (seconds) => {
+  let hours = Math.floor(seconds / 3600);
+  let minutes = Math.floor((seconds % 3600) / 60);
+  let remainingSeconds = Math.floor(seconds % 60);
+
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  remainingSeconds =
+    remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+
+  return hours + ":" + minutes + ":" + remainingSeconds;
+};

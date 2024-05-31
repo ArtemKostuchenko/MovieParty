@@ -1,21 +1,38 @@
-import React, { useRef } from "react";
-import "./style.component.scss";
+import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
+import "./style.component.scss";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
+import { convertTimeHumanFormat } from "../../features/utils/functions";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
   const { isPlaying, handleTogglePlaying } = useVideoPlayer();
   const playerRef = useRef();
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const handleReady = () => {};
+
+  const handleDuration = (duration) => {
+    setDuration(duration);
+  };
+
+  const handleProgress = ({ playedSeconds }) => {
+    setCurrentTime(playedSeconds);
+  };
 
   return (
     <div className="video-player">
       <div className="video-player__display" onClick={handleTogglePlaying}>
+        {!isPlaying && <div className="video-player__filter"></div>}
         <ReactPlayer
+          ref={playerRef}
           playing={isPlaying}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
           height="100%"
-          ref={playerRef}
+          onReady={handleReady}
+          onDuration={handleDuration}
+          onProgress={handleProgress}
         />
       </div>
       <div className="video-player__controls">
@@ -30,9 +47,13 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
           <input type="range" className="seek-slider" />
         </div>
         <div className="video-player__time">
-          <div className="video-player__time-current">1:20:25</div>
+          <div className="video-player__time-current">
+            {convertTimeHumanFormat(currentTime)}
+          </div>
           <span className="video-player__time-split">/</span>
-          <div className="video-player__time-duration">1:40:25</div>
+          <div className="video-player__time-duration">
+            {convertTimeHumanFormat(duration)}
+          </div>
         </div>
         <div className="video-player__volume">
           <button className="video-player__volume-button">
