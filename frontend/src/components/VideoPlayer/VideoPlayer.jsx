@@ -9,7 +9,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
 
   return (
     <div className="video-player">
-      <div className="video-player__display">
+      <div className="video-player__display" onClick={handleTogglePlaying}>
         <ReactPlayer
           playing={isPlaying}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
