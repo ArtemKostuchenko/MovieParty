@@ -7,7 +7,6 @@ const VolumeSlider = ({
   scrollable = false,
   dark = false,
   onChange,
-  step = 1,
 }) => {
   const [tooltipStyles, setTooltipStyles] = useState({
     display: "none",
@@ -41,10 +40,12 @@ const VolumeSlider = ({
 
   const handleWheel = (e) => {
     if (scrollable) {
-      const delta = e.deltaY < 0 ? step : -step;
+      const delta = e.deltaY < 0 ? Math.round(max / 10) : -Math.round(max / 10);
       let newValue = sliderValue + delta;
       newValue = Math.max(min, Math.min(max, newValue));
       setSliderValue(newValue);
+      if (!onChange || typeof onChange !== "function") return;
+      onChange(newValue);
     }
   };
 
@@ -65,7 +66,6 @@ const VolumeSlider = ({
         style={{ backgroundSize: progress }}
         min={min}
         max={max}
-        step={step}
         value={sliderValue}
         onChange={handleChange}
         onMouseMove={handleMouseMove}
