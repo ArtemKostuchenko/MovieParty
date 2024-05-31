@@ -5,6 +5,8 @@ const initialState = {
   volume: 0.5,
   isEnablePIP: false,
   isFullScreen: false,
+  isSettingsOpen: false,
+  speed: 1,
 };
 
 const playerSlice = createSlice({
@@ -23,6 +25,12 @@ const playerSlice = createSlice({
     setFullScreenState: (state, action) => {
       state.isFullScreen = action.payload;
     },
+    setSettingState: (state, action) => {
+      state.isSettingsOpen = action.payload;
+    },
+    setSpeedState: (state, action) => {
+      state.speed = action.payload;
+    },
   },
 });
 
@@ -31,6 +39,8 @@ export const {
   setVolumeState,
   setEnablePIPState,
   setFullScreenState,
+  setSettingState,
+  setSpeedState,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

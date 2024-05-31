@@ -9,9 +9,14 @@ import {
 
 const useVideoPlayer = () => {
   const dispatch = useDispatch();
-  const { isPlaying, volume, isEnablePIP, isFullScreen } = useSelector(
-    (store) => store.player
-  );
+  const {
+    isPlaying,
+    volume,
+    isEnablePIP,
+    isFullScreen,
+    isSettingsOpen,
+    speed,
+  } = useSelector((store) => store.player);
   const lastVolume = useRef();
 
   const handlePlay = () => {
@@ -88,8 +93,10 @@ const useVideoPlayer = () => {
   return {
     isPlaying,
     volume,
+    speed,
     isEnablePIP,
     isFullScreen,
+    isSettingsOpen,
     handlePlay,
     handlePause,
     handleDisablePIP,

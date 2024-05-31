@@ -5,13 +5,16 @@ import useVideoPlayer from "../../hooks/useVideoPlayer";
 import { convertTimeHumanFormat } from "../../features/utils/functions";
 import SeekSlider from "../Sliders/SeekSlider";
 import VolumeSlider from "../Sliders/VolumeSlider";
+import SettingsPlayer from "./SettingsPlayer";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
   const {
     isPlaying,
     volume,
+    speed,
     isEnablePIP,
     isFullScreen,
+    isSettingsOpen,
     handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
@@ -25,6 +28,11 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
   const [duration, setDuration] = useState(0);
 
   const handleReady = () => {};
+
+  const handlePlay = () => {
+    if (isSettingsOpen) return;
+    handleTogglePlaying();
+  };
 
   const handleDuration = (duration) => {
     setDuration(duration);
@@ -43,11 +51,12 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
   return (
     <div className="video-player" ref={videoPlayerRef}>
       {!isPlaying && <div className="video-player__filter"></div>}
-      <div className="video-player__display" onClick={handleTogglePlaying}>
+      <div className="video-player__display" onClick={handlePlay}>
         <ReactPlayer
           ref={playerRef}
           playing={isPlaying}
           volume={volume}
+          playbackRate={speed}
           pip={isEnablePIP}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
@@ -62,7 +71,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
         <div className="video-player__controls">
           <button
             className="video-player__play"
-            onClick={handleTogglePlaying}
+            onClick={handlePlay}
             tabIndex={-1}
           >
             <div className={`icon${isPlaying ? " pause" : " play"}`}></div>
@@ -113,9 +122,8 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
               />
             </div>
           </div>
-          <button className="video-player__settings">
-            <div className="icon settings"></div>
-          </button>
+          <SettingsPlayer soundTracks={soundTracks} />
+
           <button className="video-player__p-in-p" onClick={handleTogglePIP}>
             <div
               className={`icon p-in-p ${isEnablePIP ? " inner" : " exit"}`}
