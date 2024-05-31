@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPlayingState,
   setVolumeState,
+  setEnablePIPState,
+  setFullScreenState,
 } from "../features/store/slices/player";
 
 const useVideoPlayer = () => {
   const dispatch = useDispatch();
-  const { isPlaying, volume } = useSelector((store) => store.player);
+  const { isPlaying, volume, isEnablePIP, isFullScreen } = useSelector(
+    (store) => store.player
+  );
   const lastVolume = useRef();
 
   const handlePlay = () => {
@@ -49,14 +53,40 @@ const useVideoPlayer = () => {
     }
   };
 
+  const handleDisablePIP = () => {
+    if (!isEnablePIP) return;
+    dispatch(setEnablePIPState(false));
+  };
+
+  const handleTogglePIP = () => {
+    if (isEnablePIP) {
+      handleDisablePIP();
+    } else {
+      dispatch(setEnablePIPState(true));
+    }
+  };
+
+  const handleToggleFullScreen = () => {
+    if (isFullScreen) {
+      dispatch(setFullScreenState(false));
+    } else {
+      dispatch(setFullScreenState(true));
+    }
+  };
+
   return {
     isPlaying,
     volume,
+    isEnablePIP,
+    isFullScreen,
     handlePlay,
     handlePause,
+    handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
     handleToggleVolume,
+    handleTogglePIP,
+    handleToggleFullScreen,
   };
 };
 

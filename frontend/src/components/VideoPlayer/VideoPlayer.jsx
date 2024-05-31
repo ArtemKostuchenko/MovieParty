@@ -10,9 +10,12 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
   const {
     isPlaying,
     volume,
+    isEnablePIP,
+    handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
     handleToggleVolume,
+    handleTogglePIP,
   } = useVideoPlayer();
   const playerRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
@@ -40,14 +43,16 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
         {!isPlaying && <div className="video-player__filter"></div>}
         <ReactPlayer
           ref={playerRef}
-          volume={volume}
           playing={isPlaying}
+          volume={volume}
+          pip={isEnablePIP}
           url={soundTracks[0].m3u8Links[0].m3u8URL}
           width="100%"
           height="100%"
           onReady={handleReady}
           onDuration={handleDuration}
           onProgress={handleProgress}
+          onDisablePIP={handleDisablePIP}
         />
       </div>
       <div className="video-player__controls">
@@ -107,8 +112,10 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
         <button className="video-player__settings">
           <div className="icon settings"></div>
         </button>
-        <button className="video-player__p-in-p">
-          <div className="icon p-in-p exit"></div>
+        <button className="video-player__p-in-p" onClick={handleTogglePIP}>
+          <div
+            className={`icon p-in-p ${isEnablePIP ? " inner" : " exit"}`}
+          ></div>
         </button>
         <button className="video-player__full-screen">
           <div className="icon full-screen off"></div>
