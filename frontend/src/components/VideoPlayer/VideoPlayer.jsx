@@ -3,6 +3,8 @@ import ReactPlayer from "react-player";
 import "./style.component.scss";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
 import { convertTimeHumanFormat } from "../../features/utils/functions";
+import SeekSlider from "../Sliders/SeekSlider";
+import VolumeSlider from "../Sliders/VolumeSlider";
 
 const VideoPlayer = ({ soundTracks, seasons }) => {
   const { isPlaying, handleTogglePlaying } = useVideoPlayer();
@@ -44,7 +46,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
           <div className={`icon${isPlaying ? " pause" : " play"}`}></div>
         </button>
         <div className="video-player__seek">
-          <input type="range" className="seek-slider" />
+          <SeekSlider value={currentTime} min={0} max={duration} />
         </div>
         <div className="video-player__time">
           <div className="video-player__time-current">
@@ -60,7 +62,15 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
             <div className="icon volume v-100"></div>
           </button>
           <div className="video-player__volume-seek">
-            <input type="range" className="seek-slider gray" />
+            <VolumeSlider
+              value={30}
+              min={0}
+              max={100}
+              step={10}
+              onChange={(val) => console.log(val)}
+              dark
+              scrollable
+            />
           </div>
         </div>
         <button className="video-player__settings">
