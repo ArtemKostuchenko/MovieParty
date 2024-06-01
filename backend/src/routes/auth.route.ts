@@ -3,9 +3,11 @@ import {
   register,
   login,
   getMe,
+  updateMe,
   reqPasswordReset,
   resetPassword,
   logOut,
+  getUserInfoByUserId,
 } from "../controllers/auth.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import FavoriteRouter from "./favorite.route";
@@ -35,6 +37,8 @@ router.get(
 router.post("/password/req-reset", reqPasswordReset);
 router.post("/password/reset", resetPassword);
 router.get("/me", authMiddleware, getMe);
+router.post("/me/update", authMiddleware, updateMe);
+router.post("/me/info", authMiddleware, getUserInfoByUserId);
 router.post("/logout", logOut);
 
 export default router;
