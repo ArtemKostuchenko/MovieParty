@@ -57,6 +57,16 @@ const getReviewsByVideoContentId = async (
   return res.status(StatusCodes.OK).json({ data: reviews });
 };
 
+const getBestReviewsByUserId = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: userId } = req.params;
+  const reviews = await ReviewRepository.getBestReviewsByUserId(userId);
+
+  return res.status(StatusCodes.OK).json({ data: reviews });
+};
+
 const getReviews = async (req: Request, res: Response): Promise<Response> => {
   const reviews = await ReviewRepository.getReviews();
 
@@ -71,4 +81,5 @@ export {
   deleteReview,
   getReviews,
   getReviewsByVideoContentId,
+  getBestReviewsByUserId,
 };

@@ -7,6 +7,7 @@ import {
   getReviewsByVideoContentId,
   likeReviewById,
   dislikeReviewById,
+  getBestReviewsByUserId,
 } from "../controllers/review.controller";
 import {
   authMiddleware,
@@ -25,5 +26,7 @@ router.route("/dislike").post(dislikeReviewById);
 router.route("/:id").get(getReview).delete(deleteReview);
 
 router.route("/v/:id").get(getReviewsByVideoContentId);
+
+router.route("/bests/user/:id").get(getBestReviewsByUserId);
 
 export default router;

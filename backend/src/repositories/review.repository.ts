@@ -194,6 +194,38 @@ class ReviewRepository {
     }));
   }
 
+  async getBestReviewsByUserId(userId: string) {
+    if (!userId) {
+      throw new BadRequestError("Please provide userId");
+    }
+
+    return await ReviewModel.aggregate([
+      { $match: { userId: userId } },
+      {
+        $addFields: {
+          likesCount: { $size: "$likes" },
+        },
+      },
+      {
+        $sort: { likesCount: -1 },
+      },
+      { $limit: 4 },
+      {
+        $lookup: {
+          from: "videocontents",
+          localField: "contentId",
+          foreignField: "_id",
+          as: "videoContent",
+        },
+      },
+      {
+        $project: {
+          contentId: 0,
+        },
+      },
+    ]);
+  }
+
   async getReviews(): Promise<Review[]> {
     return await ReviewModel.find({});
   }
