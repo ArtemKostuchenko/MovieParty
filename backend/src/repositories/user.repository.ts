@@ -41,9 +41,11 @@ class UserRepository {
       throw new UnAuthorizedError("Invalid credentials");
     }
 
+    user.lastLogin = new Date();
+
     const token = user.createToken();
 
-    return { user, token };
+    return { user: await user.save(), token };
   }
 
   async updateMe(userId: string, userData: User): Promise<User> {

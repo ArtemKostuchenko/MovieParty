@@ -14,6 +14,7 @@ export const usersApi = createApi({
           url: `/auth/me`,
         };
       },
+      transformResponse: (resp) => resp.user,
       providesTags: ["users"],
     }),
   }),

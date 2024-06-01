@@ -1,7 +1,11 @@
 import React from "react";
 import "./style.page.scss";
+import { useGetMyInfoQuery } from "../../../features/services/users/usersService";
+import { getRelativeTime } from "../../../features/utils/functions";
 
 const IndexPage = () => {
+  const { data: user, isLoading } = useGetMyInfoQuery();
+
   return (
     <>
       <div className="profile-user-content-title">Профіль</div>
@@ -10,47 +14,91 @@ const IndexPage = () => {
           Загальна інформація
         </div>
         <div className="user-info">
-          <div className="user-info-items">
-            <div className="user-info-item">
-              <div className="user-info-title">Нікнейм</div>
-              <div className="user-info-desc">Qwerty</div>
-            </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Країна</div>
-              <div className="user-info-desc">
-                <img
-                  src="../images/icons/us.svg"
-                  className="country-icon"
-                  alt="США"
-                />
-                США
+          {isLoading && (
+            <div className="user-info-items">
+              <div className="user-info-item">
+                <div className="user-info-title">Нікнейм</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Країна</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Останній вхід</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Зареєстрований</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Збереженого контенту</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Переглянутого контенту</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Створено вечірок</div>
+                <div className="loader-skeleton info-desc"></div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Відвідано вечірок</div>
+                <div className="loader-skeleton info-desc"></div>
               </div>
             </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Останній вхід</div>
-              <div className="user-info-desc">30 хв тому</div>
+          )}
+          {!isLoading && (
+            <div className="user-info-items">
+              <div className="user-info-item">
+                <div className="user-info-title">Нікнейм</div>
+                <div className="user-info-desc">{user.nickname}</div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Країна</div>
+                <div className="user-info-desc">
+                  {user.country && (
+                    <img
+                      src="../images/icons/us.svg"
+                      className="country-icon"
+                      alt="США"
+                    />
+                  )}
+                  {user.country ? user.country : "Невідомо"}
+                </div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Останній вхід</div>
+                <div className="user-info-desc">
+                  {getRelativeTime(new Date(user.lastLogin))}
+                </div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Зареєстрований</div>
+                <div className="user-info-desc">
+                  {getRelativeTime(new Date(user.createdAt))}
+                </div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Збереженого контенту</div>
+                <div className="user-info-desc">{user.favorites.length}</div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Переглянутого контенту</div>
+                <div className="user-info-desc">0 хв</div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Створено вечірок</div>
+                <div className="user-info-desc">0</div>
+              </div>
+              <div className="user-info-item">
+                <div className="user-info-title">Відвідано вечірок</div>
+                <div className="user-info-desc">0</div>
+              </div>
             </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Зареєстрований</div>
-              <div className="user-info-desc">2 місяці тому</div>
-            </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Збереженого контенту</div>
-              <div className="user-info-desc">6</div>
-            </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Переглянутого контенту</div>
-              <div className="user-info-desc">30 хв</div>
-            </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Створено вечірок</div>
-              <div className="user-info-desc">2</div>
-            </div>
-            <div className="user-info-item">
-              <div className="user-info-title">Відвідано вечірок</div>
-              <div className="user-info-desc">5</div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="profile-user-content-container">

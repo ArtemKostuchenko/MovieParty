@@ -1516,6 +1516,14 @@ body {
     height: 48px;
   }
 
+  &.info-title {
+    @include adaptiveHeight(25, 22);
+  }
+
+  &.info-desc {
+    @include adaptiveHeight(27, 24);
+  }
+
   &:hover {
   }
 }
