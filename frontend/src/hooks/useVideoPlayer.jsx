@@ -5,6 +5,7 @@ import {
   setVolumeState,
   setEnablePIPState,
   setFullScreenState,
+  setM3U8State,
 } from "../features/store/slices/player";
 
 const useVideoPlayer = () => {
@@ -87,6 +88,7 @@ const useVideoPlayer = () => {
   useEffect(() => {
     document.addEventListener("fullscreenchange", handleFullScreenChange);
     return () => {
+      dispatch(setM3U8State(null));
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
     };
   }, []);
