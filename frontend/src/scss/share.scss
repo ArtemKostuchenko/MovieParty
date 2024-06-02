@@ -1528,6 +1528,22 @@ body {
     height: 165px;
   }
 
+  &.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+  }
+
+  &.profile-nickname {
+    width: 100%;
+    @include adaptiveHeight(28, 24);
+  }
+
+  &.profile-email {
+    width: 100%;
+    @include adaptiveHeight(24, 20);
+  }
+
   &:hover {
   }
 }

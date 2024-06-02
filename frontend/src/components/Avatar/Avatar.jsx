@@ -6,6 +6,7 @@ const Avatar = ({
   avatarColor,
   width = 50,
   height = 50,
+  fontSize,
 }) => {
   const photoURLPath = `${
     import.meta.env.VITE_BACK_HOST
@@ -19,7 +20,12 @@ const Avatar = ({
       {!photoURL && (
         <div
           className="avatar__letter"
-          style={{ backgroundColor: avatarColor || "#2986cc", width, height }}
+          style={{
+            backgroundColor: avatarColor || "#2986cc",
+            width,
+            height,
+            fontSize,
+          }}
         >
           {nickname.toUpperCase()[0]}
         </div>

@@ -1,8 +1,13 @@
 import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
-import Avatar from "../assets/avatar.png";
+import { Avatar } from "../components";
+import useUser from "../hooks/useUser";
 
 const ProfileLayout = () => {
+  const { user } = useUser();
+
+  console.log(user);
+
   return (
     <div className="container cnt-mn">
       <div className="container">
@@ -10,13 +15,29 @@ const ProfileLayout = () => {
           <div className="profile-user">
             <div className="profile-user-side">
               <div className="profile-user-info">
-                <div className="profile-user-details">
-                  <div className="profile-user-avatar">
-                    <img src={Avatar} alt="Qwerty" />
+                {!user && (
+                  <div className="profile-user-details">
+                    <div className="profile-user-avatar loader-skeleton profile-avatar"></div>
+                    <div className="profile-user-nickname loader-skeleton profile-nickname"></div>
+                    <div className="profile-user-email loader-skeleton profile-email"></div>
                   </div>
-                  <div className="profile-user-nickname">Qwerty</div>
-                  <div className="profile-user-email">qwerty@gmail.com</div>
-                </div>
+                )}
+                {user && (
+                  <div className="profile-user-details">
+                    <div className="profile-user-avatar">
+                      <Avatar
+                        photoURL={user.photoURL}
+                        nickname={user.nickname}
+                        avatarColor={user.avatarColor}
+                        height={120}
+                        width={120}
+                        fontSize={24}
+                      />
+                    </div>
+                    <div className="profile-user-nickname">{user.nickname}</div>
+                    <div className="profile-user-email">{user.email}</div>
+                  </div>
+                )}
                 <div className="icon profile-menu" />
               </div>
               <div className="profile-user-menu">
