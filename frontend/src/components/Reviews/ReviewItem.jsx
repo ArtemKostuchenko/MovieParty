@@ -1,7 +1,7 @@
 import React from "react";
-import Avatar from "../../assets/avatar.png";
 import { getCommentTime } from "../../features/utils/functions";
 import useReview from "../../hooks/useReview";
+import Avatar from "../Avatar/Avatar";
 
 const ReviewItem = ({
   _id,
@@ -38,7 +38,11 @@ const ReviewItem = ({
         <div className="review__owner">
           <div className="review__profile">
             <div className="profile profile__avatar">
-              <img src={Avatar} alt="Qwerty" />
+              <Avatar
+                nickname={user.nickname}
+                photoURL={user.avatarURL}
+                avatarColor={user.avatarColor}
+              />
             </div>
             <h2 className="profile__name">{user.nickname}</h2>
           </div>

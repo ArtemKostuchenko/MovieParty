@@ -447,6 +447,13 @@
       mask-image: url("/src/assets/icons/full-screen-off.svg");
     }
   }
+
+  &.camera {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/camera.svg");
+  }
 }
 
 /* responsive icons */

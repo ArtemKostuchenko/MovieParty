@@ -13,6 +13,7 @@ import {
 import { authMiddleware } from "../middlewares/auth.middleware";
 import FavoriteRouter from "./favorite.route";
 import passport from "passport";
+import uploadFile from "../utils/upload";
 
 const router: Router = express.Router();
 
@@ -39,7 +40,12 @@ router.post("/password/req-reset", reqPasswordReset);
 router.post("/password/reset", resetPassword);
 router.get("/me", authMiddleware, getMe);
 router.get("/me/reviews", authMiddleware, getMyReviews);
-router.post("/me/update", authMiddleware, updateMe);
+router.patch(
+  "/me/update",
+  authMiddleware,
+  uploadFile("./src/files/images/u").single("avatarURL"),
+  updateMe
+);
 router.post("/me/info", authMiddleware, getUserInfoByUserId);
 router.post("/logout", logOut);
 

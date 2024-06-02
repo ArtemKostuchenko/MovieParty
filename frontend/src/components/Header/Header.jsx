@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
-import Avatar from "../../assets/avatar.png";
 import "./style.component.scss";
+import Avatar from "../Avatar/Avatar";
 
 const Header = () => {
-  const { isAuth } = useUser();
+  const { isAuth, user } = useUser();
 
   return (
     <div className="container hdr">
@@ -56,7 +56,11 @@ const Header = () => {
                 <Link to="/profile">
                   <div className="profile">
                     <div className="profile__avatar">
-                      <img src={Avatar} alt="Qwerty" />
+                      <Avatar
+                        photoURL={user.avatarURL}
+                        nickname={user.nickname}
+                        avatarColor={user.avatarColor}
+                      />
                     </div>
                   </div>
                 </Link>

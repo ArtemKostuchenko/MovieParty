@@ -233,7 +233,7 @@ class ReviewRepository {
           let: { userId: "$userId" },
           pipeline: [
             { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
-            { $project: { nickname: 1, photoURL: 1, avatarColor: 1 } },
+            { $project: { nickname: 1, avatarURL: 1, avatarColor: 1 } },
           ],
           as: "user",
         },
@@ -313,7 +313,7 @@ class ReviewRepository {
           let: { userId: "$userId" },
           pipeline: [
             { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
-            { $project: { nickname: 1, photoURL: 1, avatarColor: 1 } },
+            { $project: { nickname: 1, avatarURL: 1, avatarColor: 1 } },
           ],
           as: "user",
         },

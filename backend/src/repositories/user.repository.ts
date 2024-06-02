@@ -1,6 +1,6 @@
 import UserModel, { User } from "../models/user.model";
 import { BadRequestError, UnAuthorizedError, NotFoundError } from "../errors";
-import { generateAvatarColorHex } from "../utils/functions";
+import { deleteFile, generateAvatarColorHex } from "../utils/functions";
 import { UserToken } from "../utils/interfaces";
 
 class UserRepository {
@@ -65,6 +65,11 @@ class UserRepository {
     user.email = email || user.email;
     user.country = country || user.country;
     user.sex = sex || user.sex;
+
+    if (user.avatarURL && user.avatarURL !== avatarURL) {
+      await deleteFile(`./src/files/images/u/${user.avatarURL}`);
+    }
+
     user.avatarURL = avatarURL || user.avatarURL;
 
     return await user.save();

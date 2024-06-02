@@ -30,6 +30,8 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 };
 
 const updateMe = async (req: Request, res: Response): Promise<Response> => {
+  req.body.avatarURL = req.file?.filename as string;
+
   const updatedUser = await UserRepository.updateMe(req.user?.id, req.body);
 
   return res.status(StatusCodes.OK).json({ user: updatedUser });

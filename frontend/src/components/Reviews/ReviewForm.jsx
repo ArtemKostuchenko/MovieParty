@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ReviewSchema } from "../../features/validations";
 import useReview from "../../hooks/useReview";
 import useUser from "../../hooks/useUser";
-import Avatar from "../../assets/avatar.png";
+import Avatar from "../Avatar/Avatar";
 
 const ReviewForm = ({ videoContentId, disabled = false }) => {
   const { addReview, isLoadingAdd } = useReview();
@@ -33,7 +33,11 @@ const ReviewForm = ({ videoContentId, disabled = false }) => {
       <div className="review__owner">
         <div className="review__profile">
           <div className="profile profile__avatar">
-            <img src={Avatar} alt="Qwerty" />
+            <Avatar
+              nickname={user.nickname}
+              photoURL={user.avatarURL}
+              avatarColor={user.avatarColor}
+            />
           </div>
           <h2 className="profile__name">{user.nickname}</h2>
         </div>

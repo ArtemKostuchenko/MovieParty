@@ -26,7 +26,31 @@ export const usersApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["users"],
     }),
+    updateMe: builder.mutation({
+      query: ({
+        nickname = "",
+        email = "",
+        avatarURL = "",
+        sex = "",
+        country = "",
+      } = {}) => {
+        const bodyData = new FormData();
+        bodyData.append("nickname", nickname);
+        bodyData.append("email", email);
+        bodyData.append("avatarURL", avatarURL);
+        bodyData.append("sex", sex);
+        bodyData.append("country", country);
+
+        return {
+          url: `auth/me/update`,
+          method: "PATCH",
+          data: bodyData,
+        };
+      },
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
-export const { useGetMyInfoQuery, useGetMyReviewsQuery } = usersApi;
+export const { useGetMyInfoQuery, useGetMyReviewsQuery, useUpdateMeMutation } =
+  usersApi;

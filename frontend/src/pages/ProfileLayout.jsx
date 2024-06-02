@@ -4,9 +4,15 @@ import { Avatar } from "../components";
 import useUser from "../hooks/useUser";
 
 const ProfileLayout = () => {
-  const { user } = useUser();
+  const { user, updateMe, refetchUser } = useUser();
 
-  console.log(user);
+  const handlePhotoUpdate = async (file) => {
+    const res = await updateMe({
+      avatarURL: file,
+    });
+    await refetchUser();
+    console.log(res);
+  };
 
   return (
     <div className="container cnt-mn">
@@ -26,12 +32,14 @@ const ProfileLayout = () => {
                   <div className="profile-user-details">
                     <div className="profile-user-avatar">
                       <Avatar
-                        photoURL={user.photoURL}
+                        photoURL={user.avatarURL}
                         nickname={user.nickname}
                         avatarColor={user.avatarColor}
                         height={120}
                         width={120}
                         fontSize={24}
+                        updatable
+                        handlePhotoUpdate={handlePhotoUpdate}
                       />
                     </div>
                     <div className="profile-user-nickname">{user.nickname}</div>

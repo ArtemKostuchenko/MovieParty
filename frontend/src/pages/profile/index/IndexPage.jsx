@@ -109,10 +109,10 @@ const IndexPage = () => {
         <div className="profile-user-content-container-title">
           Популярні коментарі
         </div>
-        {userCredentials && (
+        {!isLoading && user && (
           <div className="user-comments">
             <CommentItems
-              userId={userCredentials._id}
+              userId={user._id}
               query={useGetBestReviewsByUserIdQuery}
             />
           </div>

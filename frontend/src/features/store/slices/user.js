@@ -45,6 +45,18 @@ export const authUser = createAsyncThunk("user/auth", async (_, ThunkAPI) => {
   }
 });
 
+export const fetchUser = createAsyncThunk(
+  "user/refetch",
+  async (_, ThunkAPI) => {
+    try {
+      const resp = await baseAxios.get("/auth/me");
+      return resp.data;
+    } catch (err) {
+      return ThunkAPI.rejectWithValue(err.response.data.msg);
+    }
+  }
+);
+
 export const logout = createAsyncThunk("user/logout", async (_, ThunkAPI) => {
   try {
     await baseAxios.post("/auth/logout");
@@ -108,6 +120,9 @@ const userSlice = createSlice({
         state.user = null;
         state.error = action.payload;
       });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+    });
     builder
       .addCase(logout.pending, (state) => {
         state.isError = false;

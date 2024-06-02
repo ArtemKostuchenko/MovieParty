@@ -1,5 +1,7 @@
 import { VideoContent } from "../models/content.model";
 import { Request } from "./interfaces";
+import fs from "fs";
+import path from "path";
 
 export const generateAvatarColorHex = (): string => {
   const red: number = Math.floor(Math.random() * 128) + 64;
@@ -67,4 +69,14 @@ export const convertBodyVideoContent = (
 export const capitalizeFirstLetter = (string: string): string => {
   if (!string) return string;
   return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const deleteFile = async (fileName: string) => {
+  try {
+    fs.unlink(fileName, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch (err) {}
 };

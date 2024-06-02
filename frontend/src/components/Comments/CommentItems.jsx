@@ -16,7 +16,7 @@ const CommentItems = ({
   const { page, handleChangePage } = usePagination();
   const { data, isLoading } = query(userId);
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <CommentLoading limit={limit} />;
   }
 

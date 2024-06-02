@@ -26,7 +26,7 @@ const CommentItem = ({
     typeVideoContent: { path },
   } = videoContent;
 
-  const { nickname, photoURL, avatarColor } = user;
+  const { nickname, avatarURL, avatarColor } = user;
 
   const previewURL = `${
     import.meta.env.VITE_BACK_HOST
@@ -35,8 +35,6 @@ const CommentItem = ({
   const videoContentLink = `/${path}/${originTitle
     .toLowerCase()
     .replace(/\s/g, "-")}`;
-
-  console.log(user);
 
   return (
     <div className="user-comments-item">
@@ -48,7 +46,7 @@ const CommentItem = ({
           <div className="comment-content-owner">
             <div className="comment-content-user">
               <Avatar
-                photoURL={photoURL}
+                photoURL={avatarURL}
                 nickname={nickname}
                 avatarColor={avatarColor}
                 width={40}
