@@ -82,14 +82,16 @@ const FavoritesItems = ({ limit = 10 }) => {
             );
           })}
       </div>
-      <div className="content__pagination">
-        <Pagination
-          page={page}
-          limit={limit}
-          totalCount={data.totalCount}
-          onChangePage={(page) => handleChangePage(page)}
-        />
-      </div>
+      {data.totalCount > limit && (
+        <div className="content__pagination">
+          <Pagination
+            page={page}
+            limit={limit}
+            totalCount={data.totalCount}
+            onChangePage={(page) => handleChangePage(page)}
+          />
+        </div>
+      )}
     </>
   );
 };
