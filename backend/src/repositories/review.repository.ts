@@ -16,6 +16,7 @@ class ReviewRepository {
 
     const reviewDoc = await ReviewModel.findOne({
       userId,
+      contentId: reviewData.contentId,
     });
 
     if (reviewDoc) {
