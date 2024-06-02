@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { sendEmail } from "../utils/email/email";
 import UserRepository from "../repositories/user.repository";
+import ReviewRepository from "../repositories/review.repository";
 
 const register = async (req: Request, res: Response): Promise<Response> => {
   const { user, token } = await UserRepository.singUpUser(req.body);
@@ -43,6 +44,14 @@ const getUserInfoByUserId = async (
   const user = await UserRepository.getUserInfoByUserId(userId);
 
   return res.status(StatusCodes.OK).json({ user });
+};
+
+const getMyReviews = async (req: Request, res: Response): Promise<Response> => {
+  const reviews = await ReviewRepository.getReviewsByUserId(
+    req.user?.id,
+    req.query
+  );
+  return res.status(StatusCodes.OK).json({ data: reviews });
 };
 
 const logOut = (req: Request, res: Response) => {
@@ -173,6 +182,7 @@ export {
   logOut,
   getMe,
   getUserInfoByUserId,
+  getMyReviews,
   updateMe,
   reqPasswordReset,
   resetPassword,

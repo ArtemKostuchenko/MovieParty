@@ -199,11 +199,16 @@ class ReviewRepository {
       throw new BadRequestError("Please provide userId");
     }
 
-    return await ReviewModel.aggregate([
-      { $match: { userId: userId } },
+    const reviews = await ReviewModel.aggregate([
+      { $match: { userId: new Types.ObjectId(userId) } },
       {
         $addFields: {
           likesCount: { $size: "$likes" },
+        },
+      },
+      {
+        $addFields: {
+          dislikesCount: { $size: "$dislikes" },
         },
       },
       {
@@ -219,11 +224,133 @@ class ReviewRepository {
         },
       },
       {
+        $unwind: "$videoContent",
+      },
+      {
+        $lookup: {
+          from: "users",
+          let: { userId: "$userId" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
+            { $project: { nickname: 1, photoURL: 1, avatarColor: 1 } },
+          ],
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "videoContent.typeVideoContent",
+          foreignField: "_id",
+          as: "typeVideoContentDetails",
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.typeVideoContent": {
+            $arrayElemAt: ["$typeVideoContentDetails", 0],
+          },
+        },
+      },
+      {
         $project: {
           contentId: 0,
+          likes: 0,
+          dislikes: 0,
+          userId: 0,
+          typeVideoContentDetails: 0,
         },
       },
     ]);
+
+    return { reviews, totalCount: reviews.length };
+  }
+
+  async getReviewsByUserId(userId: string, query: any) {
+    if (!userId) {
+      throw new BadRequestError("Please provide userId");
+    }
+
+    const reviewsPerPage = query.limit || 20;
+    const page = query.page || 1;
+    const skip = (page - 1) * reviewsPerPage;
+
+    const reviews = await ReviewModel.aggregate([
+      { $match: { userId: new Types.ObjectId(userId) } },
+      {
+        $addFields: {
+          likesCount: { $size: "$likes" },
+        },
+      },
+      {
+        $addFields: {
+          dislikesCount: { $size: "$dislikes" },
+        },
+      },
+      {
+        $sort: { likesCount: -1 },
+      },
+      { $limit: reviewsPerPage, $skip: skip },
+      {
+        $lookup: {
+          from: "videocontents",
+          localField: "contentId",
+          foreignField: "_id",
+          as: "videoContent",
+        },
+      },
+      {
+        $unwind: "$videoContent",
+      },
+      {
+        $lookup: {
+          from: "users",
+          let: { userId: "$userId" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
+            { $project: { nickname: 1, photoURL: 1, avatarColor: 1 } },
+          ],
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "videoContent.typeVideoContent",
+          foreignField: "_id",
+          as: "typeVideoContentDetails",
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.typeVideoContent": {
+            $arrayElemAt: ["$typeVideoContentDetails", 0],
+          },
+        },
+      },
+      {
+        $project: {
+          contentId: 0,
+          likes: 0,
+          dislikes: 0,
+          userId: 0,
+          typeVideoContentDetails: 0,
+        },
+      },
+    ]);
+
+    return {
+      reviews,
+      totalCount: await ReviewModel.countDocuments({
+        userId: new Types.ObjectId(userId),
+      }),
+    };
   }
 
   async getReviews(): Promise<Review[]> {

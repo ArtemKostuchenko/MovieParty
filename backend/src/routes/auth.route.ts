@@ -8,6 +8,7 @@ import {
   resetPassword,
   logOut,
   getUserInfoByUserId,
+  getMyReviews,
 } from "../controllers/auth.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import FavoriteRouter from "./favorite.route";
@@ -39,6 +40,7 @@ router.post("/password/reset", resetPassword);
 router.get("/me", authMiddleware, getMe);
 router.post("/me/update", authMiddleware, updateMe);
 router.post("/me/info", authMiddleware, getUserInfoByUserId);
+router.post("/me/reviews", authMiddleware, getMyReviews);
 router.post("/logout", logOut);
 
 export default router;

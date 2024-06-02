@@ -1524,6 +1524,10 @@ body {
     @include adaptiveHeight(27, 24);
   }
 
+  &.user-comment {
+    height: 165px;
+  }
+
   &:hover {
   }
 }
@@ -2051,6 +2055,34 @@ body {
     color: #aaa;
   }
 }
+
+.avatar {
+  display: flex;
+  font-size: 0;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+
+  img,
+  &__letter {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    @include adaptiveFont(16, 14);
+    color: var(--white);
+  }
+}
+
 /* responsive */
 
 @media screen and (max-width: 1350px) {

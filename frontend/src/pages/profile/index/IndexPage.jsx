@@ -1,9 +1,13 @@
 import React from "react";
 import "./style.page.scss";
 import { useGetMyInfoQuery } from "../../../features/services/users/usersService";
+import { useGetBestReviewsByUserIdQuery } from "../../../features/services/reviews/reviewsService";
 import { getRelativeTime } from "../../../features/utils/functions";
+import useUser from "../../../hooks/useUser";
+import CommentItems from "../../../components/Comments/CommentItems";
 
 const IndexPage = () => {
+  const { user: userCredentials } = useUser();
   const { data: user, isLoading } = useGetMyInfoQuery();
 
   return (
@@ -105,194 +109,14 @@ const IndexPage = () => {
         <div className="profile-user-content-container-title">
           Популярні коментарі
         </div>
-        <div className="user-comments">
-          <div className="user-comments-items">
-            <div className="user-comments-item">
-              <div className="comment">
-                <a href="#" className="comment-content-image">
-                  <img
-                    src="../images/comment.jpg"
-                    alt="Зоряні війни: Епізод VIII - Останні джедаї"
-                  />
-                </a>
-                <div className="comment-content-info">
-                  <div className="comment-content-owner">
-                    <div className="comment-content-user">
-                      <img src="../images/avatar.png" alt="Qwerty" />
-                      <div className="comment-content-user-nickname">
-                        Qwerty
-                      </div>
-                    </div>
-                    <div className="icon shift" />
-                    <div className="comment-content-date">06.03.2024</div>
-                    <div className="icon shift" />
-                    <a href="#" className="comment-content-ref">
-                      Зоряні війни: Епізод VIII - Останні джедаї
-                    </a>
-                  </div>
-                  <div className="comment-content-message">
-                    Епічне продовження франшизи, яке вражає як візуально, так і
-                    сюжетно
-                  </div>
-                  <div className="comment-content-reactions">
-                    <div className="comment-reactions">
-                      <div className="comment__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="comment-reactions-count">4</div>
-                      </div>
-                      <div className="comment__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="comment-reactions-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="user-comments-item">
-              <div className="comment">
-                <a href="#" className="comment-content-image">
-                  <img
-                    src="../images/comment.jpg"
-                    alt="Зоряні війни: Епізод VIII - Останні джедаї"
-                  />
-                </a>
-                <div className="comment-content-info">
-                  <div className="comment-content-owner">
-                    <div className="comment-content-user">
-                      <img src="../images/avatar.png" alt="Qwerty" />
-                      <div className="comment-content-user-nickname">
-                        Qwerty
-                      </div>
-                    </div>
-                    <div className="icon shift" />
-                    <div className="comment-content-date">06.03.2024</div>
-                    <div className="icon shift" />
-                    <a href="#" className="comment-content-ref">
-                      Зоряні війни: Епізод VIII - Останні джедаї
-                    </a>
-                  </div>
-                  <div className="comment-content-message">
-                    Епічне продовження франшизи, яке вражає як візуально, так і
-                    сюжетно
-                  </div>
-                  <div className="comment-content-reactions">
-                    <div className="comment-reactions">
-                      <div className="comment__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="comment-reactions-count">4</div>
-                      </div>
-                      <div className="comment__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="comment-reactions-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="user-comments-item">
-              <div className="comment">
-                <a href="#" className="comment-content-image">
-                  <img
-                    src="../images/comment.jpg"
-                    alt="Зоряні війни: Епізод VIII - Останні джедаї"
-                  />
-                </a>
-                <div className="comment-content-info">
-                  <div className="comment-content-owner">
-                    <div className="comment-content-user">
-                      <img src="../images/avatar.png" alt="Qwerty" />
-                      <div className="comment-content-user-nickname">
-                        Qwerty
-                      </div>
-                    </div>
-                    <div className="icon shift" />
-                    <div className="comment-content-date">06.03.2024</div>
-                    <div className="icon shift" />
-                    <a href="#" className="comment-content-ref">
-                      Зоряні війни: Епізод VIII - Останні джедаї
-                    </a>
-                  </div>
-                  <div className="comment-content-message">
-                    Епічне продовження франшизи, яке вражає як візуально, так і
-                    сюжетно
-                  </div>
-                  <div className="comment-content-reactions">
-                    <div className="comment-reactions">
-                      <div className="comment__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="comment-reactions-count">4</div>
-                      </div>
-                      <div className="comment__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="comment-reactions-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="user-comments-item">
-              <div className="comment">
-                <a href="#" className="comment-content-image">
-                  <img
-                    src="../images/comment.jpg"
-                    alt="Зоряні війни: Епізод VIII - Останні джедаї"
-                  />
-                </a>
-                <div className="comment-content-info">
-                  <div className="comment-content-owner">
-                    <div className="comment-content-user">
-                      <img src="../images/avatar.png" alt="Qwerty" />
-                      <div className="comment-content-user-nickname">
-                        Qwerty
-                      </div>
-                    </div>
-                    <div className="icon shift" />
-                    <div className="comment-content-date">06.03.2024</div>
-                    <div className="icon shift" />
-                    <a href="#" className="comment-content-ref">
-                      Зоряні війни: Епізод VIII - Останні джедаї
-                    </a>
-                  </div>
-                  <div className="comment-content-message">
-                    Епічне продовження франшизи, яке вражає як візуально, так і
-                    сюжетно
-                  </div>
-                  <div className="comment-content-reactions">
-                    <div className="comment-reactions">
-                      <div className="comment__likes">
-                        <button className="button icon i t">
-                          <div className="icon like" />
-                        </button>
-                        <div className="comment-reactions-count">4</div>
-                      </div>
-                      <div className="comment__dislikes">
-                        <button className="button icon i t">
-                          <div className="icon dislike" />
-                        </button>
-                        <div className="comment-reactions-count">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {userCredentials && (
+          <div className="user-comments">
+            <CommentItems
+              userId={userCredentials._id}
+              query={useGetBestReviewsByUserIdQuery}
+            />
           </div>
-        </div>
+        )}
       </div>
     </>
   );
