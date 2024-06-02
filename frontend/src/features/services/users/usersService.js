@@ -17,7 +17,16 @@ export const usersApi = createApi({
       transformResponse: (resp) => resp.user,
       providesTags: ["users"],
     }),
+    getMyReviews: builder.query({
+      query: (userId) => {
+        return {
+          url: `auth/me/reviews`,
+        };
+      },
+      transformResponse: (resp) => resp.data,
+      providesTags: ["users"],
+    }),
   }),
 });
 
-export const { useGetMyInfoQuery } = usersApi;
+export const { useGetMyInfoQuery, useGetMyReviewsQuery } = usersApi;

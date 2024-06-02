@@ -38,9 +38,9 @@ router.get(
 router.post("/password/req-reset", reqPasswordReset);
 router.post("/password/reset", resetPassword);
 router.get("/me", authMiddleware, getMe);
+router.get("/me/reviews", authMiddleware, getMyReviews);
 router.post("/me/update", authMiddleware, updateMe);
 router.post("/me/info", authMiddleware, getUserInfoByUserId);
-router.post("/me/reviews", authMiddleware, getMyReviews);
 router.post("/logout", logOut);
 
 export default router;

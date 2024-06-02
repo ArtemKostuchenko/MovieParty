@@ -64,6 +64,16 @@ const CommentItem = ({
             <Link to={videoContentLink} className="comment-content-ref">
               {title}
             </Link>
+            {editable && (
+              <button className="comment-edit">
+                <div className="icon edit" />
+              </button>
+            )}
+            {removable && (
+              <button className="comment-delete">
+                <div className="icon delete" />
+              </button>
+            )}
           </div>
           <div className="comment-content-message">{message}</div>
           <div className="comment-content-reactions">

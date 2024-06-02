@@ -294,7 +294,8 @@ class ReviewRepository {
       {
         $sort: { likesCount: -1 },
       },
-      { $limit: reviewsPerPage, $skip: skip },
+      { $limit: reviewsPerPage },
+      { $skip: skip },
       {
         $lookup: {
           from: "videocontents",
