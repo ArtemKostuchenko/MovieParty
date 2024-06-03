@@ -32,3 +32,4 @@ export { default as ReviewItems } from "./Reviews/ReviewItems";
 export { default as VideoPlayer } from "./VideoPlayer/VideoPlayer";
 export { default as CommentsItems } from "./Comments/CommentItems";
 export { default as Avatar } from "./Avatar/Avatar";
+export { default as DropDownLoader } from "./DropDown/DropDownLoader";

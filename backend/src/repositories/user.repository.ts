@@ -66,7 +66,7 @@ class UserRepository {
     user.country = country || user.country;
     user.sex = sex || user.sex;
 
-    if (user.avatarURL && user.avatarURL !== avatarURL) {
+    if (user.avatarURL && avatarURL && user.avatarURL !== avatarURL) {
       await deleteFile(`./src/files/images/u/${user.avatarURL}`);
     }
 
