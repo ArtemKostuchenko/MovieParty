@@ -40,7 +40,7 @@ router.get(
 router.post("/password/req-reset", reqPasswordReset);
 router.post("/password/reset", resetPassword);
 router.get("/me", authMiddleware, getMe);
-router.post("/me/password", authMiddleware, updatePassword);
+router.patch("/me/password", authMiddleware, updatePassword);
 router.get("/me/reviews", authMiddleware, getMyReviews);
 router.patch(
   "/me/update",

@@ -24,9 +24,17 @@ const login = async (req: Request, res: Response): Promise<Response> => {
 
   res.cookie("_api_token", token, { httpOnly: true, secure: false });
 
-  return res
-    .status(StatusCodes.OK)
-    .json({ user: { id: user._id, nickname: user.nickname } });
+  return res.status(StatusCodes.OK).json({
+    user: {
+      id: user._id,
+      nickname: user.nickname,
+      email: user.email,
+      country: user.country,
+      sex: user.sex,
+      avatarColor: user.avatarColor,
+      avatarURL: user.avatarURL,
+    },
+  });
 };
 
 const updateMe = async (req: Request, res: Response): Promise<Response> => {

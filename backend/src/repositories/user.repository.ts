@@ -68,10 +68,7 @@ class UserRepository {
       throw new UnAuthorizedError("Invalid credentials");
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-    user.password = hashedPassword;
+    user.password = newPassword;
 
     await user.save();
   }

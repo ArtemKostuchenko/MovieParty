@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, login, register } from "../features/store/slices/user";
-import { useUpdateMeMutation } from "../features/services/users/usersService";
+import {
+  useUpdateMeMutation,
+  useUpdatePasswordMutation,
+} from "../features/services/users/usersService";
 
 const useUser = () => {
   const { isLoading, user, isError, error } = useSelector(
@@ -11,6 +14,11 @@ const useUser = () => {
     updateMutation,
     { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
   ] = useUpdateMeMutation();
+
+  const [
+    updatePasswordMutation,
+    { isLoading: isLoadingUpdatePassword, isSuccess: isSuccessUpdatePassword },
+  ] = useUpdatePasswordMutation();
 
   const dispatch = useDispatch();
 
@@ -24,6 +32,10 @@ const useUser = () => {
 
   const updateMe = async (data) => {
     return await updateMutation(data).unwrap();
+  };
+
+  const updatePassword = async (data) => {
+    return await updatePasswordMutation(data).unwrap();
   };
 
   const refetchUser = async () => {
@@ -42,6 +54,9 @@ const useUser = () => {
     isLoadingUpdate,
     isSuccessUpdate,
     refetchUser,
+    updatePassword,
+    isLoadingUpdatePassword,
+    isSuccessUpdatePassword,
   };
 };
 

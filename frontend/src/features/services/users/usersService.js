@@ -49,8 +49,21 @@ export const usersApi = createApi({
       },
       invalidatesTags: ["users"],
     }),
+    updatePassword: builder.mutation({
+      query: ({ password, newPassword }) => {
+        return {
+          url: `auth/me/password`,
+          method: "PATCH",
+          data: { password, newPassword },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetMyInfoQuery, useGetMyReviewsQuery, useUpdateMeMutation } =
-  usersApi;
+export const {
+  useGetMyInfoQuery,
+  useGetMyReviewsQuery,
+  useUpdateMeMutation,
+  useUpdatePasswordMutation,
+} = usersApi;

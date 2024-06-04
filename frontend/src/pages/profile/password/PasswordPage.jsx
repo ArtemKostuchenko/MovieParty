@@ -6,7 +6,7 @@ import { PasswordSchema } from "../../../features/validations";
 import useUser from "../../../hooks/useUser";
 
 const PasswordPage = () => {
-  const { user } = useUser();
+  const { user, updatePassword, isLoadingUpdatePassword } = useUser();
   const submitButtonRef = useRef();
 
   const {
@@ -21,7 +21,7 @@ const PasswordPage = () => {
   });
 
   const onSubmitHandler = async (data) => {
-    console.log(data);
+    const resp = await updatePassword(data);
   };
 
   return (
@@ -30,7 +30,7 @@ const PasswordPage = () => {
         <div className="profile-user-content-title">Пароль</div>
         <button
           className="button primary"
-          disabled={!user || !isDirty || !isValid}
+          disabled={!user || !isDirty || !isValid || isLoadingUpdatePassword}
           onClick={() => {
             if (submitButtonRef.current) {
               submitButtonRef.current.click();
