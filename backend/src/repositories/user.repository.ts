@@ -88,7 +88,9 @@ class UserRepository {
   }
 
   async getUserById(userId: string): Promise<User> {
-    const user = await UserModel.findById(userId).select("-password");
+    const user = await UserModel.findById(userId)
+      .select("-password")
+      .populate("country", "name icon");
 
     if (!user) {
       throw new NotFoundError("User not found");

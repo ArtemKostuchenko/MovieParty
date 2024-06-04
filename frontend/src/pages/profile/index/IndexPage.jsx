@@ -65,12 +65,14 @@ const IndexPage = () => {
                 <div className="user-info-desc">
                   {user.country && (
                     <img
-                      src="../images/icons/us.svg"
+                      src={`${
+                        import.meta.env.VITE_BACK_HOST
+                      }/static/files/crs/${user.country.icon}`}
                       className="country-icon"
                       alt="США"
                     />
                   )}
-                  {user.country ? user.country : "Невідомо"}
+                  {user.country ? user.country.name : "Невідомо"}
                 </div>
               </div>
               <div className="user-info-item">
