@@ -17,7 +17,7 @@ const LayoutPage = () => {
   return (
     <>
       {state === "loading" || isLoading ? (
-        <div className="flex center">
+        <div className="loader__fixed">
           <div className="loader"></div>
         </div>
       ) : (
