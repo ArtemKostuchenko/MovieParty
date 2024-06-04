@@ -68,14 +68,16 @@ const BestListPage = ({ limit = 30 }) => {
                   return <VideoContentCard key={item._id} {...item} />;
                 })}
               </div>
-              <div className="content__pagination">
-                <Pagination
-                  page={page}
-                  limit={limit}
-                  totalCount={totalVideoContents}
-                  onChangePage={(page) => handleChangePage(page)}
-                />
-              </div>
+              {totalVideoContents > limit && (
+                <div className="content__pagination">
+                  <Pagination
+                    page={page}
+                    limit={limit}
+                    totalCount={totalVideoContents}
+                    onChangePage={(page) => handleChangePage(page)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
