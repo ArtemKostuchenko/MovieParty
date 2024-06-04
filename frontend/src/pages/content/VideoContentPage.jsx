@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.page.scss";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
@@ -6,6 +6,7 @@ import { formatDate } from "../../features/utils/functions";
 import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
 import {
+  Loader,
   ReviewForm,
   ReviewItems,
   ScrollToTop,
@@ -13,10 +14,12 @@ import {
 } from "../../components";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
+import useFill from "../../hooks/useFill";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
   const navigate = useNavigate();
+  const { disableFill } = useFill();
   const { isAdd, handleAddPopUp } = usePopup();
   const { rateVideoContent, isLoadingRate } = useRating();
 
@@ -24,8 +27,14 @@ const VideoContentPage = () => {
     query.replace(/-/g, " ")
   );
 
+  useEffect(() => {
+    if (!isLoading) {
+      disableFill();
+    }
+  }, [isLoading]);
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const content = data;
