@@ -27,7 +27,7 @@ const PersonalPage = () => {
       reset();
       setValue("nickname", user.nickname);
       setValue("email", user.email);
-      setValue("country", user.country);
+      setValue("country", user.country?._id);
       setValue("sex", user.sex);
     }
   }, [user]);
