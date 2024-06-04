@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 import { Header, Footer } from "../components";
 import { Outlet, useNavigation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,18 @@ const LayoutPage = () => {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       {state === "loading" || isLoading ? (
         <div className="loader__fixed">
           <div className="loader"></div>
