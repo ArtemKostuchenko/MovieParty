@@ -4,6 +4,7 @@ import { useGetFavoritesQuery } from "../../features/services/favorites/favorite
 import usePagination from "../../hooks/usePagination";
 import { Pagination } from "../Pagination";
 import useFavorite from "../../hooks/useFavorite";
+import NotFound from "../NotFound/NotFound";
 
 const FavoritesItems = ({ limit = 10 }) => {
   const { removeFavorite, isLoadingRemove } = useFavorite();
@@ -26,6 +27,16 @@ const FavoritesItems = ({ limit = 10 }) => {
 
   const favorites = data.favorites;
 
+  if (!Boolean(data.totalCount)) {
+    return (
+      <NotFound
+        title="У вас немає збереженого відеоконтенту"
+        description="Перейдіть у будь-який відеоконтент і натисніть на кнопку 'В збережене', після чого відеоконтент тут з'явиться"
+        splitter={false}
+      />
+    );
+  }
+
   return (
     <>
       <div className="favorite__cards">
@@ -35,9 +46,8 @@ const FavoritesItems = ({ limit = 10 }) => {
               const favorite = favorites[index];
 
               return (
-                <div className="favorite__card">
+                <div className="favorite__card" key={favorite._id}>
                   <VideoContentCard
-                    key={favorite._id}
                     {...favorite}
                     typeVideoContent={{ path: favorite.typeVideoContent }}
                   />
@@ -63,9 +73,8 @@ const FavoritesItems = ({ limit = 10 }) => {
         {favorites.length >= limit &&
           favorites.map((favorite) => {
             return (
-              <div className="favorite__card">
+              <div className="favorite__card" key={favorite._id}>
                 <VideoContentCard
-                  key={favorite._id}
                   {...favorite}
                   typeVideoContent={{ path: favorite.typeVideoContent }}
                 />
