@@ -37,6 +37,15 @@ const updateMe = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ user: updatedUser });
 };
 
+const updatePassword = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  await UserRepository.updatePassword(req.body, req.user?.id);
+
+  return res.status(StatusCodes.OK).json({ success: true });
+};
+
 const getUserInfoByUserId = async (
   req: Request,
   res: Response
@@ -186,6 +195,7 @@ export {
   getUserInfoByUserId,
   getMyReviews,
   updateMe,
+  updatePassword,
   reqPasswordReset,
   resetPassword,
 };

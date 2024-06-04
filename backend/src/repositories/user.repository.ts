@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import UserModel, { User } from "../models/user.model";
 import { BadRequestError, UnAuthorizedError, NotFoundError } from "../errors";
 import { deleteFile, generateAvatarColorHex } from "../utils/functions";
@@ -46,6 +47,33 @@ class UserRepository {
     const token = user.createToken();
 
     return { user: await user.save(), token };
+  }
+
+  async updatePassword(userData: any, userId: string): Promise<void> {
+    const { password, newPassword } = userData;
+
+    if (!password || !newPassword) {
+      throw new BadRequestError("Please provide password, newPassword");
+    }
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new UnAuthorizedError("Invalid credentials");
+    }
+
+    const correctPassword = await user.comparePassword(password);
+
+    if (!correctPassword) {
+      throw new UnAuthorizedError("Invalid credentials");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    user.password = hashedPassword;
+
+    await user.save();
   }
 
   async updateMe(userId: string, userData: User): Promise<User> {
