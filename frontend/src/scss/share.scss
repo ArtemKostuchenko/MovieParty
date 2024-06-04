@@ -515,7 +515,11 @@ body {
     }
 
     &.linear {
-      background-image: linear-gradient(to right, rgb(0, 114, 187, 0.7), rgb(0, 52, 85, 0.7));
+      background-image: linear-gradient(
+        to right,
+        rgb(0, 114, 187, 0.7),
+        rgb(0, 52, 85, 0.7)
+      );
       border: none;
 
       &:focus {
@@ -567,7 +571,11 @@ body {
     @include adaptiveFont(16, 14);
 
     &.linear {
-      background-image: linear-gradient(to right, rgb(0, 114, 187, 0.7), rgb(0, 52, 85, 0.7));
+      background-image: linear-gradient(
+        to right,
+        rgb(0, 114, 187, 0.7),
+        rgb(0, 52, 85, 0.7)
+      );
       border: none;
 
       &:focus {
@@ -692,9 +700,13 @@ body {
   &__selected:hover {
     background-color: transparent;
     border: 2px solid var(--dropdown-color);
-    .dropdown__title,
-    .dropdown__icon {
+
+    .dropdown__title {
       color: var(--dropdown-color);
+    }
+
+    .icon.dd {
+      background-color: var(--dropdown-color);
     }
   }
 
@@ -705,8 +717,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
-    @include transition(color, transform);
+
+    .icon.dd {
+      background-color: var(--white);
+      @include transition(background-color);
+    }
+    @include transition(transform);
   }
 
   &__list {
@@ -769,9 +785,10 @@ body {
       flex-direction: column;
       gap: 5px;
       overflow: auto;
+      padding: 0 8px 0 0;
 
       &::-webkit-scrollbar {
-        width: 16px;
+        width: 10px;
       }
 
       &::-webkit-scrollbar-track {
@@ -783,11 +800,21 @@ body {
         background-color: var(--scroll-color);
         border-radius: 10px;
         background-clip: content-box;
-        border: 5px solid transparent;
+        border: 2px solid transparent;
 
         &:hover {
           background-color: rgb(250, 192, 20, 80%);
         }
+      }
+    }
+
+    &-input {
+      max-height: 42px;
+      border: none;
+      background-color: rgba(0, 114, 187, 0.5);
+
+      &::placeholder {
+        color: #d8d8d8;
       }
     }
   }
@@ -823,7 +850,6 @@ body {
 
     .dropdown__icon {
       transform: rotate(180deg);
-      color: var(--dropdown-color);
     }
 
     .dropdown__list,
@@ -834,7 +860,11 @@ body {
 
   &.linear {
     .dropdown__selected {
-      background-image: linear-gradient(to right, rgb(0, 114, 187, 0.7), rgb(0, 52, 85, 0.7));
+      background-image: linear-gradient(
+        to right,
+        rgb(0, 114, 187, 0.7),
+        rgb(0, 52, 85, 0.7)
+      );
       background-color: transparent;
       border: none;
 
@@ -848,9 +878,12 @@ body {
       }
 
       &:hover {
-        .dropdown__title,
-        .dropdown__icon {
+        .dropdown__title {
           color: var(--text-color);
+        }
+
+        .icon.dd {
+          background-color: var(--text-color);
         }
       }
     }
@@ -958,7 +991,10 @@ body {
   &__cards {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(6, minmax(var(--min-width-card), var(--max-width-card)));
+    grid-template-columns: repeat(
+      6,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
     justify-content: space-between;
     row-gap: 20px;
     column-gap: 20px;
@@ -1645,7 +1681,11 @@ body {
   align-items: center;
   gap: 15px;
   border-radius: 5px;
-  background-image: linear-gradient(to right, rgba(0, 114, 187, 0.4), rgba(0, 52, 85, 0.4));
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 114, 187, 0.4),
+    rgba(0, 52, 85, 0.4)
+  );
 
   &-content {
     &-image img {
@@ -2149,14 +2189,20 @@ body {
 
 @media screen and (max-width: 1350px) {
   .content__cards {
-    grid-template-columns: repeat(5, minmax(var(--min-width-card), var(--max-width-card)));
+    grid-template-columns: repeat(
+      5,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
     justify-content: center;
   }
 }
 
 @media screen and (max-width: 1125px) {
   .content__cards {
-    grid-template-columns: repeat(4, minmax(var(--min-width-card), var(--max-width-card)));
+    grid-template-columns: repeat(
+      4,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
   }
 }
 
@@ -2240,7 +2286,10 @@ body {
 
 @media screen and (max-width: 900px) {
   .content__cards {
-    grid-template-columns: repeat(3, minmax(var(--min-width-card), var(--max-width-card)));
+    grid-template-columns: repeat(
+      3,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
   }
 
   .comment {
@@ -2337,7 +2386,10 @@ body {
   }
 
   .content__cards {
-    grid-template-columns: repeat(2, minmax(var(--min-width-card), var(--max-width-card)));
+    grid-template-columns: repeat(
+      2,
+      minmax(var(--min-width-card), var(--max-width-card))
+    );
   }
 }
 

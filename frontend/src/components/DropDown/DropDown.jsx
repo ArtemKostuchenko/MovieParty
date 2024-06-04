@@ -8,8 +8,6 @@ const DropDown = ({
   onChange = null,
   fill = false,
   linear = false,
-  includeSearch = false,
-  onChangeSearch,
 }) => {
   const [selectedItem, setSelectedItem] = useState(
     children.find(
@@ -18,7 +16,6 @@ const DropDown = ({
   );
 
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
   const dropdownRef = useRef(null);
 
   const toggleDropDown = () => {
@@ -40,12 +37,6 @@ const DropDown = ({
     if (!dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
     }
-  };
-
-  const handleChangeSearch = (e) => {
-    setSearch(e.target.value);
-    if (!onChangeSearch || typeof onChangeSearch !== "function") return;
-    onChangeSearch();
   };
 
   useEffect(() => {
@@ -89,80 +80,20 @@ const DropDown = ({
           </svg>
         </div>
       </div>
-      {includeSearch && (
-        <div className="dropdown__search">
-          <input
-            type="text"
-            className="form__input"
-            value={search}
-            onChange={handleChangeSearch}
-          />
-          <div className="dropdown__search-items">
-            {children.map((child, index) => {
-              if (Array.isArray(child)) {
-                return child.map((cld) => {
-                  return (
-                    <DropDownItem
-                      key={cld.key}
-                      selected={selectedItem === cld}
-                      skeleton={cld.props?.skeleton}
-                      onClick={() => handleChangeItem(cld)}
-                    >
-                      {cld.props?.children}
-                    </DropDownItem>
-                  );
-                });
-              } else {
-                if (typeof child !== "boolean") {
-                  return (
-                    <DropDownItem
-                      key={index}
-                      selected={selectedItem === child}
-                      skeleton={child.props?.skeleton}
-                      onClick={() => handleChangeItem(child)}
-                    >
-                      {child.props?.children}
-                    </DropDownItem>
-                  );
-                }
-              }
-            })}
-          </div>
-        </div>
-      )}
-      {!includeSearch && (
-        <div className="dropdown__list">
-          {children.map((child, index) => {
-            if (Array.isArray(child)) {
-              return child.map((cld) => {
-                return (
-                  <DropDownItem
-                    key={cld.key}
-                    selected={selectedItem === cld}
-                    skeleton={cld.props?.skeleton}
-                    onClick={() => handleChangeItem(cld)}
-                  >
-                    {cld.props?.children}
-                  </DropDownItem>
-                );
-              });
-            } else {
-              if (typeof child !== "boolean") {
-                return (
-                  <DropDownItem
-                    key={index}
-                    selected={selectedItem === child}
-                    skeleton={child.props?.skeleton}
-                    onClick={() => handleChangeItem(child)}
-                  >
-                    {child.props?.children}
-                  </DropDownItem>
-                );
-              }
-            }
-          })}
-        </div>
-      )}
+      <div className="dropdown__list">
+        {children.map((child, index) => {
+          return (
+            <DropDownItem
+              key={index}
+              selected={selectedItem === child}
+              skeleton={child.props?.skeleton}
+              onClick={() => handleChangeItem(child)}
+            >
+              {child.props?.children}
+            </DropDownItem>
+          );
+        })}
+      </div>
     </div>
   );
 };

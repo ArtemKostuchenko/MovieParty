@@ -15,6 +15,7 @@ const PersonalPage = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     control,
     formState: { errors, isDirty, isValid },
   } = useForm({
@@ -23,6 +24,7 @@ const PersonalPage = () => {
 
   useEffect(() => {
     if (user) {
+      reset();
       setValue("nickname", user.nickname);
       setValue("email", user.email);
       setValue("country", user.country);
@@ -80,15 +82,17 @@ const PersonalPage = () => {
                 name="country"
                 control={control}
                 render={({ field: { onChange, value } }) => {
-                  console.log(value);
                   return (
                     <DropDownLoader
-                      query={useGetCountriesQuery}
-                      arrayName="countries"
-                      limit={6}
                       value={value}
+                      query={useGetCountriesQuery}
+                      dataName="countries"
+                      limit={6}
                       onChange={onChange}
                       placeholder="Оберіть країну"
+                      placeholderSearch="Введіть назву країни"
+                      fill
+                      linear
                     />
                   );
                 }}

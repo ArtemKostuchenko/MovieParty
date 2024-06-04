@@ -454,6 +454,13 @@
     background-color: var(--white);
     mask-image: url("/src/assets/icons/camera.svg");
   }
+
+  &.dd {
+    width: 14px;
+    height: 9px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/dd-icon.svg");
+  }
 }
 
 /* responsive icons */
