@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import "./style.page.scss";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,9 +34,13 @@ const PersonalPage = () => {
   }, [user]);
 
   const onSubmitHandler = async (data) => {
-    const res = await updateMe(data);
-    console.log(res);
-    refetchUser();
+    try {
+      const res = await updateMe(data);
+      refetchUser();
+      toast.success("Дані успішно оновлено");
+    } catch (err) {
+      toast.error("Помилка оновлення даних");
+    }
   };
 
   return (

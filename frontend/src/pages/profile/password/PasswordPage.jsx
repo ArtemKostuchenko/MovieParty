@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { toast } from "react-toastify";
 import "./style.page.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,16 +13,22 @@ const PasswordPage = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
-    control,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(PasswordSchema),
   });
 
   const onSubmitHandler = async (data) => {
-    const resp = await updatePassword(data);
+    try {
+      const resp = await updatePassword(data);
+      toast.success("Пароль успішно змінено");
+    } catch (err) {
+      console.log("work");
+      toast.error("Помилка зміни паролю");
+    }
+
+    // reset();
   };
 
   return (

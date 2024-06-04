@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, login, register } from "../features/store/slices/user";
+import {
+  fetchUser,
+  login,
+  register,
+  logout,
+} from "../features/store/slices/user";
 import {
   useUpdateMeMutation,
   useUpdatePasswordMutation,
@@ -42,6 +47,10 @@ const useUser = () => {
     dispatch(fetchUser());
   };
 
+  const logoutUser = async () => {
+    dispatch(logout());
+  };
+
   return {
     isLoading,
     user,
@@ -57,6 +66,7 @@ const useUser = () => {
     updatePassword,
     isLoadingUpdatePassword,
     isSuccessUpdatePassword,
+    logoutUser,
   };
 };
 
