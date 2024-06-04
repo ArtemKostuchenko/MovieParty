@@ -77,7 +77,11 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfileLayout />,
+        element: (
+          <ProtectedRoute>
+            <ProfileLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             element: <ProfilePage />,
@@ -165,11 +169,19 @@ const router = createBrowserRouter([
       },
       {
         path: "actor/:fullName",
-        element: <ActorPage />,
+        element: (
+          <ProtectedRoute>
+            <ActorPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "director/:fullName",
-        element: <DirectorPage />,
+        element: (
+          <ProtectedRoute>
+            <DirectorPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "video-content/add",

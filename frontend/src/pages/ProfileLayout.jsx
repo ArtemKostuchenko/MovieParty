@@ -4,7 +4,7 @@ import { Avatar } from "../components";
 import useUser from "../hooks/useUser";
 
 const ProfileLayout = () => {
-  const { user, updateMe, refetchUser } = useUser();
+  const { user, updateMe, refetchUser, logoutUser } = useUser();
 
   const handlePhotoUpdate = async (file) => {
     const res = await updateMe({
@@ -91,12 +91,12 @@ const ProfileLayout = () => {
                       </div>
                       <div className="profile-menu-item-title">Підписка</div>
                     </NavLink>
-                    <a href="#" className="profile-menu-item">
+                    <button className="profile-menu-item" onClick={logoutUser}>
                       <div className="profile-menu-item-icon">
                         <div className="icon exit" />
                       </div>
                       <div className="profile-menu-item-title">Вийти</div>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
