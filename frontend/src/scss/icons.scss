@@ -461,6 +461,42 @@
     background-color: var(--white);
     mask-image: url("/src/assets/icons/dd-icon.svg");
   }
+
+  &.c {
+    &-arrow {
+      width: 20px;
+      height: 20px;
+      background-color: var(--text-color);
+      mask-image: url("/src/assets/icons/chat-arrow.svg");
+    }
+
+    &-users {
+      width: 20px;
+      height: 20px;
+      background-color: var(--text-color);
+      mask-image: url("/src/assets/icons/chat-users.svg");
+    }
+  }
+
+  &.send {
+    width: 30px;
+    height: 30px;
+    mask-image: url("/src/assets/icons/send.svg");
+  }
+
+  &.live {
+    width: 20px;
+    height: 20px;
+    background-color: var(--scarlet);
+    mask-image: url("/src/assets/icons/live.svg");
+  }
+
+  &.copy {
+    width: 24px;
+    height: 24px;
+    background-color: var(--white);
+    mask-image: url("/src/assets/icons/copy.svg");
+  }
 }
 
 /* responsive icons */

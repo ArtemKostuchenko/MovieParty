@@ -25,10 +25,17 @@ class RoomRepository {
   async getRoomById(roomId: string, userId: string): Promise<Room> {
     const room = await RoomModel.findOne({
       _id: roomId,
-      invitedUsers: userId,
-    }).populate("videoContentId", "soundTracks");
+    }).populate("videoContentId");
 
     if (!room) {
+      throw new NotFoundError("Room not found");
+    }
+
+    if (!room.invitedUsers.find((user) => user.equals(userId))) {
+      if (room.ownerId.equals(userId)) {
+        return room;
+      }
+
       throw new NotFoundError("Room not found");
     }
 
