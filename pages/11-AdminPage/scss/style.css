@@ -1219,6 +1219,11 @@ body::-webkit-scrollbar-thumb:hover {
 .form__input.linear.fi .icon.add:hover {
   background-color: var(--light-yellow);
 }
+.form__input.auto-content {
+  width: -moz-min-content;
+  width: min-content;
+  min-width: 0;
+}
 .form__textarea {
   padding: 10px 10px;
   width: 100%;
@@ -1252,6 +1257,7 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   border-radius: 20px;
   background-color: rgba(0, 114, 187, 0.4);
@@ -1301,13 +1307,13 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 8px;
   background-color: var(--light-yellow);
   border-radius: 50%;
 }
 .form__button-add .icon.plus.rounded {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 .message {

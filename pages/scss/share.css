@@ -407,6 +407,19 @@ p {
   -webkit-mask-image: url("/pages/images/icons/layers.svg");
           mask-image: url("/pages/images/icons/layers.svg");
 }
+.icon.c {
+  width: 20px;
+  height: 20px;
+  background-color: var(--text-color);
+}
+.icon.c-arrow {
+  -webkit-mask-image: url("/pages/images/icons/chat-arrow.svg");
+          mask-image: url("/pages/images/icons/chat-arrow.svg");
+}
+.icon.c-users {
+  -webkit-mask-image: url("/pages/images/icons/chat-users.svg");
+          mask-image: url("/pages/images/icons/chat-users.svg");
+}
 
 /* responsive icons */
 @media (max-width: 767px) {
