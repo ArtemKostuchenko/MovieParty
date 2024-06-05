@@ -1,6 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setChatState } from "../features/store/slices/room";
 import { useCreateRoomMutation } from "../features/services/rooms/roomsService";
 
-const useGenre = () => {
+const useRoom = () => {
+  const dispatch = useDispatch();
+  const { isChatOpen } = useSelector((store) => store.room);
   const [createMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useCreateRoomMutation();
 
@@ -8,11 +12,17 @@ const useGenre = () => {
     return await createMutation(room).unwrap();
   };
 
+  const toggleChat = () => {
+    dispatch(setChatState(!isChatOpen));
+  };
+
   return {
     createRoom,
     isLoadingAdd,
     isSuccessAdd,
+    isChatOpen,
+    toggleChat,
   };
 };
 
-export default useGenre;
+export default useRoom;

@@ -8,11 +8,13 @@ import Rating from "../../components/Rating/Rating";
 import Favorite from "../../components/Favorites/Favorite";
 import { formatDate } from "../../features/utils/functions";
 import useUser from "../../hooks/useUser";
+import useRoom from "../../hooks/useRoom";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
   const {} = useFill();
   const { user } = useUser();
+  const { isChatOpen, toggleChat } = useRoom();
 
   const { data, isLoading } = useGetRoomByIdQuery(roomId);
 
@@ -54,59 +56,69 @@ const RoomPage = () => {
         <div className="wrapper">
           <div className="room">
             <div className="room__grid">
-              <div className="room__player">
+              <div className={`room__player${!isChatOpen ? " full" : ""}`}>
                 <VideoPlayer soundTracks={soundTracks} seasons={seasons} />
+                {!isChatOpen && (
+                  <button
+                    className="room__player-button-chat"
+                    onClick={toggleChat}
+                  >
+                    <div className="icon c-arrow" />
+                  </button>
+                )}
               </div>
-              <div className="room__chat">
-                <div className="chat">
-                  <div className="chat__bar">
-                    <button className="chat__button">
-                      <div className="icon c-arrow" />
-                    </button>
-                    <div className="chat__title">Чат</div>
-                    <button className="chat__button">
-                      <div className="icon c-users" />
-                    </button>
-                  </div>
-                  <div className="chat__messages">
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
-                  </div>
-                  <div className="chat__send-form">
-                    <div className="chat__sender">
-                      <div className="chat__sender-avatar">
-                        <Avatar
-                          photoURL={user.avatarURL}
-                          nickname={user.nickname}
-                          avatarColor={user.avatarColor}
-                          width={40}
-                          height={40}
-                        />
-                      </div>
-                      <div className="chat__sender-nickname">
-                        {user.nickname}
-                      </div>
-                    </div>
-                    <div className="chat__form">
-                      <input type="text" className="form__input linear" />
-                      <button className="chat__button" type="submit">
-                        <div className="icon send" />
+              {isChatOpen && (
+                <div className="room__chat">
+                  <div className="chat">
+                    <div className="chat__bar">
+                      <button className="chat__button" onClick={toggleChat}>
+                        <div className="icon c-arrow" />
                       </button>
+                      <div className="chat__title">Чат</div>
+                      <button className="chat__button">
+                        <div className="icon c-users" />
+                      </button>
+                    </div>
+                    <div className="chat__messages">
+                      <div className="chat__message">
+                        <div className="chat__message-sender">
+                          <div className="chat__message-avatar">
+                            <img src="../images/avatar.png" alt="Qwerty" />
+                          </div>
+                          <div className="chat__message-nickname">Qwerty</div>
+                        </div>
+                        <div className="chat__message-content">
+                          Відчути атмосферу історії, яка переносить вас у
+                          постапокаліптичний світ, де кожне рішення може
+                          визначити виживання
+                        </div>
+                      </div>
+                    </div>
+                    <div className="chat__send-form">
+                      <div className="chat__sender">
+                        <div className="chat__sender-avatar">
+                          <Avatar
+                            photoURL={user.avatarURL}
+                            nickname={user.nickname}
+                            avatarColor={user.avatarColor}
+                            width={40}
+                            height={40}
+                          />
+                        </div>
+                        <div className="chat__sender-nickname">
+                          {user.nickname}
+                        </div>
+                      </div>
+                      <div className="chat__form">
+                        <input type="text" className="form__input linear" />
+                        <button className="chat__button" type="submit">
+                          <div className="icon send" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
               <div className="room__info-bar">
                 <div className="room__owner">
                   <div className="room__owner-avatar">
