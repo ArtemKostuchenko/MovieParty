@@ -126,9 +126,16 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
               initial={{
                 opacity: 0,
                 scale: 4,
+                x: "-50%",
+                y: "-50%",
               }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 4 }}
+              animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+              exit={{
+                opacity: 0,
+                scale: 4,
+                x: "-50%",
+                y: "-50%",
+              }}
               transition={{ duration: 0.2 }}
               style={{ transform: "translate(-50%, -50%)" }}
             >
