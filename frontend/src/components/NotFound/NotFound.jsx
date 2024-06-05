@@ -2,6 +2,7 @@ import React from "react";
 import NotFoundContentSvg from "../../assets/not-found-content.svg";
 import NotFoundReviewsSvg from "../../assets/not-found-reviews.svg";
 import NotFoundRoom from "../../assets/not-found-room.svg";
+import NotFoundInvite from "../../assets/not-found-invite.svg";
 
 const NotFound = ({
   title,
@@ -23,6 +24,9 @@ const NotFound = ({
             )}
             {image === "room" && (
               <img src={NotFoundRoom} alt={title} style={{ height }} />
+            )}
+            {image === "invite" && (
+              <img src={NotFoundInvite} alt={title} style={{ height }} />
             )}
           </div>
           <div className="info__title">{title}</div>

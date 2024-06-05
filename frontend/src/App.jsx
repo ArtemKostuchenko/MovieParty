@@ -34,6 +34,7 @@ import {
   GenrePage,
   BestListPage,
   RoomPage,
+  InvitePage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -213,6 +214,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BestListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "room/invite",
+        element: (
+          <ProtectedRoute>
+            <InvitePage />
           </ProtectedRoute>
         ),
       },

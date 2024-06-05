@@ -17,6 +17,15 @@ export const roomsApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["rooms"],
     }),
+    getRoomByInviteCode: builder.query({
+      query: (inviteCode) => {
+        return {
+          url: `rooms/invite?code=${inviteCode}`,
+        };
+      },
+      transformResponse: (resp) => resp.data,
+      providesTags: ["rooms"],
+    }),
     createRoom: builder.mutation({
       query: ({
         videoContentId,
@@ -44,4 +53,8 @@ export const roomsApi = createApi({
   }),
 });
 
-export const { useGetRoomByIdQuery, useCreateRoomMutation } = roomsApi;
+export const {
+  useGetRoomByIdQuery,
+  useGetRoomByInviteCodeQuery,
+  useCreateRoomMutation,
+} = roomsApi;

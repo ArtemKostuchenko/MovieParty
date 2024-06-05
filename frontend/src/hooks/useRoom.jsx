@@ -4,7 +4,7 @@ import { useCreateRoomMutation } from "../features/services/rooms/roomsService";
 
 const useRoom = () => {
   const dispatch = useDispatch();
-  const { isChatOpen } = useSelector((store) => store.room);
+  const { isChatOpen, inviteCode } = useSelector((store) => store.room);
   const [createMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useCreateRoomMutation();
 
@@ -17,6 +17,7 @@ const useRoom = () => {
   };
 
   return {
+    inviteCode,
     createRoom,
     isLoadingAdd,
     isSuccessAdd,
