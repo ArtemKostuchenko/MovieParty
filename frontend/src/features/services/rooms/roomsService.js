@@ -2,7 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import axiosBaseQuery from "../../fetch/axiosBaseQuery";
 
 export const roomsApi = createApi({
-  reducerPath: "reviewsApi",
+  reducerPath: "roomsApi",
   baseQuery: axiosBaseQuery(),
   refetchOnFocus: true,
   refetchOnReconnect: true,
@@ -15,15 +15,17 @@ export const roomsApi = createApi({
         };
       },
       transformResponse: (resp) => resp.data,
+      providesTags: ["rooms"],
     }),
     createRoom: builder.mutation({
       query: ({
         videoContentId,
         title,
         isPublic,
+        password = "",
         maxNumberUsers,
         voiceChat,
-      }) => {
+      } = {}) => {
         return {
           url: `rooms`,
           method: "POST",
@@ -31,11 +33,13 @@ export const roomsApi = createApi({
             videoContentId,
             title,
             isPublic,
+            password,
             maxNumberUsers,
             voiceChat,
           },
         };
       },
+      invalidatesTags: ["rooms"],
     }),
   }),
 });

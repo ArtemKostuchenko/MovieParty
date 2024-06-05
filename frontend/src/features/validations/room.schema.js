@@ -7,6 +7,30 @@ const RoomSchema = yup.object().shape({
     .required("Назва кімнати є обов'язковою"),
   videoContentId: yup.string().required("Відеоконтент є обов'язковим"),
   isPublic: yup.bool().required("Доступність кімнати є обов'язковим"),
+  password: yup
+    .string()
+    .test(
+      "passwordRequired",
+      "Пароль кімнати є обов'язковим",
+      function (value) {
+        const { isPublic } = this.parent;
+        if (isPublic) {
+          return true;
+        }
+        return value && value.length > 0;
+      }
+    )
+    .test(
+      "minLength",
+      "Пароль кімнати повинен бути більше 7 символів",
+      function (value) {
+        const { isPublic } = this.parent;
+        if (isPublic) {
+          return true;
+        }
+        return value && value.length >= 8;
+      }
+    ),
   maxNumberUsers: yup
     .number()
     .min(1)

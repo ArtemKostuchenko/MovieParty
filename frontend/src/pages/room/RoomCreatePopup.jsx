@@ -14,6 +14,7 @@ const RoomCreatePopup = ({ videoContentId = "" }) => {
     register,
     handleSubmit,
     reset,
+    watch,
     control,
     formState: { errors, isDirty, isValid },
   } = useForm({
@@ -32,6 +33,8 @@ const RoomCreatePopup = ({ videoContentId = "" }) => {
     handleResetPopUp();
     reset();
   };
+
+  const isPublic = watch("isPublic");
 
   return (
     <PopUp
@@ -94,6 +97,21 @@ const RoomCreatePopup = ({ videoContentId = "" }) => {
                 <span className="message error">{errors.isPublic.message}</span>
               )}
             </div>
+            {!isPublic && (
+              <div className="popup__form-item">
+                <div className="popup__form-title">Пароль кімнати</div>
+                <input
+                  type="password"
+                  {...register("password")}
+                  className="form__input linear"
+                />
+                {errors.password && (
+                  <span className="message error">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+            )}
             <div className="popup__form-item">
               <div className="popup__form-title">Тип чату</div>
               <Controller
