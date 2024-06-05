@@ -26,6 +26,7 @@ export const roomsApi = createApi({
       }) => {
         return {
           url: `rooms`,
+          method: "POST",
           data: {
             videoContentId,
             title,
