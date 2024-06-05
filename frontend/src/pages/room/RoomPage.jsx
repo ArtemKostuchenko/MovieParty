@@ -1,9 +1,12 @@
 import React from "react";
 import "./style.page.scss";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import useFill from "../../hooks/useFill";
-import { Loader, NotFound } from "../../components";
+import { Avatar, Loader, NotFound } from "../../components";
+import Rating from "../../components/Rating/Rating";
+import Favorite from "../../components/Favorites/Favorite";
+import { formatDate } from "../../features/utils/functions";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
@@ -20,6 +23,28 @@ const RoomPage = () => {
   }
 
   console.log(data);
+
+  const { title: roomTitle, videoContent, ownerUser } = data;
+
+  const {
+    _id: videoContentId,
+    title,
+    originTitle,
+    previewURL,
+    IMDb,
+    rating,
+    description,
+    originCountries,
+    duration,
+    releaseDate,
+    genres,
+    typeVideoContent,
+    lists,
+  } = videoContent;
+
+  const contentPreviewURL = `${
+    import.meta.env.VITE_BACK_HOST
+  }/static/files/images/content/${previewURL}`;
 
   return (
     <div className="container cnt-mn">
@@ -140,11 +165,19 @@ const RoomPage = () => {
               <div className="room__info-bar">
                 <div className="room__owner">
                   <div className="room__owner-avatar">
-                    <img src="../images/avatar.png" alt="Qwerty" />
+                    <Avatar
+                      photoURL={ownerUser.avatarURL}
+                      nickname={ownerUser.nickname}
+                      avatarColor={ownerUser.avatarColor}
+                      width={75}
+                      height={75}
+                    />
                   </div>
                   <div className="room__owner-info">
-                    <div className="room__owner-nickname">Qwerty</div>
-                    <div className="room__title">Дивимось крутий фільм</div>
+                    <div className="room__owner-nickname">
+                      {ownerUser.nickname}
+                    </div>
+                    <div className="room__title">{roomTitle}</div>
                   </div>
                 </div>
                 <div className="room__details">
@@ -162,26 +195,7 @@ const RoomPage = () => {
               </div>
               <div className="room__info">
                 <div className="room__content">
-                  <div className="room__content-description">
-                    У цьому епічному завершенні саги про Скайуокера вцілілі
-                    члени Опору на чолі з генералом Леєю Органою (Керрі Фішер)
-                    стикаються зі своїм найбільшим викликом. Готуючись до
-                    фінальної сутички зі зловісним Першим Орденом, Рей (Дейзі
-                    Рідлі) продовжує свою подорож, щоб дізнатися правду про своє
-                    минуле і свій зв'язок з Силою. Разом зі своїми друзями
-                    Фінном (Джон Бойєга), По Деймероном (Оскар Айзек) і Чубаккою
-                    (Юнас Суотамо) Рей подорожує галактикою в пошуках
-                    відповідей, зустрічаючи на своєму шляху нових і старих
-                    ворогів. Тим часом зловісний Кайло Рен (Адам Драйвер)
-                    продовжує спокушати Рей приєднатися до нього на темній
-                    стороні, оскільки він прагне отримати абсолютну владу і
-                    контроль. У міру того, як битва між Опором і Першим Орденом
-                    загострюється, старі і нові герої повинні об'єднатися, щоб
-                    боротися за майбутнє галактики. Захоплюючий екшн, зворушливі
-                    моменти та приголомшлива розв'язка роблять "Зоряні Війни:
-                    Скайвокер. Сходження" обов'язковим до перегляду для
-                    шанувальників культової космічної опери.
-                  </div>
+                  <div className="room__content-description">{description}</div>
                   <div className="room__content-info">
                     <div className="room__content-title">
                       Обраний контент для перегляду:
@@ -190,51 +204,41 @@ const RoomPage = () => {
                       <div className="video-content__container wrapper">
                         <div className="video-content__preview">
                           <div className="video-content__preview-image">
-                            <img
-                              src="../images/card.jpg"
-                              alt="Зоряні війни: Епізод IX -Скайвокер. Сходження "
-                            />
+                            <img src={contentPreviewURL} alt={title} />
+                          </div>
+                          <div className="video-content__preview-actions">
+                            <Favorite videoContentId={videoContentId} />
                           </div>
                         </div>
                         <div className="video-content__details">
                           <div className="video-content__title-container">
                             <div className="video-content__titles">
                               <div className="video-content__title">
-                                Зоряні війни: Епізод IX -Скайвокер. Сходження
+                                {title}
                               </div>
                               <div className="video-content__original-title">
-                                Star Wars: Episode IX - The Rise of Skywalker
+                                {originTitle}
                               </div>
                             </div>
                             <div className="IMDb">
                               <div className="icon IMDb" />
-                              <p className="IMDb__rating">6.4</p>
+                              <p className="IMDb__rating">{IMDb.toFixed(1)}</p>
                             </div>
                           </div>
                           <div className="video-content__rating">
                             <div className="rating">
-                              <div className="rating__items">
-                                <div className="rating__item">
-                                  <div className="icon star" />
-                                </div>
-                                <div className="rating__item">
-                                  <div className="icon star" />
-                                </div>
-                                <div className="rating__item">
-                                  <div className="icon star" />
-                                </div>
-                                <div className="rating__item">
-                                  <div className="icon star" />
-                                </div>
-                                <div className="rating__item">
-                                  <div className="icon star outline" />
-                                </div>
+                              <Rating
+                                rating={rating.averageRating || 0}
+                                maxRating={5}
+                                disabled={true}
+                              />
+                              <div className="rating__point">
+                                {rating.averageRating || 0}
                               </div>
-                              <div className="rating__point">4.0</div>
                               <div className="rating__votes">
                                 <div className="icon group-users" />
                                 <div className="rating__votes-amount">
-                                  22 голосів
+                                  {rating.voteCount} голосів
                                 </div>
                               </div>
                             </div>
@@ -244,10 +248,20 @@ const RoomPage = () => {
                               <div className="video-content__information-title">
                                 Країна:
                               </div>
-                              <div className="video-content__information-content">
-                                <div className="video-content__information-text">
-                                  CША
-                                </div>
+                              <div className="video-content__information-content flex r g5 center-h">
+                                {originCountries.map((country, index) => {
+                                  return (
+                                    <div
+                                      className="video-content__information-text"
+                                      key={country._id}
+                                    >
+                                      {country.name}
+                                      {index !== originCountries.length - 1
+                                        ? ", "
+                                        : ""}
+                                    </div>
+                                  );
+                                })}
                               </div>
                             </div>
                             <div className="video-content__information-item">
@@ -256,7 +270,7 @@ const RoomPage = () => {
                               </div>
                               <div className="video-content__information-content">
                                 <div className="video-content__information-text">
-                                  2 год 21 хв
+                                  {duration}
                                 </div>
                               </div>
                             </div>
@@ -266,7 +280,7 @@ const RoomPage = () => {
                               </div>
                               <div className="video-content__information-content">
                                 <div className="video-content__information-text">
-                                  18 грудня 2019 рік
+                                  {formatDate(releaseDate)}
                                 </div>
                               </div>
                             </div>
@@ -276,63 +290,58 @@ const RoomPage = () => {
                               </div>
                               <div className="video-content__information-content">
                                 <div className="link__items">
-                                  <a href="#" className="link outlined">
-                                    Пригоди
-                                  </a>
-                                  <a href="#" className="link outlined">
-                                    Фентезі
-                                  </a>
-                                  <a href="#" className="link outlined">
-                                    Екшен
-                                  </a>
-                                  <a href="#" className="link outlined">
-                                    Бойовик
-                                  </a>
-                                  <a href="#" className="link outlined">
-                                    Фантастика
-                                  </a>
+                                  {genres.map((genre) => {
+                                    const linkGenre = `/${
+                                      typeVideoContent.path
+                                    }/genre/${genre.originName.toLowerCase()}`;
+                                    return (
+                                      <Link
+                                        to={linkGenre}
+                                        className="link outlined"
+                                        key={genre._id}
+                                      >
+                                        {genre.name}
+                                      </Link>
+                                    );
+                                  })}
                                 </div>
                               </div>
                             </div>
-                            <div className="video-content__information-item start v-lists">
-                              <div className="video-content__information-title">
-                                Входить до:
-                              </div>
-                              <div className="video-content__information-content">
-                                <div className="link__items col">
-                                  <a href="#" className="link">
-                                    <div className="lists">
-                                      <div className="lists__name">
-                                        Найкращі серіали в жанрі спорт
-                                      </div>
-                                      <div className="lists__place">
-                                        (11 місце)
-                                      </div>
-                                    </div>
-                                  </a>
-                                  <a href="#" className="link">
-                                    <div className="lists">
-                                      <div className="lists__name">
-                                        Найкращі фільми в жанрі фантастика 2019
-                                      </div>
-                                      <div className="lists__place">
-                                        (15 місце)
-                                      </div>
-                                    </div>
-                                  </a>
-                                  <a href="#" className="link">
-                                    <div className="lists">
-                                      <div className="lists__name">
-                                        Найкращі фільми в жанрі фентезі 2019
-                                      </div>
-                                      <div className="lists__place">
-                                        (20 місце)
-                                      </div>
-                                    </div>
-                                  </a>
+                            {Boolean(lists.length) && (
+                              <div className="video-content__information-item start v-lists">
+                                <div className="video-content__information-title">
+                                  Входить до:
+                                </div>
+                                <div className="video-content__information-content">
+                                  <div className="link__items col">
+                                    {lists.map((item) => {
+                                      const {
+                                        list: { _id, name },
+                                        placeInList,
+                                      } = item;
+
+                                      const linkBest = `/${typeVideoContent.path}/best-list/${name}`;
+                                      return (
+                                        <Link
+                                          to={linkBest}
+                                          className="link"
+                                          key={_id}
+                                        >
+                                          <div className="lists">
+                                            <div className="lists__name">
+                                              {name}
+                                            </div>
+                                            <div className="lists__place">
+                                              ({placeInList} місце)
+                                            </div>
+                                          </div>
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         </div>
                       </div>

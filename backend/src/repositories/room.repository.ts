@@ -2,6 +2,7 @@ import { BadRequestError, NotFoundError, UnAuthorizedError } from "../errors";
 import RoomModel, { Room } from "../models/room.model";
 import { validateRoom } from "../utils/validations";
 import { Types } from "mongoose";
+import ContentRepository from "./content.repository";
 
 class RoomRepository {
   constructor() {}
@@ -23,23 +24,174 @@ class RoomRepository {
   }
 
   async getRoomById(roomId: string, userId: string): Promise<Room> {
-    const room = await RoomModel.findOne({
-      _id: roomId,
-    }).populate("videoContentId");
+    const room = await RoomModel.aggregate([
+      { $match: { _id: new Types.ObjectId(roomId) } },
+      {
+        $lookup: {
+          from: "users",
+          localField: "ownerId",
+          foreignField: "_id",
+          as: "ownerUser",
+        },
+      },
+      { $unwind: "$ownerUser" },
+      {
+        $lookup: {
+          from: "videocontents",
+          localField: "videoContentId",
+          foreignField: "_id",
+          as: "videoContent",
+        },
+      },
+      { $unwind: "$videoContent" },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "videoContent.typeVideoContent",
+          foreignField: "_id",
+          as: "videoContent.typeVideoContent",
+        },
+      },
+      { $unwind: "$videoContent.typeVideoContent" },
+      {
+        $lookup: {
+          from: "countries",
+          localField: "videoContent.originCountries",
+          foreignField: "_id",
+          as: "videoContent.originCountries",
+        },
+      },
+      {
+        $lookup: {
+          from: "genres",
+          localField: "videoContent.genres",
+          foreignField: "_id",
+          as: "videoContent.genres",
+        },
+      },
+      {
+        $lookup: {
+          from: "lists",
+          localField: "videoContent.lists.idList",
+          foreignField: "_id",
+          as: "videoContent.lists",
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.lists": {
+            $map: {
+              input: "$videoContent.lists",
+              as: "list",
+              in: {
+                list: {
+                  _id: "$$list._id",
+                  name: "$$list.name",
+                },
+                placeInList: {
+                  $arrayElemAt: [
+                    "$videoContent.lists.placeInList",
+                    {
+                      $indexOfArray: [
+                        "$videoContent.lists.idList",
+                        "$$list._id",
+                      ],
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "ratings",
+          localField: "videoContent._id",
+          foreignField: "videoContentId",
+          as: "videoContent.ratings",
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.rating": {
+            averageRating: { $avg: "$videoContent.ratings.rate" },
+            voteCount: { $size: "$videoContent.ratings" },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "ratings",
+          let: {
+            videoContentId: "$videoContent._id",
+            userId: new Types.ObjectId(userId),
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$videoContentId", "$$videoContentId"] },
+                    { $eq: ["$userId", "$$userId"] },
+                  ],
+                },
+              },
+            },
+            { $limit: 1 },
+          ],
+          as: "videoContent.userRating",
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.ratedByMe": {
+            $gt: [{ $size: "$videoContent.userRating" }, 0],
+          },
+        },
+      },
+      {
+        $project: {
+          "ownerUser.password": 0,
+          "ownerUser.isAdmin": 0,
+          "ownerUser.likes": 0,
+          "ownerUser.dislikes": 0,
+          "ownerUser.country": 0,
+          "ownerUser.createdAt": 0,
+          "ownerUser.email": 0,
+          "ownerUser.favorites": 0,
+          "ownerUser.googleId": 0,
+          "ownerUser.updatedAt": 0,
+          "ownerUser.__v": 0,
+          "videoContent.ratings": 0,
+          "videoContent.userRating": 0,
+          videoContentId: 0,
+        },
+      },
+      {
+        $addFields: {
+          "videoContent.genres": {
+            $sortArray: { input: "$videoContent.genres", sortBy: { name: 1 } },
+          },
+        },
+      },
+    ]);
 
-    if (!room) {
+    if (!room || room.length === 0) {
       throw new NotFoundError("Room not found");
     }
 
-    if (!room.invitedUsers.find((user) => user.equals(userId))) {
-      if (room.ownerId.equals(userId)) {
-        return room;
+    const foundRoom = room[0];
+
+    if (!foundRoom.invitedUsers.find((user: any) => user.equals(userId))) {
+      if (foundRoom.ownerId.equals(userId)) {
+        return foundRoom;
       }
 
       throw new NotFoundError("Room not found");
     }
 
-    return room;
+    return foundRoom;
   }
 
   async getRoomByInviteCode(inviteCode: string | undefined): Promise<Room> {
