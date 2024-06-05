@@ -22,6 +22,7 @@ import {
   ratingsApi,
   reviewsApi,
   usersApi,
+  roomsApi,
 } from "../services";
 
 const store = configureStore({
@@ -47,6 +48,7 @@ const store = configureStore({
     [ratingsApi.reducerPath]: ratingsApi.reducer,
     [reviewsApi.reducerPath]: reviewsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
+    [roomsApi.reducerPath]: roomsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -64,7 +66,8 @@ const store = configureStore({
       .concat(favoritesApi.middleware)
       .concat(ratingsApi.middleware)
       .concat(reviewsApi.middleware)
-      .concat(usersApi.middleware),
+      .concat(usersApi.middleware)
+      .concat(roomsApi.middleware),
 });
 
 setupListeners(store.dispatch);

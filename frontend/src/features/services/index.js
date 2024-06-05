@@ -11,3 +11,4 @@ export { favoritesApi } from "./favorites/favoritesService";
 export { ratingsApi } from "./ratings/ratingsService";
 export { reviewsApi } from "./reviews/reviewsService";
 export { usersApi } from "./users/usersService";
+export { roomsApi } from "./rooms/roomsService";

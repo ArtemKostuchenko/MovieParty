@@ -105,19 +105,18 @@ const ContentSlider = () => {
                     onMouseLeave={handleAutoPlayStart}
                   >
                     <div className="slide">
-                      <h1 className="slide__title">
-                        <AnimatePresence mode="wait">
-                          <motion.div
-                            key={activeSlideIndex}
-                            initial={{ opacity: 0, x: 4 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -4 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            {currentSlide.title}
-                          </motion.div>
-                        </AnimatePresence>
-                      </h1>
+                      <AnimatePresence mode="wait">
+                        <motion.h1
+                          key={activeSlideIndex}
+                          initial={{ opacity: 0, x: 4 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -4 }}
+                          transition={{ duration: 0.5 }}
+                          className="slide__title"
+                        >
+                          {currentSlide.title}
+                        </motion.h1>
+                      </AnimatePresence>
                       <div className="slide__details">
                         <div className="slide__IMDb">
                           <AnimatePresence mode="wait">
@@ -131,19 +130,18 @@ const ContentSlider = () => {
                               <div className="icon IMDb" />
                             </motion.div>
                           </AnimatePresence>
-                          <p className="slide__IMDb-rating">
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={activeSlideIndex}
-                                initial={{ opacity: 0, x: 4 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -4 }}
-                                transition={{ duration: 0.5 }}
-                              >
-                                {currentSlide.IMDb.toFixed(1)}
-                              </motion.div>
-                            </AnimatePresence>
-                          </p>
+                          <AnimatePresence mode="wait">
+                            <motion.p
+                              key={activeSlideIndex}
+                              initial={{ opacity: 0, x: 4 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -4 }}
+                              transition={{ duration: 0.5 }}
+                              className="slide__IMDb-rating"
+                            >
+                              {currentSlide.IMDb.toFixed(1)}
+                            </motion.p>
+                          </AnimatePresence>
                         </div>
                         <AnimatePresence mode="wait">
                           <motion.div
@@ -157,21 +155,18 @@ const ContentSlider = () => {
                           </motion.div>
                         </AnimatePresence>
                         <div className="slide__additional">
-                          <p className="slide__year">
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={activeSlideIndex}
-                                initial={{ opacity: 0, x: 4 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -4 }}
-                                transition={{ duration: 0.5 }}
-                              >
-                                {new Date(
-                                  currentSlide.releaseDate
-                                ).getFullYear()}
-                              </motion.div>
-                            </AnimatePresence>
-                          </p>
+                          <AnimatePresence mode="wait">
+                            <motion.p
+                              key={activeSlideIndex}
+                              initial={{ opacity: 0, x: 4 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -4 }}
+                              transition={{ duration: 0.5 }}
+                              className="slide__year"
+                            >
+                              {new Date(currentSlide.releaseDate).getFullYear()}
+                            </motion.p>
+                          </AnimatePresence>
                           <AnimatePresence mode="wait">
                             <motion.div
                               key={activeSlideIndex}
@@ -183,19 +178,18 @@ const ContentSlider = () => {
                               <span className="slide__splitter" />
                             </motion.div>
                           </AnimatePresence>
-                          <p className="slide__duration">
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={activeSlideIndex}
-                                initial={{ opacity: 0, x: 4 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -4 }}
-                                transition={{ duration: 0.5 }}
-                              >
-                                {currentSlide.duration}
-                              </motion.div>
-                            </AnimatePresence>
-                          </p>
+                          <AnimatePresence mode="wait">
+                            <motion.p
+                              key={activeSlideIndex}
+                              initial={{ opacity: 0, x: 4 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -4 }}
+                              transition={{ duration: 0.5 }}
+                              className="slide__duration"
+                            >
+                              {currentSlide.duration}
+                            </motion.p>
+                          </AnimatePresence>
                           <AnimatePresence mode="wait">
                             <motion.div
                               key={activeSlideIndex}
@@ -208,34 +202,32 @@ const ContentSlider = () => {
                             </motion.div>
                           </AnimatePresence>
 
-                          <p className="slide__genre">
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={activeSlideIndex}
-                                initial={{ opacity: 0, x: 4 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -4 }}
-                                transition={{ duration: 0.5 }}
-                              >
-                                {currentSlide.genres?.[0]?.name}
-                              </motion.div>
-                            </AnimatePresence>
-                          </p>
+                          <AnimatePresence mode="wait">
+                            <motion.p
+                              key={activeSlideIndex}
+                              initial={{ opacity: 0, x: 4 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -4 }}
+                              transition={{ duration: 0.5 }}
+                              className="slide__genre"
+                            >
+                              {currentSlide.genres?.[0]?.name}
+                            </motion.p>
+                          </AnimatePresence>
                         </div>
                       </div>
-                      <p className="slide__description">
-                        <AnimatePresence mode="wait">
-                          <motion.div
-                            key={activeSlideIndex}
-                            initial={{ opacity: 0, x: 4 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -4 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            {currentSlide.description}
-                          </motion.div>
-                        </AnimatePresence>
-                      </p>
+                      <AnimatePresence mode="wait">
+                        <motion.p
+                          key={activeSlideIndex}
+                          initial={{ opacity: 0, x: 4 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -4 }}
+                          transition={{ duration: 0.5 }}
+                          className="slide__description"
+                        >
+                          {currentSlide.description}
+                        </motion.p>
+                      </AnimatePresence>
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={activeSlideIndex}
