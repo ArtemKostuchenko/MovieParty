@@ -46,7 +46,6 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
     clearHideControlsTimer();
     hideControlsTimerRef.current = setTimeout(() => {
       setShowControls(false);
-      console.log("work");
     }, 2000);
   };
 

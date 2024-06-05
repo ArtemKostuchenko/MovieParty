@@ -3,14 +3,16 @@ import "./style.page.scss";
 import { Link, useParams } from "react-router-dom";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import useFill from "../../hooks/useFill";
-import { Avatar, Loader, NotFound } from "../../components";
+import { Avatar, Loader, NotFound, VideoPlayer } from "../../components";
 import Rating from "../../components/Rating/Rating";
 import Favorite from "../../components/Favorites/Favorite";
 import { formatDate } from "../../features/utils/functions";
+import useUser from "../../hooks/useUser";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
   const {} = useFill();
+  const { user } = useUser();
 
   const { data, isLoading } = useGetRoomByIdQuery(roomId);
 
@@ -21,8 +23,6 @@ const RoomPage = () => {
   if (!data) {
     return <NotFound title="Кімнату не знайдено" image="room" />;
   }
-
-  console.log(data);
 
   const { title: roomTitle, videoContent, ownerUser } = data;
 
@@ -40,6 +40,8 @@ const RoomPage = () => {
     genres,
     typeVideoContent,
     lists,
+    soundTracks,
+    seasons,
   } = videoContent;
 
   const contentPreviewURL = `${
@@ -53,7 +55,7 @@ const RoomPage = () => {
           <div className="room">
             <div className="room__grid">
               <div className="room__player">
-                <img src="../images/player.png" alt="Player" />
+                <VideoPlayer soundTracks={soundTracks} seasons={seasons} />
               </div>
               <div className="room__chat">
                 <div className="chat">
@@ -80,78 +82,21 @@ const RoomPage = () => {
                         виживання
                       </div>
                     </div>
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
-                    <div className="chat__message">
-                      <div className="chat__message-sender">
-                        <div className="chat__message-avatar">
-                          <img src="../images/avatar.png" alt="Qwerty" />
-                        </div>
-                        <div className="chat__message-nickname">Qwerty</div>
-                      </div>
-                      <div className="chat__message-content">
-                        Відчути атмосферу історії, яка переносить вас у
-                        постапокаліптичний світ, де кожне рішення може визначити
-                        виживання
-                      </div>
-                    </div>
                   </div>
                   <div className="chat__send-form">
                     <div className="chat__sender">
                       <div className="chat__sender-avatar">
-                        <img src="../images/avatar.png" alt="Qwerty" />
+                        <Avatar
+                          photoURL={user.avatarURL}
+                          nickname={user.nickname}
+                          avatarColor={user.avatarColor}
+                          width={40}
+                          height={40}
+                        />
                       </div>
-                      <div className="chat__sender-nickname">Qwerty</div>
+                      <div className="chat__sender-nickname">
+                        {user.nickname}
+                      </div>
                     </div>
                     <div className="chat__form">
                       <input type="text" className="form__input linear" />
