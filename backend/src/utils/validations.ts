@@ -146,10 +146,6 @@ const validateRoom = (room: Room) => {
     errors.push("title");
   }
 
-  if (!room.description) {
-    errors.push("description");
-  }
-
   emitErrors(errors);
 };
 
