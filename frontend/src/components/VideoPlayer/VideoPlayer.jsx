@@ -8,7 +8,40 @@ import SeekSlider from "../Sliders/SeekSlider";
 import VolumeSlider from "../Sliders/VolumeSlider";
 import SettingsPlayer from "./SettingsPlayer";
 
-const VideoPlayer = ({ soundTracks, seasons }) => {
+const defaultControls = {
+  play: true,
+  seek: true,
+  pInp: true,
+  settings: {
+    soundTrack: true,
+    quality: true,
+    speed: true,
+  },
+};
+
+const VideoPlayer = ({
+  controls = {
+    play: true,
+    seek: true,
+    pInp: true,
+    settings: {
+      soundTrack: true,
+      quality: true,
+      speed: true,
+    },
+  },
+  soundTracks,
+  seasons,
+}) => {
+  const mergedControls = {
+    ...defaultControls,
+    ...controls,
+    settings: {
+      ...defaultControls.settings,
+      ...controls.settings,
+    },
+  };
+
   const {
     m3u8URL,
     isPlaying,
@@ -89,7 +122,7 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
   const handleReady = () => {};
 
   const handlePlay = () => {
-    if (isSettingsOpen) return;
+    if (isSettingsOpen || !mergedControls.play) return;
     handleTogglePlaying();
   };
 
@@ -184,12 +217,14 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
                 <div className={`icon${isPlaying ? " pause" : " play"}`}></div>
               </button>
               <div className="video-player__seek">
-                <SeekSlider
-                  value={currentTime}
-                  min={0}
-                  max={duration}
-                  onChange={handleSeekSliderChange}
-                />
+                {mergedControls.seek && (
+                  <SeekSlider
+                    value={currentTime}
+                    min={0}
+                    max={duration}
+                    onChange={handleSeekSliderChange}
+                  />
+                )}
               </div>
               <div className="video-player__time">
                 <div className="video-player__time-current">
@@ -229,11 +264,13 @@ const VideoPlayer = ({ soundTracks, seasons }) => {
                   />
                 </div>
               </div>
-              <SettingsPlayer soundTracks={soundTracks} />
-
+              <SettingsPlayer
+                controls={mergedControls.settings}
+                soundTracks={soundTracks}
+              />
               <button
                 className="video-player__p-in-p"
-                onClick={handleTogglePIP}
+                onClick={mergedControls.pInp && handleTogglePIP}
               >
                 <div
                   className={`icon p-in-p ${isEnablePIP ? " inner" : " exit"}`}

@@ -118,7 +118,18 @@ const RoomPage = () => {
           <div className="room">
             <div className="room__grid">
               <div className={`room__player${!isChatOpen ? " full" : ""}`}>
-                <VideoPlayer soundTracks={soundTracks} seasons={seasons} />
+                <VideoPlayer
+                  controls={{
+                    seek: ownerUser._id === user._id,
+                    play: ownerUser._id === user._id,
+                    pInp: ownerUser._id === user._id,
+                    settings: {
+                      speed: ownerUser._id === user._id,
+                    },
+                  }}
+                  soundTracks={soundTracks}
+                  seasons={seasons}
+                />
                 {!isChatOpen && (
                   <button
                     className="room__player-button-chat"

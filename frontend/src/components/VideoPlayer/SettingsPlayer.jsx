@@ -7,7 +7,10 @@ import {
   setM3U8State,
 } from "../../features/store/slices/player";
 
-const SettingsPlayer = ({ soundTracks }) => {
+const SettingsPlayer = ({
+  controls = { soundTrack: true, quality: true, speed: true },
+  soundTracks,
+}) => {
   const dispatch = useDispatch();
   const { isSettingsOpen, speed: speedState } = useSelector(
     (store) => store.player
@@ -113,42 +116,48 @@ const SettingsPlayer = ({ soundTracks }) => {
           >
             {!openMenu && (
               <>
-                <button
-                  className="video-player__settings-menu-item"
-                  onClick={() => setOpenMenu("soundTracks")}
-                >
-                  <div className="video-player__settings-menu-title">
-                    Звукова доріжка
-                  </div>
-                  <div className="video-player__settings-menu-title">
-                    {soundTrack}
-                    <span className="arr-sls"></span>
-                  </div>
-                </button>
-                <button
-                  className="video-player__settings-menu-item"
-                  onClick={() => setOpenMenu("qualities")}
-                >
-                  <div className="video-player__settings-menu-title">
-                    Якість
-                  </div>
-                  <div className="video-player__settings-menu-title">
-                    {quality}
-                    <span className="arr-sls"></span>
-                  </div>
-                </button>
-                <button
-                  className="video-player__settings-menu-item"
-                  onClick={() => setOpenMenu("speed")}
-                >
-                  <div className="video-player__settings-menu-title">
-                    Швидкість
-                  </div>
-                  <div className="video-player__settings-menu-title">
-                    {speed}
-                    <span className="arr-sls"></span>
-                  </div>
-                </button>
+                {controls.soundTrack && (
+                  <button
+                    className="video-player__settings-menu-item"
+                    onClick={() => setOpenMenu("soundTracks")}
+                  >
+                    <div className="video-player__settings-menu-title">
+                      Звукова доріжка
+                    </div>
+                    <div className="video-player__settings-menu-title">
+                      {soundTrack}
+                      <span className="arr-sls"></span>
+                    </div>
+                  </button>
+                )}
+                {controls.quality && (
+                  <button
+                    className="video-player__settings-menu-item"
+                    onClick={() => setOpenMenu("qualities")}
+                  >
+                    <div className="video-player__settings-menu-title">
+                      Якість
+                    </div>
+                    <div className="video-player__settings-menu-title">
+                      {quality}
+                      <span className="arr-sls"></span>
+                    </div>
+                  </button>
+                )}
+                {controls.speed && (
+                  <button
+                    className="video-player__settings-menu-item"
+                    onClick={() => setOpenMenu("speed")}
+                  >
+                    <div className="video-player__settings-menu-title">
+                      Швидкість
+                    </div>
+                    <div className="video-player__settings-menu-title">
+                      {speed}
+                      <span className="arr-sls"></span>
+                    </div>
+                  </button>
+                )}
               </>
             )}
             {openMenu === "soundTracks" && (
