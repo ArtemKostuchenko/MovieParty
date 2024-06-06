@@ -90,83 +90,25 @@ const start = async () => {
 
     const io = new Server(server, {
       cors: {
-        origin: ["http://localhost:3000", "http://192.168.1.59:3000"],
+        origin: [
+          "http://localhost:3000",
+          "http://192.168.1.59:3000",
+          process.env.CLIENT_URL!,
+        ],
         credentials: true,
       },
     });
 
-    io.on("connection", async (socket) => {
+    io.use(async (socket, next) => {
       try {
-        const user = await authenticatedUser(socket.handshake.auth.user._id);
-
-        socket.on("join_room", async (roomId) => {
-          const existUser = await RoomRepository.existUserInRoom(
-            roomId,
-            new Types.ObjectId(user._id)
-          );
-
-          if (existUser) {
-            await RoomRepository.connectUser(roomId, user._id);
-
-            socket.join(roomId);
-            socket.roomId = roomId;
-
-            console.log(`User ${user.nickname} connected to room`);
-          } else {
-            socket.emit("connection_error");
-          }
-        });
-
-        socket.on("send_message", async (data) => {
-          const roomId: string = socket.roomId as string;
-          if (roomId) {
-            await MessageRepository.addMessage({
-              roomId: new Types.ObjectId(roomId),
-              userId: user._id,
-              message: data.message,
-            });
-
-            const messages = await MessageRepository.getLastMessagesByRoomId(
-              roomId
-            );
-
-            socket.to(roomId).emit("receive_messages", messages);
-            io.to(socket.id).emit("receive_messages", messages);
-          }
-        });
-
-        socket.on("handle_play", (data) => {
-          const roomId: string = socket.roomId as string;
-          if (roomId) {
-            socket.to(roomId).emit("control_play", data);
-          }
-        });
-
-        socket.on("handle_seek", (data) => {
-          const roomId: string = socket.roomId as string;
-          if (roomId) {
-            socket.to(roomId).emit("control_seek", data);
-          }
-        });
-
-        socket.on("save_time", async (data) => {
-          const roomId: string = socket.roomId as string;
-          if (roomId) {
-            await RoomRepository.updateTime(roomId, user._id, data);
-          }
-        });
-
-        socket.on("disconnect", async () => {
-          const roomId: string = socket.roomId as string;
-
-          if (roomId) {
-            await RoomRepository.disconnectUser(roomId, user._id);
-          }
-
-          console.log(`User ${user.nickname} disconnected room`);
-        });
-      } catch (err) {
-        console.log(err);
+        const userId = socket.handshake.auth.user._id;
+        const user = await authenticatedUser(userId);
+        socket.user = user;
+        console.log(`User ${user.nickname} is connected`);
+        next();
+      } catch (e) {
+        console.log(e);
+        return next(new Error("Authentication invalid"));
       }
     });
 

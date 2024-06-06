@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
 import "./style.page.scss";
 import { Link, useParams } from "react-router-dom";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
@@ -9,14 +10,35 @@ import Favorite from "../../components/Favorites/Favorite";
 import { formatDate } from "../../features/utils/functions";
 import useUser from "../../hooks/useUser";
 import useRoom from "../../hooks/useRoom";
+import useSocket from "../../hooks/useSocket";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
   const {} = useFill();
   const { user } = useUser();
   const { isChatOpen, toggleChat } = useRoom();
+  const { socket, connect, disconnect } = useSocket();
 
-  const { data, isLoading } = useGetRoomByIdQuery(roomId);
+  const { data, isLoading, refetch } = useGetRoomByIdQuery(roomId);
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      socket.auth.user._id = user._id;
+      connect();
+    }
+  }, [data, isLoading]);
+
+  useEffect(() => {}, [socket]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      socket.disconnect();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
   if (isLoading) {
     return <Loader />;
@@ -26,7 +48,7 @@ const RoomPage = () => {
     return <NotFound title="Кімнату не знайдено" image="room" />;
   }
 
-  const { title: roomTitle, videoContent, ownerUser } = data;
+  const { title: roomTitle, videoContent, ownerUser, users } = data;
 
   const {
     _id: videoContentId,
@@ -140,7 +162,7 @@ const RoomPage = () => {
                 <div className="room__details">
                   <div className="room__details-live">
                     <div className="icon live" />
-                    <div className="room__details-users">5</div>
+                    <div className="room__details-users">{users.length}</div>
                   </div>
                   <button className="room__details-action">
                     <div className="icon copy" />
