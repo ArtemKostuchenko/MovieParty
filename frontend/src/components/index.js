@@ -34,3 +34,4 @@ export { default as CommentsItems } from "./Comments/CommentItems";
 export { default as Avatar } from "./Avatar/Avatar";
 export { default as DropDownLoader } from "./DropDown/DropDownLoader";
 export { default as PopUp } from "./PopUp/PopUp";
+export { default as MessageItems } from "./Message/MessageItems";

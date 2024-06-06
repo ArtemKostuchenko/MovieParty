@@ -12,3 +12,4 @@ export { default as ReviewSchema } from "./review.schema";
 export { default as PersonalSchema } from "./personal.schema";
 export { default as PasswordSchema } from "./password.schema";
 export { default as RoomSchema } from "./room.schema";
+export { default as MessageSchema } from "./message.schema";

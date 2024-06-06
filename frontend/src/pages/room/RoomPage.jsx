@@ -1,10 +1,18 @@
-import React, { useEffect } from "react";
-import { io } from "socket.io-client";
+import React, { useEffect, useState } from "react";
 import "./style.page.scss";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { MessageSchema } from "../../features/validations";
 import { Link, useParams } from "react-router-dom";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import useFill from "../../hooks/useFill";
-import { Avatar, Loader, NotFound, VideoPlayer } from "../../components";
+import {
+  Avatar,
+  Loader,
+  MessageItems,
+  NotFound,
+  VideoPlayer,
+} from "../../components";
 import Rating from "../../components/Rating/Rating";
 import Favorite from "../../components/Favorites/Favorite";
 import { formatDate } from "../../features/utils/functions";
@@ -18,6 +26,16 @@ const RoomPage = () => {
   const { user } = useUser();
   const { isChatOpen, toggleChat } = useRoom();
   const { socket, connect, disconnect } = useSocket();
+  const [messages, setMessages] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty, isValid },
+  } = useForm({
+    resolver: yupResolver(MessageSchema),
+  });
 
   const { data, isLoading, refetch } = useGetRoomByIdQuery(roomId);
 
@@ -34,12 +52,26 @@ const RoomPage = () => {
       socket.on("update_live", () => {
         refetch();
       });
+      socket.on("receive_messages", (data) => {
+        setMessages(data);
+      });
     }
   }, [socket]);
 
   useEffect(() => {
+    return () => {
+      disconnect();
+    };
+  }, []);
+
+  const onSubmitMessage = async (data) => {
+    socket.emit("send_message", { message: data.message });
+    reset();
+  };
+
+  useEffect(() => {
     const handleBeforeUnload = () => {
-      socket.disconnect();
+      disconnect();
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -108,21 +140,7 @@ const RoomPage = () => {
                         <div className="icon c-users" />
                       </button>
                     </div>
-                    <div className="chat__messages">
-                      <div className="chat__message">
-                        <div className="chat__message-sender">
-                          <div className="chat__message-avatar">
-                            <img src="../images/avatar.png" alt="Qwerty" />
-                          </div>
-                          <div className="chat__message-nickname">Qwerty</div>
-                        </div>
-                        <div className="chat__message-content">
-                          Відчути атмосферу історії, яка переносить вас у
-                          постапокаліптичний світ, де кожне рішення може
-                          визначити виживання
-                        </div>
-                      </div>
-                    </div>
+                    <MessageItems messages={messages} />
                     <div className="chat__send-form">
                       <div className="chat__sender">
                         <div className="chat__sender-avatar">
@@ -138,12 +156,23 @@ const RoomPage = () => {
                           {user.nickname}
                         </div>
                       </div>
-                      <div className="chat__form">
-                        <input type="text" className="form__input linear" />
-                        <button className="chat__button" type="submit">
+                      <form
+                        className="chat__form"
+                        onSubmit={handleSubmit(onSubmitMessage)}
+                      >
+                        <input
+                          type="text"
+                          {...register("message")}
+                          className="form__input linear"
+                        />
+                        <button
+                          className="chat__button"
+                          type="submit"
+                          disabled={!isValid || !isDirty}
+                        >
                           <div className="icon send" />
                         </button>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>

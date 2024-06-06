@@ -132,8 +132,34 @@ const start = async () => {
 
           socket.to(roomId).emit("update_live");
           socket.emit("update_live");
+
+          const messages = await MessageRepository.getLastMessagesByRoomId(
+            roomId
+          );
+
+          socket.to(roomId).emit("receive_messages", messages);
+          socket.emit("receive_messages", messages);
         } else {
           socket.emit("connection_error");
+        }
+      });
+
+      socket.on("send_message", async (data) => {
+        const roomId: string = socket.roomId!;
+
+        if (roomId) {
+          await MessageRepository.addMessage({
+            roomId: new Types.ObjectId(roomId),
+            userId: socket.user?._id,
+            message: data.message,
+          });
+
+          const messages = await MessageRepository.getLastMessagesByRoomId(
+            roomId
+          );
+
+          socket.to(roomId).emit("receive_messages", messages);
+          socket.emit("receive_messages", messages);
         }
       });
 
