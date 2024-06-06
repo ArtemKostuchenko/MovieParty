@@ -104,12 +104,49 @@ const start = async () => {
         const userId = socket.handshake.auth.user._id;
         const user = await authenticatedUser(userId);
         socket.user = user;
-        console.log(`User ${user.nickname} is connected`);
         next();
       } catch (e) {
         console.log(e);
         return next(new Error("Authentication invalid"));
       }
+    });
+
+    io.on("connection", (socket) => {
+      socket.join(socket.user?._id);
+
+      socket.on("join", async (roomId) => {
+        console.log(socket.user?.nickname);
+
+        const existUser = await RoomRepository.existUserInRoom(
+          roomId,
+          socket.user?._id
+        );
+
+        if (existUser) {
+          await RoomRepository.connectUser(roomId, socket.user?._id);
+
+          socket.join(roomId);
+          socket.roomId = roomId;
+
+          console.log(`User ${socket.user?.nickname} connected to room`);
+
+          socket.to(roomId).emit("update_live");
+          socket.emit("update_live");
+        } else {
+          socket.emit("connection_error");
+        }
+      });
+
+      socket.on("disconnect", async () => {
+        const roomId: string = socket.roomId!;
+
+        if (roomId) {
+          await RoomRepository.disconnectUser(roomId, socket.user?._id);
+          socket.to(roomId).emit("update_live");
+        }
+
+        console.log(`User ${socket.user?.nickname} disconnected room`);
+      });
     });
 
     server.listen(port, () => {

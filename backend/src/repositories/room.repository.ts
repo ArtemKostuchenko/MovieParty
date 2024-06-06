@@ -253,7 +253,7 @@ class RoomRepository {
       throw new NotFoundError("Room not found");
     }
 
-    const connectedUser = room.users.find((user) => user._id.equals(userId));
+    const connectedUser = room.users.find((uId) => uId.equals(userId));
 
     if (!connectedUser) {
       room.users.push(new Types.ObjectId(userId));
@@ -269,7 +269,7 @@ class RoomRepository {
       throw new NotFoundError("Room not found");
     }
 
-    room.users = room.users.filter((user) => !user._id.equals(userId));
+    room.users = room.users.filter((uId) => !uId.equals(userId));
 
     await room.save();
 
@@ -296,10 +296,17 @@ class RoomRepository {
   ): Promise<boolean> {
     const room = await RoomModel.findOne({
       _id: roomId,
-      invitedUsers: { $all: userId },
     });
 
     if (!room) {
+      return false;
+    }
+
+    if (room.ownerId.equals(userId)) return true;
+
+    const existUser = room.invitedUsers.find((uId) => uId.equals(userId));
+
+    if (!existUser) {
       return false;
     }
 

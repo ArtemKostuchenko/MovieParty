@@ -25,10 +25,17 @@ const RoomPage = () => {
     if (!isLoading && data) {
       socket.auth.user._id = user._id;
       connect();
+      socket.emit("join", roomId);
     }
   }, [data, isLoading]);
 
-  useEffect(() => {}, [socket]);
+  useEffect(() => {
+    if (socket) {
+      socket.on("update_live", () => {
+        refetch();
+      });
+    }
+  }, [socket]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
