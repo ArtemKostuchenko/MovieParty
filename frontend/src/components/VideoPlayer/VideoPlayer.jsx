@@ -75,6 +75,13 @@ const VideoPlayer = ({
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (isEnablePIP && !mergedControls.pInp) {
+      navigator.mediaSession.setActionHandler("play", function () {});
+      navigator.mediaSession.setActionHandler("pause", function () {});
+    }
+  }, [isEnablePIP]);
+
   const startHideControlsTimer = () => {
     clearHideControlsTimer();
     hideControlsTimerRef.current = setTimeout(() => {
@@ -151,9 +158,12 @@ const VideoPlayer = ({
   return (
     <div className="video-player" ref={videoPlayerRef}>
       {!isPlaying && <div className="video-player__filter"></div>}
-      <div className="video-player__display" onClick={handlePlay}>
+      <div
+        className="video-player__display"
+        onClick={!isEnablePIP && handlePlay}
+      >
         <AnimatePresence>
-          {!isPlaying && (
+          {!isPlaying && !isEnablePIP && (
             <motion.button
               className="video-player__play-center"
               initial={{
@@ -270,7 +280,7 @@ const VideoPlayer = ({
               />
               <button
                 className="video-player__p-in-p"
-                onClick={mergedControls.pInp && handleTogglePIP}
+                onClick={handleTogglePIP}
               >
                 <div
                   className={`icon p-in-p ${isEnablePIP ? " inner" : " exit"}`}
