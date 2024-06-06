@@ -200,8 +200,8 @@ class RoomRepository {
     }
 
     const room = await RoomModel.findOne({ inviteCode })
-      .select("title public users")
-      .populate("users", "email nickname avatarURL");
+      .select("title isPublic users")
+      .populate("users", "nickname avatarURL avatarColor");
 
     if (!room) {
       throw new NotFoundError("Room not found");

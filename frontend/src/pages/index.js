@@ -32,3 +32,4 @@ export { default as GenrePage } from "./genre/GenrePage";
 export { default as BestListPage } from "./best-list/BestListPage";
 export { default as RoomPage } from "./room/RoomPage";
 export { default as InvitePage } from "./invite/InvitePage";
+export { default as RoomJoinPage } from "./room/RoomJoinPage";

@@ -50,6 +50,17 @@ export const roomsApi = createApi({
       },
       invalidatesTags: ["rooms"],
     }),
+    inviteUserToRoom: builder.mutation({
+      query: ({ password, roomId }) => {
+        return {
+          url: `rooms/${roomId}/invite`,
+          method: "POST",
+          data: {
+            password,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -57,4 +68,5 @@ export const {
   useGetRoomByIdQuery,
   useGetRoomByInviteCodeQuery,
   useCreateRoomMutation,
+  useInviteUserToRoomMutation,
 } = roomsApi;
