@@ -22,6 +22,8 @@ import useUser from "../../hooks/useUser";
 import useRoom from "../../hooks/useRoom";
 import useSocket from "../../hooks/useSocket";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
+import usePopUp from "../../hooks/usePopup";
+import RoomEditPopup from "./RoomEditPopup";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
@@ -30,6 +32,7 @@ const RoomPage = () => {
   const { isPlaying, time, handlePlay, handlePause } = useVideoPlayer();
   const { isChatOpen, toggleChat } = useRoom();
   const { socket, connect, disconnect } = useSocket();
+  const { editId, handleEditPopUp } = usePopUp();
   const [messages, setMessages] = useState([]);
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
@@ -136,6 +139,16 @@ const RoomPage = () => {
       disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    if (editId) {
+      handlePause();
+    }
+  }, [editId]);
 
   const onSubmitMessage = async (data) => {
     socket.emit("send_message", roomId, { message: data.message });
@@ -311,7 +324,10 @@ const RoomPage = () => {
                       <div className="icon copy" />
                     </button>
                   </CopyToClipboard>
-                  <button className="room__details-action">
+                  <button
+                    className="room__details-action"
+                    onClick={() => handleEditPopUp(roomId)}
+                  >
                     <div className="icon settings" />
                   </button>
                 </div>
@@ -474,6 +490,7 @@ const RoomPage = () => {
               </div>
             </div>
           </div>
+          {editId && <RoomEditPopup />}
         </div>
       </div>
       <div className="splitter"></div>

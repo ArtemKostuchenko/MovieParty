@@ -14,7 +14,7 @@ const useRoom = () => {
   const [
     updateMutation,
     { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
-  ] = useCreateRoomMutation();
+  ] = useUpdateRoomByIdMutation();
   const [
     inviteMutation,
     { isLoading: isLoadingInvite, isSuccess: isSuccessInvite },

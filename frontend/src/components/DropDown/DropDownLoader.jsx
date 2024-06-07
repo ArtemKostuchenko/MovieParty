@@ -83,11 +83,12 @@ const DropDownLoader = ({
 
   useEffect(() => {
     if (selectedItem) {
-      setSelectedName(
-        items.find((item) => item._id === selectedItem)?.[searchBy]
-      );
+      const name = items.find((item) => item._id === selectedItem)?.[searchBy];
+      if (name) {
+        setSelectedName(name);
+      }
     }
-  }, [selectedItem]);
+  }, [selectedItem, items]);
 
   useEffect(() => {
     if (data && data[dataName]) {
