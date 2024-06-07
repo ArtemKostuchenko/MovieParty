@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isPlaying: false,
   volume: 0.5,
+  muted: false,
   isEnablePIP: false,
   isFullScreen: false,
   isSettingsOpen: false,
@@ -19,6 +20,9 @@ const playerSlice = createSlice({
     },
     setVolumeState: (state, action) => {
       state.volume = action.payload;
+    },
+    setMuteState: (state, action) => {
+      state.muted = action.payload;
     },
     setEnablePIPState: (state, action) => {
       state.isEnablePIP = action.payload;
@@ -41,6 +45,7 @@ const playerSlice = createSlice({
 export const {
   setPlayingState,
   setVolumeState,
+  setMuteState,
   setEnablePIPState,
   setFullScreenState,
   setSettingState,

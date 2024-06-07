@@ -49,6 +49,7 @@ const VideoPlayer = ({
     m3u8URL,
     isPlaying,
     volume,
+    muted,
     speed,
     isEnablePIP,
     isFullScreen,
@@ -56,9 +57,11 @@ const VideoPlayer = ({
     handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
-    handleToggleVolume,
+    handleToggleMute,
+    handleMute,
     handleTogglePIP,
     handleToggleFullScreen,
+    handlePlay: play,
   } = useVideoPlayer();
 
   const playerRef = useRef();
@@ -67,6 +70,7 @@ const VideoPlayer = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [timeSeek, setTimeSeek] = useState(seek);
+  const [autoPlay, setAutoPlay] = useState(autoplay);
   const [showControls, setShowControls] = useState(true);
   const hideControlsTimerRef = useRef(null);
 
@@ -101,7 +105,7 @@ const VideoPlayer = ({
 
   const handleMouseMove = (e) => {
     setShowControls(true);
-    if (!controlsRef.current.contains(e.target)) {
+    if (controlsRef.current && !controlsRef.current.contains(e.target)) {
       if (isPlaying) {
         startHideControlsTimer();
       }
@@ -130,7 +134,11 @@ const VideoPlayer = ({
     }
   }, [isPlaying]);
 
-  const handleReady = () => {};
+  const handleReady = () => {
+    if (autoplay) {
+      play();
+    }
+  };
 
   const handlePlay = () => {
     if (isSettingsOpen || !mergedControls.play) return;
@@ -166,6 +174,13 @@ const VideoPlayer = ({
   }, [seek]);
 
   useEffect(() => {
+    if (autoPlay) {
+      handleMute();
+    }
+    setAutoPlay(autoplay);
+  }, [autoplay]);
+
+  useEffect(() => {
     if (m3u8URL) {
       setTimeout(() => {
         playerRef.current.seekTo(currentTime, "seconds");
@@ -178,7 +193,7 @@ const VideoPlayer = ({
       {!isPlaying && <div className="video-player__filter"></div>}
       <div
         className="video-player__display"
-        onClick={!isEnablePIP && handlePlay}
+        onClick={!isEnablePIP ? handlePlay : undefined}
       >
         <AnimatePresence>
           {!isPlaying && !isEnablePIP && (
@@ -218,6 +233,7 @@ const VideoPlayer = ({
           onDuration={handleDuration}
           onProgress={handleProgress}
           onDisablePIP={handleDisablePIP}
+          muted={muted || autoPlay}
         />
       </div>
       {!isEnablePIP && (
@@ -266,11 +282,18 @@ const VideoPlayer = ({
               <div className="video-player__volume">
                 <button
                   className="video-player__volume-button"
-                  onClick={handleToggleVolume}
+                  onClick={() => {
+                    if (autoPlay) {
+                      setAutoPlay(false);
+                    }
+                    handleToggleMute();
+                  }}
                 >
                   <div
                     className={`icon volume${
-                      volume <= 0.5
+                      autoPlay
+                        ? " v-mute"
+                        : volume <= 0.5
                         ? volume <= 0.25
                           ? volume === 0
                             ? " v-mute"
@@ -282,11 +305,16 @@ const VideoPlayer = ({
                 </button>
                 <div className="video-player__volume-seek">
                   <VolumeSlider
-                    value={volume * 100}
+                    value={autoPlay ? 0 : volume * 100}
                     min={0}
                     max={100}
                     step={10}
-                    onChange={handleChangeVolume}
+                    onChange={(value) => {
+                      if (autoPlay) {
+                        setAutoPlay(false);
+                      }
+                      handleChangeVolume(value);
+                    }}
                     dark
                     scrollable
                   />

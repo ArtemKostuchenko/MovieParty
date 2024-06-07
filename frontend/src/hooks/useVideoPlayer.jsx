@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPlayingState,
   setVolumeState,
+  setMuteState,
   setEnablePIPState,
   setFullScreenState,
   setM3U8State,
@@ -13,6 +14,7 @@ const useVideoPlayer = () => {
   const {
     isPlaying,
     volume,
+    muted,
     isEnablePIP,
     isFullScreen,
     isSettingsOpen,
@@ -38,6 +40,9 @@ const useVideoPlayer = () => {
   };
 
   const handleChangeVolume = (vol) => {
+    if (muted && vol > 0) {
+      handleUnMute();
+    }
     dispatch(setVolumeState(vol / 100));
   };
 
@@ -47,17 +52,27 @@ const useVideoPlayer = () => {
     }
   };
 
-  const handleToggleVolume = () => {
-    if (volume !== 0) {
+  const handleToggleMute = () => {
+    if (volume !== 0 && !muted) {
       lastVolume.current = volume;
       dispatch(setVolumeState(0));
+      handleMute();
     } else {
       if (lastVolume.current) {
         dispatch(setVolumeState(lastVolume.current));
       } else {
         dispatch(setVolumeState(0.5));
       }
+      handleUnMute();
     }
+  };
+
+  const handleMute = () => {
+    dispatch(setMuteState(true));
+  };
+
+  const handleUnMute = () => {
+    dispatch(setMuteState(false));
   };
 
   const handleDisablePIP = () => {
@@ -95,6 +110,7 @@ const useVideoPlayer = () => {
 
   return {
     m3u8URL,
+    muted,
     isPlaying,
     volume,
     speed,
@@ -106,7 +122,9 @@ const useVideoPlayer = () => {
     handleDisablePIP,
     handleTogglePlaying,
     handleChangeVolume,
-    handleToggleVolume,
+    handleToggleMute,
+    handleUnMute,
+    handleMute,
     handleTogglePIP,
     handleToggleFullScreen,
   };

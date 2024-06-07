@@ -132,6 +132,7 @@ const RoomPage = () => {
                       speed: ownerUser._id === user._id,
                     },
                   }}
+                  autoplay={ownerUser._id !== user._id}
                   seek={seek}
                   soundTracks={soundTracks}
                   seasons={seasons}
