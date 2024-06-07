@@ -21,6 +21,21 @@ const getRoom = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({ data: room });
 };
 
+const updateRoomById = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: roomId } = req.params;
+
+  const updatedRoom = await RoomRepository.updateRoomById(
+    roomId,
+    req.user?.id,
+    req.body
+  );
+
+  return res.status(StatusCodes.OK).json({ data: updatedRoom });
+};
+
 const deleteRoom = async (req: Request, res: Response): Promise<Response> => {
   const { id: roomId } = req.params;
 
@@ -66,6 +81,7 @@ const getRoomMessages = async (
 export {
   createRoom,
   getRoom,
+  updateRoomById,
   deleteRoom,
   getRoomByInviteCode,
   inviteUser,

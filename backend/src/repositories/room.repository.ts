@@ -210,6 +210,39 @@ class RoomRepository {
     return room;
   }
 
+  async updateRoomById(
+    roomId: string,
+    userId: string,
+    roomData: Room
+  ): Promise<Room> {
+    const {
+      title,
+      videoContentId,
+      isPublic,
+      password,
+      maxNumberUsers,
+      voiceChat,
+    } = roomData;
+
+    const room = await RoomModel.findOne({
+      _id: roomId,
+      ownerId: new Types.ObjectId(userId),
+    });
+
+    if (!room) {
+      throw new NotFoundError("Room not found");
+    }
+
+    room.title = title || room.title;
+    room.videoContentId = videoContentId || room.videoContentId;
+    room.isPublic = isPublic || room.isPublic;
+    room.password = password || room.password;
+    room.maxNumberUsers = maxNumberUsers || room.maxNumberUsers;
+    room.voiceChat = voiceChat || room.voiceChat;
+
+    return await room.save();
+  }
+
   async inviteUser(
     roomId: string,
     userId: string,
