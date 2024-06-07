@@ -29,12 +29,41 @@
       border-radius: 5px;
     }
 
-    &-button-chat {
-      background: transparent;
+    &-buttons {
       position: absolute;
       top: 10px;
       right: 10px;
       z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    &-button-sync {
+      background: transparent;
+      padding: 2px;
+      border-radius: 50%;
+      font-size: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include transition(background-color);
+
+      .icon.sync {
+        @include transition(transform);
+      }
+
+      &:hover {
+        background-color: #adadad80;
+
+        .icon.sync {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+
+    &-button-chat {
+      background: transparent;
       padding: 4px;
       border-radius: 4px;
       font-size: 0;

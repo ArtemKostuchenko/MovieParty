@@ -200,6 +200,14 @@ const start = async () => {
         }
       });
 
+      socket.on("sync", (roomId) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          socket.emit("time", room?.time || 0);
+        }
+      });
+
       socket.on("disconnect", async () => {
         const roomId: string = socket.roomId!;
 

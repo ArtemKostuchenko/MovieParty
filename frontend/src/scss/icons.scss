@@ -497,6 +497,12 @@
     background-color: var(--white);
     mask-image: url("/src/assets/icons/copy.svg");
   }
+  &.sync {
+    width: 24px;
+    height: 24px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/sync.svg");
+  }
 }
 
 /* responsive icons */

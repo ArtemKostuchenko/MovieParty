@@ -101,6 +101,7 @@ const RoomPage = () => {
     if (user._id !== roomOwner._id) return;
 
     socket.emit("play", roomId, isPlaying);
+    socket.emit("time", roomId, time);
   }, [isPlaying, roomOwner]);
 
   useEffect(() => {
@@ -203,14 +204,24 @@ const RoomPage = () => {
                   seasons={seasons}
                   handleSeekChange={(seek) => socket.emit("seek", roomId, seek)}
                 />
-                {!isChatOpen && (
-                  <button
-                    className="room__player-button-chat"
-                    onClick={toggleChat}
-                  >
-                    <div className="icon c-arrow" />
-                  </button>
-                )}
+                <div className="room__player-buttons">
+                  {ownerUser._id !== user._id && (
+                    <button
+                      className="room__player-button-sync"
+                      onClick={() => socket.emit("sync", roomId)}
+                    >
+                      <div className="icon sync" />
+                    </button>
+                  )}
+                  {!isChatOpen && (
+                    <button
+                      className="room__player-button-chat"
+                      onClick={toggleChat}
+                    >
+                      <div className="icon c-arrow" />
+                    </button>
+                  )}
+                </div>
               </div>
               {isChatOpen && (
                 <div className="room__chat">
