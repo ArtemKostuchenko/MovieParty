@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setChatState } from "../features/store/slices/room";
 import {
   useCreateRoomMutation,
+  useUpdateRoomByIdMutation,
   useInviteUserToRoomMutation,
 } from "../features/services/rooms/roomsService";
 
@@ -11,12 +12,20 @@ const useRoom = () => {
   const [createMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
     useCreateRoomMutation();
   const [
+    updateMutation,
+    { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
+  ] = useCreateRoomMutation();
+  const [
     inviteMutation,
     { isLoading: isLoadingInvite, isSuccess: isSuccessInvite },
   ] = useInviteUserToRoomMutation();
 
   const createRoom = async (room) => {
     return await createMutation(room).unwrap();
+  };
+
+  const updateRoom = async (roomId, room) => {
+    return await updateMutation({ roomId, ...room }).unwrap();
   };
 
   const inviteUserToRoom = async (roomId, password = "") => {
@@ -37,6 +46,9 @@ const useRoom = () => {
     inviteUserToRoom,
     isLoadingInvite,
     isSuccessInvite,
+    updateRoom,
+    isLoadingUpdate,
+    isSuccessUpdate,
   };
 };
 

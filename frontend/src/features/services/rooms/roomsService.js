@@ -93,5 +93,6 @@ export const {
   useGetRoomByIdQuery,
   useGetRoomByInviteCodeQuery,
   useCreateRoomMutation,
+  useUpdateRoomByIdMutation,
   useInviteUserToRoomMutation,
 } = roomsApi;
