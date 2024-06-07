@@ -11,6 +11,7 @@ const SettingsPlayer = ({
   controls = { soundTrack: true, quality: true, speed: true },
   soundTracks,
 }) => {
+  console.log();
   const dispatch = useDispatch();
   const { isSettingsOpen, speed: speedState } = useSelector(
     (store) => store.player
@@ -23,8 +24,8 @@ const SettingsPlayer = ({
   const soundTracksTitles = soundTracks.map((sTrack) => sTrack.title);
 
   const m3u8Links = soundTracks
-    .find((sTrack) => sTrack.title === soundTrack)
-    .m3u8Links.map((m3u8Link) => m3u8Link.quality);
+    .find((sTrack) => sTrack.title === soundTrack || "")
+    ?.m3u8Links.map((m3u8Link) => m3u8Link.quality);
 
   const settingsRef = useRef(null);
 
