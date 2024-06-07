@@ -30,7 +30,7 @@ const RoomPage = () => {
   const {} = useFill();
   const { user } = useUser();
   const { isPlaying, time, handlePlay, handlePause } = useVideoPlayer();
-  const { isChatOpen, toggleChat } = useRoom();
+  const { isChatOpen, isUsersOpen, toggleChat, toggleUsers } = useRoom();
   const { socket, connect, disconnect } = useSocket();
   const { editId, handleEditPopUp } = usePopUp();
   const [messages, setMessages] = useState([]);
@@ -253,12 +253,74 @@ const RoomPage = () => {
                       <button className="chat__button" onClick={toggleChat}>
                         <div className="icon c-arrow" />
                       </button>
-                      <div className="chat__title">Чат</div>
-                      <button className="chat__button">
-                        <div className="icon c-users" />
+                      <div className="chat__title">
+                        {!isUsersOpen ? "Чат" : "Користувачі"}
+                      </div>
+                      <button className="chat__button" onClick={toggleUsers}>
+                        <div
+                          className={`icon${
+                            !isUsersOpen ? " c-users" : " c-icon"
+                          }`}
+                        />
                       </button>
                     </div>
-                    <MessageItems messages={messages} />
+                    {isUsersOpen && (
+                      <div className="chat__users">
+                        <div className="chat__user">
+                          <div className="chat__user-info">
+                            <div className="chat__user-avatar">
+                              <Avatar
+                                photoURL={user.avatarURL}
+                                nickname={user.nickname}
+                                avatarColor={user.avatarColor}
+                                width={40}
+                                height={40}
+                              />
+                            </div>
+                            <div className="chat__user-nickname">
+                              {user.nickname} (Ви)
+                            </div>
+                          </div>
+                          <div className="chat__user-actions"></div>
+                        </div>
+                        {users.map((u) => {
+                          if (u._id !== user._id) {
+                            return (
+                              <div className="chat__user">
+                                <div className="chat__user-info">
+                                  <div className="chat__user-avatar">
+                                    <Avatar
+                                      photoURL={u.avatarURL}
+                                      nickname={u.nickname}
+                                      avatarColor={u.avatarColor}
+                                      width={40}
+                                      height={40}
+                                    />
+                                  </div>
+                                  <div className="chat__user-nickname">
+                                    {u.nickname}{" "}
+                                    {u._id === user._id ? "(Ви)" : ""}
+                                  </div>
+                                </div>
+                                <div className="chat__user-actions">
+                                  {ownerUser._id === user._id && (
+                                    <>
+                                      <button className="chat__user-button">
+                                        <div className="icon microphone off"></div>
+                                      </button>
+                                      <button className="chat__user-button">
+                                        <div className="icon user block"></div>
+                                      </button>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
+                    )}
+                    {!isUsersOpen && <MessageItems messages={messages} />}
                     <div className="chat__send-form">
                       <div className="chat__sender">
                         <div className="chat__sender-avatar">
@@ -318,22 +380,26 @@ const RoomPage = () => {
                     <div className="icon live" />
                     <div className="room__details-users">{users.length}</div>
                   </div>
-                  <CopyToClipboard
-                    onCopy={() =>
-                      toast.success("Запрошувальне посилання скопійовано")
-                    }
-                    text={inviteLink}
-                  >
-                    <button className="room__details-action">
-                      <div className="icon copy" />
-                    </button>
-                  </CopyToClipboard>
-                  <button
-                    className="room__details-action"
-                    onClick={() => handleEditPopUp(roomId)}
-                  >
-                    <div className="icon settings" />
-                  </button>
+                  {ownerUser._id === user._id && (
+                    <>
+                      <CopyToClipboard
+                        onCopy={() =>
+                          toast.success("Запрошувальне посилання скопійовано")
+                        }
+                        text={inviteLink}
+                      >
+                        <button className="room__details-action">
+                          <div className="icon copy" />
+                        </button>
+                      </CopyToClipboard>
+                      <button
+                        className="room__details-action"
+                        onClick={() => handleEditPopUp(roomId)}
+                      >
+                        <div className="icon settings" />
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="room__info">

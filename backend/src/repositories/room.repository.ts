@@ -37,6 +37,14 @@ class RoomRepository {
       { $unwind: "$ownerUser" },
       {
         $lookup: {
+          from: "users",
+          localField: "users",
+          foreignField: "_id",
+          as: "users",
+        },
+      },
+      {
+        $lookup: {
           from: "videocontents",
           localField: "videoContentId",
           foreignField: "_id",
@@ -166,6 +174,22 @@ class RoomRepository {
           "videoContent.ratings": 0,
           "videoContent.userRating": 0,
           videoContentId: 0,
+          "users.password": 0,
+          "users.isAdmin": 0,
+          "users.likes": 0,
+          "users.dislikes": 0,
+          "users.country": 0,
+          "users.createdAt": 0,
+          "users.email": 0,
+          "users.favorites": 0,
+          "users.googleId": 0,
+          "users.updatedAt": 0,
+          "users.__v": 0,
+        },
+      },
+      {
+        $addFields: {
+          users: { $ifNull: ["$users", []] },
         },
       },
       {
