@@ -82,7 +82,9 @@ const RoomPage = () => {
       });
 
       socket.on("time", (time) => {
-        setSeek(time);
+        if (roomOwner._id !== user._id) {
+          setSeek(time);
+        }
       });
     }
   }, [socket, roomOwner]);
