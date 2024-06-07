@@ -36,6 +36,7 @@ const RoomPage = () => {
   const [messages, setMessages] = useState([]);
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
   const isMounted = useRef(false);
 
   const {
@@ -79,6 +80,9 @@ const RoomPage = () => {
       });
 
       socket.on("play", (play) => {
+        if (isAutoPlay) {
+          setIsAutoPlay(false);
+        }
         if (play) {
           handlePlay();
         } else {
@@ -217,7 +221,7 @@ const RoomPage = () => {
                       speed: ownerUser._id === user._id,
                     },
                   }}
-                  autoplay={ownerUser._id !== user._id}
+                  autoplay={ownerUser._id !== user._id && isAutoPlay}
                   seek={seek}
                   soundTracks={soundTracks}
                   seasons={seasons}
@@ -490,7 +494,11 @@ const RoomPage = () => {
               </div>
             </div>
           </div>
-          {editId && <RoomEditPopup />}
+          {editId && (
+            <RoomEditPopup
+              handleUpdate={() => socket.emit("update_live", roomId)}
+            />
+          )}
         </div>
       </div>
       <div className="splitter"></div>

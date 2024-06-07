@@ -151,10 +151,8 @@ const VideoPlayer = ({
   };
 
   const handleProgress = ({ playedSeconds }) => {
-    if (isPlaying) {
-      handleTime(playedSeconds);
-      setCurrentTime(playedSeconds);
-    }
+    handleTime(playedSeconds);
+    setCurrentTime(playedSeconds);
   };
 
   const handleSeekSliderChange = (seek) => {

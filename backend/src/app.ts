@@ -208,6 +208,17 @@ const start = async () => {
         }
       });
 
+      socket.on("update_live", (roomId) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          room.isPlaying = false;
+          room.time = 0;
+          socket.to(roomId).emit("update_live");
+          socket.to(roomId).emit("play", false);
+        }
+      });
+
       socket.on("disconnect", async () => {
         const roomId: string = socket.roomId!;
 

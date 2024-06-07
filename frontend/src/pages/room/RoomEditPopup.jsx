@@ -14,7 +14,7 @@ import usePopUp from "../../hooks/usePopup";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import { useGetVideoContentQuery } from "../../features/services/content/contentService";
 
-const RoomEditPopup = () => {
+const RoomEditPopup = ({ handleUpdate }) => {
   const { updateRoom, isLoadingUpdate } = useRoom();
   const { editId, handleResetPopUp } = usePopUp();
 
@@ -60,6 +60,7 @@ const RoomEditPopup = () => {
     try {
       await updateRoom(editId, data);
       toast.success("Кімнату оновлено");
+      if (handleUpdate && typeof handleUpdate === "function") handleUpdate();
       handleResetPopUp();
       reset();
     } catch (e) {
