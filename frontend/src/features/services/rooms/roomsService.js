@@ -50,6 +50,31 @@ export const roomsApi = createApi({
       },
       invalidatesTags: ["rooms"],
     }),
+    updateRoomById: builder.mutation({
+      query: ({
+        roomId,
+        videoContentId,
+        title,
+        isPublic,
+        password = "",
+        maxNumberUsers,
+        voiceChat,
+      } = {}) => {
+        return {
+          url: `rooms/${roomId}`,
+          method: "PATCH",
+          data: {
+            videoContentId,
+            title,
+            isPublic,
+            password,
+            maxNumberUsers,
+            voiceChat,
+          },
+        };
+      },
+      invalidatesTags: ["rooms"],
+    }),
     inviteUserToRoom: builder.mutation({
       query: ({ password, roomId }) => {
         return {
