@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 import "./style.page.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -158,7 +160,7 @@ const RoomPage = () => {
     return <NotFound title="Кімнату не знайдено" image="room" />;
   }
 
-  const { title: roomTitle, videoContent, ownerUser, users } = data;
+  const { title: roomTitle, videoContent, ownerUser, users, inviteCode } = data;
 
   const {
     _id: videoContentId,
@@ -181,6 +183,10 @@ const RoomPage = () => {
   const contentPreviewURL = `${
     import.meta.env.VITE_BACK_HOST
   }/static/files/images/content/${previewURL}`;
+
+  const inviteLink = `${
+    import.meta.env.VITE_FRONT_HOST
+  }/room/invite?code=${inviteCode}`;
 
   return (
     <div className="container cnt-mn">
@@ -295,9 +301,16 @@ const RoomPage = () => {
                     <div className="icon live" />
                     <div className="room__details-users">{users.length}</div>
                   </div>
-                  <button className="room__details-action">
-                    <div className="icon copy" />
-                  </button>
+                  <CopyToClipboard
+                    onCopy={() =>
+                      toast.success("Запрошувальне посилання скопійовано")
+                    }
+                    text={inviteLink}
+                  >
+                    <button className="room__details-action">
+                      <div className="icon copy" />
+                    </button>
+                  </CopyToClipboard>
                   <button className="room__details-action">
                     <div className="icon settings" />
                   </button>
