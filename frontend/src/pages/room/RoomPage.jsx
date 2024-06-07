@@ -27,6 +27,7 @@ const RoomPage = () => {
   const { isChatOpen, toggleChat } = useRoom();
   const { socket, connect, disconnect } = useSocket();
   const [messages, setMessages] = useState([]);
+  const [seek, setSeek] = useState(0);
 
   const {
     register,
@@ -54,6 +55,10 @@ const RoomPage = () => {
       });
       socket.on("receive_messages", (data) => {
         setMessages(data);
+      });
+
+      socket.on("seek", (seek) => {
+        setSeek(seek);
       });
     }
   }, [socket]);
@@ -127,8 +132,10 @@ const RoomPage = () => {
                       speed: ownerUser._id === user._id,
                     },
                   }}
+                  seek={seek}
                   soundTracks={soundTracks}
                   seasons={seasons}
+                  handleSeekChange={(seek) => socket.emit("seek", seek)}
                 />
                 {!isChatOpen && (
                   <button

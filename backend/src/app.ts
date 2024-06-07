@@ -163,6 +163,13 @@ const start = async () => {
         }
       });
 
+      socket.on("seek", (data) => {
+        const roomId: string = socket.roomId!;
+        if (roomId) {
+          socket.to(roomId).emit("seek", data);
+        }
+      });
+
       socket.on("disconnect", async () => {
         const roomId: string = socket.roomId!;
 

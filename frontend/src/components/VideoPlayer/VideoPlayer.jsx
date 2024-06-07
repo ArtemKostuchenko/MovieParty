@@ -30,6 +30,9 @@ const VideoPlayer = ({
       speed: true,
     },
   },
+  autoplay = false,
+  seek = 0,
+  handleSeekChange,
   soundTracks,
   seasons,
 }) => {
@@ -63,6 +66,7 @@ const VideoPlayer = ({
   const controlsRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [timeSeek, setTimeSeek] = useState(seek);
   const [showControls, setShowControls] = useState(true);
   const hideControlsTimerRef = useRef(null);
 
@@ -144,8 +148,22 @@ const VideoPlayer = ({
   const handleSeekSliderChange = (seek) => {
     if (playerRef.current) {
       playerRef.current.seekTo(seek, "seconds");
+
+      if (!handleSeekChange || typeof handleSeekChange !== "function") return;
+
+      handleSeekChange(seek);
     }
   };
+
+  useEffect(() => {
+    if (playerRef.current) {
+      playerRef.current.seekTo(timeSeek, "seconds");
+    }
+  }, [timeSeek]);
+
+  useEffect(() => {
+    setTimeSeek(seek);
+  }, [seek]);
 
   useEffect(() => {
     if (m3u8URL) {
