@@ -62,6 +62,7 @@ const VideoPlayer = ({
     handleTogglePIP,
     handleToggleFullScreen,
     handlePlay: play,
+    handleTime,
   } = useVideoPlayer();
 
   const playerRef = useRef();
@@ -150,7 +151,10 @@ const VideoPlayer = ({
   };
 
   const handleProgress = ({ playedSeconds }) => {
-    setCurrentTime(playedSeconds);
+    if (isPlaying) {
+      handleTime(playedSeconds);
+      setCurrentTime(playedSeconds);
+    }
   };
 
   const handleSeekSliderChange = (seek) => {

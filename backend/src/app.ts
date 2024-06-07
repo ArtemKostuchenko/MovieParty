@@ -28,6 +28,7 @@ import "./config/passportJWT";
 import cookieSession from "cookie-session";
 import cookieParser from "cookie-parser";
 import { authenticatedUser } from "./middlewares/auth.middleware";
+import { Room } from "./utils/interfaces";
 
 dotenv.config();
 
@@ -82,6 +83,8 @@ app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 
+const rooms: Room[] = [];
+
 const start = async () => {
   try {
     await connectToDB(process.env.MONGO_URI!);
@@ -115,8 +118,6 @@ const start = async () => {
       socket.join(socket.user?._id);
 
       socket.on("join", async (roomId) => {
-        console.log(socket.user?.nickname);
-
         const existUser = await RoomRepository.existUserInRoom(
           roomId,
           socket.user?._id
@@ -126,12 +127,27 @@ const start = async () => {
           await RoomRepository.connectUser(roomId, socket.user?._id);
 
           socket.join(roomId);
+
           socket.roomId = roomId;
+
+          let room = rooms.find((room) => room.roomId === roomId);
+
+          if (!room) {
+            rooms.push({
+              roomId,
+              isPlaying: false,
+              time: 0,
+            });
+
+            room = rooms.find((room) => room.roomId === roomId);
+          }
 
           console.log(`User ${socket.user?.nickname} connected to room`);
 
           socket.to(roomId).emit("update_live");
           socket.emit("update_live");
+          socket.emit("play", room?.isPlaying || false);
+          socket.emit("time", room?.time || 0);
 
           const messages = await MessageRepository.getLastMessagesByRoomId(
             roomId
@@ -144,9 +160,7 @@ const start = async () => {
         }
       });
 
-      socket.on("send_message", async (data) => {
-        const roomId: string = socket.roomId!;
-
+      socket.on("send_message", async (roomId, data) => {
         if (roomId) {
           await MessageRepository.addMessage({
             roomId: new Types.ObjectId(roomId),
@@ -163,10 +177,26 @@ const start = async () => {
         }
       });
 
-      socket.on("seek", (data) => {
-        const roomId: string = socket.roomId!;
+      socket.on("seek", (roomId, data) => {
         if (roomId) {
           socket.to(roomId).emit("seek", data);
+        }
+      });
+
+      socket.on("play", (roomId, data) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          room.isPlaying = Boolean(data);
+          socket.to(roomId).emit("play", data);
+        }
+      });
+
+      socket.on("time", (roomId, time) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          room.time = time;
         }
       });
 

@@ -16,6 +16,12 @@ declare module "socket.io" {
   }
 }
 
+export interface Room {
+  roomId: string;
+  isPlaying: boolean;
+  time: number;
+}
+
 export interface JWTPayload {
   _id: Types.ObjectId;
   nickname: string;

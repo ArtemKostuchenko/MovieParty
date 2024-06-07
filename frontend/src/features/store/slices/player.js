@@ -4,10 +4,11 @@ const initialState = {
   isPlaying: false,
   volume: 0.5,
   muted: false,
+  speed: 1,
+  time: 0,
   isEnablePIP: false,
   isFullScreen: false,
   isSettingsOpen: false,
-  speed: 1,
   m3u8URL: null,
 };
 
@@ -23,6 +24,9 @@ const playerSlice = createSlice({
     },
     setMuteState: (state, action) => {
       state.muted = action.payload;
+    },
+    setTimeState: (state, action) => {
+      state.time = action.payload;
     },
     setEnablePIPState: (state, action) => {
       state.isEnablePIP = action.payload;
@@ -46,6 +50,7 @@ export const {
   setPlayingState,
   setVolumeState,
   setMuteState,
+  setTimeState,
   setEnablePIPState,
   setFullScreenState,
   setSettingState,

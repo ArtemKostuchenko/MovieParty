@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.page.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,15 +19,19 @@ import { formatDate } from "../../features/utils/functions";
 import useUser from "../../hooks/useUser";
 import useRoom from "../../hooks/useRoom";
 import useSocket from "../../hooks/useSocket";
+import useVideoPlayer from "../../hooks/useVideoPlayer";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
   const {} = useFill();
   const { user } = useUser();
+  const { isPlaying, time, handlePlay, handlePause } = useVideoPlayer();
   const { isChatOpen, toggleChat } = useRoom();
   const { socket, connect, disconnect } = useSocket();
   const [messages, setMessages] = useState([]);
   const [seek, setSeek] = useState(0);
+  const [roomOwner, setRoomOwner] = useState(null);
+  const isMounted = useRef(false);
 
   const {
     register,
@@ -49,6 +53,14 @@ const RoomPage = () => {
   }, [data, isLoading]);
 
   useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    if (!roomOwner) {
+      return;
+    }
+
     if (socket) {
       socket.on("update_live", () => {
         refetch();
@@ -60,17 +72,68 @@ const RoomPage = () => {
       socket.on("seek", (seek) => {
         setSeek(seek);
       });
+
+      socket.on("play", (play) => {
+        if (play) {
+          handlePlay();
+        } else {
+          handlePause();
+        }
+      });
+
+      socket.on("time", (time) => {
+        setSeek(time);
+      });
     }
-  }, [socket]);
+  }, [socket, roomOwner]);
 
   useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    if (!roomOwner) {
+      return;
+    }
+
+    if (user._id !== roomOwner._id) return;
+
+    socket.emit("play", roomId, isPlaying);
+  }, [isPlaying, roomOwner]);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    if (!roomOwner) {
+      return;
+    }
+
+    if (user._id !== roomOwner._id) return;
+
+    socket.emit("time", roomId, time);
+  }, [time, roomOwner]);
+
+  useEffect(() => {
+    if (data?.ownerUser) {
+      setRoomOwner(data.ownerUser);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+
     return () => {
       disconnect();
     };
   }, []);
 
   const onSubmitMessage = async (data) => {
-    socket.emit("send_message", { message: data.message });
+    socket.emit("send_message", roomId, { message: data.message });
     reset();
   };
 
@@ -136,7 +199,7 @@ const RoomPage = () => {
                   seek={seek}
                   soundTracks={soundTracks}
                   seasons={seasons}
-                  handleSeekChange={(seek) => socket.emit("seek", seek)}
+                  handleSeekChange={(seek) => socket.emit("seek", roomId, seek)}
                 />
                 {!isChatOpen && (
                   <button

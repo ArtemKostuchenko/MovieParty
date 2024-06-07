@@ -4,6 +4,7 @@ import {
   setPlayingState,
   setVolumeState,
   setMuteState,
+  setTimeState,
   setEnablePIPState,
   setFullScreenState,
   setM3U8State,
@@ -15,6 +16,7 @@ const useVideoPlayer = () => {
     isPlaying,
     volume,
     muted,
+    time,
     isEnablePIP,
     isFullScreen,
     isSettingsOpen,
@@ -75,6 +77,10 @@ const useVideoPlayer = () => {
     dispatch(setMuteState(false));
   };
 
+  const handleTime = (time) => {
+    dispatch(setTimeState(time));
+  };
+
   const handleDisablePIP = () => {
     if (!isEnablePIP) return;
     dispatch(setEnablePIPState(false));
@@ -111,6 +117,7 @@ const useVideoPlayer = () => {
   return {
     m3u8URL,
     muted,
+    time,
     isPlaying,
     volume,
     speed,
@@ -125,6 +132,7 @@ const useVideoPlayer = () => {
     handleToggleMute,
     handleUnMute,
     handleMute,
+    handleTime,
     handleTogglePIP,
     handleToggleFullScreen,
   };
