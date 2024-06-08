@@ -5,7 +5,7 @@ import "./style.page.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MessageSchema } from "../../features/validations";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import useFill from "../../hooks/useFill";
 import {
@@ -37,6 +37,7 @@ const RoomPage = () => {
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
   const isMounted = useRef(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -90,6 +91,10 @@ const RoomPage = () => {
         if (roomOwner._id !== user._id) {
           setSeek(time);
         }
+      });
+
+      socket.on("finish_session", () => {
+        navigate("/");
       });
     }
   }, [socket, roomOwner]);
@@ -170,7 +175,13 @@ const RoomPage = () => {
   }
 
   if (!data) {
-    return <NotFound title="Кімнату не знайдено" image="room" />;
+    return (
+      <NotFound
+        title="Кімнату не знайдено"
+        image="room"
+        description="Кімнати не існує чи сеанс кімнати було завершено"
+      />
+    );
   }
 
   const { title: roomTitle, videoContent, ownerUser, users, inviteCode } = data;
@@ -559,6 +570,7 @@ const RoomPage = () => {
           {editId && (
             <RoomEditPopup
               handleUpdate={() => socket.emit("update_live", roomId)}
+              handleFinish={() => socket.emit("finish_session", roomId)}
             />
           )}
         </div>

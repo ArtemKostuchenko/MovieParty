@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,9 +15,11 @@ import usePopUp from "../../hooks/usePopup";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import { useGetVideoContentQuery } from "../../features/services/content/contentService";
 
-const RoomEditPopup = ({ handleUpdate }) => {
-  const { updateRoom, isLoadingUpdate } = useRoom();
+const RoomEditPopup = ({ handleUpdate, handleFinish }) => {
+  const { updateRoom, isLoadingUpdate, removeRoom, isLoadingRemove } =
+    useRoom();
   const { editId, handleResetPopUp } = usePopUp();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -65,6 +68,20 @@ const RoomEditPopup = ({ handleUpdate }) => {
       reset();
     } catch (e) {
       toast.error("Помилка оновлення кімнати");
+    }
+  };
+
+  const handleFinishSession = async () => {
+    if (handleFinish && typeof handleFinish === "function") {
+      handleFinish();
+    }
+    try {
+      await removeRoom(editId);
+      handleResetPopUp();
+      toast.info("Сеанс кімнати завершено");
+      navigate("/");
+    } catch (err) {
+      toast.error("Помилка видалення кімнати");
     }
   };
 
@@ -210,6 +227,16 @@ const RoomEditPopup = ({ handleUpdate }) => {
                 disabled={!isDirty || !isValid || isLoadingUpdate}
               >
                 Зберегти
+              </button>
+            </div>
+            <div className="popup__form-item col2">
+              <button
+                type="submit"
+                className="button danger fill"
+                disabled={isLoadingUpdate || isLoadingRemove}
+                onClick={handleFinishSession}
+              >
+                Завершити сеанс
               </button>
             </div>
           </div>

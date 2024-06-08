@@ -313,31 +313,27 @@ class RoomRepository {
   async connectUser(roomId: string, userId: string): Promise<void> {
     const room = await RoomModel.findById(roomId);
 
-    if (!room) {
-      throw new NotFoundError("Room not found");
+    if (room) {
+      const connectedUser = room.users.find((uId) => uId.equals(userId));
+
+      if (!connectedUser) {
+        room.users.push(new Types.ObjectId(userId));
+      }
+
+      await room.save();
     }
-
-    const connectedUser = room.users.find((uId) => uId.equals(userId));
-
-    if (!connectedUser) {
-      room.users.push(new Types.ObjectId(userId));
-    }
-
-    await room.save();
   }
 
-  async disconnectUser(roomId: string, userId: string): Promise<Room> {
+  async disconnectUser(roomId: string, userId: string): Promise<void> {
     const room = await RoomModel.findById(roomId).select("users");
 
-    if (!room) {
-      throw new NotFoundError("Room not found");
+    if (room) {
+      room.users = room.users.filter((uId) => !uId.equals(userId));
+
+      await room.save();
+
+      return room._id;
     }
-
-    room.users = room.users.filter((uId) => !uId.equals(userId));
-
-    await room.save();
-
-    return room._id;
   }
 
   async deleteRoomById(roomId: string, ownerId: string): Promise<void> {

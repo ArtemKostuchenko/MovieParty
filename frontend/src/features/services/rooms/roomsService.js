@@ -75,6 +75,14 @@ export const roomsApi = createApi({
       },
       invalidatesTags: ["rooms"],
     }),
+    removeRoomById: builder.mutation({
+      query: (roomId) => {
+        return {
+          url: `rooms/${roomId}`,
+          method: "DELETE",
+        };
+      },
+    }),
     inviteUserToRoom: builder.mutation({
       query: ({ password, roomId }) => {
         return {
@@ -94,5 +102,6 @@ export const {
   useGetRoomByInviteCodeQuery,
   useCreateRoomMutation,
   useUpdateRoomByIdMutation,
+  useRemoveRoomByIdMutation,
   useInviteUserToRoomMutation,
 } = roomsApi;

@@ -83,7 +83,7 @@ app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 
-const rooms: Room[] = [];
+let rooms: Room[] = [];
 
 const start = async () => {
   try {
@@ -216,6 +216,15 @@ const start = async () => {
           room.time = 0;
           socket.to(roomId).emit("update_live");
           socket.to(roomId).emit("play", false);
+        }
+      });
+
+      socket.on("finish_session", (roomId) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          rooms = rooms.filter((room) => room.roomId !== roomId);
+          socket.to(roomId).emit("finish_session");
         }
       });
 

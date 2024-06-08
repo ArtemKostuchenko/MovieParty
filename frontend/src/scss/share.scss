@@ -140,6 +140,17 @@ body {
     color: var(--main-color);
   }
 
+  &.danger {
+    background-color: var(--scarlet);
+    color: var(--text-color);
+
+    &:hover {
+      background-color: transparent;
+      color: var(--scarlet);
+      border: 1px solid var(--scarlet);
+    }
+  }
+
   &.transparent {
     background-color: transparent;
     color: var(--text-color);

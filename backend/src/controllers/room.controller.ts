@@ -39,7 +39,7 @@ const updateRoomById = async (
 const deleteRoom = async (req: Request, res: Response): Promise<Response> => {
   const { id: roomId } = req.params;
 
-  await RoomRepository.deleteRoomById(roomId, req.body.user.userId);
+  await RoomRepository.deleteRoomById(roomId, req.user?._id);
 
   return res.status(StatusCodes.OK).json({ success: true });
 };

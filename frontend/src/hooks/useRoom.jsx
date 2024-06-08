@@ -3,6 +3,7 @@ import { setChatState, setUsersState } from "../features/store/slices/room";
 import {
   useCreateRoomMutation,
   useUpdateRoomByIdMutation,
+  useRemoveRoomByIdMutation,
   useInviteUserToRoomMutation,
 } from "../features/services/rooms/roomsService";
 
@@ -18,6 +19,10 @@ const useRoom = () => {
     { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate },
   ] = useUpdateRoomByIdMutation();
   const [
+    removeMutation,
+    { isLoading: isLoadingRemove, isSuccess: isSuccessRemove },
+  ] = useRemoveRoomByIdMutation();
+  const [
     inviteMutation,
     { isLoading: isLoadingInvite, isSuccess: isSuccessInvite },
   ] = useInviteUserToRoomMutation();
@@ -28,6 +33,10 @@ const useRoom = () => {
 
   const updateRoom = async (roomId, room) => {
     return await updateMutation({ roomId, ...room }).unwrap();
+  };
+
+  const removeRoom = async (roomId) => {
+    return await removeMutation(roomId).unwrap();
   };
 
   const inviteUserToRoom = async (roomId, password = "") => {
@@ -57,6 +66,9 @@ const useRoom = () => {
     updateRoom,
     isLoadingUpdate,
     isSuccessUpdate,
+    removeRoom,
+    isLoadingRemove,
+    isSuccessRemove,
   };
 };
 
