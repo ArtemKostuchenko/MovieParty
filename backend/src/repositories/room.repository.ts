@@ -215,6 +215,13 @@ class RoomRepository {
       throw new NotFoundError("Room not found");
     }
 
+    if (
+      foundRoom.users.length >= foundRoom.maxNumberUsers &&
+      !foundRoom.users.find((user: any) => user._id.equals(userId))
+    ) {
+      throw new NotFoundError("Room not found");
+    }
+
     return foundRoom;
   }
 
@@ -224,7 +231,7 @@ class RoomRepository {
     }
 
     const room = await RoomModel.findOne({ inviteCode })
-      .select("title isPublic users")
+      .select("title isPublic maxNumberUsers users")
       .populate("users", "nickname avatarURL avatarColor");
 
     if (!room) {

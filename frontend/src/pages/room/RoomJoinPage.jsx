@@ -26,7 +26,7 @@ const RoomJoinPage = () => {
     return <NotFound title="Кімнату не знайдено" image="room" />;
   }
 
-  const { _id: roomId, title, isPublic, users } = data;
+  const { _id: roomId, title, isPublic, maxNumberUsers, users } = data;
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value.trim());
@@ -91,10 +91,15 @@ const RoomJoinPage = () => {
                     </div>
                   </>
                 )}
+                {maxNumberUsers <= users.length && (
+                  <span className="message error">
+                    Кімната вже заповнена (максимум {maxNumberUsers})
+                  </span>
+                )}
                 <button
                   className="button primary fill"
                   onClick={handleConnectToRoom}
-                  disabled={isLoadingInvite}
+                  disabled={maxNumberUsers <= users.length || isLoadingInvite}
                 >
                   Приєднатися
                 </button>
