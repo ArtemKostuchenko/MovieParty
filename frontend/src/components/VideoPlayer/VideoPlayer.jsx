@@ -183,6 +183,12 @@ const VideoPlayer = ({
   }, [autoplay]);
 
   useEffect(() => {
+    if (!autoPlay && muted) {
+      handleToggleMute();
+    }
+  }, [autoPlay]);
+
+  useEffect(() => {
     if (m3u8URL) {
       setTimeout(() => {
         playerRef.current.seekTo(currentTime, "seconds");
@@ -285,10 +291,10 @@ const VideoPlayer = ({
                 <button
                   className="video-player__volume-button"
                   onClick={() => {
-                    if (autoPlay) {
+                    if (autoPlay && muted) {
                       setAutoPlay(false);
+                      handleToggleMute();
                     }
-                    handleToggleMute();
                   }}
                 >
                   <div
@@ -312,8 +318,9 @@ const VideoPlayer = ({
                     max={100}
                     step={10}
                     onChange={(value) => {
-                      if (autoPlay) {
+                      if (autoPlay && muted) {
                         setAutoPlay(false);
+                        handleToggleMute();
                       }
                       handleChangeVolume(value);
                     }}
