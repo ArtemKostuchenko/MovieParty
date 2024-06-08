@@ -16,6 +16,7 @@ import RoomCreatePopUp from "../room/RoomCreatePopup";
 import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
 import useFill from "../../hooks/useFill";
+import useUser from "../../hooks/useUser";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -23,6 +24,7 @@ const VideoContentPage = () => {
   const { disableFill } = useFill();
   const { isAdd, editId, handleAddPopUp, handleEditPopUp } = usePopup();
   const { rateVideoContent, isLoadingRate } = useRating();
+  const { user } = useUser();
 
   const { data, isLoading, refetch } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
@@ -118,12 +120,22 @@ const VideoContentPage = () => {
                           <div className="icon watch" />
                           Дивитися
                         </button>
-                        <button
-                          className="button fill"
-                          onClick={() => handleEditPopUp("create")}
-                        >
-                          Створити кімнату
-                        </button>
+                        {!user.roomId && (
+                          <button
+                            className="button fill"
+                            onClick={() => handleEditPopUp("create")}
+                          >
+                            Створити кімнату
+                          </button>
+                        )}
+                        {user.roomId && (
+                          <button
+                            className="button fill"
+                            onClick={() => navigate(`/room/${user.roomId}`)}
+                          >
+                            Моя кімната
+                          </button>
+                        )}
                         <Favorite videoContentId={videoContentId} />
                         <button
                           className="button light outline fill"

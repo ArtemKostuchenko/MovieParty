@@ -1,14 +1,19 @@
 import React from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RoomSchema } from "../../features/validations";
 import { PopUp, DropDown, DropDownItem } from "../../components";
 import useRoom from "../../hooks/useRoom";
 import usePopUp from "../../hooks/usePopup";
+import useUser from "../../hooks/useUser";
 
 const RoomCreatePopup = ({ videoContentId = "" }) => {
   const { createRoom, isLoadingAdd } = useRoom();
   const { editId, handleResetPopUp } = usePopUp();
+  const { refetchUser } = useUser();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,10 +33,17 @@ const RoomCreatePopup = ({ videoContentId = "" }) => {
   });
 
   const onSubmitHandler = async (data) => {
-    const res = await createRoom(data);
-    console.log(res);
-    handleResetPopUp();
-    reset();
+    try {
+      const res = await createRoom(data);
+      const { _id: roomId } = res.data;
+      toast.success(`Кімната успішно створена`);
+      refetchUser();
+      handleResetPopUp();
+      reset();
+      navigate(`/room/${roomId}`);
+    } catch (e) {
+      toast.error("Помилка створення кімнати");
+    }
   };
 
   const isPublic = watch("isPublic");

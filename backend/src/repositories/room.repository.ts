@@ -364,6 +364,13 @@ class RoomRepository {
       throw new UnAuthorizedError("Invalid credentials");
     }
 
+    const user = await UserModel.findById(room.ownerId);
+
+    if (user) {
+      user.roomId = "";
+      await user.save();
+    }
+
     await room.deleteOne();
   }
 

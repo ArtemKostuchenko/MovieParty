@@ -14,11 +14,13 @@ import useRoom from "../../hooks/useRoom";
 import usePopUp from "../../hooks/usePopup";
 import { useGetRoomByIdQuery } from "../../features/services/rooms/roomsService";
 import { useGetVideoContentQuery } from "../../features/services/content/contentService";
+import useUser from "../../hooks/useUser";
 
 const RoomEditPopup = ({ handleUpdate, handleFinish }) => {
   const { updateRoom, isLoadingUpdate, removeRoom, isLoadingRemove } =
     useRoom();
   const { editId, handleResetPopUp } = usePopUp();
+  const { refetchUser } = useUser();
   const navigate = useNavigate();
 
   const {
@@ -79,6 +81,7 @@ const RoomEditPopup = ({ handleUpdate, handleFinish }) => {
       await removeRoom(editId);
       handleResetPopUp();
       toast.info("Сеанс кімнати завершено");
+      refetchUser();
       navigate("/");
     } catch (err) {
       toast.error("Помилка видалення кімнати");
