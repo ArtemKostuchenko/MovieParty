@@ -4,6 +4,7 @@ const initialState = {
   isChatOpen: true,
   isUsersOpen: false,
   inviteCode: null,
+  isMicOn: false,
 };
 
 const roomSlice = createSlice({
@@ -19,9 +20,17 @@ const roomSlice = createSlice({
     setUsersState: (state, action) => {
       state.isUsersOpen = action.payload;
     },
+    setMicrophoneState: (state, action) => {
+      state.isMicOn = action.payload;
+    },
   },
 });
 
-export const { setChatState, setInviteCode, setUsersState } = roomSlice.actions;
+export const {
+  setChatState,
+  setInviteCode,
+  setUsersState,
+  setMicrophoneState,
+} = roomSlice.actions;
 
 export default roomSlice.reducer;

@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setChatState, setUsersState } from "../features/store/slices/room";
+import {
+  setChatState,
+  setUsersState,
+  setMicrophoneState,
+} from "../features/store/slices/room";
 import {
   useCreateRoomMutation,
   useUpdateRoomByIdMutation,
@@ -9,7 +13,7 @@ import {
 
 const useRoom = () => {
   const dispatch = useDispatch();
-  const { isChatOpen, isUsersOpen, inviteCode } = useSelector(
+  const { isChatOpen, isUsersOpen, isMicOn, inviteCode } = useSelector(
     (store) => store.room
   );
   const [createMutation, { isLoading: isLoadingAdd, isSuccess: isSuccessAdd }] =
@@ -51,6 +55,10 @@ const useRoom = () => {
     dispatch(setUsersState(!isUsersOpen));
   };
 
+  const toggleMicrophone = () => {
+    dispatch(setMicrophoneState(!isMicOn));
+  };
+
   return {
     inviteCode,
     createRoom,
@@ -58,8 +66,10 @@ const useRoom = () => {
     isSuccessAdd,
     isUsersOpen,
     isChatOpen,
+    isMicOn,
     toggleChat,
     toggleUsers,
+    toggleMicrophone,
     inviteUserToRoom,
     isLoadingInvite,
     isSuccessInvite,

@@ -30,7 +30,14 @@ const RoomPage = () => {
   const {} = useFill();
   const { user } = useUser();
   const { isPlaying, time, handlePlay, handlePause } = useVideoPlayer();
-  const { isChatOpen, isUsersOpen, toggleChat, toggleUsers } = useRoom();
+  const {
+    isChatOpen,
+    isUsersOpen,
+    isMicOn,
+    toggleChat,
+    toggleUsers,
+    toggleMicrophone,
+  } = useRoom();
   const { socket, connect, disconnect } = useSocket();
   const { editId, handleEditPopUp } = usePopUp();
   const [messages, setMessages] = useState([]);
@@ -288,7 +295,18 @@ const RoomPage = () => {
                               {user.nickname} (Ви)
                             </div>
                           </div>
-                          <div className="chat__user-actions"></div>
+                          <div className="chat__user-actions">
+                            <div
+                              className="chat__button"
+                              onClick={toggleMicrophone}
+                            >
+                              <div
+                                className={`icon microphone${
+                                  isMicOn ? " on" : " off"
+                                }`}
+                              />
+                            </div>
+                          </div>
                         </div>
                         {users.map((u) => {
                           if (u._id !== user._id) {
@@ -329,19 +347,35 @@ const RoomPage = () => {
                     )}
                     {!isUsersOpen && <MessageItems messages={messages} />}
                     <div className="chat__send-form">
-                      <div className="chat__sender">
-                        <div className="chat__sender-avatar">
-                          <Avatar
-                            photoURL={user.avatarURL}
-                            nickname={user.nickname}
-                            avatarColor={user.avatarColor}
-                            width={40}
-                            height={40}
+                      <div className="chat__container-f-s">
+                        <div
+                          className={`chat__sender${
+                            isMicOn ? " m-on speak" : ""
+                          }`}
+                        >
+                          <div className="chat__sender-avatar">
+                            <Avatar
+                              photoURL={user.avatarURL}
+                              nickname={user.nickname}
+                              avatarColor={user.avatarColor}
+                              width={40}
+                              height={40}
+                            />
+                          </div>
+                          <div className="chat__sender-nickname">
+                            {user.nickname}
+                          </div>
+                        </div>
+                        <button
+                          className="chat__button"
+                          onClick={toggleMicrophone}
+                        >
+                          <div
+                            className={`icon microphone${
+                              isMicOn ? " on" : " off"
+                            }`}
                           />
-                        </div>
-                        <div className="chat__sender-nickname">
-                          {user.nickname}
-                        </div>
+                        </button>
                       </div>
                       <form
                         className="chat__form"
