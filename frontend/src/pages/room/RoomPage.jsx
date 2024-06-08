@@ -24,6 +24,7 @@ import useSocket from "../../hooks/useSocket";
 import useVideoPlayer from "../../hooks/useVideoPlayer";
 import usePopUp from "../../hooks/usePopup";
 import RoomEditPopup from "./RoomEditPopup";
+import useWebRTC from "../../hooks/useWebRTC";
 
 const RoomPage = () => {
   const { id: roomId } = useParams();
@@ -39,13 +40,13 @@ const RoomPage = () => {
     toggleMicrophone,
   } = useRoom();
   const { socket, connect, disconnect } = useSocket();
+  const { roomClients, provideAudioRef, muteMicrophone, unMuteMicrophone } =
+    useWebRTC();
   const { editId, handleEditPopUp } = usePopUp();
   const [messages, setMessages] = useState([]);
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
   const isMounted = useRef(false);
-  const [stream, setStream] = useState(null);
-  const [peerConnection, setPeerConnection] = useState(null);
   const audioRef = useRef();
   const navigate = useNavigate();
 
@@ -107,6 +108,10 @@ const RoomPage = () => {
         navigate("/");
       });
     }
+
+    return () => {
+      socket.disconnect();
+    };
   }, [socket, roomOwner]);
 
   useEffect(() => {
@@ -165,34 +170,13 @@ const RoomPage = () => {
     }
   }, [editId]);
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      disconnect();
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, []);
-
   const handleMicToggle = async () => {
     if (!isMicOn) {
-      try {
-        const newStream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
-        setStream(newStream);
-        toggleMicrophone();
-      } catch (error) {
-        console.error("Помилка доступу до мікрофона", error);
-      }
+      unMuteMicrophone();
     } else {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-        setStream(null);
-      }
-      toggleMicrophone(false);
+      muteMicrophone();
     }
+    toggleMicrophone();
   };
 
   const onSubmitMessage = async (data) => {
@@ -624,7 +608,20 @@ const RoomPage = () => {
               </div>
             </div>
           </div>
-          <audio ref={audioRef} controls />
+          <div className="room__audio">
+            {roomClients.map((roomClientId) => {
+              return (
+                <audio
+                  key={roomClientId}
+                  ref={(instance) => {
+                    provideAudioRef(roomClientId, instance);
+                  }}
+                  autoPlay
+                  muted={roomClientId === "user_local_audio"}
+                />
+              );
+            })}
+          </div>
           {editId && (
             <RoomEditPopup
               handleUpdate={() => socket.emit("update_live", roomId)}

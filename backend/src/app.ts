@@ -85,6 +85,11 @@ const port = process.env.PORT || 5000;
 
 let rooms: Room[] = [];
 
+const validRoom = (roomId: string) => {
+  const objectIdRegex = /^[0-9a-fA-F]{24}$/;
+  return objectIdRegex.test(roomId);
+};
+
 const start = async () => {
   try {
     await connectToDB(process.env.MONGO_URI!);
@@ -102,6 +107,12 @@ const start = async () => {
       },
     });
 
+    const getRooms = () => {
+      const { rooms } = io.sockets.adapter;
+
+      return Array.from(rooms.keys()).filter((roomId) => validRoom(roomId));
+    };
+
     io.use(async (socket, next) => {
       try {
         const userId = socket.handshake.auth.user._id;
@@ -115,6 +126,28 @@ const start = async () => {
     });
 
     io.on("connection", (socket) => {
+      const leaveRoom = async () => {
+        const { rooms } = socket;
+
+        Array.from(rooms).forEach((roomId) => {
+          const roomClients = Array.from(
+            io.sockets.adapter.rooms.get(roomId) || []
+          );
+
+          roomClients.forEach((clientId) => {
+            io.to(clientId).emit("web_rtc_un_pair", {
+              peerId: socket.id,
+            });
+
+            socket.emit("web_rtc_un_pair", {
+              peerId: clientId,
+            });
+          });
+
+          socket.leave(roomId);
+        });
+      };
+
       socket.join(socket.user?._id);
 
       socket.on("join", async (roomId) => {
@@ -124,6 +157,30 @@ const start = async () => {
         );
 
         if (existUser) {
+          const { rooms: joinedRooms } = socket;
+
+          if (Array.from(joinedRooms).includes(roomId)) {
+            return console.warn(
+              `${socket.user?._id} is already joined to ${roomId}`
+            );
+          }
+
+          const roomClients = Array.from(
+            io.sockets.adapter.rooms.get(roomId) || []
+          );
+
+          roomClients.forEach((clientId) => {
+            io.to(clientId).emit("web_rtc_peer", {
+              peerId: socket.id,
+              createOffer: false,
+            });
+
+            socket.emit("web_rtc_peer", {
+              peerId: clientId,
+              createOffer: true,
+            });
+          });
+
           await RoomRepository.connectUser(roomId, socket.user?._id);
 
           socket.join(roomId);
@@ -208,18 +265,6 @@ const start = async () => {
         }
       });
 
-      socket.on("webrtc_offer", (roomId, offer) => {
-        socket.to(roomId).emit("webrtc_offer", offer);
-      });
-
-      socket.on("webrtc_answer", (roomId, answer) => {
-        socket.to(roomId).emit("webrtc_answer", answer);
-      });
-
-      socket.on("webrtc_ice_candidate", (roomId, candidate) => {
-        socket.to(roomId).emit("webrtc_ice_candidate", candidate);
-      });
-
       socket.on("update_live", (roomId) => {
         const room = rooms.find((room) => room.roomId === roomId);
 
@@ -238,6 +283,22 @@ const start = async () => {
           rooms = rooms.filter((room) => room.roomId !== roomId);
           socket.to(roomId).emit("finish_session");
         }
+      });
+
+      socket.on("web_rtc_leave", leaveRoom);
+
+      socket.on("web_rtc_relay_sdp", ({ peerId, sessionDescription }) => {
+        io.to(peerId).emit("web_rtc_session_description", {
+          peerId: socket.id,
+          sessionDescription,
+        });
+      });
+
+      socket.on("web_rtc_relay_ice", ({ peerId, iceCandidate }) => {
+        io.to(peerId).emit("web_rtc_ice_candidate", {
+          peerId: socket.id,
+          iceCandidate,
+        });
       });
 
       socket.on("disconnect", async () => {
