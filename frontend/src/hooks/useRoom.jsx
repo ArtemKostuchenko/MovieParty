@@ -10,6 +10,7 @@ import {
   useRemoveRoomByIdMutation,
   useInviteUserToRoomMutation,
 } from "../features/services/rooms/roomsService";
+import { useEffect } from "react";
 
 const useRoom = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,14 @@ const useRoom = () => {
   const toggleMicrophone = () => {
     dispatch(setMicrophoneState(!isMicOn));
   };
+
+  useEffect(() => {
+    return () => {
+      if (isMicOn) {
+        dispatch(setMicrophoneState(false));
+      }
+    };
+  }, []);
 
   return {
     inviteCode,

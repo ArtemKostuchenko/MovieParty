@@ -22,6 +22,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       avatarColor: user.avatarColor,
       numberCreatedRooms: user.numberCreatedRooms,
       numberVisitedRooms: user.numberVisitedRooms,
+      roomId: user.roomId || "",
     },
   });
 };
@@ -42,6 +43,7 @@ const login = async (req: Request, res: Response): Promise<Response> => {
       avatarURL: user.avatarURL,
       numberCreatedRooms: user.numberCreatedRooms,
       numberVisitedRooms: user.numberVisitedRooms,
+      roomId: user.roomId || "",
     },
   });
 };

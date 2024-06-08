@@ -44,6 +44,9 @@ const RoomPage = () => {
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
   const isMounted = useRef(false);
+  const [stream, setStream] = useState(null);
+  const [peerConnection, setPeerConnection] = useState(null);
+  const audioRef = useRef();
   const navigate = useNavigate();
 
   const {
@@ -162,11 +165,6 @@ const RoomPage = () => {
     }
   }, [editId]);
 
-  const onSubmitMessage = async (data) => {
-    socket.emit("send_message", roomId, { message: data.message });
-    reset();
-  };
-
   useEffect(() => {
     const handleBeforeUnload = () => {
       disconnect();
@@ -176,6 +174,31 @@ const RoomPage = () => {
 
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
+
+  const handleMicToggle = async () => {
+    if (!isMicOn) {
+      try {
+        const newStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        setStream(newStream);
+        toggleMicrophone();
+      } catch (error) {
+        console.error("Помилка доступу до мікрофона", error);
+      }
+    } else {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        setStream(null);
+      }
+      toggleMicrophone(false);
+    }
+  };
+
+  const onSubmitMessage = async (data) => {
+    socket.emit("send_message", roomId, { message: data.message });
+    reset();
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -298,7 +321,7 @@ const RoomPage = () => {
                           <div className="chat__user-actions">
                             <div
                               className="chat__button"
-                              onClick={toggleMicrophone}
+                              onClick={handleMicrophoneToggle}
                             >
                               <div
                                 className={`icon microphone${
@@ -368,7 +391,7 @@ const RoomPage = () => {
                         </div>
                         <button
                           className="chat__button"
-                          onClick={toggleMicrophone}
+                          onClick={handleMicToggle}
                         >
                           <div
                             className={`icon microphone${
@@ -601,6 +624,7 @@ const RoomPage = () => {
               </div>
             </div>
           </div>
+          <audio ref={audioRef} controls />
           {editId && (
             <RoomEditPopup
               handleUpdate={() => socket.emit("update_live", roomId)}
