@@ -97,11 +97,11 @@ const IndexPage = () => {
               </div>
               <div className="user-info-item">
                 <div className="user-info-title">Створено вечірок</div>
-                <div className="user-info-desc">0</div>
+                <div className="user-info-desc">{user.numberCreatedRooms}</div>
               </div>
               <div className="user-info-item">
                 <div className="user-info-title">Відвідано вечірок</div>
-                <div className="user-info-desc">0</div>
+                <div className="user-info-desc">{user.numberVisitedRooms}</div>
               </div>
             </div>
           )}

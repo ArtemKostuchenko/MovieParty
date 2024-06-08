@@ -3,11 +3,12 @@ import RoomModel, { Room } from "../models/room.model";
 import { validateRoom } from "../utils/validations";
 import { Types } from "mongoose";
 import ContentRepository from "./content.repository";
+import UserModel from "../models/user.model";
 
 class RoomRepository {
   constructor() {}
 
-  async createRoom(roomData: Room): Promise<Room> {
+  async createRoom(roomData: Room, userId: string): Promise<Room> {
     validateRoom(roomData);
 
     if (
@@ -19,6 +20,15 @@ class RoomRepository {
     }
 
     const room = await RoomModel.create(roomData);
+
+    if (room) {
+      const user = await UserModel.findById(userId);
+      if (user) {
+        user.roomId = room._id;
+        user.numberCreatedRooms = +1;
+        await user.save();
+      }
+    }
 
     return room;
   }
@@ -303,6 +313,13 @@ class RoomRepository {
 
     if (!invitedUser) {
       room.invitedUsers.push(new Types.ObjectId(userId));
+
+      const user = await UserModel.findById(userId);
+
+      if (user) {
+        user.numberVisitedRooms = +1;
+        await user.save();
+      }
     }
 
     await room.save();

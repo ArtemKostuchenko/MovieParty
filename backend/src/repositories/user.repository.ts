@@ -15,6 +15,7 @@ class UserRepository {
     }
 
     userData.avatarColor = generateAvatarColorHex();
+    userData.lastLogin = new Date();
 
     const user = await UserModel.create({ ...userData });
 

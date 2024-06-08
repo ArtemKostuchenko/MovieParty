@@ -16,6 +16,9 @@ export interface User extends Document {
   dislikes: number;
   favorites: Types.ObjectId[];
   lastLogin: Date;
+  roomId: string;
+  numberCreatedRooms: number;
+  numberVisitedRooms: number;
   createToken(): string;
   comparePassword(credentialPassword: string): Promise<boolean>;
 }
@@ -67,6 +70,18 @@ const UserSchema: Schema<User> = new Schema(
     lastLogin: {
       type: Date,
       default: new Date(),
+    },
+    roomId: {
+      type: String,
+      default: "",
+    },
+    numberCreatedRooms: {
+      type: Number,
+      default: 0,
+    },
+    numberVisitedRooms: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

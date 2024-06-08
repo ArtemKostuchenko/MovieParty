@@ -14,9 +14,16 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 
   res.cookie("_api_token", token, { httpOnly: true, secure: false });
 
-  return res
-    .status(StatusCodes.OK)
-    .json({ user: { id: user._id, nickname: user.nickname } });
+  return res.status(StatusCodes.OK).json({
+    user: {
+      id: user._id,
+      nickname: user.nickname,
+      email: user.email,
+      avatarColor: user.avatarColor,
+      numberCreatedRooms: user.numberCreatedRooms,
+      numberVisitedRooms: user.numberVisitedRooms,
+    },
+  });
 };
 
 const login = async (req: Request, res: Response): Promise<Response> => {
@@ -33,6 +40,8 @@ const login = async (req: Request, res: Response): Promise<Response> => {
       sex: user.sex,
       avatarColor: user.avatarColor,
       avatarURL: user.avatarURL,
+      numberCreatedRooms: user.numberCreatedRooms,
+      numberVisitedRooms: user.numberVisitedRooms,
     },
   });
 };

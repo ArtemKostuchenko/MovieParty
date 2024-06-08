@@ -8,7 +8,7 @@ import { Types } from "mongoose";
 const createRoom = async (req: Request, res: Response): Promise<Response> => {
   req.body.ownerId = req.user?.id;
 
-  const room: Room = await RoomRepository.createRoom(req.body);
+  const room: Room = await RoomRepository.createRoom(req.body, req.user?.id);
 
   return res.status(StatusCodes.CREATED).json({ data: room });
 };
