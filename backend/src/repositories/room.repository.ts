@@ -25,7 +25,7 @@ class RoomRepository {
       const user = await UserModel.findById(userId);
       if (user) {
         user.roomId = room._id;
-        user.numberCreatedRooms = +1;
+        user.numberCreatedRooms += 1;
         await user.save();
       }
     }
@@ -317,7 +317,7 @@ class RoomRepository {
       const user = await UserModel.findById(userId);
 
       if (user) {
-        user.numberVisitedRooms = +1;
+        user.numberVisitedRooms += 1;
         await user.save();
       }
     }
