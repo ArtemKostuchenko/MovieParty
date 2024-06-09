@@ -1,18 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
+import useSideMenu from "../../hooks/useSideMenu";
 import "./style.component.scss";
 import Avatar from "../Avatar/Avatar";
 
 const Header = () => {
   const { isAuth, user } = useUser();
+  const { isSideMenuOpen, toggleSideMenu } = useSideMenu();
 
   return (
     <div className="container hdr">
       <div className="wrapper">
         <header className="header">
           <div className="header__logo logo">
-            <Link className="icon logo" to="/"></Link>
+            <Link
+              className="icon logo"
+              to="/"
+              onClick={isSideMenuOpen ? toggleSideMenu : undefined}
+            ></Link>
           </div>
           {isAuth ? (
             <>
@@ -65,7 +71,7 @@ const Header = () => {
                   </div>
                 </Link>
               </div>
-              <button className="menu-burger">
+              <button className="menu-burger" onClick={toggleSideMenu}>
                 <div className="icon menu-burger"></div>
               </button>
             </>

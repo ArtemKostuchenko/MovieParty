@@ -1136,15 +1136,17 @@ body {
   width: 0;
   height: 100vh;
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
   z-index: 999;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color: var(--main-color);
   @include transition(width);
 
   &__content {
-    padding: 20px;
+    width: 100%;
+    padding: 100px 20px 20px 20px;
+    overflow: hidden;
   }
 
   &.side-nav-open {
@@ -1181,8 +1183,9 @@ body {
 
   &__username {
     font-family: "Nunito Sans", sans-serif;
-    font-size: 20px;
     font-weight: 500;
+    color: var(--text-color);
+    @include adaptiveFont(18, 16);
   }
 
   &__menu {
@@ -1221,8 +1224,9 @@ body {
 
   &__title {
     font-family: "Nunito Sans", sans-serif;
-    font-size: 18px;
     font-weight: 500;
+    color: var(--text-color);
+    @include adaptiveFont(18, 16);
   }
 }
 

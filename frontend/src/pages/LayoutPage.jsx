@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import { Header, Footer } from "../components";
+import { Header, Footer, SideMenu } from "../components";
 import { Outlet, useNavigation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authUser } from "../features/store/slices/user";
@@ -35,6 +35,7 @@ const LayoutPage = () => {
         </div>
       ) : (
         <>
+          <SideMenu />
           <Header />
           <Outlet />
           <Footer />

@@ -8,6 +8,7 @@ import carousel from "./slices/carousel";
 import content from "./slices/content";
 import player from "./slices/player";
 import room from "./slices/room";
+import menu from "./slices/menu";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   videoContentApi,
@@ -37,6 +38,7 @@ const store = configureStore({
     content: content,
     player: player,
     room: room,
+    menu: menu,
     [typesContentApi.reducerPath]: typesContentApi.reducer,
     [videoContentApi.reducerPath]: videoContentApi.reducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
