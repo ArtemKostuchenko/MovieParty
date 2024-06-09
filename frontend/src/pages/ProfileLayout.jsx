@@ -65,6 +65,7 @@ const ProfileLayout = () => {
                         open: {
                           opacity: 1,
                           height: "auto",
+                          visibility: "visible",
                           transition: {
                             duration: 0.2,
                           },
@@ -72,6 +73,7 @@ const ProfileLayout = () => {
                         closed: {
                           opacity: 0,
                           height: 0,
+                          visibility: "hidden",
                           transition: {
                             duration: 0.2,
                           },
