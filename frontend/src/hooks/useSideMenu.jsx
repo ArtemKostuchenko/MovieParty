@@ -1,17 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { enablePageScroll, disablePageScroll } from "scroll-lock";
-import { setSideMenuState } from "../features/store/slices/menu";
+import {
+  setProfileMenuOpenState,
+  setSideMenuState,
+} from "../features/store/slices/menu";
 import { useEffect } from "react";
 
 const useSideMenu = () => {
   const dispatch = useDispatch();
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 730px)" });
+  const isTabletOrMobileSide = useMediaQuery({ query: "(max-width: 730px)" });
+  const isTabletOrMobileProfile = useMediaQuery({
+    query: "(max-width: 760px)",
+  });
 
-  const { isSideMenuOpen } = useSelector((store) => store.menu);
+  const { isSideMenuOpen, isProfileMenuOpen } = useSelector(
+    (store) => store.menu
+  );
 
   const toggleSideMenu = () => {
     dispatch(setSideMenuState(!isSideMenuOpen));
+  };
+
+  const toggleProfileMenu = () => {
+    dispatch(setProfileMenuOpenState(!isProfileMenuOpen));
   };
 
   useEffect(() => {
@@ -23,12 +35,24 @@ const useSideMenu = () => {
   }, [isSideMenuOpen]);
 
   useEffect(() => {
-    if (!isTabletOrMobile && isSideMenuOpen) {
+    if (!isTabletOrMobileSide && isSideMenuOpen) {
       toggleSideMenu();
     }
-  }, [isTabletOrMobile]);
+  }, [isTabletOrMobileSide]);
 
-  return { isSideMenuOpen, toggleSideMenu };
+  useEffect(() => {
+    if (isTabletOrMobileProfile && isProfileMenuOpen) {
+      toggleProfileMenu();
+    }
+  }, [isTabletOrMobileProfile]);
+
+  return {
+    isSideMenuOpen,
+    isProfileMenuOpen,
+    toggleSideMenu,
+    isTabletOrMobileProfile,
+    toggleProfileMenu,
+  };
 };
 
 export default useSideMenu;
