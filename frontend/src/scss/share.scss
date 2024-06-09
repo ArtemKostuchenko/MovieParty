@@ -704,7 +704,7 @@ body {
     letter-spacing: normal;
     text-align: left;
     font-weight: 400;
-    @include adaptiveFont(18, 14);
+    @include adaptiveFont(16, 14);
     @include transition(color);
   }
 
