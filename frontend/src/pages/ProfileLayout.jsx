@@ -15,7 +15,6 @@ const ProfileLayout = () => {
       avatarURL: file,
     });
     await refetchUser();
-    console.log(res);
   };
 
   return (
@@ -80,6 +79,21 @@ const ProfileLayout = () => {
                       }}
                     >
                       <div className="profile-menu-items">
+                        {user.isAdmin && (
+                          <NavLink
+                            to="/panel/admin"
+                            className="profile-menu-item"
+                            end
+                            onClick={toggleProfileMenu}
+                          >
+                            <div className="profile-menu-item-icon">
+                              <div className="icon admin" />
+                            </div>
+                            <div className="profile-menu-item-title">
+                              Адмін-панель
+                            </div>
+                          </NavLink>
+                        )}
                         <NavLink
                           to=""
                           className="profile-menu-item"
@@ -168,6 +182,21 @@ const ProfileLayout = () => {
                 {!isTabletOrMobileProfile && (
                   <div className="profile-menu">
                     <div className="profile-menu-items">
+                      {user.isAdmin && (
+                        <NavLink
+                          to="/panel/admin"
+                          className="profile-menu-item"
+                          end
+                          onClick={toggleProfileMenu}
+                        >
+                          <div className="profile-menu-item-icon">
+                            <div className="icon admin" />
+                          </div>
+                          <div className="profile-menu-item-title">
+                            Адмін-панель
+                          </div>
+                        </NavLink>
+                      )}
                       <NavLink to="" className="profile-menu-item" end>
                         <div className="profile-menu-item-icon">
                           <div className="icon user" />

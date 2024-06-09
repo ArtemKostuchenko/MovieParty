@@ -532,6 +532,13 @@
       mask-image: url("/src/assets/icons/microphone-off.svg");
     }
   }
+
+  &.admin {
+    width: 28px;
+    height: 28px;
+    background-color: var(--text-color);
+    mask-image: url("/src/assets/icons/admin.svg");
+  }
 }
 
 /* responsive icons */

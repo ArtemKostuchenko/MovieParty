@@ -17,6 +17,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({
     user: {
       id: user._id,
+      isAdmin: user.isAdmin,
       nickname: user.nickname,
       email: user.email,
       avatarColor: user.avatarColor,
@@ -35,6 +36,7 @@ const login = async (req: Request, res: Response): Promise<Response> => {
   return res.status(StatusCodes.OK).json({
     user: {
       id: user._id,
+      isAdmin: user.isAdmin,
       nickname: user.nickname,
       email: user.email,
       country: user.country,

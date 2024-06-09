@@ -1465,7 +1465,7 @@ body {
         letter-spacing: normal;
         text-align: center;
         color: var(--text-color);
-        @include adaptiveFont(18, 14);
+        @include adaptiveFont(16, 14);
       }
     }
   }
