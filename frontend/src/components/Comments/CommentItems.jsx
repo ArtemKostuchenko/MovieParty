@@ -4,6 +4,8 @@ import CommentLoading from "./CommentLoading";
 import NotFound from "../NotFound/NotFound";
 import Pagination from "../Pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
+import usePopUp from "../../hooks/usePopup";
+import CommentRemovePopup from "../../pages/profile/comments/CommentRemovePopup";
 
 const CommentItems = ({
   userId = "",
@@ -13,8 +15,9 @@ const CommentItems = ({
   removable = false,
   includePagination = false,
 }) => {
+  const { removeId } = usePopUp();
   const { page, handleChangePage } = usePagination();
-  const { data, isLoading } = query(userId);
+  const { data, isLoading, refetch } = query(userId);
 
   if (isLoading || !data) {
     return <CommentLoading limit={limit} />;
@@ -58,6 +61,7 @@ const CommentItems = ({
           />
         </div>
       )}
+      {removeId && <CommentRemovePopup handleSuccessDelete={() => refetch()} />}
     </>
   );
 };

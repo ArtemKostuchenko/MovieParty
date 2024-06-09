@@ -96,9 +96,7 @@ class ReviewRepository {
   }
 
   async getReviewById(reviewId: string): Promise<Review> {
-    const review = await ReviewModel.findById(reviewId)
-      .populate("userId")
-      .populate("contentId");
+    const review = await ReviewModel.findById(reviewId);
 
     if (!review) {
       throw new NotFoundError("Review not found");
@@ -136,7 +134,7 @@ class ReviewRepository {
       throw new NotFoundError("Review not found");
     }
 
-    if (review.userId !== req.body.user.userId && !req.body.user.isAdmin) {
+    if (review.userId !== req.user?.id && !req.user?.isAdmin) {
       throw new NotFoundError("Review not found");
     }
 

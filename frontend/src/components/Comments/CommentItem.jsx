@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../features/utils/functions";
 import Avatar from "../Avatar/Avatar";
+import usePopUp from "../../hooks/usePopup";
 
 const CommentItem = ({
+  _id,
   videoContent,
   user,
   createdAt,
@@ -14,6 +16,7 @@ const CommentItem = ({
   removable = false,
   editable = false,
 }) => {
+  const { handleRemovePopUp } = usePopUp();
   if (skeleton) {
     return (
       <div className="user-comments-item loader-skeleton user-comment"></div>
@@ -67,8 +70,12 @@ const CommentItem = ({
                 <div className="icon edit" />
               </button>
             )}
+            {!editable && <button className="comment-edit"></button>}
             {removable && (
-              <button className="comment-delete">
+              <button
+                className="comment-delete"
+                onClick={() => handleRemovePopUp(_id)}
+              >
                 <div className="icon delete" />
               </button>
             )}

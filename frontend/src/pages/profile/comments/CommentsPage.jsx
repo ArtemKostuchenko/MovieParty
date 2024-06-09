@@ -11,7 +11,6 @@ const CommentsPage = () => {
           limit={5}
           query={useGetMyReviewsQuery}
           includePagination
-          editable
           removable
         />
       </div>

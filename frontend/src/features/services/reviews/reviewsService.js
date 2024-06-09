@@ -26,6 +26,15 @@ export const reviewsApi = createApi({
       transformResponse: (resp) => resp.data,
       providesTags: ["reviews"],
     }),
+    getReviewById: builder.query({
+      query: (reviewId) => {
+        return {
+          url: `reviews/${reviewId}`,
+        };
+      },
+      transformResponse: (resp) => resp.data,
+      providesTags: ["reviews"],
+    }),
     getBestReviewsByUserId: builder.query({
       query: (userId) => {
         return {
@@ -90,6 +99,7 @@ export const reviewsApi = createApi({
 export const {
   useGetReviewsQuery,
   useGetReviewsByVideoContentIdQuery,
+  useGetReviewByIdQuery,
   useGetBestReviewsByUserIdQuery,
   useAddReviewMutation,
   useLikeReviewMutation,
