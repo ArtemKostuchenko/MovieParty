@@ -47,7 +47,6 @@ const RoomPage = () => {
   const [seek, setSeek] = useState(0);
   const [roomOwner, setRoomOwner] = useState(null);
   const isMounted = useRef(false);
-  const audioRef = useRef();
   const navigate = useNavigate();
 
   const {
@@ -166,6 +165,9 @@ const RoomPage = () => {
     }
 
     if (editId) {
+      if (isMicOn) {
+        handleMicToggle();
+      }
       handlePause();
     }
   }, [editId]);
@@ -198,7 +200,14 @@ const RoomPage = () => {
     );
   }
 
-  const { title: roomTitle, videoContent, ownerUser, users, inviteCode } = data;
+  const {
+    title: roomTitle,
+    videoContent,
+    ownerUser,
+    users,
+    inviteCode,
+    voiceChat,
+  } = data;
 
   const {
     _id: videoContentId,
@@ -302,18 +311,20 @@ const RoomPage = () => {
                               {user.nickname} (Ви)
                             </div>
                           </div>
-                          <div className="chat__user-actions">
-                            <div
-                              className="chat__button"
-                              onClick={handleMicrophoneToggle}
-                            >
+                          {voiceChat && (
+                            <div className="chat__user-actions">
                               <div
-                                className={`icon microphone${
-                                  isMicOn ? " on" : " off"
-                                }`}
-                              />
+                                className="chat__button"
+                                onClick={handleMicToggle}
+                              >
+                                <div
+                                  className={`icon microphone${
+                                    isMicOn ? " on" : " off"
+                                  }`}
+                                />
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         {users.map((u) => {
                           if (u._id !== user._id) {
@@ -333,18 +344,6 @@ const RoomPage = () => {
                                     {u.nickname}{" "}
                                     {u._id === user._id ? "(Ви)" : ""}
                                   </div>
-                                </div>
-                                <div className="chat__user-actions">
-                                  {ownerUser._id === user._id && (
-                                    <>
-                                      <button className="chat__user-button">
-                                        <div className="icon microphone off"></div>
-                                      </button>
-                                      <button className="chat__user-button">
-                                        <div className="icon user block"></div>
-                                      </button>
-                                    </>
-                                  )}
                                 </div>
                               </div>
                             );
@@ -373,16 +372,18 @@ const RoomPage = () => {
                             {user.nickname}
                           </div>
                         </div>
-                        <button
-                          className="chat__button"
-                          onClick={handleMicToggle}
-                        >
-                          <div
-                            className={`icon microphone${
-                              isMicOn ? " on" : " off"
-                            }`}
-                          />
-                        </button>
+                        {voiceChat && (
+                          <button
+                            className="chat__button"
+                            onClick={handleMicToggle}
+                          >
+                            <div
+                              className={`icon microphone${
+                                isMicOn ? " on" : " off"
+                              }`}
+                            />
+                          </button>
+                        )}
                       </div>
                       <form
                         className="chat__form"

@@ -2,15 +2,8 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import VideoContentRepository from "../repositories/content.repository";
 
-interface MulterRequest extends Request {
-  files?: {
-    previewURL?: Express.Multer.File[];
-    backgroundURL?: Express.Multer.File[];
-  };
-}
-
 const createVideoContent = async (
-  req: MulterRequest,
+  req: any,
   res: Response
 ): Promise<Response> => {
   req.body.previewURL = req.files?.previewURL?.[0].filename as string;
@@ -53,7 +46,7 @@ const getVideoContentByOriginTitle = async (
 };
 
 const updateVideoContent = async (
-  req: MulterRequest,
+  req: any,
   res: Response
 ): Promise<Response> => {
   const { id: idVideoContent } = req.params;

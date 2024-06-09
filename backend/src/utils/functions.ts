@@ -1,5 +1,4 @@
 import { VideoContent } from "../models/content.model";
-import { Request } from "./interfaces";
 import fs from "fs";
 import path from "path";
 
@@ -15,7 +14,7 @@ export const generateAvatarColorHex = (): string => {
   return `#${redHex}${greenHex}${blueHex}`;
 };
 
-export const cookieExtractor = (req: Request): string | null => {
+export const cookieExtractor = (req: any): string | null => {
   let token: string | null = null;
 
   if (req && req.cookies) {

@@ -276,10 +276,10 @@ class RoomRepository {
 
     room.title = title || room.title;
     room.videoContentId = videoContentId || room.videoContentId;
-    room.isPublic = isPublic || room.isPublic;
+    room.isPublic = isPublic ?? room.isPublic;
     room.password = password || room.password;
     room.maxNumberUsers = maxNumberUsers || room.maxNumberUsers;
-    room.voiceChat = voiceChat || room.voiceChat;
+    room.voiceChat = voiceChat ?? room.voiceChat;
 
     return await room.save();
   }

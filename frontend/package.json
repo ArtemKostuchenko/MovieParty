@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -26,6 +26,7 @@
     "sass": "^1.75.0",
     "scroll-lock": "^2.1.5",
     "socket.io-client": "^4.7.5",
+    "vite-plugin-mkcert": "^1.17.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {
