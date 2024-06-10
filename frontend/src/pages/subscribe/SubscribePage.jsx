@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.page.scss";
+import useSubscription from "../../hooks/useSubscription";
+import useFill from "../../hooks/useFill";
+import { Loader } from "../../components";
+import { Navigate } from "react-router-dom";
 
 const SubscribePage = () => {
+  const { subscription, isLoading } = useSubscription();
+  const { disableFill } = useFill();
+
+  useEffect(() => {
+    if (!isLoading) {
+      disableFill();
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (subscription) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="container cnt-mn">
       <div className="container">
