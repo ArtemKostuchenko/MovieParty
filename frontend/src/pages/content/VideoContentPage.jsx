@@ -17,6 +17,7 @@ import Favorite from "../../components/Favorites/Favorite";
 import Rating from "../../components/Rating/Rating";
 import useFill from "../../hooks/useFill";
 import useUser from "../../hooks/useUser";
+import useSubscription from "../../hooks/useSubscription";
 
 const VideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -25,6 +26,7 @@ const VideoContentPage = () => {
   const { isAdd, editId, handleAddPopUp, handleEditPopUp } = usePopup();
   const { rateVideoContent, isLoadingRate } = useRating();
   const { user } = useUser();
+  const { subscription, isLoading: isLoadingSubscription } = useSubscription();
 
   const { data, isLoading, refetch } = useGetVideoContentByOriginTitleQuery(
     query.replace(/-/g, " ")
@@ -36,8 +38,8 @@ const VideoContentPage = () => {
     }
   }, [isLoading]);
 
-  if (isLoading) {
-    return <Loader />;
+  if (isLoading || isLoadingSubscription) {
+    return <Loader fixed />;
   }
 
   const content = data;
@@ -120,21 +122,25 @@ const VideoContentPage = () => {
                           <div className="icon watch" />
                           Дивитися
                         </button>
-                        {!user.roomId && (
-                          <button
-                            className="button fill"
-                            onClick={() => handleEditPopUp("create")}
-                          >
-                            Створити кімнату
-                          </button>
-                        )}
-                        {user.roomId && (
-                          <button
-                            className="button fill"
-                            onClick={() => navigate(`/room/${user.roomId}`)}
-                          >
-                            Моя кімната
-                          </button>
+                        {subscription?.plan?.active && (
+                          <>
+                            {!user.roomId && (
+                              <button
+                                className="button fill"
+                                onClick={() => handleEditPopUp("create")}
+                              >
+                                Створити кімнату
+                              </button>
+                            )}
+                            {user.roomId && (
+                              <button
+                                className="button fill"
+                                onClick={() => navigate(`/room/${user.roomId}`)}
+                              >
+                                Моя кімната
+                              </button>
+                            )}
+                          </>
                         )}
                         <Favorite videoContentId={videoContentId} />
                         <button

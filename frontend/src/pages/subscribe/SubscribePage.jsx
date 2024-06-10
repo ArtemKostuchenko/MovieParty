@@ -18,7 +18,7 @@ const SubscribePage = () => {
   }, [isLoading]);
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader fixed />;
   }
 
   if (subscription) {

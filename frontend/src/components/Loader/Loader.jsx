@@ -1,7 +1,14 @@
 import React from "react";
 import useFill from "../../hooks/useFill";
 
-const Loader = ({ fill = false }) => {
+const Loader = ({ fill = false, fixed = false }) => {
+  if (fixed) {
+    return (
+      <div className="loader__fixed">
+        <div className="loader"></div>
+      </div>
+    );
+  }
   if (fill) {
     return (
       <div className="loader__container">
