@@ -407,6 +407,47 @@ p {
   -webkit-mask-image: url("/pages/images/icons/layers.svg");
           mask-image: url("/pages/images/icons/layers.svg");
 }
+.icon.c-arrow {
+  width: 20px;
+  height: 20px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/chat-arrow.svg");
+          mask-image: url("/pages/images/icons/chat-arrow.svg");
+}
+.icon.c-users {
+  width: 20px;
+  height: 20px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("/pages/images/icons/chat-users.svg");
+          mask-image: url("/pages/images/icons/chat-users.svg");
+}
+.icon.send {
+  width: 30px;
+  height: 30px;
+  -webkit-mask-image: url("/pages/images/icons/send.svg");
+          mask-image: url("/pages/images/icons/send.svg");
+}
+.icon.live {
+  width: 20px;
+  height: 20px;
+  background-color: var(--scarlet);
+  -webkit-mask-image: url("/pages/images/icons/live.svg");
+          mask-image: url("/pages/images/icons/live.svg");
+}
+.icon.settings {
+  width: 28px;
+  height: 28px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/settings.svg");
+          mask-image: url("/pages/images/icons/settings.svg");
+}
+.icon.copy {
+  width: 24px;
+  height: 24px;
+  background-color: var(--white);
+  -webkit-mask-image: url("/pages/images/icons/copy.svg");
+          mask-image: url("/pages/images/icons/copy.svg");
+}
 
 /* responsive icons */
 @media (max-width: 767px) {
