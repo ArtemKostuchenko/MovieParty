@@ -104,9 +104,9 @@ const SubscribePage = () => {
               <div className="user-subscribe-ad">
                 <div className="user-subscribe-price">4.99 USD / місяць</div>
                 <div className="user-subscribe-actions">
+                  <button className="button success">Змінити</button>
                   {subscription.status === "active" && (
                     <>
-                      <button className="button success">Змінити</button>
                       <button
                         className="button primary"
                         disabled={isLoadingCancel}

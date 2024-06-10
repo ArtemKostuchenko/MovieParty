@@ -63,7 +63,21 @@ class SubscriptionRepository {
         throw new BadRequestError("Subscription not found");
       }
       const delSubscription = await stripe.subscriptions.cancel(subscription);
-      console.log(delSubscription);
+    } catch (e) {
+      throw new BadRequestError("Subscription not found");
+    }
+  }
+
+  async renewSubscription(subscription: string, userId: string) {
+    try {
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        throw new BadRequestError("Subscription not found");
+      }
+      if (!user.subscription) {
+        throw new BadRequestError("Subscription not found");
+      }
+      await stripe.subscriptions.resume(subscription);
     } catch (e) {
       throw new BadRequestError("Subscription not found");
     }

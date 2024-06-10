@@ -48,10 +48,20 @@ const cancelSubscription = async (
   return res.status(StatusCodes.OK).json({ success: true });
 };
 
+const renewSubscription = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { subscription } = req.body;
+  await SubscriptionRepository.renewSubscription(subscription, req.user?.id);
+  return res.status(StatusCodes.OK).json({ success: true });
+};
+
 export {
   createSubscription,
   successPayment,
   cancelPayment,
   getSubscription,
   cancelSubscription,
+  renewSubscription,
 };
