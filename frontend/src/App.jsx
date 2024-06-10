@@ -39,7 +39,12 @@ import {
   SubscribePage,
   NotFoundPage,
 } from "./pages";
-import { ClosedRoute, ProtectedRoute, SubscriptionRoute } from "./components";
+import {
+  AdminRoute,
+  ClosedRoute,
+  ProtectedRoute,
+  SubscriptionRoute,
+} from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
 
 const router = createBrowserRouter([
@@ -116,7 +121,11 @@ const router = createBrowserRouter([
       },
       {
         path: "panel/admin",
-        element: <AdminLayout />,
+        element: (
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        ),
         children: [
           {
             path: "video-content",
