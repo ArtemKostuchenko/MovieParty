@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetVideoContentByOriginTitleQuery } from "../../features/services/content/contentService";
 import "./style.page.scss";
-import { VideoPlayer } from "../../components";
+import { NotFound, VideoPlayer } from "../../components";
 
 const WatchVideoContentPage = () => {
   const { originTitle: query } = useParams();
@@ -15,19 +15,23 @@ const WatchVideoContentPage = () => {
   } = useGetVideoContentByOriginTitleQuery(query.replace(/-/g, " "));
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loader__fixed">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   if (!content) {
-    return <div>Content not found</div>;
+    return <NotFound title="Відеоконтент не знайдено" />;
   }
 
   const { soundTracks } = content;
 
   const handleBack = () => {
-    const contentPageLink = `/${content.typeVideoContent}/${content.originTitle
-      .toLowerCase()
-      .replace(/\s/g, "-")}`;
+    const contentPageLink = `/${
+      content.typeVideoContent.path
+    }/${content.originTitle.toLowerCase().replace(/\s/g, "-")}`;
     navigate(contentPageLink);
   };
 

@@ -38,7 +38,7 @@ import {
   RoomJoinPage,
   SubscribePage,
 } from "./pages";
-import { ClosedRoute, ProtectedRoute } from "./components";
+import { ClosedRoute, ProtectedRoute, SubscriptionRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
 
 const router = createBrowserRouter([
@@ -257,7 +257,9 @@ const router = createBrowserRouter([
     path: ":typeVideoContent/:originTitle/watch",
     element: (
       <ProtectedRoute>
-        <WatchVideoContentPage />
+        <SubscriptionRoute>
+          <WatchVideoContentPage />
+        </SubscriptionRoute>
       </ProtectedRoute>
     ),
   },
