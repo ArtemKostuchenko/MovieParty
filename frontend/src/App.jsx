@@ -108,7 +108,7 @@ const router = createBrowserRouter([
             element: <ProfilePasswordPage />,
           },
           {
-            path: "subscribe",
+            path: "subscription",
             element: <ProfileSubscribePage />,
           },
         ],

@@ -19,6 +19,8 @@ export interface User extends Document {
   roomId: string;
   numberCreatedRooms: number;
   numberVisitedRooms: number;
+  subscription: string;
+
   createToken(): string;
   comparePassword(credentialPassword: string): Promise<boolean>;
 }
@@ -82,6 +84,9 @@ const UserSchema: Schema<User> = new Schema(
     numberVisitedRooms: {
       type: Number,
       default: 0,
+    },
+    subscription: {
+      type: String,
     },
   },
   { timestamps: true }

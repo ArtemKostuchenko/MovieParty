@@ -154,7 +154,7 @@ const ProfileLayout = () => {
                           <div className="profile-menu-item-title">Пароль</div>
                         </NavLink>
                         <NavLink
-                          to="subscribe"
+                          to="subscription"
                           className="profile-menu-item"
                           onClick={toggleProfileMenu}
                         >
@@ -233,7 +233,7 @@ const ProfileLayout = () => {
                         </div>
                         <div className="profile-menu-item-title">Пароль</div>
                       </NavLink>
-                      <NavLink to="subscribe" className="profile-menu-item">
+                      <NavLink to="subscription" className="profile-menu-item">
                         <div className="profile-menu-item-icon">
                           <div className="icon present" />
                         </div>
