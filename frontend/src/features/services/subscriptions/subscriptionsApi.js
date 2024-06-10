@@ -15,8 +15,6 @@ export const subscriptionsApi = createApi({
           method: "POST",
         };
       },
-      transformResponse: (resp) => resp.data,
-      invalidatesTags: ["subscriptions"],
     }),
     getSubscription: builder.query({
       query: (subscription) => {

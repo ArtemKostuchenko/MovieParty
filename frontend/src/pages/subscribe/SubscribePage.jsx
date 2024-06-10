@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 import "./style.page.scss";
 import useSubscription from "../../hooks/useSubscription";
 import useFill from "../../hooks/useFill";
 import { Loader } from "../../components";
-import { Navigate } from "react-router-dom";
 
 const SubscribePage = () => {
-  const { subscription, isLoading } = useSubscription();
+  const { subscription, isLoading, createSubscription, isLoadingCreate } =
+    useSubscription();
   const { disableFill } = useFill();
 
   useEffect(() => {
@@ -22,6 +24,17 @@ const SubscribePage = () => {
   if (subscription) {
     return <Navigate to="/" replace />;
   }
+
+  const handleStarterSubscribe = async () => {
+    try {
+      const res = await createSubscription();
+      if (res.url) {
+        window.location.href = res.url;
+      }
+    } catch (_) {
+      toast.error("Неможливо оформити підписку");
+    }
+  };
 
   return (
     <div className="container cnt-mn">
@@ -49,13 +62,13 @@ const SubscribePage = () => {
                   <div className="subscribe__benefits-item">
                     <div className="icon success" />
                     <div className="subscribe__benefits-item-title">
-                      Обмежена біліотека контенту
+                      Обмежена бібліотека контенту
                     </div>
                   </div>
                   <div className="subscribe__benefits-item">
                     <div className="icon success" />
                     <div className="subscribe__benefits-item-title">
-                      Доступ на будь-якому девайсі
+                      Доступ на будь-якому пристрої
                     </div>
                   </div>
                   <div className="subscribe__benefits-item">
@@ -95,7 +108,7 @@ const SubscribePage = () => {
                   <div className="subscribe__benefits-item">
                     <div className="icon success" />
                     <div className="subscribe__benefits-item-title">
-                      Необмежена біліотека контенту
+                      Необмежена бібліотека контенту
                     </div>
                   </div>
                   <div className="subscribe__benefits-item">
@@ -107,7 +120,7 @@ const SubscribePage = () => {
                   <div className="subscribe__benefits-item">
                     <div className="icon success" />
                     <div className="subscribe__benefits-item-title">
-                      Доступ на будь-якому девайсі
+                      Доступ на будь-якому пристрої
                     </div>
                   </div>
                   <div className="subscribe__benefits-item">
@@ -118,7 +131,13 @@ const SubscribePage = () => {
                   </div>
                 </div>
                 <div className="subscribe__button">
-                  <button className="button primary fill">Підписатися</button>
+                  <button
+                    className="button primary fill"
+                    onClick={handleStarterSubscribe}
+                    disabled={isLoadingCreate}
+                  >
+                    Підписатися
+                  </button>
                 </div>
               </div>
               <div className="subscribe__item premium">
