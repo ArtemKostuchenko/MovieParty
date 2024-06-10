@@ -1,13 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./style.page.scss";
 import { Loader, NotFound } from "../../../components";
 import useSubscription from "../../../hooks/useSubscription";
 import { formatDate, formatTime } from "../../../features/utils/functions";
 
 const SubscribePage = () => {
-  const { subscription, isLoading } = useSubscription();
+  const { subscription, isLoading, cancelSubscription, isLoadingCancel } =
+    useSubscription();
   const navigate = useNavigate();
+
+  const handleCancelSubscription = async () => {
+    try {
+      await cancelSubscription(subscription.id);
+      toast.info("Підписку скасовано");
+    } catch (_) {
+      toast.error("Помилка скасування підписки");
+    }
+  };
 
   return (
     <>
@@ -68,7 +79,7 @@ const SubscribePage = () => {
                 <div className="user-subscribe-item">
                   <div className="icon success" />
                   <div className="user-subscribe-item-title">
-                    Необмежена біліотека контенту
+                    Необмежена бібліотека контенту
                   </div>
                 </div>
                 <div className="user-subscribe-item">
@@ -80,7 +91,7 @@ const SubscribePage = () => {
                 <div className="user-subscribe-item">
                   <div className="icon success" />
                   <div className="user-subscribe-item-title">
-                    Доступ на будь-якому девайсі
+                    Доступ на будь-якому пристрої
                   </div>
                 </div>
                 <div className="user-subscribe-item">
@@ -96,7 +107,13 @@ const SubscribePage = () => {
                   {subscription.status === "active" && (
                     <>
                       <button className="button success">Змінити</button>
-                      <button className="button primary">Скасувати</button>
+                      <button
+                        className="button primary"
+                        disabled={isLoadingCancel}
+                        onClick={handleCancelSubscription}
+                      >
+                        Скасувати
+                      </button>
                     </>
                   )}
                   {subscription.status === "canceled" && (
