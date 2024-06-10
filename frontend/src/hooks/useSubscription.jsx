@@ -10,7 +10,7 @@ const useSubscription = () => {
   const {
     data: subscription,
     isLoading,
-    refetch,
+    refetch: refetchSubscription,
   } = useGetSubscriptionQuery(user.subscription ? user.subscription : "");
 
   const [
@@ -40,6 +40,7 @@ const useSubscription = () => {
     cancelSubscription,
     isLoadingCancel,
     isSuccessCancel,
+    refetchSubscription,
   };
 };
 

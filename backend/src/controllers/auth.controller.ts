@@ -46,6 +46,7 @@ const login = async (req: Request, res: Response): Promise<Response> => {
       numberCreatedRooms: user.numberCreatedRooms,
       numberVisitedRooms: user.numberVisitedRooms,
       roomId: user.roomId || "",
+      subscription: user.subscription || "",
     },
   });
 };

@@ -55,7 +55,20 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 5px;
     @include adaptiveFont(16, 14);
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    &.cl {
+      flex-direction: column;
+    }
   }
 
   &-expires {

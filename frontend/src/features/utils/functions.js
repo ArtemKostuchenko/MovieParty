@@ -1,5 +1,6 @@
 export const formatDate = (inputDate, type = "months") => {
-  const dateObj = new Date(inputDate);
+  const dateObj =
+    typeof inputDate === "string" ? new Date(inputDate) : inputDate;
 
   const months = [
     "січ",
@@ -37,6 +38,14 @@ export const formatDate = (inputDate, type = "months") => {
   }, ${dateObj.getFullYear()}`;
 
   return formattedDate;
+};
+
+export const formatTime = (inputDate) => {
+  const dateObj =
+    typeof inputDate === "string" ? new Date(inputDate) : inputDate;
+  const hours = dateObj.getHours().toString().padStart(2, "0");
+  const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
 };
 
 export const getFileExtension = (fileName = "") => {
