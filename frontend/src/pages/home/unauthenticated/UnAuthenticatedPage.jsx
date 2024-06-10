@@ -1,10 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import MainBackground from "../../../assets/main-background.png";
 import WatchAnyWhere from "../../../assets/watch-anywhere.png";
 import { FAQItems } from "../../../components";
 import "./unauth.styles.scss";
 
 const UnAuthenticatedPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <section className="welcome__service">
@@ -23,7 +26,10 @@ const UnAuthenticatedPage = () => {
                 <span className="motivation__alternative">Вечеріки</span> з
                 друзями? Натисніть оформити підписку.
               </p>
-              <button className="button primary information__subscribe">
+              <button
+                className="button primary information__subscribe"
+                onClick={() => navigate("/subscribe")}
+              >
                 Оформити підписку
               </button>
             </div>

@@ -303,12 +303,12 @@ body {
 
   &:disabled {
     background-color: var(--disabled-background);
-    border: 1px solid var(--disabled-color);
+    border: 1px solid transparent;
     color: var(--disabled-color);
 
     &:hover {
       background-color: var(--disabled-background);
-      border: 1px solid var(--disabled-color);
+      border: 1px solid transparent;
       color: var(--disabled-color);
     }
   }
