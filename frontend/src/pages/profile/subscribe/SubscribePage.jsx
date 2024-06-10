@@ -9,8 +9,6 @@ const SubscribePage = () => {
   const { subscription, isLoading } = useSubscription();
   const navigate = useNavigate();
 
-  console.log(subscription);
-
   return (
     <>
       <div className="profile-user-content-title">Підписка</div>
