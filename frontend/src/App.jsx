@@ -37,6 +37,7 @@ import {
   InvitePage,
   RoomJoinPage,
   SubscribePage,
+  NotFoundPage,
 } from "./pages";
 import { ClosedRoute, ProtectedRoute, SubscriptionRoute } from "./components";
 import WatchVideoContentPage from "./pages/watch/WatchVideoContentPage";
@@ -252,6 +253,7 @@ const router = createBrowserRouter([
         ),
       },
     ],
+    errorElement: <NotFoundPage />,
   },
   {
     path: ":typeVideoContent/:originTitle/watch",

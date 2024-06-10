@@ -7,6 +7,7 @@ import usePopup from "../../hooks/usePopup";
 import useRating from "../../hooks/useRating";
 import {
   Loader,
+  NotFound,
   ReviewForm,
   ReviewItems,
   ScrollToTop,
@@ -33,10 +34,10 @@ const VideoContentPage = () => {
   );
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && data) {
       disableFill();
     }
-  }, [isLoading]);
+  }, [isLoading, data]);
 
   if (isLoading || isLoadingSubscription) {
     return <Loader fixed />;
@@ -45,7 +46,12 @@ const VideoContentPage = () => {
   const content = data;
 
   if (!content) {
-    return <div>Content not found</div>;
+    return (
+      <NotFound
+        title="Відеоконтент не знайдено"
+        description="Якщо впевнені, що він існує, то спробуйте пізніше"
+      />
+    );
   }
 
   const handleWatch = () => {
