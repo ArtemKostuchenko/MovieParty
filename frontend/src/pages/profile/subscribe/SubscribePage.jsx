@@ -7,8 +7,14 @@ import useSubscription from "../../../hooks/useSubscription";
 import { formatDate, formatTime } from "../../../features/utils/functions";
 
 const SubscribePage = () => {
-  const { subscription, isLoading, cancelSubscription, isLoadingCancel } =
-    useSubscription();
+  const {
+    subscription,
+    isLoading,
+    cancelSubscription,
+    isLoadingCancel,
+    renewSubscription,
+    isLoadingRenew,
+  } = useSubscription();
   const navigate = useNavigate();
 
   const handleCancelSubscription = async () => {
@@ -17,6 +23,15 @@ const SubscribePage = () => {
       toast.info("Підписку скасовано");
     } catch (_) {
       toast.error("Помилка скасування підписки");
+    }
+  };
+
+  const handleRenewSubscription = async () => {
+    try {
+      await renewSubscription(subscription.id);
+      toast.info("Підписку поновлено");
+    } catch (_) {
+      toast.error("Помилка поновлення підписки");
     }
   };
 
@@ -118,7 +133,13 @@ const SubscribePage = () => {
                   )}
                   {subscription.status === "canceled" && (
                     <>
-                      <button className="button additional">Поновити</button>
+                      <button
+                        className="button additional"
+                        disabled={isLoadingRenew}
+                        onClick={handleRenewSubscription}
+                      >
+                        Поновити
+                      </button>
                     </>
                   )}
                 </div>

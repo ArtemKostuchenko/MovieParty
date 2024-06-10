@@ -37,6 +37,18 @@ export const subscriptionsApi = createApi({
       },
       invalidatesTags: ["subscriptions"],
     }),
+    renewSubscription: builder.mutation({
+      query: (subscription) => {
+        return {
+          url: `subscription/renew`,
+          method: "POST",
+          data: {
+            subscription,
+          },
+        };
+      },
+      invalidatesTags: ["subscriptions"],
+    }),
   }),
 });
 
@@ -44,4 +56,5 @@ export const {
   useCreateSubscriptionMutation,
   useGetSubscriptionQuery,
   useCancelSubscriptionMutation,
+  useRenewSubscriptionMutation,
 } = subscriptionsApi;
