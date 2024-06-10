@@ -37,7 +37,6 @@ export const subscriptionsApi = createApi({
           },
         };
       },
-      transformResponse: (resp) => resp.data,
       invalidatesTags: ["subscriptions"],
     }),
   }),

@@ -44,6 +44,9 @@ class SubscriptionRepository {
 
   async getSubscriptionDetailsBySubscription(subscription: string) {
     try {
+      if (!subscription) {
+        return null;
+      }
       return await stripe.subscriptions.retrieve(subscription);
     } catch (e) {
       return null;
