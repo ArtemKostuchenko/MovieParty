@@ -5,7 +5,11 @@ const initialState = {
   user: null,
   isLoading: false,
   isError: false,
-  error: null,
+  error: {
+    login: null,
+    register: null,
+    load: null,
+  },
 };
 
 export const login = createAsyncThunk(
@@ -78,7 +82,7 @@ const userSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
-        state.error = null;
+        state.error.login = state.error.register = state.error.load = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -87,13 +91,13 @@ const userSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.error = action.payload;
+        state.error.login = action.payload;
       });
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
-        state.error = null;
+        state.error.login = state.error.register = state.error.load = null;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -102,13 +106,13 @@ const userSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.error = action.payload;
+        state.error.register = action.payload;
       });
     builder
       .addCase(authUser.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
-        state.error = null;
+        state.error.login = state.error.register = state.error.load = null;
       })
       .addCase(authUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -118,7 +122,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.user = null;
-        state.error = action.payload;
+        state.error.load = action.payload;
       });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.user = action.payload.user;
@@ -126,7 +130,7 @@ const userSlice = createSlice({
     builder
       .addCase(logout.pending, (state) => {
         state.isError = false;
-        state.error = null;
+        state.error.login = state.error.register = state.error.load = null;
       })
       .addCase(logout.fulfilled, (state, action) => {
         state.user = null;
@@ -134,7 +138,7 @@ const userSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.user = null;
         state.isError = true;
-        state.error = action.payload;
+        state.error.load = action.payload;
       });
   },
 });

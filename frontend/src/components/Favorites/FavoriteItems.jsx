@@ -10,12 +10,12 @@ const FavoritesItems = ({ limit = 10 }) => {
   const { removeFavorite, isLoadingRemove } = useFavorite();
   const { page, handleChangePage } = usePagination();
 
-  const { data, isLoading } = useGetFavoritesQuery({
+  const { data, isLoading, isFetching } = useGetFavoritesQuery({
     page,
     limit,
   });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <div className="favorite__cards">
         {Array.from({ length: limit }).map((_, index) => {

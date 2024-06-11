@@ -100,7 +100,7 @@ const RegisterPage = () => {
                           Зареєструватися
                         </button>
                         <span className="message error center">
-                          {error
+                          {error.register
                             ? "Неможливо зареєструватися, спробуйте знову"
                             : ""}
                         </span>

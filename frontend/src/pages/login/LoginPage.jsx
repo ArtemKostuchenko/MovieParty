@@ -72,7 +72,7 @@ const LoginPage = () => {
                           Увійти
                         </button>
                         <span className="message error center">
-                          {error
+                          {error.login
                             ? "Неправильна електронна пошта або пароль"
                             : ""}
                         </span>
