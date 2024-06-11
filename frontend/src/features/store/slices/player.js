@@ -10,6 +10,8 @@ const initialState = {
   isFullScreen: false,
   isSettingsOpen: false,
   m3u8URL: null,
+  season: 0,
+  episode: 0,
 };
 
 const playerSlice = createSlice({
@@ -43,6 +45,12 @@ const playerSlice = createSlice({
     setM3U8State: (state, action) => {
       state.m3u8URL = action.payload;
     },
+    setSeasonState: (state, action) => {
+      state.season = action.payload;
+    },
+    setEpisodeState: (state, action) => {
+      state.episode = action.payload;
+    },
   },
 });
 
@@ -56,6 +64,8 @@ export const {
   setSettingState,
   setSpeedState,
   setM3U8State,
+  setSeasonState,
+  setEpisodeState,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

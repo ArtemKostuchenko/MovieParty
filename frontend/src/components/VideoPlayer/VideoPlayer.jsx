@@ -7,6 +7,8 @@ import { convertTimeHumanFormat } from "../../features/utils/functions";
 import SeekSlider from "../Sliders/SeekSlider";
 import VolumeSlider from "../Sliders/VolumeSlider";
 import SettingsPlayer from "./SettingsPlayer";
+import DropDown from "../DropDown/DropDown";
+import DropDownItem from "../DropDown/DropDownItem";
 
 const defaultControls = {
   play: true,
@@ -34,7 +36,7 @@ const VideoPlayer = ({
   seek = 0,
   handleSeekChange,
   soundTracks,
-  seasons,
+  seasons = [],
 }) => {
   const mergedControls = {
     ...defaultControls,
@@ -63,11 +65,16 @@ const VideoPlayer = ({
     handleToggleFullScreen,
     handlePlay: play,
     handleTime,
+    season,
+    episode,
+    setSeason,
+    setEpisode,
   } = useVideoPlayer();
 
   const playerRef = useRef();
   const videoPlayerRef = useRef();
   const controlsRef = useRef();
+  const seasonRef = useRef();
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [timeSeek, setTimeSeek] = useState(seek);
@@ -107,6 +114,13 @@ const VideoPlayer = ({
   const handleMouseMove = (e) => {
     setShowControls(true);
     if (controlsRef.current && !controlsRef.current.contains(e.target)) {
+      if (isPlaying) {
+        startHideControlsTimer();
+      }
+    } else {
+      clearHideControlsTimer();
+    }
+    if (seasonRef.current && !seasonRef.current.contains(e.target)) {
       if (isPlaying) {
         startHideControlsTimer();
       }
@@ -198,6 +212,53 @@ const VideoPlayer = ({
 
   return (
     <div className="video-player" ref={videoPlayerRef}>
+      {seasons.length > 0 && (
+        <AnimatePresence>
+          {showControls && (
+            <motion.div
+              className="video-player__series"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={{
+                hidden: { opacity: 0, y: -70 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              ref={seasonRef}
+              transition={{ duration: 0.3 }}
+              onMouseEnter={handleControlsMouseEnter}
+              onMouseLeave={handleControlsMouseLeave}
+            >
+              <div className="video-player__series-container">
+                <DropDown
+                  value={season}
+                  onChange={setSeason}
+                  placeholder="Оберіть сезон"
+                  rounded
+                >
+                  {seasons.map((_, index) => (
+                    <DropDownItem key={`season-${index + 1}`} value={index}>
+                      Сезон {index + 1}
+                    </DropDownItem>
+                  ))}
+                </DropDown>
+                <DropDown
+                  value={episode}
+                  onChange={setEpisode}
+                  placeholder="Оберіть сезон"
+                  rounded
+                >
+                  {seasons[season].episodes.map((_, index) => (
+                    <DropDownItem key={`episodes-${index + 1}`} value={index}>
+                      Серія {index + 1}
+                    </DropDownItem>
+                  ))}
+                </DropDown>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
       {!isPlaying && <div className="video-player__filter"></div>}
       <div
         className="video-player__display"
@@ -234,7 +295,13 @@ const VideoPlayer = ({
           volume={volume}
           playbackRate={speed}
           pip={isEnablePIP}
-          url={m3u8URL || soundTracks[0].m3u8Links[0].m3u8URL}
+          url={
+            m3u8URL ||
+            (seasons.length === 0
+              ? soundTracks[0].m3u8Links[0].m3u8URL
+              : seasons[season].episodes[episode].soundTracks[0].m3u8Links[0]
+                  .m3u8URL)
+          }
           width="100%"
           height="99%"
           onReady={handleReady}
@@ -331,7 +398,11 @@ const VideoPlayer = ({
               </div>
               <SettingsPlayer
                 controls={mergedControls.settings}
-                soundTracks={soundTracks}
+                soundTracks={
+                  seasons.length === 0
+                    ? soundTracks
+                    : seasons[season].episodes[episode].soundTracks
+                }
               />
               <button
                 className="video-player__p-in-p"

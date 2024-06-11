@@ -911,6 +911,12 @@ body {
       justify-content: space-between;
     }
   }
+
+  &.rounded {
+    .dropdown__selected {
+      border-radius: 50px;
+    }
+  }
 }
 
 /* filter */

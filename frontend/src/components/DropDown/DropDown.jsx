@@ -8,6 +8,7 @@ const DropDown = ({
   onChange = null,
   fill = false,
   linear = false,
+  rounded = false,
 }) => {
   const [selectedItem, setSelectedItem] = useState(
     children.find(
@@ -57,8 +58,8 @@ const DropDown = ({
   return (
     <div
       className={`dropdown${fill ? " fill" : ""}${linear ? " linear" : ""}${
-        isOpen ? " dropdown-open" : ""
-      }`}
+        rounded ? " rounded" : ""
+      }${isOpen ? " dropdown-open" : ""}`}
       ref={dropdownRef}
     >
       <div className="dropdown__selected" onClick={() => toggleDropDown()}>

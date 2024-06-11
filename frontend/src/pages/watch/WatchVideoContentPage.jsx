@@ -26,7 +26,7 @@ const WatchVideoContentPage = () => {
     return <NotFound title="Відеоконтент не знайдено" />;
   }
 
-  const { soundTracks } = content;
+  const { soundTracks, seasons } = content;
 
   const handleBack = () => {
     const contentPageLink = `/${
@@ -45,7 +45,7 @@ const WatchVideoContentPage = () => {
           <div className="watch-content__title">{content.title}</div>
         </div>
         <div className="watch-content__player">
-          <VideoPlayer soundTracks={soundTracks} />
+          <VideoPlayer seasons={seasons} soundTracks={soundTracks} />
         </div>
       </div>
     </div>

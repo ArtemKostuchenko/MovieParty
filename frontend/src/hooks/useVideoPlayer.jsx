@@ -8,6 +8,8 @@ import {
   setEnablePIPState,
   setFullScreenState,
   setM3U8State,
+  setSeasonState,
+  setEpisodeState,
 } from "../features/store/slices/player";
 
 const useVideoPlayer = () => {
@@ -22,8 +24,12 @@ const useVideoPlayer = () => {
     isSettingsOpen,
     speed,
     m3u8URL,
+    season,
+    episode,
   } = useSelector((store) => store.player);
   const lastVolume = useRef();
+  const lastSeason = useRef(season);
+  const lastEpisode = useRef(episode);
 
   const handlePlay = () => {
     dispatch(setPlayingState(true));
@@ -94,6 +100,26 @@ const useVideoPlayer = () => {
     }
   };
 
+  const setSeason = (season) => {
+    dispatch(setSeasonState(season));
+  };
+
+  const setEpisode = (episode) => {
+    dispatch(setEpisodeState(episode));
+  };
+
+  const sameSeason = (season) => {
+    if (lastSeason.current === season) return true;
+    lastSeason.current = season;
+    return false;
+  };
+
+  const sameEpisode = (episode) => {
+    if (lastEpisode.current === episode) return true;
+    lastSeason.current = episode;
+    return false;
+  };
+
   const handleFullScreenChange = () => {
     dispatch(setFullScreenState(document.fullscreenElement != null));
   };
@@ -109,6 +135,8 @@ const useVideoPlayer = () => {
   useEffect(() => {
     document.addEventListener("fullscreenchange", handleFullScreenChange);
     return () => {
+      setSeason(0);
+      setEpisode(0);
       dispatch(setM3U8State(null));
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
     };
@@ -135,6 +163,12 @@ const useVideoPlayer = () => {
     handleTime,
     handleTogglePIP,
     handleToggleFullScreen,
+    season,
+    episode,
+    setSeason,
+    setEpisode,
+    sameSeason,
+    sameEpisode,
   };
 };
 

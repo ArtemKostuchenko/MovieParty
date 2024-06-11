@@ -9,12 +9,12 @@
   background-color: #000000;
 
   &__header {
-    width: 100vw;
+    width: max-content;
     padding: 0 20px;
     z-index: 100;
     grid-row: 1 / 2;
     grid-column: 1 / 2;
-    display: flex;
+    display: inline-flex;
     justify-content: flex-start;
     align-items: center;
     gap: 25px;
