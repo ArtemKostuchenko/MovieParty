@@ -852,6 +852,7 @@ class VideoContentRepository {
           originTitle: 1,
           previewURL: 1,
           backgroundURL: 1,
+          trailerURL: 1,
           IMDb: 1,
           description: 1,
           duration: 1,
