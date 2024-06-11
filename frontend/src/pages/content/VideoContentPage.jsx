@@ -81,6 +81,7 @@ const VideoContentPage = () => {
     lists,
     description,
     part,
+    seasons,
   } = content;
 
   const contentPreviewURL = `${
@@ -427,66 +428,127 @@ const VideoContentPage = () => {
           </div>
         </div>
         <div className="splitter" />
-        <div className="container">
-          <div className="wrapper">
-            <div className="parts__wrapper">
-              <div className="parts">
-                <div className="parts__title">{part.name} - всі частини</div>
-                <div className="overflow-content">
-                  <div className="parts__items">
-                    {part.contents.map((content, index) => {
-                      const {
-                        _id,
-                        typeVideoContent,
-                        title,
-                        originTitle,
-                        IMDb,
-                        backgroundURL,
-                        releaseDate,
-                      } = content;
+        {part?._id && (
+          <>
+            <div className="container">
+              <div className="wrapper">
+                <div className="parts__wrapper">
+                  <div className="parts">
+                    <div className="parts__title">
+                      {part.name} - всі частини
+                    </div>
+                    <div className="overflow-content">
+                      <div className="parts__items">
+                        {part.contents.map((content, index) => {
+                          const {
+                            _id,
+                            typeVideoContent,
+                            title,
+                            originTitle,
+                            IMDb,
+                            backgroundURL,
+                            releaseDate,
+                          } = content;
 
-                      const videoContentLink = `/${
-                        typeVideoContent.path
-                      }/${originTitle.toLowerCase().replace(/\s/g, "-")}`;
+                          const videoContentLink = `/${
+                            typeVideoContent.path
+                          }/${originTitle.toLowerCase().replace(/\s/g, "-")}`;
 
-                      return (
-                        <Link
-                          className={`part__item${
-                            videoContentId === _id ? " selected" : ""
-                          }`}
-                          key={_id}
-                          to={videoContentLink}
-                        >
-                          <div className="part__item-filter" />
-                          <div className="part__item-background">
-                            <img
-                              src={`${
-                                import.meta.env.VITE_BACK_HOST
-                              }/static/files/images/content/${backgroundURL}`}
-                              alt={title}
-                            />
-                          </div>
-                          <div className="part__item-content">
-                            <div className="part__item-number">
-                              0{index + 1}
-                            </div>
-                            <div className="part__item-title">{title}</div>
-                            <div className="part__item-release-date">
-                              {formatDate(releaseDate)}
-                            </div>
-                            <div className="part__item-IMDb">
-                              <div className="IMDb">
-                                <div className="icon IMDb" />
-                                <p className="IMDb__rating">
-                                  {IMDb.toFixed(1)}
-                                </p>
+                          return (
+                            <Link
+                              className={`part__item${
+                                videoContentId === _id ? " selected" : ""
+                              }`}
+                              key={_id}
+                              to={videoContentLink}
+                            >
+                              <div className="part__item-filter" />
+                              <div className="part__item-background">
+                                <img
+                                  src={`${
+                                    import.meta.env.VITE_BACK_HOST
+                                  }/static/files/images/content/${backgroundURL}`}
+                                  alt={title}
+                                />
                               </div>
-                            </div>
-                            <div className="part__item-finished">
-                              <div className="icon success" />
+                              <div className="part__item-content">
+                                <div className="part__item-number">
+                                  0{index + 1}
+                                </div>
+                                <div className="part__item-title">{title}</div>
+                                <div className="part__item-release-date">
+                                  {formatDate(releaseDate)}
+                                </div>
+                                <div className="part__item-IMDb">
+                                  <div className="IMDb">
+                                    <div className="icon IMDb" />
+                                    <p className="IMDb__rating">
+                                      {IMDb.toFixed(1)}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="part__item-finished">
+                                  <div className="icon success" />
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="splitter" />
+          </>
+        )}
+        {seasons.length > 0 && (
+          <div className="container">
+            <div className="wrapper">
+              <div className="parts__wrapper">
+                <div className="seasons-vc">
+                  <div className="seasons-vc__items">
+                    {seasons.map((season, index) => {
+                      return (
+                        <div className="season-vc" key={`seasons-${index}`}>
+                          <div className="season-vc__title">
+                            Сезон {index + 1}
+                            {part.title ? ` - ${part.title}` : ``}
+                          </div>
+                          <div className="overflow-content">
+                            <div className="season-vc__items">
+                              {season.episodes.map((episode, i) => {
+                                const { name, releaseDate, status, available } =
+                                  episode;
+
+                                if (available) {
+                                  return (
+                                    <div
+                                      className="episode-vc"
+                                      key={`episode-${i}`}
+                                    >
+                                      <div className="episode-vc__number">
+                                        {i < 10 ? `0${i + 1}` : i + 1}
+                                      </div>
+                                      <div className="episode-vc__title">
+                                        {name ? name : `Серія ${i + 1}`}
+                                      </div>
+                                      <div className="episode-vc__release-date">
+                                        {formatDate(releaseDate)}
+                                      </div>
+                                      <div className="episode-vc__finished">
+                                        {status == "ended" && (
+                                          <div className="icon success" />
+                                        )}
+                                      </div>
+                                    </div>
+                                  );
+                                }
+                              })}
                             </div>
                           </div>
-                        </Link>
+                        </div>
                       );
                     })}
                   </div>
@@ -494,8 +556,7 @@ const VideoContentPage = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="splitter" />
+        )}
         <div className="container">
           <div className="wrapper">
             <div className="reviews">
