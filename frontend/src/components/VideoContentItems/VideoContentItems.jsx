@@ -16,7 +16,7 @@ const VideoContentItems = ({ limit = 30 }) => {
     sortType,
   } = useSelector((store) => store.content);
 
-  const { data, isLoading } = useGetVideoContentQuery({
+  const { data, isLoading, isFetching } = useGetVideoContentQuery({
     typeVideoContent,
     genres: selectedGenres ? [selectedGenres] : [],
     releaseYears: selectedYears,
@@ -26,7 +26,7 @@ const VideoContentItems = ({ limit = 30 }) => {
     sortType,
   });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <div className="content__cards">
         {Array.from({ length: limit }).map((_, index) => (
@@ -45,14 +45,16 @@ const VideoContentItems = ({ limit = 30 }) => {
           return <VideoContentCard key={item._id} {...item} />;
         })}
       </div>
-      <div className="content__pagination">
-        <Pagination
-          page={page}
-          limit={limit}
-          totalCount={data.totalCount}
-          onChangePage={(page) => handleChangePage(page)}
-        />
-      </div>
+      {videoContents.length > limit && (
+        <div className="content__pagination">
+          <Pagination
+            page={page}
+            limit={limit}
+            totalCount={data.totalCount}
+            onChangePage={(page) => handleChangePage(page)}
+          />
+        </div>
+      )}
     </>
   );
 };
