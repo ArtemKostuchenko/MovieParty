@@ -19,8 +19,8 @@ interface Episode extends Document {
 }
 
 interface Season extends Document {
-  title: string;
-  previewURL: string;
+  title?: string;
+  previewURL?: string;
   backgroundURL?: string;
   episodes: Episode[];
 }
@@ -43,8 +43,8 @@ export interface VideoContent extends Document {
   lists: { idList: Types.ObjectId; placeInList?: number }[];
   part: Types.ObjectId;
   reviews: Types.ObjectId[];
-  soundTracks: SoundTrack[];
-  seasons: Season[];
+  soundTracks?: SoundTrack[];
+  seasons?: Season[];
 }
 
 const M3U8LinkSchema: Schema = new Schema({
@@ -69,7 +69,6 @@ const SoundTrackSchema: Schema = new Schema({
 const EpisodeSchema: Schema = new Schema({
   name: {
     type: String,
-    required: [true, "Please provide name"],
   },
   status: {
     type: String,
@@ -89,11 +88,9 @@ const EpisodeSchema: Schema = new Schema({
 const SeasonSchema: Schema = new Schema({
   title: {
     type: String,
-    required: [true, "Please provide title"],
   },
   previewURL: {
     type: String,
-    required: [true, "Please provide previewURL"],
   },
   backgroundURL: {
     type: String,

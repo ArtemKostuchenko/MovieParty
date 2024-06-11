@@ -26,6 +26,22 @@ const SoundTrackSchema = yup.object().shape({
     ),
 });
 
+const EpisodeSchema = yup.object().shape({
+  name: yup.string(),
+  status: yup.string().required("Надайте статус серії"),
+  available: yup.boolean().required("Надайте доступність серії"),
+  releaseDate: yup.date().required("Надайте дату виписку серії"),
+  soundTracks: yup
+    .array()
+    .of(SoundTrackSchema)
+    .min(1, "Додайте хоча б одну звукову доріжку"),
+});
+
+const SeasonSchema = yup.object().shape({
+  title: yup.string(),
+  episodes: yup.array().of(EpisodeSchema).min(1, "Додайте хоча б одну серію"),
+});
+
 const PhotoValidation = (isEditField) =>
   yup
     .mixed()
@@ -83,7 +99,27 @@ const VideoContentSchema = yup.object().shape({
   soundTracks: yup
     .array()
     .of(SoundTrackSchema)
-    .min(1, "Додайте хоча б одну звукову доріжку"),
+    .test(
+      "soundTracksTest",
+      "Додайте хоча б одну звукову доріжку",
+      function (value) {
+        const { isSeries } = this.parent;
+        if (!isSeries) {
+          return value && value.length > 0;
+        }
+        return true;
+      }
+    ),
+  seasons: yup
+    .array()
+    .of(SeasonSchema)
+    .test("seasonsTest", "Додайте хоча б один сезон", function (value) {
+      const { isSeries } = this.parent;
+      if (isSeries) {
+        return value && value.length > 0;
+      }
+      return true;
+    }),
   previewURL: PhotoValidation("isEdit"),
   backgroundURL: PhotoValidation("isEdit"),
 });

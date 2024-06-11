@@ -194,7 +194,7 @@ const VideoContentPage = () => {
                           <div className="video-content__information-title">
                             Країна:
                           </div>
-                          <div className="video-content__information-content flex r g5 center-h">
+                          <div className="video-content__information-content flex r g5 center-h wr">
                             {originCountries.map((country, index) => {
                               return (
                                 <div

@@ -6,10 +6,13 @@ const qualities = ["480p", "720p", "1080p", "1440p", "2160p"];
 
 const SoundTrackItem = ({
   index,
+  seasonIndex,
+  episodeIndex,
   title,
   control,
   register,
   removeSoundTrack,
+  isSeason = false,
 }) => {
   const {
     fields: m3u8Links,
@@ -18,7 +21,11 @@ const SoundTrackItem = ({
     update: updateM3U8Link,
   } = useFieldArray({
     control,
-    name: `soundTracks.${index}.m3u8Links`,
+    name: `${
+      isSeason
+        ? `seasons.${seasonIndex}.episodes.${episodeIndex}.soundTracks.${index}.m3u8Links`
+        : `soundTracks.${index}.m3u8Links`
+    }`,
   });
 
   const [availableQualities, setAvailableQualities] = useState(() =>
@@ -77,7 +84,11 @@ const SoundTrackItem = ({
         {m3u8Links.map((m3u8Link, m3u8Index) => (
           <div className="sound-track__link" key={m3u8Link.id}>
             <Controller
-              name={`soundTracks.${index}.m3u8Links.${m3u8Index}.quality`}
+              name={
+                isSeason
+                  ? `seasons.${seasonIndex}.episodes.${episodeIndex}.soundTracks.${index}.m3u8Links.${m3u8Index}.quality`
+                  : `soundTracks.${index}.m3u8Links.${m3u8Index}.quality`
+              }
               control={control}
               render={({ field: { onChange, value } }) => (
                 <DropDown
@@ -87,6 +98,7 @@ const SoundTrackItem = ({
                     onChange(newValue);
                   }}
                   placeholder="Оберіть якість"
+                  fill
                 >
                   {[...availableQualities, value].map((quality, index) => (
                     <DropDownItem key={`quality_${index}`} value={quality}>
@@ -100,12 +112,16 @@ const SoundTrackItem = ({
             <input
               type="text"
               {...register(
-                `soundTracks.${index}.m3u8Links.${m3u8Index}.m3u8URL`
+                `${
+                  isSeason
+                    ? `seasons.${seasonIndex}.episodes.${episodeIndex}.soundTracks.${index}.m3u8Links.${m3u8Index}.m3u8URL`
+                    : `soundTracks.${index}.m3u8Links.${m3u8Index}.m3u8URL`
+                }`
               )}
               className="form__input linear"
             />
             <button
-              type="button"
+              type="submit"
               className="button remove rounded"
               onClick={() => handleRemoveM3U8Link(m3u8Index)}
             >

@@ -120,7 +120,7 @@ export const videoContentApi = createApi({
             }))
           )
         );
-        bodyData.append("part", parts?.[0]._id);
+        if (parts?.length > 0) bodyData.append("part", parts[0]._id);
         bodyData.append("soundTracks", JSON.stringify(soundTracks));
         bodyData.append("seasons", JSON.stringify(seasons));
 

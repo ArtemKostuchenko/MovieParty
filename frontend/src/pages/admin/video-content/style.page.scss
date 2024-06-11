@@ -205,6 +205,54 @@
   }
 }
 
+.seasons,
+.episodes {
+  padding: 10px 0;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 10px;
+    border: solid 1px var(--lochmara);
+    border-radius: 5px;
+  }
+}
+
+.season,
+.episode {
+  &__flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__name {
+    width: 100%;
+  }
+}
+
+.episode {
+  &__title {
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    @include adaptiveFont(14, 12);
+    color: var(--text-color);
+  }
+}
+
 .f-list {
   min-height: 68px;
   margin: 10px 0 0 0;

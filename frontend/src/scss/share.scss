@@ -364,6 +364,10 @@ body {
   &.g10 {
     gap: 10px;
   }
+
+  &.wr {
+    flex-wrap: wrap;
+  }
 }
 
 /* grid */
