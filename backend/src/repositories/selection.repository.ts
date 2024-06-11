@@ -1,5 +1,5 @@
-import SelectionModel, { Selection } from '../models/selection.model';
-import { BadRequestError, NotFoundError } from '../errors';
+import SelectionModel, { Selection } from "../models/selection.model";
+import { BadRequestError, NotFoundError } from "../errors";
 
 interface Query {
   name?: { $regex: string; $options: string };
@@ -9,19 +9,24 @@ class SelectionRepository {
   constructor() {}
 
   async createSelection(selectionData: Selection): Promise<Selection> {
-    const { name, description } = selectionData;
+    const { name, previewURL, description, videoContents } = selectionData;
 
-    if (!name || !description) {
+    if (!name || !previewURL || !description || !videoContents) {
       throw new BadRequestError(
-        "Please provide name and description selection"
+        "Please provide name, previewURL, description and videoContents selection"
       );
     }
+
+    selectionData.videoContents = JSON.parse(videoContents as string);
 
     return await SelectionModel.create(selectionData);
   }
 
   async getSelectionById(selectionId: string): Promise<Selection> {
-    const selection = await SelectionModel.findById(selectionId);
+    const selection = await SelectionModel.findById(selectionId).populate(
+      "videoContents",
+      "_id title"
+    );
 
     if (!selection) {
       throw new NotFoundError("Selection not found");
@@ -34,7 +39,7 @@ class SelectionRepository {
     selectionId: string,
     selectionData: Selection
   ): Promise<Selection> {
-    const { name, description, contents } = selectionData;
+    const { name, description, videoContents } = selectionData;
 
     const selection = await SelectionModel.findById(selectionId);
 
@@ -44,9 +49,10 @@ class SelectionRepository {
 
     selection.name = name || selection.name;
     selection.description = description || selection.description;
+    selectionData.videoContents = JSON.parse(videoContents as string);
 
-    if (contents && Array.isArray(contents)) {
-      selection.contents = contents;
+    if (videoContents && Array.isArray(videoContents)) {
+      selection.videoContents = videoContents;
     }
 
     return await selection.save();

@@ -2,8 +2,9 @@ import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface Selection extends Document {
   name: string;
+  previewURL: string;
   description: string;
-  contents: Types.ObjectId[];
+  videoContents: Types.ObjectId[] | string;
 }
 
 const SelectionSchema: Schema = new Schema(
@@ -12,14 +13,18 @@ const SelectionSchema: Schema = new Schema(
       type: String,
       required: [true, "Please provide name"],
     },
+    previewURL: {
+      type: String,
+      required: [true, "Please provide previewURL"],
+    },
     description: {
       type: String,
       required: [true, "Please provide description"],
     },
-    contents: [
+    videoContents: [
       {
         type: Types.ObjectId,
-        ref: "Content",
+        ref: "VideoContent",
       },
     ],
   },

@@ -27,22 +27,32 @@ export const selectionsApi = createApi({
     }),
 
     addSelection: builder.mutation({
-      query: ({ name, description }) => {
+      query: ({ name, description, previewURL, videoContents }) => {
+        const bodyData = new FormData();
+        bodyData.append("name", name);
+        bodyData.append("description", description);
+        bodyData.append("previewURL", previewURL[0]);
+        bodyData.append("videoContents", JSON.stringify(videoContents));
         return {
           url: "selections",
           method: "POST",
-          data: { name, description },
+          data: bodyData,
         };
       },
       invalidatesTags: ["selections"],
     }),
 
     updateSelection: builder.mutation({
-      query: ({ id, name, description }) => {
+      query: ({ id, name, description, videoContents }) => {
+        const bodyData = new FormData();
+        bodyData.append("name", name);
+        bodyData.append("description", description);
+        bodyData.append("previewURL", previewURL[0]);
+        bodyData.append("videoContents", JSON.stringify(videoContents));
         return {
           url: `selections/${id}`,
           method: "PATCH",
-          data: { name, description },
+          data: bodyData,
         };
       },
       invalidatesTags: ["selections"],

@@ -48,7 +48,7 @@ const useSearch = ({
   }, [lastItemRef]);
 
   const handleInputChange = (e) => {
-    setSearchTerm(e.target.value.trim());
+    setSearchTerm(e.target.value);
     setPage(1);
   };
 

@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectionSchema } from "../../../features/validations";
+import { PreviewImage } from "../../../components";
+import SearchSelections from "../../../components/Selections/SearchSelections";
 import PopUp from "../../../components/PopUp/PopUp";
 import useSelection from "../../../hooks/useSelection";
 import usePopUp from "../../../hooks/usePopup";
@@ -12,8 +14,11 @@ const SelectionsAddPopup = () => {
 
   const {
     register,
+    control,
     handleSubmit,
+    resetField,
     reset,
+    watch,
     formState: { errors, isDirty, isValid },
   } = useForm({
     resolver: yupResolver(SelectionSchema),
@@ -25,6 +30,12 @@ const SelectionsAddPopup = () => {
     handleResetPopUp();
     reset();
   };
+
+  const resetPreview = () => {
+    resetField("previewURL");
+  };
+
+  const watchPreviewURL = watch("previewURL");
 
   return (
     <PopUp title="Додавання підбірки" open={isAdd} setOpen={handleResetPopUp}>
@@ -43,6 +54,36 @@ const SelectionsAddPopup = () => {
               )}
             </div>
             <div className="popup__form-item">
+              <div className="popup__form-title">Обкладинка підбірки</div>
+              {!Boolean(watchPreviewURL?.length) ? (
+                <button
+                  className="button primary"
+                  type="button"
+                  onClick={() => {
+                    const inputRef = document.querySelector(
+                      'input[name="previewURL"]'
+                    );
+                    if (!inputRef) return;
+                    inputRef.click();
+                  }}
+                >
+                  Обрати обкладинку
+                </button>
+              ) : (
+                <PreviewImage
+                  icon={watchPreviewURL}
+                  removeIcon={resetPreview}
+                  classImage="slc"
+                />
+              )}
+              <input
+                type="file"
+                {...register("previewURL")}
+                className="hidden"
+                accept="image/*"
+              />
+            </div>
+            <div className="popup__form-item">
               <div className="popup__form-title">Опис підбірки</div>
               <textarea
                 {...register("description")}
@@ -53,6 +94,10 @@ const SelectionsAddPopup = () => {
                   {errors.description.message}
                 </span>
               )}
+            </div>
+            <div className="popup__form-item">
+              <div className="popup__form-title">Відеоконтент</div>
+              <SearchSelections control={control} />
             </div>
             <button
               type="submit"
