@@ -26,10 +26,10 @@ const Header = () => {
                 <div className="menu">
                   <ul className="menu__items">
                     <li className="menu__item">
-                      <a href="#">
+                      <Link to="/selections">
                         <div className="icon diamond"></div>
                         <h5 className="menu__title">Підбірки</h5>
-                      </a>
+                      </Link>
                     </li>
                     <li className="menu__item">
                       <Link to="/profile/favorite">

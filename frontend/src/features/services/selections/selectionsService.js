@@ -10,7 +10,7 @@ export const selectionsApi = createApi({
   tagTypes: ["selections"],
   endpoints: (builder) => ({
     getSelections: builder.query({
-      query: ({ name, page, limit, sortName, sortType }) => ({
+      query: ({ name = "", page, limit, sortName, sortType } = {}) => ({
         url: `selections?name=${name}&page=${page}&limit=${limit}${getFormateSort(
           sortName,
           sortType

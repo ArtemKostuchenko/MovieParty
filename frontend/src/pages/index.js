@@ -35,3 +35,4 @@ export { default as InvitePage } from "./invite/InvitePage";
 export { default as RoomJoinPage } from "./room/RoomJoinPage";
 export { default as SubscribePage } from "./subscribe/SubscribePage";
 export { default as NotFoundPage } from "./not-found/NotFoundPage";
+export { default as SelectionsViewPage } from "./selection/SelectionsPage";

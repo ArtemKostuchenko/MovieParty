@@ -38,6 +38,7 @@ import {
   RoomJoinPage,
   SubscribePage,
   NotFoundPage,
+  SelectionsViewPage,
 } from "./pages";
 import {
   AdminRoute,
@@ -258,6 +259,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <SubscribePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "selections",
+        element: (
+          <ProtectedRoute>
+            <SelectionsViewPage />
           </ProtectedRoute>
         ),
       },
