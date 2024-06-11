@@ -196,6 +196,8 @@ const start = async () => {
               roomId,
               isPlaying: false,
               time: 0,
+              episode: 0,
+              season: 0,
             });
 
             room = rooms.find((room) => room.roomId === roomId);
@@ -207,6 +209,7 @@ const start = async () => {
           socket.emit("update_live");
           socket.emit("play", room?.isPlaying || false);
           socket.emit("time", room?.time || 0);
+          socket.emit("update_series", room);
 
           const messages = await MessageRepository.getLastMessagesByRoomId(
             roomId
@@ -275,6 +278,21 @@ const start = async () => {
           room.time = 0;
           socket.to(roomId).emit("update_live");
           socket.to(roomId).emit("play", false);
+        }
+      });
+
+      socket.on("update_series", (roomId, data) => {
+        const room = rooms.find((room) => room.roomId === roomId);
+
+        if (roomId && room) {
+          room.isPlaying = false;
+          room.time = 0;
+          room.season = data.season;
+          room.episode = data.episode;
+          socket.to(roomId).emit("play", false);
+          socket.to(roomId).emit("seek", 0);
+          socket.to(roomId).emit("update_series", room);
+          socket.to(roomId).emit("seek", 0);
         }
       });
 

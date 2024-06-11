@@ -64,6 +64,7 @@ const VideoPlayer = ({
     handleTogglePIP,
     handleToggleFullScreen,
     handlePlay: play,
+    handlePause,
     handleTime,
     season,
     episode,
@@ -214,7 +215,7 @@ const VideoPlayer = ({
     <div className="video-player" ref={videoPlayerRef}>
       {seasons.length > 0 && (
         <AnimatePresence>
-          {showControls && (
+          {showControls && mergedControls.play && (
             <motion.div
               className="video-player__series"
               initial="hidden"

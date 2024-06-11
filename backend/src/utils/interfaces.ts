@@ -20,6 +20,8 @@ export interface Room {
   roomId: string;
   isPlaying: boolean;
   time: number;
+  season: number;
+  episode: number;
 }
 
 export interface JWTPayload {

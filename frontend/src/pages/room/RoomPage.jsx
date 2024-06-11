@@ -30,7 +30,17 @@ const RoomPage = () => {
   const { id: roomId } = useParams();
   const {} = useFill();
   const { user } = useUser();
-  const { isPlaying, time, handlePlay, handlePause } = useVideoPlayer();
+  const { autoPlay, setAutoPlay } = useState(false);
+  const {
+    isPlaying,
+    time,
+    handlePlay,
+    handlePause,
+    season,
+    episode,
+    setSeason,
+    setEpisode,
+  } = useVideoPlayer();
   const {
     isChatOpen,
     isUsersOpen,
@@ -97,6 +107,12 @@ const RoomPage = () => {
         }
       });
 
+      socket.on("update_series", ({ season, episode }) => {
+        if (user._id === roomOwner._id) return;
+        setSeason(season);
+        setEpisode(episode);
+      });
+
       socket.on("time", (time) => {
         if (roomOwner._id !== user._id) {
           setSeek(time);
@@ -127,6 +143,29 @@ const RoomPage = () => {
     socket.emit("play", roomId, isPlaying);
     socket.emit("time", roomId, time);
   }, [isPlaying, roomOwner]);
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    if (!roomOwner) {
+      return;
+    }
+
+    if (seasons.length == 0) {
+      return;
+    }
+
+    if (user._id !== roomOwner._id) return;
+
+    handlePause();
+
+    socket.emit("update_series", roomId, {
+      season,
+      episode,
+    });
+  }, [season, episode]);
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -251,7 +290,7 @@ const RoomPage = () => {
                       speed: ownerUser._id === user._id,
                     },
                   }}
-                  autoplay={ownerUser._id !== user._id}
+                  autoplay={autoPlay}
                   seek={seek}
                   soundTracks={soundTracks}
                   seasons={seasons}
