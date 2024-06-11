@@ -24,6 +24,7 @@ export const videoContentApi = createApi({
         fields = "",
         sortName = "",
         sortType = "",
+        selection = "",
       } = {}) => ({
         url: `content/v?${
           fields
@@ -39,9 +40,12 @@ export const videoContentApi = createApi({
           actor ? `&actor=${actor}` : ""
         }${director ? `&director=${director}` : ""}${
           page !== 0 ? `&page=${page}` : ``
-        }${releaseYears ? `&releaseYears=${releaseYears}` : ""}${
-          limit ? `&limit=${limit}` : ``
-        }${getFormateSort(sortName, sortType)}`,
+        }${selection ? `&selection=${selection}` : ``}${
+          releaseYears ? `&releaseYears=${releaseYears}` : ""
+        }${limit ? `&limit=${limit}` : ``}${getFormateSort(
+          sortName,
+          sortType
+        )}`,
       }),
       transformResponse: (resp) => resp.data,
       providesTags: ["video-content"],

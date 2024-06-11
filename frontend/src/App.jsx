@@ -39,6 +39,7 @@ import {
   SubscribePage,
   NotFoundPage,
   SelectionsViewPage,
+  SelectionPage,
 } from "./pages";
 import {
   AdminRoute,
@@ -267,6 +268,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <SelectionsViewPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "selections/:selectionId",
+        element: (
+          <ProtectedRoute>
+            <SelectionPage />
           </ProtectedRoute>
         ),
       },

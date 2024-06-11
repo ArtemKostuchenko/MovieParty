@@ -36,3 +36,4 @@ export { default as RoomJoinPage } from "./room/RoomJoinPage";
 export { default as SubscribePage } from "./subscribe/SubscribePage";
 export { default as NotFoundPage } from "./not-found/NotFoundPage";
 export { default as SelectionsViewPage } from "./selection/SelectionsPage";
+export { default as SelectionPage } from "./selection/SelectionPage";

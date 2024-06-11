@@ -9,6 +9,7 @@ import GenreModel from "../models/genre.model";
 import ListModel from "../models/list.model";
 import ActorModel from "../models/actor.model";
 import DirectorModel from "../models/director.model";
+import SelectionModel from "../models/selection.model";
 
 interface Query {
   title?: { $regex: string; $options: string };
@@ -625,9 +626,19 @@ class VideoContentRepository {
       fields,
       limit,
       page,
+      selection,
     } = query;
 
     const queryObj: Query = {};
+
+    if (selection) {
+      const selectionDoc = await SelectionModel.findById(selection);
+      if (selectionDoc) {
+        queryObj._id = { $in: selectionDoc.videoContents };
+      } else {
+        return { videoContent: [], totalCount: 0 };
+      }
+    }
 
     if (title) {
       const regex = new RegExp(title, "i");
