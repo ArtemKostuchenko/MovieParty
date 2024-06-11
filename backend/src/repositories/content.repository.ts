@@ -53,7 +53,10 @@ class VideoContentRepository {
         },
       },
       {
-        $unwind: "$typeVideoContent",
+        $unwind: {
+          path: "$typeVideoContent",
+          preserveNullAndEmptyArrays: true,
+        },
       },
       {
         $lookup: {
@@ -129,9 +132,7 @@ class VideoContentRepository {
           as: "part",
         },
       },
-      {
-        $unwind: "$part",
-      },
+      { $unwind: { path: "$part", preserveNullAndEmptyArrays: true } },
       {
         $lookup: {
           from: "videocontents",

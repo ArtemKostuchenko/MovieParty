@@ -56,10 +56,6 @@ const VideoContentAddPage = () => {
     name: "seasons",
   });
 
-  const onSubmitErrors = async (errors) => {
-    console.log(errors);
-  };
-
   const onSubmitHandler = async (data) => {
     const res = await addVideoContent(data);
     console.log(res);

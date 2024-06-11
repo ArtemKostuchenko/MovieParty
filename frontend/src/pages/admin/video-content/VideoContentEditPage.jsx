@@ -16,6 +16,7 @@ import SearchDirectors from "../../../components/Directors/SearchDirectors";
 import SearchBestLists from "../../../components/BestLists/SearchBestLists";
 import SearchParts from "../../../components/Parts/SearchParts";
 import { formatDate } from "../../../features/utils/functions";
+import SeasonsItem from "../../../components/Seasons/SeasonItem";
 
 const VideoContentEditPage = () => {
   const { updateVideoContent, isLoadingUpdate } = useVideoContent();
@@ -41,6 +42,7 @@ const VideoContentEditPage = () => {
     resolver: yupResolver(VideoContentSchema),
     defaultValues: {
       isEdit: true,
+      isSeries: false,
     },
   });
 
@@ -51,6 +53,15 @@ const VideoContentEditPage = () => {
   } = useFieldArray({
     control,
     name: "soundTracks",
+  });
+
+  const {
+    fields: seasons,
+    append: addSeason,
+    remove: removeSeason,
+  } = useFieldArray({
+    control,
+    name: "seasons",
   });
 
   if (!editId) {
@@ -70,21 +81,37 @@ const VideoContentEditPage = () => {
       setValue("IMDb", videoContent.IMDb);
       setValue("description", videoContent.description);
       setValue("typeVideoContent", videoContent.typeVideoContent._id);
-      console.log(videoContent.typeVideoContent.name);
+      setValue("isSeries", videoContent.typeVideoContent.isSeries);
       setValue("releaseDate", formatDate(videoContent.releaseDate, "hyphen"));
       setValue("duration", videoContent.duration);
       setValue("trailerURL", videoContent.trailerURL);
       setValue("soundTracks", videoContent.soundTracks);
+      setValue("seasons", videoContent.seasons);
       setValue("originCountries", videoContent.originCountries);
       setValue("genres", videoContent.genres);
       setValue("actors", videoContent.actors);
       setValue("directors", videoContent.directors);
       setValue("lists", videoContent.lists);
-      setValue("parts", [videoContent.part]);
+      if (videoContent.part?._id) {
+        setValue("parts", [videoContent.part]);
+      }
       setPreviewURL(videoContent.previewURL);
       setBackgroundURL(videoContent.backgroundURL);
     }
   }, [videoContent, setValue]);
+
+  const typeVideoContent = watch("typeVideoContent");
+
+  useEffect(() => {
+    if (typeVideoContent) {
+      const tVC = typeContentData.typesContent.find(
+        (t) => t._id === typeVideoContent
+      );
+      if (tVC) {
+        setValue("isSeries", tVC.isSeries);
+      }
+    }
+  }, [typeVideoContent]);
 
   if (isLoadingVideoContent) {
     return (
@@ -95,8 +122,7 @@ const VideoContentEditPage = () => {
   }
 
   const onSubmitHandler = async (data) => {
-    const res = await updateVideoContent({ id: videoContent._id, ...data });
-    console.log(res);
+    await updateVideoContent({ id: videoContent._id, ...data });
     reset();
     navigate("/panel/admin/video-content");
   };
@@ -119,8 +145,17 @@ const VideoContentEditPage = () => {
     setSoundTrackName("");
   };
 
+  const handleAddSeason = () => {
+    if (!isSeries) return;
+    addSeason({
+      title: "",
+      episodes: [],
+    });
+  };
+
   const watchPreviewURL = watch("previewURL");
   const watchBackgroundURL = watch("backgroundURL");
+  const isSeries = watch("isSeries");
 
   return (
     <div className="container cnt-mn">
@@ -273,52 +308,82 @@ const VideoContentEditPage = () => {
                         className="form__input linear"
                       />
                     </div>
-                    <div className="form__item label">
-                      <div className="form__item-label">Звукова доріжка</div>
-                      <div className="form__input linear fi">
-                        <input
-                          type="text"
-                          className="form__input"
-                          onChange={(e) => setSoundTrackName(e.target.value)}
-                          value={soundTrackName}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              e.preventDefault();
-                              handleAddSoundTrack();
-                            }
-                          }}
-                          placeholder="Назва звукової доріжки"
-                        />
+                    {isSeries && (
+                      <div className="form__item label">
+                        <div className="form__item-label">Сезони</div>
                         <button
+                          className="button primary"
                           type="button"
-                          className="form__button-add"
-                          onClick={handleAddSoundTrack}
+                          onClick={handleAddSeason}
                         >
-                          <div className="icon plus rounded" />
+                          Додати сезон
                         </button>
-                      </div>
-                      <div className="sound-tracks">
-                        <div className="sound-tracks__list">
-                          {soundTracks.map((soundTrack, index) => {
-                            return (
-                              <SoundTrackItem
-                                key={soundTrack.id}
-                                index={index}
-                                {...soundTrack}
-                                control={control}
-                                register={register}
-                                removeSoundTrack={removeSoundTrack}
-                              />
-                            );
-                          })}
+                        <div className="seasons">
+                          <div className="seasons__list">
+                            {seasons.map((season, index) => {
+                              return (
+                                <SeasonsItem
+                                  key={season.id}
+                                  index={index}
+                                  {...season}
+                                  control={control}
+                                  register={register}
+                                  removeSeason={removeSeason}
+                                />
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
-                      {errors.soundTracks && (
-                        <span className="message error">
-                          {errors.soundTracks.message}
-                        </span>
-                      )}
-                    </div>
+                    )}
+                    {!isSeries && (
+                      <div className="form__item label">
+                        <div className="form__item-label">Звукові доріжки</div>
+                        <div className="form__input linear fi">
+                          <input
+                            type="text"
+                            className="form__input"
+                            onChange={(e) => setSoundTrackName(e.target.value)}
+                            value={soundTrackName}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                handleAddSoundTrack();
+                              }
+                            }}
+                            placeholder="Назва звукової доріжки"
+                          />
+                          <button
+                            type="button"
+                            className="form__button-add"
+                            onClick={handleAddSoundTrack}
+                          >
+                            <div className="icon plus rounded" />
+                          </button>
+                        </div>
+                        <div className="sound-tracks">
+                          <div className="sound-tracks__list">
+                            {soundTracks.map((soundTrack, index) => {
+                              return (
+                                <SoundTrackItem
+                                  key={soundTrack.id}
+                                  index={index}
+                                  {...soundTrack}
+                                  control={control}
+                                  register={register}
+                                  removeSoundTrack={removeSoundTrack}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                        {errors.soundTracks && (
+                          <span className="message error">
+                            {errors.soundTracks.message}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
