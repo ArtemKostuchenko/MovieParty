@@ -1,4 +1,5 @@
 export const formatDate = (inputDate, type = "months") => {
+  if (!inputDate) return "";
   const dateObj =
     typeof inputDate === "string" ? new Date(inputDate) : inputDate;
 
@@ -41,6 +42,7 @@ export const formatDate = (inputDate, type = "months") => {
 };
 
 export const formatTime = (inputDate) => {
+  if (!inputDate) return "";
   const dateObj =
     typeof inputDate === "string" ? new Date(inputDate) : inputDate;
   const hours = dateObj.getHours().toString().padStart(2, "0");
