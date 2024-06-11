@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types, PipelineStage } from "mongoose";
 import { validateVideoContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
@@ -16,7 +16,7 @@ interface Query {
   $or?: object[];
   rating?: { $gte: number; $lte: number };
   genre?: string;
-  genres?: { $all: string[] };
+  genres?: { $all: Types.ObjectId[] };
   actors?: { $all: string[] };
   directors?: { $all: string[] };
   lists?: { $all: string[] } | { $elemMatch: { idList: Types.ObjectId } };
@@ -622,7 +622,6 @@ class VideoContentRepository {
       directors,
       lists,
       sort,
-      rating,
       fields,
       limit,
       page,
@@ -701,7 +700,9 @@ class VideoContentRepository {
     }
 
     if (genres) {
-      const genresQuery: string[] = genres.split(",");
+      const genresQuery: Types.ObjectId[] = genres
+        .split(",")
+        .map((genre: string) => new Types.ObjectId(genre));
       queryObj.genres = { $all: genresQuery };
     }
 
@@ -784,9 +785,11 @@ class VideoContentRepository {
         const sortList = sort.split(",").join(" ");
         sortObj[sortList] = sortOrder;
       }
+    } else {
+      sortObj["createdAt"] = 1;
     }
 
-    const aggregationPipeline = [
+    const aggregationPipeline: PipelineStage[] = [
       { $match: queryObj },
       {
         $lookup: {
@@ -822,7 +825,17 @@ class VideoContentRepository {
       { $sort: sortObj },
       { $skip: skip },
       { $limit: videoContentPerPage },
-      {
+    ];
+
+    if (fields) {
+      const fieldList = fields.split(",");
+      const projectFields = fieldList.reduce((acc: any, field: any) => {
+        acc[field] = 1;
+        return acc;
+      }, {});
+      aggregationPipeline.push({ $project: projectFields });
+    } else {
+      aggregationPipeline.push({
         $project: {
           title: 1,
           originTitle: 1,
@@ -836,9 +849,10 @@ class VideoContentRepository {
           ratingCount: 1,
           typeVideoContent: 1,
           genres: 1,
+          createdAt: 1,
         },
-      },
-    ];
+      });
+    }
 
     const [videoContent, totalCount] = await Promise.all([
       VideoContentModel.aggregate(aggregationPipeline).exec(),
