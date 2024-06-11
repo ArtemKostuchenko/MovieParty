@@ -45,6 +45,7 @@ export interface VideoContent extends Document {
   reviews: Types.ObjectId[];
   soundTracks?: SoundTrack[];
   seasons?: Season[];
+  views?: number;
 }
 
 const M3U8LinkSchema: Schema = new Schema({
@@ -186,6 +187,10 @@ const VideoContentSchema: Schema = new Schema(
     ],
     soundTracks: [SoundTrackSchema],
     seasons: [SeasonSchema],
+    views: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

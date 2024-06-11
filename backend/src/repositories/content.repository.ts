@@ -3,10 +3,7 @@ import { validateVideoContent } from "../utils/validations";
 import { NotFoundError } from "../errors";
 import VideoContentModel, { VideoContent } from "../models/content.model";
 import mongoose from "mongoose";
-import {
-  capitalizeFirstLetter,
-  convertBodyVideoContent,
-} from "../utils/functions";
+import { convertBodyVideoContent } from "../utils/functions";
 import TypeContentModel from "../models/type-content.model";
 import GenreModel from "../models/genre.model";
 import ListModel from "../models/list.model";
@@ -231,8 +228,18 @@ class VideoContentRepository {
     originTitle: string,
     userId: string
   ): Promise<VideoContent> {
-    const videoContents = await VideoContentModel.aggregate([
-      { $match: { originTitle: { $regex: originTitle, $options: "i" } } },
+    const videoContent = await VideoContentModel.findOneAndUpdate(
+      { originTitle: { $regex: originTitle, $options: "i" } },
+      { $inc: { views: 1 } },
+      { new: true }
+    ).lean();
+
+    if (!videoContent) {
+      throw new NotFoundError("VideoContent not found");
+    }
+
+    const enrichedVideoContents = await VideoContentModel.aggregate([
+      { $match: { _id: videoContent._id } },
       {
         $lookup: {
           from: "typecontents",
@@ -523,13 +530,11 @@ class VideoContentRepository {
       },
     ]);
 
-    const videoContent = videoContents[0];
+    const enrichedVideoContent = enrichedVideoContents[0];
 
-    if (!videoContent) {
-      throw new NotFoundError("VideoContent not found");
-    }
+    enrichedVideoContent.views = videoContent.views;
 
-    return videoContent;
+    return enrichedVideoContent;
   }
 
   async updateVideoContentById(
@@ -617,7 +622,10 @@ class VideoContentRepository {
       directors,
       lists,
       sort,
+      rating,
       fields,
+      limit,
+      page,
     } = query;
 
     const queryObj: Query = {};
@@ -756,28 +764,84 @@ class VideoContentRepository {
       queryObj.lists = { $all: listsQuery };
     }
 
-    let videoContents = VideoContentModel.find(queryObj);
+    const videoContentPerPage = parseInt(limit) || 20;
+    const currentPage = page || 1;
+    const skip = (currentPage - 1) * videoContentPerPage;
+
+    const sortObj: any = {};
 
     if (sort) {
-      const sortList = sort.split(",").join(" ");
-      videoContents = videoContents.sort(sortList);
+      const sortField = sort.replace("-", "");
+      const sortOrder = sort.endsWith("-") ? 1 : -1;
+
+      if (sortField === "rating") {
+        sortObj["averageRating"] = sortOrder;
+      } else if (sortField === "views") {
+        sortObj["views"] = sortOrder;
+      } else if (sortField === "createdAt") {
+        sortObj["createdAt"] = sortOrder;
+      } else {
+        const sortList = sort.split(",").join(" ");
+        sortObj[sortList] = sortOrder;
+      }
     }
 
-    if (fields) {
-      const fieldList = fields.split(",").join(" ");
-      videoContents = videoContents.select(fieldList);
-    }
-
-    const videoContentPerPage = query.limit || 20;
-    const page = query.page || 1;
-    const skip = (page - 1) * videoContentPerPage;
+    const aggregationPipeline = [
+      { $match: queryObj },
+      {
+        $lookup: {
+          from: "ratings",
+          localField: "_id",
+          foreignField: "videoContentId",
+          as: "ratings",
+        },
+      },
+      {
+        $addFields: {
+          averageRating: { $avg: "$ratings.rate" },
+          ratingCount: { $size: "$ratings" },
+        },
+      },
+      {
+        $lookup: {
+          from: "typecontents",
+          localField: "typeVideoContent",
+          foreignField: "_id",
+          as: "typeVideoContent",
+        },
+      },
+      { $unwind: "$typeVideoContent" },
+      {
+        $lookup: {
+          from: "genres",
+          localField: "genres",
+          foreignField: "_id",
+          as: "genres",
+        },
+      },
+      { $sort: sortObj },
+      { $skip: skip },
+      { $limit: videoContentPerPage },
+      {
+        $project: {
+          title: 1,
+          originTitle: 1,
+          previewURL: 1,
+          backgroundURL: 1,
+          IMDb: 1,
+          description: 1,
+          duration: 1,
+          releaseDate: 1,
+          averageRating: 1,
+          ratingCount: 1,
+          typeVideoContent: 1,
+          genres: 1,
+        },
+      },
+    ];
 
     const [videoContent, totalCount] = await Promise.all([
-      videoContents
-        .populate("typeVideoContent")
-        .populate("genres")
-        .skip(skip)
-        .limit(videoContentPerPage),
+      VideoContentModel.aggregate(aggregationPipeline).exec(),
       VideoContentModel.countDocuments(queryObj),
     ]);
 
