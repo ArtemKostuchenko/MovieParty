@@ -9,6 +9,7 @@ import {
   useUpdateMeMutation,
   useUpdatePasswordMutation,
   useRequestToResetPasswordMutation,
+  useResetPasswordMutation,
 } from "../features/services/users/usersService";
 
 const useUser = () => {
@@ -31,6 +32,11 @@ const useUser = () => {
     { isLoading: isLoadingReset, isSuccess: isSuccessReset },
   ] = useRequestToResetPasswordMutation();
 
+  const [
+    resetPasswordMutation,
+    { isLoading: isLoadingResetPassword, isSuccess: isSuccessResetPassword },
+  ] = useResetPasswordMutation();
+
   const dispatch = useDispatch();
 
   const loginUser = (email, password) => {
@@ -51,6 +57,10 @@ const useUser = () => {
 
   const requestToResetPassword = async (email) => {
     return await resetMutation(email).unwrap();
+  };
+
+  const resetPassword = async (resetData) => {
+    return await resetPasswordMutation(resetData).unwrap();
   };
 
   const refetchUser = async () => {
@@ -80,6 +90,9 @@ const useUser = () => {
     requestToResetPassword,
     isLoadingReset,
     isSuccessReset,
+    resetPassword,
+    isLoadingResetPassword,
+    isSuccessResetPassword,
   };
 };
 
