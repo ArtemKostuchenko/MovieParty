@@ -8,6 +8,7 @@ import {
 import {
   useUpdateMeMutation,
   useUpdatePasswordMutation,
+  useRequestToResetPasswordMutation,
 } from "../features/services/users/usersService";
 
 const useUser = () => {
@@ -25,6 +26,11 @@ const useUser = () => {
     { isLoading: isLoadingUpdatePassword, isSuccess: isSuccessUpdatePassword },
   ] = useUpdatePasswordMutation();
 
+  const [
+    resetMutation,
+    { isLoading: isLoadingReset, isSuccess: isSuccessReset },
+  ] = useRequestToResetPasswordMutation();
+
   const dispatch = useDispatch();
 
   const loginUser = (email, password) => {
@@ -41,6 +47,10 @@ const useUser = () => {
 
   const updatePassword = async (data) => {
     return await updatePasswordMutation(data).unwrap();
+  };
+
+  const requestToResetPassword = async (email) => {
+    return await resetMutation(email).unwrap();
   };
 
   const refetchUser = async () => {
@@ -67,6 +77,9 @@ const useUser = () => {
     isLoadingUpdatePassword,
     isSuccessUpdatePassword,
     logoutUser,
+    requestToResetPassword,
+    isLoadingReset,
+    isSuccessReset,
   };
 };
 

@@ -18,7 +18,7 @@ export const usersApi = createApi({
       providesTags: ["users"],
     }),
     getMyReviews: builder.query({
-      query: (userId) => {
+      query: () => {
         return {
           url: `auth/me/reviews`,
         };
@@ -58,6 +58,15 @@ export const usersApi = createApi({
         };
       },
     }),
+    requestToResetPassword: builder.mutation({
+      query: (email) => {
+        return {
+          url: `auth/password/req-reset`,
+          method: "POST",
+          data: { email },
+        };
+      },
+    }),
   }),
 });
 
@@ -66,4 +75,5 @@ export const {
   useGetMyReviewsQuery,
   useUpdateMeMutation,
   useUpdatePasswordMutation,
+  useRequestToResetPasswordMutation,
 } = usersApi;
