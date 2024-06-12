@@ -1216,6 +1216,7 @@ body {
     align-items: center;
     gap: 8px;
     border-radius: 10px;
+    background-color: transparent;
     @include transition(background-color);
 
     &:hover {

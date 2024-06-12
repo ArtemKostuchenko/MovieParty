@@ -1,14 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import useUser from "../../hooks/useUser";
 import useSideMenu from "../../hooks/useSideMenu";
 import "./style.component.scss";
 import Avatar from "../Avatar/Avatar";
 import Search from "../Search/Search";
+import { setVisibleState } from "../../features/store/slices/search";
 
 const Header = () => {
   const { isAuth, user } = useUser();
+  const dispatch = useDispatch();
+  const { isVisible } = useSelector((store) => store.search);
   const { isSideMenuOpen, toggleSideMenu } = useSideMenu();
+
+  const handleOpenSideMenu = () => {
+    if (!isSideMenuOpen && isVisible) dispatch(setVisibleState(false));
+    toggleSideMenu();
+  };
 
   return (
     <div className="container hdr">
@@ -55,7 +64,7 @@ const Header = () => {
                   </div>
                 </Link>
               </div>
-              <button className="menu-burger" onClick={toggleSideMenu}>
+              <button className="menu-burger" onClick={handleOpenSideMenu}>
                 <div className="icon menu-burger"></div>
               </button>
             </>

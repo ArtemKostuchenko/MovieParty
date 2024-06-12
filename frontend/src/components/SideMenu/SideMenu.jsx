@@ -3,8 +3,11 @@ import useSideMenu from "../../hooks/useSideMenu";
 import useUser from "../../hooks/useUser";
 import Avatar from "../Avatar/Avatar";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setVisibleState } from "../../features/store/slices/search";
 
 const SideMenu = () => {
+  const dispatch = useDispatch();
   const { isSideMenuOpen, toggleSideMenu } = useSideMenu();
   const { user } = useUser();
   return (
@@ -59,6 +62,22 @@ const SideMenu = () => {
                 </div>
                 <div className="nav-menu__title">Збережене</div>
               </Link>
+
+              <button
+                className="nav-menu__item"
+                to="/profile/favorite"
+                onClick={() => {
+                  setTimeout(() => {
+                    dispatch(setVisibleState(true));
+                  }, 200);
+                  toggleSideMenu();
+                }}
+              >
+                <div className="nav-menu__icon">
+                  <div className="icon find"></div>
+                </div>
+                <div className="nav-menu__title">Пошук</div>
+              </button>
             </div>
           </nav>
         </div>

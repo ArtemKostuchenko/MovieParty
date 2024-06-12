@@ -188,3 +188,11 @@
     }
   }
 }
+
+@media screen and (max-width: 730px) {
+  .search {
+    &__popup {
+      background-color: rgba(0, 0, 0, 0.85);
+    }
+  }
+}
