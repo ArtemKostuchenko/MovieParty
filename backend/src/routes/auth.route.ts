@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import dotenv from "dotenv";
 import {
   register,
   login,
@@ -15,6 +16,7 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 import FavoriteRouter from "./favorite.route";
 import passport from "passport";
 import uploadFile from "../utils/upload";
+dotenv.config();
 
 const router: Router = express.Router();
 
@@ -28,12 +30,13 @@ router.get(
   "/login/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
+
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     failureMessage: "Cannot login to Google, please try again later",
-    failureRedirect: "http://localhost:3000/login/fail",
-    successRedirect: "http://localhost:3000/login/success",
+    failureRedirect: `${process.env.CLIENT_URL}`,
+    successRedirect: `${process.env.CLIENT_URL}`,
   })
 );
 

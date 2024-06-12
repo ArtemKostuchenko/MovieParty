@@ -22,6 +22,12 @@ const LoginPage = () => {
     loginUser(email, password);
   };
 
+  const handleLoginWithGoogle = () => {
+    window.location.href = `${
+      import.meta.env.VITE_BACK_HOST
+    }/auth/login/google`;
+  };
+
   return (
     <div className="container cnt-mn overlay-cnt-mn">
       <div className="container">
@@ -83,10 +89,14 @@ const LoginPage = () => {
                         </div>
                       </div>
                       <div className="form__item">
-                        <a className="button gray icon fill" href="#">
+                        <button
+                          className="button gray icon fill"
+                          onClick={handleLoginWithGoogle}
+                          type="button"
+                        >
                           <div className="icon google"></div>
                           Google
-                        </a>
+                        </button>
                       </div>
                       <div className="form__item">
                         <div className="form__text flex row center">
