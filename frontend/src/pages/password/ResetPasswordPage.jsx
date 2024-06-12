@@ -1,10 +1,13 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import useUser from "../../hooks/useUser";
 
 const ResetPasswordPage = () => {
+  const { resetPassword, isLoadingResetPassword } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -17,7 +20,13 @@ const ResetPasswordPage = () => {
   const userId = searchParams.get("id");
 
   const onSubmitHandler = async (data) => {
-    console.log({ password: data.password, resetToken, userId });
+    try {
+      await resetPassword({ password: data.password, resetToken, userId });
+      toast.success("Пароль скинуто");
+      navigate("/login");
+    } catch (_) {
+      toast.error("Помилка скидання паролю");
+    }
   };
 
   const password = watch("password");
@@ -62,7 +71,10 @@ const ResetPasswordPage = () => {
                     type="submit"
                     className="button primary fill"
                     disabled={
-                      !isDirty || !isValid || password !== repeatPassword
+                      !isDirty ||
+                      !isValid ||
+                      password !== repeatPassword ||
+                      isLoadingResetPassword
                     }
                   >
                     Відновити пароль
