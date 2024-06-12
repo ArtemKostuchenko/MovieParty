@@ -85,7 +85,7 @@ app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 
-let rooms: Room[] = [];
+let userRooms: Room[] = [];
 
 const validRoom = (roomId: string) => {
   const objectIdRegex = /^[0-9a-fA-F]{24}$/;
@@ -189,10 +189,10 @@ const start = async () => {
 
           socket.roomId = roomId;
 
-          let room = rooms.find((room) => room.roomId === roomId);
+          let room = userRooms.find((room) => room.roomId === roomId);
 
           if (!room) {
-            rooms.push({
+            userRooms.push({
               roomId,
               isPlaying: false,
               time: 0,
@@ -200,7 +200,7 @@ const start = async () => {
               season: 0,
             });
 
-            room = rooms.find((room) => room.roomId === roomId);
+            room = userRooms.find((room) => room.roomId === roomId);
           }
 
           console.log(`User ${socket.user?.nickname} connected to room`);
@@ -240,13 +240,15 @@ const start = async () => {
       });
 
       socket.on("seek", (roomId, data) => {
-        if (roomId) {
+        const room = userRooms.find((room) => room.roomId === roomId);
+        if (roomId && room) {
+          room.time = data;
           socket.to(roomId).emit("seek", data);
         }
       });
 
       socket.on("play", (roomId, data) => {
-        const room = rooms.find((room) => room.roomId === roomId);
+        const room = userRooms.find((room) => room.roomId === roomId);
 
         if (roomId && room) {
           room.isPlaying = Boolean(data);
@@ -255,23 +257,24 @@ const start = async () => {
       });
 
       socket.on("time", (roomId, time) => {
-        const room = rooms.find((room) => room.roomId === roomId);
+        const room = userRooms.find((room) => room.roomId === roomId);
 
         if (roomId && room) {
-          room.time = time;
+          if (time !== 0) {
+            room.time = time;
+          }
         }
       });
 
       socket.on("sync", (roomId) => {
-        const room = rooms.find((room) => room.roomId === roomId);
-
+        const room = userRooms.find((room) => room.roomId === roomId);
         if (roomId && room) {
           socket.emit("time", room?.time || 0);
         }
       });
 
       socket.on("update_live", (roomId) => {
-        const room = rooms.find((room) => room.roomId === roomId);
+        const room = userRooms.find((room) => room.roomId === roomId);
 
         if (roomId && room) {
           room.isPlaying = false;
@@ -282,7 +285,7 @@ const start = async () => {
       });
 
       socket.on("update_series", (roomId, data) => {
-        const room = rooms.find((room) => room.roomId === roomId);
+        const room = userRooms.find((room) => room.roomId === roomId);
 
         if (roomId && room) {
           room.isPlaying = false;
@@ -297,10 +300,10 @@ const start = async () => {
       });
 
       socket.on("finish_session", (roomId) => {
-        const room = rooms.find((room) => room.roomId === roomId);
+        const room = userRooms.find((room) => room.roomId === roomId);
 
         if (roomId && room) {
-          rooms = rooms.filter((room) => room.roomId !== roomId);
+          userRooms = userRooms.filter((room) => room.roomId !== roomId);
           socket.to(roomId).emit("finish_session");
         }
       });

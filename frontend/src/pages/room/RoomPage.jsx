@@ -114,9 +114,7 @@ const RoomPage = () => {
       });
 
       socket.on("time", (time) => {
-        if (roomOwner._id !== user._id) {
-          setSeek(time);
-        }
+        setSeek(time);
       });
 
       socket.on("finish_session", () => {
@@ -210,6 +208,16 @@ const RoomPage = () => {
       handlePause();
     }
   }, [editId]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (roomOwner._id === user._id) socket.emit("play", roomId, false);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [roomOwner]);
 
   const handleMicToggle = async () => {
     if (!isMicOn) {
