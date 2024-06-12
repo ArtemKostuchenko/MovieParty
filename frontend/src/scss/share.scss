@@ -368,6 +368,13 @@ body {
   &.wr {
     flex-wrap: wrap;
   }
+
+  &.al {
+    align-items: flex-start;
+  }
+  &.jl {
+    justify-content: flex-start;
+  }
 }
 
 /* grid */

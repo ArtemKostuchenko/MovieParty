@@ -93,6 +93,8 @@ const logOut = (req: Request, res: Response) => {
     return res.status(200).json({ success: true });
   } else if (req.session) {
     req.session = null;
+    res.clearCookie("google-auth-session");
+    res.clearCookie("google-auth-session.sig");
     req.logout((err) => {
       if (err) {
         throw new UnAuthorizedError("Authentication invalid");
@@ -143,7 +145,7 @@ const reqPasswordReset = async (
     createdAt: Date.now(),
   });
 
-  const link = `https://${process.env.CLIENT_URL}/password-reset?token=${resetToken}&id=${user._id}`;
+  const link = `${process.env.CLIENT_URL}/password/reset?reset_token=${resetToken}&id=${user._id}`;
 
   await sendEmail(
     user.email,
