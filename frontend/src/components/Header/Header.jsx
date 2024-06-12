@@ -4,6 +4,7 @@ import useUser from "../../hooks/useUser";
 import useSideMenu from "../../hooks/useSideMenu";
 import "./style.component.scss";
 import Avatar from "../Avatar/Avatar";
+import Search from "../Search/Search";
 
 const Header = () => {
   const { isAuth, user } = useUser();
@@ -40,24 +41,7 @@ const Header = () => {
                   </ul>
                 </div>
               </div>
-              <div className="header__search">
-                <div className="search">
-                  <div className="icon find"></div>
-                  <div className="search__input">
-                    <label htmlFor="search">
-                      <span>Пошук </span>
-                      <span className="search__input-query">
-                        фільмів, серіалів тощо...
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      className="search__input"
-                      name="search"
-                    />
-                  </div>
-                </div>
-              </div>
+              <Search />
               <div className="header__profile">
                 <Link to="/profile">
                   <div className="profile">

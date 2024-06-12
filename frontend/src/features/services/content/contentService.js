@@ -29,7 +29,7 @@ export const videoContentApi = createApi({
         url: `content/v?${
           fields
             ? fields
-            : "fields=title,originTitle,previewURL,typeVideoContent,createdAt"
+            : "fields=title,originTitle,previewURL,typeVideoContent,createdAt,IMDb,releaseDate"
         }${title ? `&title=${title}` : ``}${
           typeVideoContent !== "all" && typeVideoContent
             ? `&typeVideoContent=${typeVideoContent}`

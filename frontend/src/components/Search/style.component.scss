@@ -1,0 +1,190 @@
+@import "../../scss/mixins.scss";
+
+/* search component styles */
+
+.search {
+  &__popup {
+    user-select: none;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    left: 0;
+    top: calc(100% + 10px);
+    padding: 15px 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &-content {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    &-title {
+      padding: 0 0 5px 0;
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      border-bottom: 1px solid var(--silver-chalice);
+      color: var(--silver-chalice);
+      @include adaptiveFont(16, 12);
+    }
+
+    &-message {
+      padding: 5px 0;
+      font-family: "Nunito Sans", sans-serif;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--text-color);
+      @include adaptiveFont(16, 12);
+    }
+
+    &-items {
+      max-height: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        background-color: rgba(250, 192, 20, 0.3);
+        width: 10px;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--scroll-color);
+        border-radius: 10px;
+        background-clip: content-box;
+        border: 2px solid transparent;
+
+        &:hover {
+          background-color: rgb(250, 192, 20, 80%);
+        }
+      }
+    }
+
+    &-item {
+      display: block;
+      box-sizing: border-box;
+      height: 50px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      &-preview {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          border-radius: 2px;
+          max-width: 30px;
+          max-height: 50px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      &-detail {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      &-title {
+        font-family: "Nunito Sans", sans-serif;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--text-color);
+        @include adaptiveFont(16, 12);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 300px;
+        white-space: nowrap;
+        @include transition(color);
+      }
+
+      &-type {
+        font-family: "Mulish", sans-serif;
+        font-weight: 400;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--lochmara);
+        @include adaptiveFont(16, 12);
+      }
+
+      &-IMDb {
+        font-family: "Mulish", sans-serif;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--light-yellow);
+        @include adaptiveFont(16, 12);
+      }
+
+      &-origin-title {
+        font-family: "Nunito Sans", sans-serif;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--silver);
+        @include adaptiveFont(14, 12);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 300px;
+        white-space: nowrap;
+      }
+
+      &-year {
+        font-family: "Mulish", sans-serif;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 19px;
+        letter-spacing: normal;
+        color: var(--white);
+        @include adaptiveFont(14, 10);
+      }
+
+      &:hover {
+        .search__popup-item-title {
+          color: var(--light-yellow);
+        }
+      }
+    }
+  }
+}
