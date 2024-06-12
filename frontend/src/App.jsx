@@ -40,6 +40,7 @@ import {
   NotFoundPage,
   SelectionsViewPage,
   SelectionPage,
+  RequestResetPassword,
 } from "./pages";
 import {
   AdminRoute,
@@ -71,6 +72,14 @@ const router = createBrowserRouter([
         element: (
           <ClosedRoute>
             <RegisterPage />
+          </ClosedRoute>
+        ),
+      },
+      {
+        path: "password/reset",
+        element: (
+          <ClosedRoute>
+            <RequestResetPassword />
           </ClosedRoute>
         ),
       },

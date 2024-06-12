@@ -100,7 +100,7 @@ const LoginPage = () => {
                       </div>
                       <div className="form__item">
                         <div className="form__text flex row center">
-                          <a href="#">Забули пароль?</a>
+                          <Link to="/password/reset">Забули пароль?</Link>
                         </div>
                       </div>
                       <div className="form__item">
