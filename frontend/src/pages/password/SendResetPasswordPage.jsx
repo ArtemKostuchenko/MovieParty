@@ -5,9 +5,9 @@ const SendResetPasswordPage = () => {
     <div className="grid__info">
       <div className="container h100">
         <div className="wrapper flex center h100">
-          <div className="info">
-            <h1 className="info__title">Очікуємо підтвердження</h1>
-            <p className="info__description">
+          <div className="info-send">
+            <h1 className="info-send__title">Очікуємо підтвердження</h1>
+            <p className="info-send__description">
               Якщо обліковий запис, який відповідає вашій електронній пошті,
               існує, це означає, що щойно надіслано електронний лист із
               посиланням, за яким можна скинути пароль. Термін дії цього
